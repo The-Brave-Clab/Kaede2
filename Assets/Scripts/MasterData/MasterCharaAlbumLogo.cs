@@ -4,7 +4,7 @@
 namespace Kaede2.MasterData
 {
     [Serializable]
-    public class MasterCharaAlbumLogo
+    public class MasterCharaAlbumLogo : BaseMasterData
     {
         [Serializable]
         public class CharacterAlbumLogo

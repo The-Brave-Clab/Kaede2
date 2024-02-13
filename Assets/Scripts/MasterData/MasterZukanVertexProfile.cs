@@ -24,18 +24,6 @@ namespace Kaede2.MasterData
     }
 
     [Serializable]
-    public class MasterZukanFairyProfile : BaseMasterData
-    {
-        public ZukanProfile[] zukanProfile;
-    }
-
-    [Serializable]
-    public class MasterZukanUdonProfile : BaseMasterData
-    {
-        public ZukanProfile[] zukanProfile;
-    }
-
-    [Serializable]
     public class MasterZukanVertexProfile : BaseMasterData
     {
         public ZukanProfile[] zukanProfile;
