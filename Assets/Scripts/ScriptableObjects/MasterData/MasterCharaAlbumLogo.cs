@@ -1,7 +1,7 @@
 ﻿using System;
 // ReSharper disable IdentifierTypo InconsistentNaming
 
-namespace Kaede2.MasterData
+namespace Kaede2.ScriptableObjects.MasterData
 {
     [Serializable]
     public class MasterCharaAlbumLogo : BaseMasterData

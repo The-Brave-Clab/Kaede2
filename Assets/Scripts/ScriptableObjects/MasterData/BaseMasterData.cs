@@ -6,7 +6,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 // ReSharper disable IdentifierTypo InconsistentNaming
 
-namespace Kaede2.MasterData
+namespace Kaede2.ScriptableObjects.MasterData
 {
     [Serializable]
     public abstract class BaseMasterData : ScriptableObject

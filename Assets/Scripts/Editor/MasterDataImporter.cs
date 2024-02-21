@@ -5,7 +5,7 @@ using System.IO;
 using UnityEditor;
 using UnityEditor.AssetImporters;
 using UnityEngine;
-using Kaede2.MasterData;
+using Kaede2.ScriptableObjects.MasterData;
 
 namespace Kaede2.Editor
 {

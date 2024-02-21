@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-using Kaede2.MasterData;
+using Kaede2.ScriptableObjects.MasterData;
 
 namespace Kaede2
 {

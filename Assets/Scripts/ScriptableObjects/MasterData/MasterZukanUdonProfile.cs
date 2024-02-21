@@ -1,10 +1,10 @@
 ﻿using System;
 // ReSharper disable IdentifierTypo InconsistentNaming
 
-namespace Kaede2.MasterData
+namespace Kaede2.ScriptableObjects.MasterData
 {
     [Serializable]
-    public class MasterZukanFairyProfile : BaseMasterData
+    public class MasterZukanUdonProfile : BaseMasterData
     {
         public ZukanProfile[] zukanProfile;
     }
