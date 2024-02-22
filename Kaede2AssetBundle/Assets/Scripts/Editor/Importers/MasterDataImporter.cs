@@ -5,7 +5,7 @@ using UnityEditor.AssetImporters;
 using UnityEngine;
 using Kaede2.Assets.ScriptableObjects;
 
-namespace Kaede2.Assets.Editor
+namespace Kaede2.Assets.Editor.Importers
 {
     [ScriptedImporter(1, "masterdata")]
     public class MasterDataImporter : ScriptedImporter
