@@ -17,44 +17,14 @@ namespace Kaede2.Assets.Editor.AssetBundle
         [MenuItem("Kaede2/Asset Bundles/Tag")]
         public static void TagBundles()
         {
+            List<FileInfo> files = CollectAssets(new DirectoryInfo(BaseDir));
+
+            foreach (var fileInfo in files)
+            {
+                SetFileAssetBundleLabel(fileInfo);
+            }
+
             AssetDatabase.RemoveUnusedAssetBundleNames();
-
-            DirectoryInfo[] assetBaseDirs = new DirectoryInfo(BaseDir).GetDirectories();
-
-            List<DirectoryInfo> assetBundleDirs = new List<DirectoryInfo>();
-
-            // MasterData
-            if (assetBaseDirs.All(d => d.Name != "MasterData"))
-            {
-                Debug.LogError("MasterData folder not found");
-                return;
-            }
-
-            assetBundleDirs.Add(assetBaseDirs.First(d => d.Name == "MasterData"));
-
-            // Scenarios
-            if (assetBaseDirs.All(d => d.Name != "Scenarios"))
-            {
-                Debug.LogError("Scenarios folder not found");
-                return;
-            }
-
-            DirectoryInfo scenariosDir = assetBaseDirs.First(d => d.Name == "Scenarios");
-            assetBundleDirs.AddRange(scenariosDir.GetDirectories());
-
-            // Set Labels
-            foreach (var assetBundleDir in assetBundleDirs)
-            {
-                List<FileInfo> files = CollectAssets(assetBundleDir);
-
-                string assetBundleFolderRelativePath = Path.GetRelativePath(BaseDir, assetBundleDir.FullName);
-                string assetBundleName = assetBundleFolderRelativePath.Replace('\\', '/').ToLower(CultureInfo.InvariantCulture);
-
-                foreach (var fileInfo in files)
-                {
-                    SetFileAssetBundleLabel(fileInfo, assetBundleName);
-                }
-            }
         }
 
         [MenuItem("Kaede2/Asset Bundles/Build/Current Target")]
@@ -95,14 +65,17 @@ namespace Kaede2.Assets.Editor.AssetBundle
             return result;
         }
 
-        private static void SetFileAssetBundleLabel(FileInfo fileInfoObj, string name)
+        private static void SetFileAssetBundleLabel(FileInfo fileInfoObj)
         {
             if (fileInfoObj.Extension == ".meta") return;
 
             string assetPath = Path.GetRelativePath(ProjectDir, fileInfoObj.FullName);
             AssetImporter importer = AssetImporter.GetAtPath(assetPath);
 
-            importer.SetAssetBundleNameAndVariant(name, "");
+            string assetBundleFolderRelativePath = Path.GetRelativePath(BaseDir, fileInfoObj.Directory!.FullName);
+            string assetBundleName = assetBundleFolderRelativePath.Replace('\\', '/').ToLower(CultureInfo.InvariantCulture);
+
+            importer.SetAssetBundleNameAndVariant(assetBundleName, "");
         }
     }
 }
