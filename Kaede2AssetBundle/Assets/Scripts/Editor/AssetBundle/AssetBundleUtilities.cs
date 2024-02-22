@@ -75,7 +75,15 @@ namespace Kaede2.Assets.Editor.AssetBundle
             string assetBundleFolderRelativePath = Path.GetRelativePath(BaseDir, fileInfoObj.Directory!.FullName);
             string assetBundleName = assetBundleFolderRelativePath.Replace('\\', '/').ToLower(CultureInfo.InvariantCulture);
 
-            importer.SetAssetBundleNameAndVariant(assetBundleName, "");
+            if (assetBundleName.StartsWith("scenario"))
+            {
+                // for scenario, only keep the first two path segments
+                string[] segments = assetBundleName.Split('/');
+                assetBundleName = string.Join("/", segments.Take(2));
+            }
+
+            if (importer.assetBundleName != assetBundleName)
+                importer.SetAssetBundleNameAndVariant(assetBundleName, "");
         }
     }
 }
