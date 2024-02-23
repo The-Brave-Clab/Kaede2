@@ -26,7 +26,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.2d.aseprite": {
-      "version": "1.1.1",
+      "version": "1.1.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -106,12 +106,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.burst": {
-      "version": "1.8.12",
+      "version": "1.8.11",
       "depth": 3,
       "source": "registry",
       "dependencies": {
-        "com.unity.mathematics": "1.2.1",
-        "com.unity.modules.jsonserialize": "1.0.0"
+        "com.unity.mathematics": "1.2.1"
       },
       "url": "https://packages.unity.com"
     },
@@ -144,7 +143,7 @@
         "com.unity.2d.spriteshape": "10.0.2",
         "com.unity.2d.tilemap": "1.0.0",
         "com.unity.2d.tilemap.extras": "4.0.2",
-        "com.unity.2d.aseprite": "1.1.1"
+        "com.unity.2d.aseprite": "1.1.0"
       }
     },
     "com.unity.ide.rider": {
@@ -153,6 +152,15 @@
       "source": "registry",
       "dependencies": {
         "com.unity.ext.nunit": "1.0.6"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.inputsystem": {
+      "version": "1.7.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.uielements": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },

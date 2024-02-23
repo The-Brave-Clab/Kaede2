@@ -41,14 +41,14 @@ namespace Kaede2.Assets.Editor.AssetBundle
             }
 
             var json = JsonUtility.ToJson(manifestData, true);
-            var jsonPath = Path.Combine(GetTargetAssetBundlePath(buildTarget), "manifest.json");
+            var jsonPath = Path.Combine(AssetBundleManifestData.BasePath, AssetBundleManifestData.ManifestFileName);
             File.WriteAllText(jsonPath, json);
         }
 
         private static AssetBundleManifestData.Manifest ReadManifest(string bundleName, BuildTarget buildTarget)
         {
             // Read Manifest File
-            var manifestPath = Path.Combine(GetTargetAssetBundlePath(buildTarget), $"{bundleName}.manifest");
+            var manifestPath = Path.Combine(AssetBundleManifestData.BasePath, $"{bundleName}.manifest");
             var manifestText = File.ReadAllText(manifestPath);
             var deserializer = new DeserializerBuilder()
                 .IgnoreUnmatchedProperties()
