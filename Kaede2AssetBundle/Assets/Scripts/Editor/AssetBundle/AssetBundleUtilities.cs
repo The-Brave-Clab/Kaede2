@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using Kaede2.Assets.Editor;
 
 namespace Kaede2.Assets.Editor.AssetBundle
 {
-    public static class AssetBundleUtilities
+    public static partial class AssetBundleUtilities
     {
         private static readonly string ProjectDir = Path.GetDirectoryName(Application.dataPath)!;
         private static readonly string BaseDir = Path.Combine(Application.dataPath, "AssetBundles");
@@ -35,13 +35,15 @@ namespace Kaede2.Assets.Editor.AssetBundle
 
         private static void BuildAssetBundles(BuildTarget buildTarget)
         {
-            var targetDir = Path.Combine(TargetDir, "AssetBundles", $"{buildTarget:G}");
+            var targetDir = GetTargetAssetBundlePath(buildTarget);
             if (Directory.Exists(targetDir))
             {
                 Directory.Delete(targetDir, true);
             }
+
             Directory.CreateDirectory(targetDir);
-            BuildPipeline.BuildAssetBundles(targetDir, BuildAssetBundleOptions.DisableWriteTypeTree, buildTarget);
+            var manifest = BuildPipeline.BuildAssetBundles(targetDir, BuildAssetBundleOptions.DisableWriteTypeTree, buildTarget);
+            GenerateJsonManifest(manifest, buildTarget);
         }
 
         private static List<FileInfo> CollectAssets(DirectoryInfo directoryInfo)
@@ -84,6 +86,11 @@ namespace Kaede2.Assets.Editor.AssetBundle
 
             if (importer.assetBundleName != assetBundleName)
                 importer.SetAssetBundleNameAndVariant(assetBundleName, "");
+        }
+
+        private static string GetTargetAssetBundlePath(BuildTarget buildTarget)
+        {
+            return Path.Combine(TargetDir, "AssetBundles", $"{EditorPlatformHelper.FromBuildTarget(buildTarget):G}");
         }
     }
 }
