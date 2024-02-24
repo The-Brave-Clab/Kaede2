@@ -54,14 +54,14 @@ namespace Kaede2.Utils
                 onProgressCallback = null;
             }
 
-            internal Action<T> OnFinishedCallback => t =>
+            private Action<T> OnFinishedCallback => t =>
             {
                 result = t;
                 isDone = true;
                 onFinishedCallback?.Invoke(t);
             };
 
-            internal Action<float> OnProgressCallback => f =>
+            private Action<float> OnProgressCallback => f =>
             {
                 progress = f;
                 onProgressCallback?.Invoke(f);
@@ -69,53 +69,49 @@ namespace Kaede2.Utils
 
             public IEnumerator Send()
             {
-                return loader.LoadAsync(this);
+                
+                if (string.IsNullOrEmpty(path))
+                {
+                    Debug.LogError("Path is empty");
+                    yield break;
+                }
+
+                if (!loader.GetManifest(path, out var manifest))
+                {
+                    Debug.LogError($"Failed to load AssetBundle for {path}");
+                    yield break;
+                }
+
+                if (!_assetBundleCache.TryGetValue(manifest.name, out var entry))
+                {
+                    entry = new AssetBundleCacheEntry
+                    {
+                        manifest = manifest
+                    };
+                    _assetBundleCache.Add(manifest.name, entry);
+                }
+
+                if (entry.assetBundle == null)
+                {
+                    entry.currentDownloadTask ??= loader.DownloadAssetBundle(entry, OnProgressCallback);
+                    yield return entry.currentDownloadTask;
+                    entry.currentDownloadTask = null;
+                }
+
+                if (entry.assetBundle == null)
+                {
+                    Debug.LogError("Failed to load AssetBundle");
+                    yield break;
+                }
+
+                T asset = loader.LoadAssetFromBundle<T>(entry, path);
+                OnFinishedCallback.Invoke(asset);
             }
         }
 
         public Request<T> Load<T>(string path) where T : Object
         {
             return new Request<T>(path, this);
-        }
-
-        private IEnumerator LoadAsync<T>(Request<T> request) where T : Object
-        {
-            if (string.IsNullOrEmpty(request.Path))
-            {
-                Debug.LogError("Path is empty");
-                yield break;
-            }
-
-            if (!GetManifest(request.Path, out var manifest))
-            {
-                Debug.LogError($"Failed to load AssetBundle for {request.Path}");
-                yield break;
-            }
-
-            if (!_assetBundleCache.TryGetValue(manifest.name, out var entry))
-            {
-                entry = new AssetBundleCacheEntry
-                {
-                    manifest = manifest
-                };
-                _assetBundleCache.Add(manifest.name, entry);
-            }
-
-            if (entry.assetBundle == null)
-            {
-                entry.currentDownloadTask ??= DownloadAssetBundle(entry, request.OnProgressCallback);
-                yield return entry.currentDownloadTask;
-                entry.currentDownloadTask = null;
-            }
-
-            if (entry.assetBundle == null)
-            {
-                Debug.LogError("Failed to load AssetBundle");
-                yield break;
-            }
-
-            T asset = LoadAssetFromBundle<T>(entry, request.Path);
-            request.OnFinishedCallback.Invoke(asset);
         }
 
         public void UnloadAll()

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Kaede2.Utils
 {
@@ -59,7 +57,7 @@ namespace Kaede2.Utils
                 onFinishedCallback = null;
             }
 
-            internal Action<LoadedModel> OnFinishedCallback => t =>
+            private Action<LoadedModel> OnFinishedCallback => t =>
             {
                 result = t;
                 isDone = true;
