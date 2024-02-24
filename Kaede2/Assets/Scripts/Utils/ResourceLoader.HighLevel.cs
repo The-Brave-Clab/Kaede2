@@ -82,8 +82,11 @@ namespace Kaede2.Utils
         {
             return Load<TextAsset>($"scenario_common/define/{defineTextName}.txt");
         }
-        
-        // TODO: live2d
+
+        public Live2DLoadRequest LoadLive2DModel(string modelName)
+        {
+            return new Live2DLoadRequest(modelName, this);
+        }
 
         // scenario
 
