@@ -26,37 +26,42 @@ namespace Kaede2.Utils
 
         public class Request<T> where T : Object
         {
-            private string path;
+            private readonly string path;
+            private readonly ResourceLoader loader;
+
             private T result;
             private bool isDone;
             private float progress;
-            private ResourceLoader loader;
 
-            public Action<T> onFinishedCallback = null;
-            public Action<float> onProgressCallback = null;
+            public Action<T> onFinishedCallback;
+            public Action<float> onProgressCallback;
 
             public string Path => path;
             public T Result => result;
             public bool IsDone => isDone;
             public float Progress => progress;
 
-            public Request(string path, ResourceLoader loader)
+            internal Request(string path, ResourceLoader loader)
             {
                 this.path = path;
+                this.loader = loader;
+
                 result = null;
                 isDone = false;
                 progress = 0;
-                this.loader = loader;
+
+                onFinishedCallback = null;
+                onProgressCallback = null;
             }
 
-            public Action<T> OnFinishedCallback => t =>
+            internal Action<T> OnFinishedCallback => t =>
             {
                 result = t;
                 isDone = true;
                 onFinishedCallback?.Invoke(t);
             };
-            
-            public Action<float> OnProgressCallback => f =>
+
+            internal Action<float> OnProgressCallback => f =>
             {
                 progress = f;
                 onProgressCallback?.Invoke(f);
@@ -64,30 +69,26 @@ namespace Kaede2.Utils
 
             public IEnumerator Send()
             {
-                return loader.LoadAsync(path, this);
+                return loader.LoadAsync(this);
             }
         }
 
-        public Request<T> LoadRequest<T>(string path) where T : Object
+        public Request<T> Load<T>(string path) where T : Object
         {
-            return new Request<T>(path, this)
-            {
-                onFinishedCallback = null,
-                onProgressCallback = null
-            };
+            return new Request<T>(path, this);
         }
 
-        private IEnumerator LoadAsync<T>(string path, Request<T> request) where T : Object
+        private IEnumerator LoadAsync<T>(Request<T> request) where T : Object
         {
-            if (string.IsNullOrEmpty(path))
+            if (string.IsNullOrEmpty(request.Path))
             {
                 Debug.LogError("Path is empty");
                 yield break;
             }
 
-            if (!GetManifest(path, out var manifest))
+            if (!GetManifest(request.Path, out var manifest))
             {
-                Debug.LogError($"Failed to load AssetBundle for {path}");
+                Debug.LogError($"Failed to load AssetBundle for {request.Path}");
                 yield break;
             }
 
@@ -113,7 +114,7 @@ namespace Kaede2.Utils
                 yield break;
             }
 
-            T asset = LoadAssetFromBundle<T>(entry, path);
+            T asset = LoadAssetFromBundle<T>(entry, request.Path);
             request.OnFinishedCallback.Invoke(asset);
         }
 
