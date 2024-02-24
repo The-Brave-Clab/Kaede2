@@ -71,16 +71,14 @@ namespace Kaede2.Utils
 
             bool useWebRequest = PlatformHelper.FromRuntimePlatform() == KaedePlatform.WebGL;
 
-            string url = useWebRequest
-                ? new Uri(new Uri(AssetBundleManifestData.BasePath), entry.manifest.name).AbsoluteUri
-                : Path.Combine(AssetBundleManifestData.BasePath, entry.manifest.name);
-
             if (useWebRequest)
             {
-                using UnityWebRequest request =
-                    UnityWebRequestAssetBundle.GetAssetBundle(url, entry.manifest.Hash, entry.manifest.crc);
+                Uri uri = new Uri(new Uri($"{AssetBundleManifestData.BasePath}/"), entry.manifest.name);
 
-                Debug.Log($"Downloading AssetBundle {entry.manifest.name} from {url}");
+                using UnityWebRequest request =
+                    UnityWebRequestAssetBundle.GetAssetBundle(uri, entry.manifest.Hash, entry.manifest.crc);
+
+                Debug.Log($"Downloading AssetBundle {entry.manifest.name} from {uri.AbsoluteUri}");
                 request.SendWebRequest();
 
                 while (!request.isDone)
@@ -99,7 +97,8 @@ namespace Kaede2.Utils
             }
             else
             {
-                AssetBundleCreateRequest request = AssetBundle.LoadFromFileAsync(url);
+                string path = Path.Combine(AssetBundleManifestData.BasePath, entry.manifest.name);
+                AssetBundleCreateRequest request = AssetBundle.LoadFromFileAsync(path, entry.manifest.crc);
 
                 Debug.Log($"Loading AssetBundle {entry.manifest.name} from file");
                 while (!request.isDone)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Kaede2.Assets.AssetBundles;
+using Kaede2.Assets.ScriptableObjects;
 using Kaede2.Utils;
 
 namespace Kaede2
@@ -74,8 +75,8 @@ namespace Kaede2
 
             // for testing only
             ResourceLoader loader = new ResourceLoader();
-            yield return loader.LoadAsync<TextAsset>("scenario/es001_001_m001_a/es001_001_m001_a_script.txt",
-                textAsset => Debug.Log(textAsset.text),
+            yield return loader.LoadAsync<AudioLoopInfo>("audio/bgm/yu3_BGM_Adv01_Final.loopinfo",
+                info => Debug.Log($"loop start: {info.loop_info[0].start}, loop end: {info.loop_info[0].end}"),
                 progress => Debug.Log($"Loading progress: {progress * 100}%"));
         }
     }

@@ -40,7 +40,7 @@ namespace Kaede2.Assets.Editor.AssetBundle
             }
 
             Directory.CreateDirectory(targetDir);
-            var manifest = BuildPipeline.BuildAssetBundles(targetDir, BuildAssetBundleOptions.AssetBundleStripUnityVersion, buildTarget);
+            var manifest = BuildPipeline.BuildAssetBundles(targetDir, BuildAssetBundleOptions.AssetBundleStripUnityVersion | BuildAssetBundleOptions.ChunkBasedCompression, buildTarget);
             GenerateJsonManifest(manifest, buildTarget);
         }
 
@@ -75,11 +75,18 @@ namespace Kaede2.Assets.Editor.AssetBundle
             string assetBundleFolderRelativePath = Path.GetRelativePath(AssetBundleManifestData.ResourceBasePath, fileInfoObj.Directory!.FullName);
             string assetBundleName = assetBundleFolderRelativePath.Replace('\\', '/').ToLower(CultureInfo.InvariantCulture);
 
-            if (assetBundleName.StartsWith("scenario"))
+            // for scenario, only keep the first two path segments
+            if (assetBundleName.StartsWith("scenario/"))
             {
-                // for scenario, only keep the first two path segments
                 string[] segments = assetBundleName.Split('/');
                 assetBundleName = string.Join("/", segments.Take(2));
+            }
+
+            // for live2d, only keep the first three path segments
+            if (assetBundleName.StartsWith("scenario_common/live2d/"))
+            {
+                string[] segments = assetBundleName.Split('/');
+                assetBundleName = string.Join("/", segments.Take(3));
             }
 
             if (importer.assetBundleName != assetBundleName)
