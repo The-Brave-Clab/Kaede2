@@ -11,19 +11,73 @@ using Object = UnityEngine.Object;
 
 namespace Kaede2.Utils
 {
-    public class ResourceLoader
+    public partial class ResourceLoader
     {
         private class AssetBundleCacheEntry
         {
             public AssetBundleManifestData.Manifest manifest = null;
             public AssetBundle assetBundle = null;
+            public IEnumerator currentDownloadTask = null;
             public Dictionary<string, Object> loadedAssets = new();
         }
 
         // asset bundle name -> asset bundle request
         private static Dictionary<string, AssetBundleCacheEntry> _assetBundleCache = new();
 
-        public IEnumerator LoadAsync<T>(string path, Action<T> onFinishedCallback = null, Action<float> onProgressCallback = null) where T : Object
+        public class Request<T> where T : Object
+        {
+            private string path;
+            private T result;
+            private bool isDone;
+            private float progress;
+            private ResourceLoader loader;
+
+            public Action<T> onFinishedCallback = null;
+            public Action<float> onProgressCallback = null;
+
+            public string Path => path;
+            public T Result => result;
+            public bool IsDone => isDone;
+            public float Progress => progress;
+
+            public Request(string path, ResourceLoader loader)
+            {
+                this.path = path;
+                result = null;
+                isDone = false;
+                progress = 0;
+                this.loader = loader;
+            }
+
+            public Action<T> OnFinishedCallback => t =>
+            {
+                result = t;
+                isDone = true;
+                onFinishedCallback?.Invoke(t);
+            };
+            
+            public Action<float> OnProgressCallback => f =>
+            {
+                progress = f;
+                onProgressCallback?.Invoke(f);
+            };
+
+            public IEnumerator Send()
+            {
+                return loader.LoadAsync(path, this);
+            }
+        }
+
+        public Request<T> LoadRequest<T>(string path) where T : Object
+        {
+            return new Request<T>(path, this)
+            {
+                onFinishedCallback = null,
+                onProgressCallback = null
+            };
+        }
+
+        private IEnumerator LoadAsync<T>(string path, Request<T> request) where T : Object
         {
             if (string.IsNullOrEmpty(path))
             {
@@ -48,7 +102,9 @@ namespace Kaede2.Utils
 
             if (entry.assetBundle == null)
             {
-                yield return DownloadAssetBundle(entry, onProgressCallback);
+                entry.currentDownloadTask ??= DownloadAssetBundle(entry, request.OnProgressCallback);
+                yield return entry.currentDownloadTask;
+                entry.currentDownloadTask = null;
             }
 
             if (entry.assetBundle == null)
@@ -58,7 +114,20 @@ namespace Kaede2.Utils
             }
 
             T asset = LoadAssetFromBundle<T>(entry, path);
-            onFinishedCallback?.Invoke(asset);
+            request.OnFinishedCallback.Invoke(asset);
+        }
+
+        public void UnloadAll()
+        {
+            foreach (var entry in _assetBundleCache.Values)
+            {
+                if (entry.assetBundle != null)
+                {
+                    entry.assetBundle.Unload(true);
+                }
+            }
+
+            _assetBundleCache.Clear();
         }
 
         private IEnumerator DownloadAssetBundle(AssetBundleCacheEntry entry, Action<float> onProgressCallback = null)

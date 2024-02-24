@@ -69,15 +69,34 @@ namespace Kaede2
         private IEnumerator Start()
         {
             CoroutineGroup coroutineGroup = new CoroutineGroup();
-            coroutineGroup.Add(SplashColor());
-            coroutineGroup.Add(AssetBundleManifestData.LoadManifest());
+            coroutineGroup.Add(SplashColor(), this);
+            coroutineGroup.Add(AssetBundleManifestData.LoadManifest(), this);
             yield return coroutineGroup.WaitForAll();
 
             // for testing only
             ResourceLoader loader = new ResourceLoader();
-            yield return loader.LoadAsync<AudioLoopInfo>("audio/bgm/yu3_BGM_Adv01_Final.loopinfo",
-                info => Debug.Log($"loop start: {info.loop_info[0].start}, loop end: {info.loop_info[0].end}"),
-                progress => Debug.Log($"Loading progress: {progress * 100}%"));
+            var loadLoopInfoRequest = loader.LoadRequest<AudioLoopInfo>("audio/bgm/yu3_BGM_Adv01_Final.loopinfo");
+            var loadAudioClipRequest = loader.LoadRequest<AudioClip>("audio/bgm/yu3_BGM_Adv01_Final.wav");
+
+            loadLoopInfoRequest.onProgressCallback = f => Debug.Log($"Loading Loop Info progress: {f * 100}%");
+            loadAudioClipRequest.onProgressCallback = f => Debug.Log($"Loading Audio Clip progress: {f * 100}%");
+
+            loadLoopInfoRequest.onFinishedCallback = info =>
+            {
+                Debug.Log($"Loop start: {info.loop_info[0].start}, Loop end: {info.loop_info[0].end}");
+            };
+
+            CoroutineGroup loadAudioGroup = new CoroutineGroup();
+            loadAudioGroup.Add(loadLoopInfoRequest.Send(), this);
+            loadAudioGroup.Add(loadAudioClipRequest.Send(), this);
+            yield return loadAudioGroup.WaitForAll();
+
+            GameObject newObj = new GameObject();
+            var source = newObj.AddComponent<AudioSource>();
+            source.clip = loadAudioClipRequest.Result;
+            source.loop = true;
+            source.spatialize = false;
+            source.Play();
         }
     }
 }
