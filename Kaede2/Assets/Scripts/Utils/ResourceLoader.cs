@@ -9,7 +9,7 @@ using Kaede2.Assets;
 using Kaede2.Assets.AssetBundles;
 using Object = UnityEngine.Object;
 
-namespace Kaede2
+namespace Kaede2.Utils
 {
     public class ResourceLoader
     {

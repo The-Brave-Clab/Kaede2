@@ -3,18 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Kaede2.Assets.AssetBundles;
+using Kaede2.Utils;
 
 namespace Kaede2
 {
     public class SplashInitializer : MonoBehaviour
     {
-        private class CoroutineStatus
-        {
-            public bool isFinished;
-        }
-
-        private List<CoroutineStatus> _coroutines;
-
         [SerializeField]
         private List<Image> _splashSprites;
 
@@ -29,8 +23,6 @@ namespace Kaede2
 
         private void Awake()
         {
-            _coroutines = new List<CoroutineStatus>();
-
             foreach (var image in _splashSprites)
             {
                 image.color = new Color(1, 1, 1, 0);
@@ -73,23 +65,12 @@ namespace Kaede2
             SetSplashSpritesColor(new Color(1, 1, 1, 0));
         }
 
-        private void AddTask(IEnumerator coroutine)
-        {
-            CoroutineStatus status = new CoroutineStatus();
-            IEnumerator SetStatusAfterCoroutine(IEnumerator c, CoroutineStatus s)
-            {
-                yield return c;
-                s.isFinished = true;
-            }
-            StartCoroutine(SetStatusAfterCoroutine(coroutine, status));
-            _coroutines.Add(status);
-        }
-
         private IEnumerator Start()
         {
-            AddTask(SplashColor());
-            AddTask(AssetBundleManifestData.LoadManifest());
-            yield return new WaitUntil(() => _coroutines.TrueForAll(c => c.isFinished));
+            CoroutineGroup coroutineGroup = new CoroutineGroup();
+            coroutineGroup.Add(SplashColor());
+            coroutineGroup.Add(AssetBundleManifestData.LoadManifest());
+            yield return coroutineGroup.WaitForAll();
 
             // for testing only
             ResourceLoader loader = new ResourceLoader();
