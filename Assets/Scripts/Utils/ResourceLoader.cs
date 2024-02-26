@@ -9,6 +9,7 @@ namespace Kaede2.Utils
     {
         public static AsyncOperationHandle<T> Load<T>(string assetAddress) where T : Object
         {
+            assetAddress = assetAddress.ToLower();
             return Addressables.LoadAssetAsync<T>(assetAddress);
         }
 
@@ -91,7 +92,7 @@ namespace Kaede2.Utils
 
         public static AsyncOperationHandle<T> LoadMasterData<T>(out string assetAddress) where T : BaseMasterData
         {
-            assetAddress = $"master_data/{typeof(T).Name.ToLower()}.masterdata";
+            assetAddress = $"master_data/{typeof(T).Name}.masterdata";
             return Load<T>(assetAddress);
         }
 

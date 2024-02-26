@@ -104,7 +104,7 @@ namespace Kaede2.Utils
                     }
                 }
 
-                var mocFileRequest = Load<TextAsset>($"{basePath}/{modelName}/{model.model}.bytes");
+                var mocFileRequest = Load<TextAsset>($"{basePath}/{modelName}/{model.model}");
                 loadGroup.Add(WaitForAsyncOperation(mocFileRequest));
 
                 loaded.textures = new Texture2D[model.textures.Length];
@@ -125,7 +125,7 @@ namespace Kaede2.Utils
                         loaded.motionFiles.Add(motion.Key, new List<TextAsset>());
                         foreach (var motionFile in motion.Value)
                         {
-                            var motionRequest = Load<TextAsset>($"{basePath}/{modelName}/{motionFile.file}.bytes");
+                            var motionRequest = Load<TextAsset>($"{basePath}/{modelName}/{motionFile.file}");
                             motionRequests[motion.Key].Add(motionRequest);
                             loadGroup.Add(WaitForAsyncOperation(motionRequest));
                         }
