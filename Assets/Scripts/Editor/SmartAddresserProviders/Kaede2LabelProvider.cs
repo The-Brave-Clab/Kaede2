@@ -5,13 +5,13 @@ using System.Linq;
 using SmartAddresser.Editor.Core.Models.LayoutRules.LabelRules;
 using UnityEngine;
 
-namespace Kaede2.Editor.SmartAddresserProviders
+namespace Kaede2.Editor.SmartAddresser
 {
-    [CreateAssetMenu(fileName = "Kaede2LabelProvider", menuName = "Smart Addresser/Label Providers/Kaede2 Label Provider")]
+    [CreateAssetMenu(fileName = "Kaede2LabelProvider", menuName = "Smart Addresser/Kaede2/Label Provider")]
     public sealed class Kaede2LabelProvider : LabelProviderAsset
     {
         [SerializeField]
-        private string assetsDir = "Assets/AddressableAssets";
+        private Kaede2AssetFilter assetFilter;
 
         public override void Setup()
         {
@@ -20,11 +20,11 @@ namespace Kaede2.Editor.SmartAddresserProviders
 
         public override string Provide(string assetPath, Type assetType, bool isFolder)
         {
-            if (isFolder) return null;
+            if (!isFolder) return null;
 
-            FileInfo assetFileInfo = new FileInfo(assetPath);
+            DirectoryInfo dirInfo = new DirectoryInfo(assetPath);
 
-            string assetBundleFolderRelativePath = Path.GetRelativePath(assetsDir, assetFileInfo.Directory!.FullName);
+            string assetBundleFolderRelativePath = Path.GetRelativePath(assetFilter.AssetBasePath, dirInfo.FullName);
             string label = assetBundleFolderRelativePath.Replace('\\', '/').ToLower(CultureInfo.InvariantCulture);
 
             // for scenario, only keep the first two path segments

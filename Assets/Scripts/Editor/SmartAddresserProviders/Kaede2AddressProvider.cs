@@ -5,13 +5,13 @@ using System.Linq;
 using SmartAddresser.Editor.Core.Models.LayoutRules.AddressRules;
 using UnityEngine;
 
-namespace Kaede2.Editor.SmartAddresserProviders
+namespace Kaede2.Editor.SmartAddresser
 {
-    [CreateAssetMenu(fileName = "Kaede2AddressProvider", menuName = "Smart Addresser/Address Providers/Kaede2 Address Provider")]
+    [CreateAssetMenu(fileName = "Kaede2AddressProvider", menuName = "Smart Addresser/Kaede2/Address Provider")]
     public sealed class Kaede2AddressProvider : AddressProviderAsset
     {
         [SerializeField]
-        private string assetsDir = "Assets/AddressableAssets";
+        private Kaede2AssetFilter assetFilter;
 
         public override void Setup()
         {
@@ -20,17 +20,11 @@ namespace Kaede2.Editor.SmartAddresserProviders
 
         public override string Provide(string assetPath, Type assetType, bool isFolder)
         {
-            if (isFolder) return null;
+            if (!isFolder) return null;
 
-            FileInfo assetFileInfo = new FileInfo(assetPath);
+            DirectoryInfo dirInfo = new DirectoryInfo(assetPath);
 
-            string assetBundleFolderRelativePath = Path.GetRelativePath(assetsDir, assetFileInfo.FullName);
-
-            if (assetBundleFolderRelativePath.EndsWith(".bytes"))
-            {
-                assetBundleFolderRelativePath = assetBundleFolderRelativePath[..^6];
-            }
-
+            string assetBundleFolderRelativePath = Path.GetRelativePath(assetFilter.AssetBasePath, dirInfo.FullName);
             return assetBundleFolderRelativePath.Replace('\\', '/').ToLower(CultureInfo.InvariantCulture);
         }
 
