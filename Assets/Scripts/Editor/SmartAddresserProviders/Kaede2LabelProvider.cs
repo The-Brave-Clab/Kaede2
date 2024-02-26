@@ -41,7 +41,7 @@ namespace Kaede2.Editor.SmartAddresserProviders
                 label = string.Join("/", segments.Take(3));
             }
 
-            return label;
+            return $"/{label}";
         }
 
         public override string GetDescription()
