@@ -43,7 +43,7 @@ namespace Kaede2.Editor
             for (var i = 0; i < existingLabels.Count; i++)
             {
                 EditorUtility.DisplayProgressBar(ProgressBarTitle, "Removing Labels...", (float)i / existingLabels.Count);
-                if (existingLabels[i].StartsWith("/kaede2"))
+                if (existingLabels[i].StartsWith("kaede2"))
                     settings.RemoveLabel(existingLabels[i]);
             }
 
@@ -60,7 +60,7 @@ namespace Kaede2.Editor
 
                 EditorUtility.DisplayProgressBar(ProgressBarTitle, $"Tagging {bundleName} ({i + 1}/{folders.Length})...", (float)i / folders.Length);
 
-                var label = $"/kaede2/{bundleName}";
+                var label = $"kaede2/{bundleName}";
                 var address = bundleName;
 
                 if (labels.Add(label))
