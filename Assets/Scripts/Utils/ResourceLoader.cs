@@ -9,7 +9,6 @@ namespace Kaede2.Utils
     {
         public static AsyncOperationHandle<T> Load<T>(string assetAddress) where T : Object
         {
-            assetAddress = assetAddress.ToLower();
             return Addressables.LoadAssetAsync<T>(assetAddress);
         }
 

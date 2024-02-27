@@ -92,7 +92,6 @@ namespace Kaede2.Editor.Addressables
             bundleName = Path.GetRelativePath(baseFolder, assetPath);
             bundleName = bundleName.Replace('\\', '/');
             bundleName = bundleName.Trim('/');
-            bundleName = bundleName.ToLower(CultureInfo.InvariantCulture);
 
             if (bundleName.StartsWith(".."))
                 return false;
@@ -107,13 +106,10 @@ namespace Kaede2.Editor.Addressables
 
             if (segments[0] == "scenario_common")
             {
-                if (segments.Length == 3 && segments[1] == "live2d")
-                    return true;
+                if (segments.Length > 1 && segments[1] == "live2d")
+                    return segments.Length == 3;
 
-                if (segments.Length == 2)
-                    return true;
-
-                return false;
+                return segments.Length == 2;
             }
 
             return segments.Length == 1;
