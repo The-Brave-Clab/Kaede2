@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468a46d0ae32c3544b7d98094e6448a9, type: 3}
   m_Name: AddressableAssetSettings
   m_EditorClassIdentifier: 
-  m_DefaultGroup: ca295e14af9bb174f9b48a129ec1ff3e
+  m_DefaultGroup: 64c2b5014e81dae41ac7ba827c9a1b1e
   m_currentHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
@@ -27,7 +27,7 @@ MonoBehaviour:
   m_CCDEnabled: 0
   m_maxConcurrentWebRequests: 3
   m_ContiguousBundles: 1
-  m_StripUnityVersionFromBundleBuild: 0
+  m_StripUnityVersionFromBundleBuild: 1
   m_DisableVisibleSubAssetRepresentations: 0
   m_ShaderBundleNaming: 0
   m_ShaderBundleCustomNaming: 
@@ -38,7 +38,7 @@ MonoBehaviour:
     m_Id: 
   m_RemoteCatalogLoadPath:
     m_Id: 
-  m_ContentStateBuildPathProfileVariableName: 
+  m_ContentStateBuildPathProfileVariableName: <default settings path>
   m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 0
@@ -59,15 +59,15 @@ MonoBehaviour:
       m_ProfileName: Default
       m_Values:
       - m_Id: 9545691edcc37a74f96757132a513683
-        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+        m_Value: '[Kaede2.Editor.SimplifiedBuildTarget.currentActive]'
       - m_Id: 0eaf3c7de20ba1742b9960e3aff19401
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
       - m_Id: b86a8151725ce0347932d000f046ca77
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: ae795528c22713b4bb3ae4082abd4bc9
-        m_Value: 'ServerData/[BuildTarget]'
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
       - m_Id: 04297a966aa99934ba2367d4b66ed500
-        m_Value: 'http://[PrivateIpAddress]:[HostingServicePort]'
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
     m_ProfileEntryNames:
     - m_Id: 9545691edcc37a74f96757132a513683
       m_Name: BuildTarget

@@ -62,7 +62,7 @@ aws_credentials
 
 # Ignore unnecessary addressable build artifacts
 /[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*
-!/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/[Aa]sset[Gg]roups/
+!/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/[Aa]sset[Gg]roups/*
 !/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/[Aa]sset[Gg]roups.meta
 !/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/[Aa]sset[Gg]roup[Tt]emplates/
 !/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/[Aa]sset[Gg]roup[Tt]emplates.meta
@@ -70,8 +70,6 @@ aws_credentials
 !/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/[Dd]ata[Bb]uilders.meta
 !/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*.asset
 !/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*.asset.meta
-!/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/[Ss]mart[Aa]ddresser/
-!/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/[Ss]mart[Aa]ddresser.meta
 
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # /[Aa]ssets/AssetStoreTools*
@@ -81,3 +79,7 @@ aws_credentials
 
 /[Aa]ssets/[Aa]ddressable[Aa]ssets/*
 /[Aa]ssets/[Aa]ddressable[Aa]ssets.meta
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/[Aa]sset[Gg]roups/Kaede2.asset
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/[Aa]sset[Gg]roups/Kaede2.asset.meta
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/[Aa]sset[Gg]roups/[Ss]chemas/Kaede2_*.asset
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/[Aa]sset[Gg]roups/[Ss]chemas/Kaede2_*.asset.meta
