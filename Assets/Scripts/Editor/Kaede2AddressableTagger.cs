@@ -35,7 +35,7 @@ namespace Kaede2.Editor
                 settings.RemoveGroup(assetGroup);
             }
             EditorUtility.DisplayProgressBar(ProgressBarTitle, "Creating New Asset Groups...", 0);
-            assetGroup = settings.CreateGroup(addressableGroupName, true, false, false, settings.DefaultGroup.Schemas);
+            assetGroup = settings.CreateGroup(addressableGroupName, false, false, false, settings.DefaultGroup.Schemas);
 
             // clear labels
             EditorUtility.DisplayProgressBar(ProgressBarTitle, "Removing Labels...", 0);
@@ -107,6 +107,27 @@ namespace Kaede2.Editor
             }
 
             return segments.Length == 1;
+        }
+
+        [MenuItem("Kaede2/Addressables/Tag")]
+        public static void Tag()
+        {
+            var taggerGUIDs = AssetDatabase.FindAssets($"t:{nameof(Kaede2AddressableTagger)}");
+            if (taggerGUIDs.Length == 0)
+            {
+                Debug.LogError("Kaede2AddressableTagger not found.");
+                return;
+            }
+
+            var taggerPath = AssetDatabase.GUIDToAssetPath(taggerGUIDs[0]);
+            var tagger = AssetDatabase.LoadAssetAtPath<Kaede2AddressableTagger>(taggerPath);
+            if (tagger == null)
+            {
+                Debug.LogError("Kaede2AddressableTagger not found.");
+                return;
+            }
+
+            tagger.Apply();
         }
     }
 }
