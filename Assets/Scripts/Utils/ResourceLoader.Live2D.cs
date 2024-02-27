@@ -87,19 +87,19 @@ namespace Kaede2.Utils
                 var motionRequests = new Dictionary<string, List<LoadAddressableHandle<TextAsset>>>();
                 if (model.motions != null)
                 {
-                    foreach (var motion in model.motions)
+                    foreach (var (motionName, motionFiles) in model.motions)
                     {
-                        motionRequests.Add(motion.Key, new List<LoadAddressableHandle<TextAsset>>());
+                        motionRequests.Add(motionName, new List<LoadAddressableHandle<TextAsset>>());
                         loaded.motionFiles.Add(new()
                         {
-                            name = motion.Key,
+                            name = motionName,
                             files = new List<TextAsset>()
                         });
-                        foreach (var motionFile in motion.Value)
+                        foreach (var motionFile in motionFiles)
                         {
                             var motionRequest = Load<TextAsset>($"{basePath}/{_modelName}/{motionFile.file}.bytes");
                             _handles.Add(motionRequest);
-                            motionRequests[motion.Key].Add(motionRequest);
+                            motionRequests[motionName].Add(motionRequest);
                             loadGroup.Add(WaitForAsyncOperation(motionRequest.Send()));
                         }
                     }
@@ -136,18 +136,19 @@ namespace Kaede2.Utils
 
                 if (model.motions != null)
                 {
-                    foreach (var motion in model.motions)
+                    foreach (var (motionName, motionFiles) in model.motions)
                     {
-                        foreach (var motionFile in motion.Value)
+                        for (var i = 0; i < motionFiles.Count; i++)
                         {
-                            var loadedMotion = motionRequests[motion.Key][motion.Value.IndexOf(motionFile)].Result;
+                            var loadedMotion = motionRequests[motionName][i].Result;
                             if (loadedMotion == null)
                             {
-                                Debug.LogError($"Failed to load motion file {motionFile.file} for {_modelName}");
+                                Debug.LogError($"Failed to load motion file {motionFiles[i].file} for {_modelName}");
                                 OnFinishedCallback(null);
                                 yield break;
                             }
-                            loaded.GetMotionFile(motion.Key).files.Add(loadedMotion);
+
+                            loaded.GetMotionFile(motionName).files.Add(loadedMotion);
                         }
                     }
                 }
