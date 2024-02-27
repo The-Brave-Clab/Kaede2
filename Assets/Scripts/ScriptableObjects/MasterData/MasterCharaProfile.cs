@@ -3,7 +3,6 @@
 
 namespace Kaede2.ScriptableObjects
 {
-    [Serializable]
     public class MasterCharaProfile : BaseMasterData
     {
         [Serializable]

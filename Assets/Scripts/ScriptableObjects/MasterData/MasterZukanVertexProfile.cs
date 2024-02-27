@@ -23,7 +23,6 @@ namespace Kaede2.ScriptableObjects
         public string Description;
     }
 
-    [Serializable]
     public class MasterZukanVertexProfile : BaseMasterData
     {
         public ZukanProfile[] zukanProfile;
