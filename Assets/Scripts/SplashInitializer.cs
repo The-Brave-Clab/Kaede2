@@ -23,7 +23,7 @@ namespace Kaede2
         private float splashDuration = 2.0f;
 
         [SerializeField]
-        private Object sceneToLoad;
+        private string sceneToLoad;
 
         private void Awake()
         {
@@ -38,7 +38,7 @@ namespace Kaede2
             yield return SplashColor();
 
             ScenarioModule.ScenarioName = "es001_001_m001_a";
-            yield return SceneManager.LoadSceneAsync(sceneToLoad.name, LoadSceneMode.Single);
+            yield return SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Single);
         }
 
         private void SetSplashSpritesColor(Color c)
