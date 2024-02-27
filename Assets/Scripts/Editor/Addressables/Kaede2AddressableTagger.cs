@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -8,21 +7,23 @@ using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEngine;
 
-namespace Kaede2.Editor
+namespace Kaede2.Editor.Addressables
 {
-    [CreateAssetMenu(fileName = "Kaede2AddressableTagger", menuName = "Kaede2/Editor/Addressable Tagger")]
+    [CreateAssetMenu(fileName = nameof(Kaede2AddressableTagger), menuName = "Kaede2/Editor/Addressable Tagger")]
     public class Kaede2AddressableTagger : ScriptableObject
     {
         [SerializeField] private string addressableGroupName = "Kaede2";
         [SerializeField] private Object addressableBaseFolder;
 
-        private const string ProgressBarTitle = "Tagging Kaede2 Addressable Assets...";
+        public string AddressableBaseFolder => addressableBaseFolder == null ? null : AssetDatabase.GetAssetPath(addressableBaseFolder);
+
+        private const string ProgressBarTitle = "Tagging Kaede2 Addressable Assets";
 
         public void Apply()
         {
             if (addressableBaseFolder == null) Debug.LogError("AddressableBaseFolder is not set.");
             if (addressableBaseFolder is not DefaultAsset) Debug.LogError("AddressableBaseFolder is not a folder.");
-            string baseFolder = AssetDatabase.GetAssetPath(addressableBaseFolder);
+            string baseFolder = AddressableBaseFolder;
             if (!Directory.Exists(baseFolder)) Debug.LogError("AddressableBaseFolder is not a folder.");
 
             var settings = AddressableAssetSettingsDefaultObject.Settings;
@@ -37,34 +38,31 @@ namespace Kaede2.Editor
             EditorUtility.DisplayProgressBar(ProgressBarTitle, "Creating New Asset Groups...", 0);
             assetGroup = settings.CreateGroup(addressableGroupName, false, false, false, settings.DefaultGroup.Schemas);
 
-            // clear labels
-            EditorUtility.DisplayProgressBar(ProgressBarTitle, "Removing Labels...", 0);
-            var existingLabels = settings.GetLabels();
-            for (var i = 0; i < existingLabels.Count; i++)
-            {
-                EditorUtility.DisplayProgressBar(ProgressBarTitle, "Removing Labels...", (float)i / existingLabels.Count);
-                if (existingLabels[i].StartsWith("kaede2"))
-                    settings.RemoveLabel(existingLabels[i]);
-            }
+            List<string> currentLabels = settings.GetLabels().Where(l => l.StartsWith("kaede2")).ToList();
+            List<string> unusedLabels = currentLabels.ToList();
 
-            HashSet<string> labels = new();
-            // get all folder assets in the base folder
             EditorUtility.DisplayProgressBar(ProgressBarTitle, "Tagging Assets...", 0);
-            string[] folders = Directory.GetDirectories(baseFolder, "*", SearchOption.AllDirectories);
-            for (var i = 0; i < folders.Length; i++)
-            {
-                EditorUtility.DisplayProgressBar(ProgressBarTitle, $"Tagging Assets ({i + 1}/{folders.Length})...", (float)i / folders.Length);
 
-                var folder = folders[i];
+            int processedCount = 0;
+            string[] folders = Directory.GetDirectories(baseFolder, "*", SearchOption.AllDirectories);
+            foreach (var folder in folders)
+            {
+                var progressStr = $"{processedCount}/{folders.Length}";
+                var progress = (float)processedCount / folders.Length;
+                ++processedCount;
+                EditorUtility.DisplayProgressBar(ProgressBarTitle, $"Tagging Assets ({progressStr})...", progress);
+
                 if (!Filter(baseFolder, folder, out var bundleName)) continue;
 
-                EditorUtility.DisplayProgressBar(ProgressBarTitle, $"Tagging {bundleName} ({i + 1}/{folders.Length})...", (float)i / folders.Length);
+                EditorUtility.DisplayProgressBar(ProgressBarTitle, $"Tagging {bundleName} ({progressStr})...", progress);
 
                 var label = $"kaede2/{bundleName}";
                 var address = bundleName;
 
-                if (labels.Add(label))
+                if (!currentLabels.Contains(label))
                     settings.AddLabel(label);
+                else if (unusedLabels.Contains(label))
+                    unusedLabels.Remove(label);
 
                 var guid = AssetDatabase.AssetPathToGUID(folder);
 
@@ -75,17 +73,29 @@ namespace Kaede2.Editor
                 settings.SetDirty(AddressableAssetSettings.ModificationEvent.EntryMoved, entry, true);
             }
 
+            foreach (var label in unusedLabels)
+            {
+                settings.RemoveLabel(label);
+            }
+
             AssetDatabase.SaveAssets();
 
             EditorUtility.ClearProgressBar();
         }
 
-        private bool Filter(string baseFolder, string assetPath, out string bundleName)
+        public bool Filter(string baseFolder, string assetPath, out string bundleName)
         {
+            bundleName = "";
+            if (Path.HasExtension(assetPath))
+                return false;
+
             bundleName = Path.GetRelativePath(baseFolder, assetPath);
             bundleName = bundleName.Replace('\\', '/');
             bundleName = bundleName.Trim('/');
             bundleName = bundleName.ToLower(CultureInfo.InvariantCulture);
+
+            if (bundleName.StartsWith(".."))
+                return false;
 
             var segments = bundleName.Split('/');
 

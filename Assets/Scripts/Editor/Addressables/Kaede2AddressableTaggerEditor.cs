@@ -1,8 +1,7 @@
-﻿using System;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
-namespace Kaede2.Editor
+namespace Kaede2.Editor.Addressables
 {
     [CustomEditor(typeof(Kaede2AddressableTagger))]
     public class Kaede2AddressableTaggerEditor : UnityEditor.Editor
