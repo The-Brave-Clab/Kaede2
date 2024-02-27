@@ -11,76 +11,83 @@ namespace Kaede2.Utils
     {
         public abstract class HandleBase : IDisposable
         {
-            protected float _progress;
-            protected bool _isDone;
-            protected AsyncOperationStatus _status;
+            protected float progress;
+            protected bool isDone;
+            protected AsyncOperationStatus status;
 
-            public float Progress => _progress;
-            public bool IsDone => _isDone;
-            public AsyncOperationStatus Status => _status;
+            public float Progress => progress;
+            public bool IsDone => isDone;
+            public AsyncOperationStatus Status => status;
 
             public abstract IEnumerator Send();
 
-            private bool _disposed = false;
+            private bool disposed = false;
 
             public virtual void Dispose()
             {
-                if (_disposed)
+                if (disposed)
                 {
                     Debug.LogWarning("ResourceLoader Handle was already disposed!");
                     return;
                 }
-                _disposed = true;
+                disposed = true;
             }
 
             ~HandleBase()
             {
-                if (_disposed) return;
-                Debug.LogWarning("ResourceLoader Handle was not disposed properly! This may cause memory leaks.");
+                if (disposed) return;
+#if UNITY_EDITOR
+                // in editor, when exiting play mode, the handle may not be disposed properly, which is normal
+                bool exitingPlayMode = UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode && Application.isPlaying;
+#else
+                const bool exitingPlayMode = false;
+#endif
+                if (!exitingPlayMode)
+                    Debug.LogWarning("ResourceLoader Handle was not disposed properly! This may cause memory leaks.");
                 Dispose();
             }
         }
 
         public abstract class BaseHandle<T> : HandleBase where T : Object
         {
-            protected T _result;
+            protected T result;
 
-            public T Result => _result;
+            public T Result => result;
         }
 
         public class LoadAddressableHandle<T> : BaseHandle<T> where T : Object
         {
-            private readonly string _assetAddress;
-            private readonly AsyncOperationHandle<T> _handle;
+            private readonly string assetAddress;
+            private readonly AsyncOperationHandle<T> handle;
 
             internal LoadAddressableHandle(string assetAddress)
             {
-                _progress = 0.0f;
-                _isDone = false;
-                _status = AsyncOperationStatus.None;
-                _result = null;
-                _assetAddress = assetAddress;
-                _handle = Addressables.LoadAssetAsync<T>(assetAddress);
+                progress = 0.0f;
+                isDone = false;
+                status = AsyncOperationStatus.None;
+                result = null;
+                this.assetAddress = assetAddress;
+                handle = Addressables.LoadAssetAsync<T>(assetAddress);
             }
 
             public override IEnumerator Send()
             {
-                while (!_handle.IsDone)
+                while (!handle.IsDone)
                 {
-                    _progress = _handle.PercentComplete;
-                    _status = _handle.Status;
+                    progress = handle.PercentComplete;
+                    status = handle.Status;
                     yield return null;
                 }
 
-                _progress = 1.0f;
-                _isDone = true;
-                _status = _handle.Status;
-                _result = _handle.Result;
+                progress = 1.0f;
+                isDone = true;
+                status = handle.Status;
+                result = handle.Result;
             }
 
             public override void Dispose()
             {
-                Addressables.Release(_handle);
+                Addressables.Release(handle);
                 base.Dispose();
             }
         }

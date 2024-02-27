@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Kaede2.Scenario;
 using UnityEngine;
 using UnityEngine.UI;
 using Kaede2.Utils;
+using UnityEngine.SceneManagement;
 
 namespace Kaede2
 {
@@ -20,6 +22,9 @@ namespace Kaede2
         [SerializeField]
         private float splashDuration = 2.0f;
 
+        [SerializeField]
+        private Object sceneToLoad;
+
         private void Awake()
         {
             foreach (var image in splashSprites)
@@ -32,14 +37,8 @@ namespace Kaede2
         {
             yield return SplashColor();
 
-            using var live2DHandler = ResourceLoader.LoadLive2DModel("adv_01yy01_moc_01");
-            yield return live2DHandler.Send();
-
-            var live2DModel = live2DHandler.Result;
-            Debug.Log($"Live2D model loaded with {live2DModel.motionFiles.Count} motions");
-
-            yield return new WaitForSeconds(10);
-            Debug.Log("Releasing handle");
+            ScenarioModule.ScenarioName = "es001_001_m001_a";
+            yield return SceneManager.LoadSceneAsync(sceneToLoad.name, LoadSceneMode.Single);
         }
 
         private void SetSplashSpritesColor(Color c)
