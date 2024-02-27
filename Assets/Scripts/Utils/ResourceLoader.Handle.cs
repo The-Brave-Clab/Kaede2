@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using Object = UnityEngine.Object;
@@ -20,7 +21,24 @@ namespace Kaede2.Utils
 
             public abstract IEnumerator Send();
 
-            public abstract void Dispose();
+            private bool _disposed = false;
+
+            public virtual void Dispose()
+            {
+                if (_disposed)
+                {
+                    Debug.LogWarning("ResourceLoader Handle was already disposed!");
+                    return;
+                }
+                _disposed = true;
+            }
+
+            ~HandleBase()
+            {
+                if (_disposed) return;
+                Debug.LogWarning("ResourceLoader Handle was not disposed properly! This may cause memory leaks.");
+                Dispose();
+            }
         }
 
         public abstract class BaseHandle<T> : HandleBase where T : Object
@@ -63,6 +81,7 @@ namespace Kaede2.Utils
             public override void Dispose()
             {
                 Addressables.Release(_handle);
+                base.Dispose();
             }
         }
     }

@@ -172,6 +172,7 @@ namespace Kaede2.Utils
                 {
                     handle.Dispose();
                 }
+                base.Dispose();
             }
         }
     }
