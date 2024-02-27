@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Kaede2.Utils;
 using UnityEngine;
 using UnityEngine.UI;
+using Kaede2.Utils;
 
 namespace Kaede2
 {
@@ -32,11 +32,14 @@ namespace Kaede2
         {
             yield return SplashColor();
 
-            var live2DHandler = ResourceLoader.LoadLive2DModel("adv_01yy01_moc_01");
+            using var live2DHandler = ResourceLoader.LoadLive2DModel("adv_01yy01_moc_01");
             yield return live2DHandler.Send();
 
             var live2DModel = live2DHandler.Result;
-            Debug.Log($"Live2D model loaded with {live2DModel.motionFiles.Keys.Count} motions");
+            Debug.Log($"Live2D model loaded with {live2DModel.motionFiles.Count} motions");
+
+            yield return new WaitForSeconds(10);
+            Debug.Log("Releasing handle");
         }
 
         private void SetSplashSpritesColor(Color c)
