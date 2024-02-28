@@ -24,7 +24,7 @@ namespace Kaede2.ScriptableObjects
         WashioSumi = 6,
         [InspectorName("三ノ輪 銀")]
         MinowaGin = 7,
-        [InspectorName("乃木 園子（小）")]
+        [InspectorName("乃木 園子 (小)")]
         NogiSonoko_S = 8,
         [InspectorName("乃木 若葉")]
         NogiWakaba = 9,
@@ -38,7 +38,7 @@ namespace Kaede2.ScriptableObjects
         TakashimaYuuna = 13,
         [InspectorName("白鳥 歌野")]
         ShiratoriUtano = 14,
-        [InspectorName("乃木 園子（中）")]
+        [InspectorName("乃木 園子 (中)")]
         NogiSonoko_M = 15,
         [InspectorName("秋原 雪花")]
         AkiharaSekka = 16,
@@ -79,5 +79,7 @@ namespace Kaede2.ScriptableObjects
         FuyouYuuna = 34,
         [InspectorName("柚木 友奈")]
         YuzukiYuuna = 35,
+        [InspectorName("犬吠埼 風 (眼帯)")]
+        InubouzakiFuu_E = 43, // used in character transform controller
     }
 }

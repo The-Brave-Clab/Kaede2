@@ -177,6 +177,17 @@ namespace Kaede2.Utils
             return new LoadLive2DHandle(modelName);
         }
 
+        public static LoadAddressableHandle<Sprite> LoadScenarioTransformEffectSprite(CharacterId characterId)
+        {
+            return LoadScenarioTransformEffectSprite(characterId, out _);
+        }
+
+        public static LoadAddressableHandle<Sprite> LoadScenarioTransformEffectSprite(CharacterId characterId, out string assetAddress)
+        {
+            assetAddress = $"scenario_common/trans_scene/{(int)characterId:00}.png";
+            return Load<Sprite>(assetAddress);
+        }
+
         // scenario
 
         public static LoadAddressableHandle<TextAsset> LoadScenarioScriptText(string scenario)

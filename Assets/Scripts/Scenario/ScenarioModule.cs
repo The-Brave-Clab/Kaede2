@@ -14,6 +14,7 @@ namespace Kaede2.Scenario
 
 #if UNITY_EDITOR
         [SerializeField]
+        [Header("For editor only")]
         private string defaultScenarioName;
 #endif
 
@@ -36,14 +37,10 @@ namespace Kaede2.Scenario
 
                 // we might also need to do a global initialization here
                 // since we have skipped the splash screen
-                if (GlobalInitializer.CurrentStatus != GlobalInitializer.Status.Done)
-                {
+                if (GlobalInitializer.CurrentStatus == GlobalInitializer.Status.NotStarted)
                     yield return GlobalInitializer.Initialize();
-                }
                 else if (GlobalInitializer.CurrentStatus == GlobalInitializer.Status.InProgress)
-                {
                     yield return GlobalInitializer.Wait();
-                }
             }
 #endif
 
