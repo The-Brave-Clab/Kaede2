@@ -60,6 +60,8 @@ namespace Kaede2.Utils
             private readonly string assetAddress;
             private readonly AsyncOperationHandle<T> handle;
 
+            public string AssetAddress => assetAddress;
+
             internal LoadAddressableHandle(string assetAddress)
             {
                 progress = 0.0f;

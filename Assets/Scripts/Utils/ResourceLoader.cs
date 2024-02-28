@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using UnityEngine;
 using Kaede2.ScriptableObjects;
 
 namespace Kaede2.Utils
@@ -10,166 +11,82 @@ namespace Kaede2.Utils
             return new LoadAddressableHandle<T>(assetAddress);
         }
 
-        public static LoadAddressableHandle<AudioLoopInfo> LoadAudioLoopInfo(string audioAssetAddress)
+        public static LoadAddressableHandle<AudioLoopInfo> LoadAudioLoopInfo(LoadAddressableHandle<AudioClip> audioLoadHandle)
         {
-            return LoadAudioLoopInfo(audioAssetAddress, out _);
-        }
-
-        public static LoadAddressableHandle<AudioLoopInfo> LoadAudioLoopInfo(string audioAssetAddress, out string assetAddress)
-        {
-            assetAddress = audioAssetAddress;
-            return Load<AudioLoopInfo>(audioAssetAddress);
+            return Load<AudioLoopInfo>(Path.ChangeExtension(audioLoadHandle.AssetAddress, ".loopinfo"));
         }
 
         // audio
 
         public static LoadAddressableHandle<AudioClip> LoadSystemBackgroundMusic(string bgmName)
         {
-            return LoadSystemBackgroundMusic(bgmName, out _);
-        }
-
-        public static LoadAddressableHandle<AudioClip> LoadSystemBackgroundMusic(string bgmName, out string assetAddress)
-        {
-            assetAddress = $"audio/bgm/{bgmName}.wav";
-            return Load<AudioClip>(assetAddress);
+            return Load<AudioClip>($"audio/bgm/{bgmName}.wav");
         }
 
         public static LoadAddressableHandle<AudioClip> LoadCharacterVoice(string voiceName)
         {
-            return LoadCharacterVoice(voiceName, out _);
-        }
-
-        public static LoadAddressableHandle<AudioClip> LoadCharacterVoice(string voiceName, out string assetAddress)
-        {
-            assetAddress = $"audio/character_voice/{voiceName}.wav";
-            return Load<AudioClip>(assetAddress);
+            return Load<AudioClip>($"audio/character_voice/{voiceName}.wav");
         }
 
         public static LoadAddressableHandle<AudioClip> LoadSystemSoundEffect(string seName)
         {
-            return LoadSystemSoundEffect(seName, out _);
-        }
-
-        public static LoadAddressableHandle<AudioClip> LoadSystemSoundEffect(string seName, out string assetAddress)
-        {
-            assetAddress = $"audio/system_se/{seName}.wav";
-            return Load<AudioClip>(assetAddress);
+            return Load<AudioClip>($"audio/system_se/{seName}.wav");
         }
 
         public static LoadAddressableHandle<AudioClip> LoadSystemVoice(string voiceName)
         {
-            return LoadSystemVoice(voiceName, out _);
-        }
-
-        public static LoadAddressableHandle<AudioClip> LoadSystemVoice(string voiceName, out string assetAddress)
-        {
-            assetAddress = $"audio/system_voice/{voiceName}.wav";
-            return Load<AudioClip>(assetAddress);
+            return Load<AudioClip>($"audio/system_voice/{voiceName}.wav");
         }
 
         // illust
 
         public static LoadAddressableHandle<Sprite> LoadIllustration(string illustName)
         {
-            return LoadIllustration(illustName, out _);
-        }
-
-        public static LoadAddressableHandle<Sprite> LoadIllustration(string illustName, out string assetAddress)
-        {
-            assetAddress = $"illust/{illustName}.png";
-            return Load<Sprite>(assetAddress);
+            return Load<Sprite>($"illust/{illustName}.png");
         }
 
         // master_data
 
         public static LoadAddressableHandle<T> LoadMasterData<T>() where T : BaseMasterData
         {
-            return LoadMasterData<T>(out _);
-        }
-
-        public static LoadAddressableHandle<T> LoadMasterData<T>(out string assetAddress) where T : BaseMasterData
-        {
-            assetAddress = $"master_data/{typeof(T).Name}.masterdata";
-            return Load<T>(assetAddress);
+            return Load<T>($"master_data/{typeof(T).Name}.masterdata");
         }
 
         // scenario_common
 
         public static LoadAddressableHandle<Sprite> LoadScenarioBackground(string bgName)
         {
-            return LoadScenarioBackground(bgName, out _);
-        }
-
-        public static LoadAddressableHandle<Sprite> LoadScenarioBackground(string bgName, out string assetAddress)
-        {
-            assetAddress = $"scenario_common/bg/{bgName}.png";
-            return Load<Sprite>(assetAddress);
+            return Load<Sprite>($"scenario_common/bg/{bgName}.png");
         }
 
         public static LoadAddressableHandle<Sprite> LoadScenarioSprite(string spriteName)
         {
-            return LoadScenarioSprite(spriteName, out _);
-        }
-
-        public static LoadAddressableHandle<Sprite> LoadScenarioSprite(string spriteName, out string assetAddress)
-        {
-            assetAddress = $"scenario_common/sprite/{spriteName}.png";
-            return Load<Sprite>(assetAddress);
-        }
-
-        public static LoadAddressableHandle<Sprite> LoadScenarioCharacterIcon(string charaIcon)
-        {
-            return LoadScenarioCharacterIcon(charaIcon, out _);
+            return Load<Sprite>($"scenario_common/sprite/{spriteName}.png");
         }
         
-        public static LoadAddressableHandle<Sprite> LoadScenarioCharacterIcon(string charaIcon, out string assetAddress)
+        public static LoadAddressableHandle<Sprite> LoadScenarioCharacterIcon(string charaIcon)
         {
-            assetAddress = $"scenario_common/icon/{charaIcon}.png";
-            return Load<Sprite>(assetAddress);
+            return Load<Sprite>($"scenario_common/icon/{charaIcon}.png");
         }
 
         public static LoadAddressableHandle<AudioClip> LoadScenarioBackgroundMusic(string bgmName)
         {
-            return LoadScenarioBackgroundMusic(bgmName, out _);
-        }
-
-        public static LoadAddressableHandle<AudioClip> LoadScenarioBackgroundMusic(string bgmName, out string assetAddress)
-        {
-            assetAddress = $"scenario_common/bgm/{bgmName}.wav";
-            return Load<AudioClip>(assetAddress);
+            return Load<AudioClip>($"scenario_common/bgm/{bgmName}.wav");
         }
 
         public static LoadAddressableHandle<AudioClip> LoadScenarioSoundEffect(string seName)
         {
-            return LoadScenarioSoundEffect(seName, out _);
-        }
-
-        public static LoadAddressableHandle<AudioClip> LoadScenarioSoundEffect(string seName, out string assetAddress)
-        {
-            assetAddress = $"scenario_common/se/{seName}.wav";
-            return Load<AudioClip>(assetAddress);
+            return Load<AudioClip>($"scenario_common/se/{seName}.wav");
         }
 
         public static LoadAddressableHandle<AudioClip> LoadScenarioJingle(string jingleName)
         {
-            return LoadScenarioJingle(jingleName, out _);
-        }
-
-        public static LoadAddressableHandle<AudioClip> LoadScenarioJingle(string jingleName, out string assetAddress)
-        {
-            assetAddress = $"scenario_common/jingle/{jingleName}.wav";
-            return Load<AudioClip>(assetAddress);
+            return Load<AudioClip>($"scenario_common/jingle/{jingleName}.wav");
         }
 
         public static LoadAddressableHandle<TextAsset> LoadScenarioDefineText(string defineTextName)
         {
-            return LoadScenarioDefineText(defineTextName, out _);
-        }
-
-        public static LoadAddressableHandle<TextAsset> LoadScenarioDefineText(string defineTextName, out string assetAddress)
-        {
-            assetAddress = $"scenario_common/define/{defineTextName}.txt";
-            return Load<TextAsset>(assetAddress);
+            return Load<TextAsset>($"scenario_common/define/{defineTextName}.txt");
         }
 
         public static LoadLive2DHandle LoadLive2DModel(string modelName)
@@ -179,70 +96,34 @@ namespace Kaede2.Utils
 
         public static LoadAddressableHandle<Sprite> LoadScenarioTransformEffectSprite(CharacterId characterId)
         {
-            return LoadScenarioTransformEffectSprite(characterId, out _);
-        }
-
-        public static LoadAddressableHandle<Sprite> LoadScenarioTransformEffectSprite(CharacterId characterId, out string assetAddress)
-        {
-            assetAddress = $"scenario_common/trans_scene/{(int)characterId:00}.png";
-            return Load<Sprite>(assetAddress);
+            return Load<Sprite>($"scenario_common/trans_scene/{(int)characterId:00}.png");
         }
 
         // scenario
 
         public static LoadAddressableHandle<TextAsset> LoadScenarioScriptText(string scenario)
         {
-            return LoadScenarioScriptText(scenario, out _);
-        }
-
-        public static LoadAddressableHandle<TextAsset> LoadScenarioScriptText(string scenario, out string assetAddress)
-        {
-            assetAddress = $"scenario/{scenario}/{scenario}_script.txt";
-            return Load<TextAsset>(assetAddress);
+            return Load<TextAsset>($"scenario/{scenario}/{scenario}_script.txt");
         }
 
         public static LoadAddressableHandle<TextAsset> LoadScenarioAliasText(string scenario)
         {
-            return LoadScenarioAliasText(scenario, out _);
-        }
-
-        public static LoadAddressableHandle<TextAsset> LoadScenarioAliasText(string scenario, out string assetAddress)
-        {
-            assetAddress = $"scenario/{scenario}/{scenario}_alias.txt";
-            return Load<TextAsset>(assetAddress);
+            return Load<TextAsset>($"scenario/{scenario}/{scenario}_alias.txt");
         }
 
         public static LoadAddressableHandle<TextAsset> LoadScenarioIgnoreText(string scenario)
         {
-            return LoadScenarioIgnoreText(scenario, out _);
-        }
-
-        public static LoadAddressableHandle<TextAsset> LoadScenarioIgnoreText(string scenario, out string assetAddress)
-        {
-            assetAddress = $"scenario/{scenario}/{scenario}_ignore.txt";
-            return Load<TextAsset>(assetAddress);
+            return Load<TextAsset>($"scenario/{scenario}/{scenario}_ignore.txt");
         }
 
         public static LoadAddressableHandle<AudioClip> LoadScenarioVoice(string scenario, string voiceName)
         {
-            return LoadScenarioVoice(scenario, voiceName, out _);
-        }
-
-        public static LoadAddressableHandle<AudioClip> LoadScenarioVoice(string scenario, string voiceName, out string assetAddress)
-        {
-            assetAddress = $"scenario/{scenario}/voice/{voiceName}.wav";
-            return Load<AudioClip>(assetAddress);
+            return Load<AudioClip>($"scenario/{scenario}/voice/{voiceName}.wav");
         }
 
         public static LoadAddressableHandle<Sprite> LoadScenarioStill(string scenario, string stillImage)
         {
-            return LoadScenarioStill(scenario, stillImage, out _);
-        }
-
-        public static LoadAddressableHandle<Sprite> LoadScenarioStill(string scenario, string stillImage, out string assetAddress)
-        {
-            assetAddress = $"scenario/{scenario}/still/{stillImage}.png";
-            return Load<Sprite>(assetAddress);
+            return Load<Sprite>($"scenario/{scenario}/still/{stillImage}.png");
         }
     }
 }
