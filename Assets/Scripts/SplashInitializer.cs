@@ -35,7 +35,10 @@ namespace Kaede2
 
         private IEnumerator Start()
         {
-            yield return SplashColor();
+            CoroutineGroup group = new CoroutineGroup();
+            group.Add(SplashColor(), this);
+            group.Add(GlobalInitializer.Initialize(), this);
+            yield return group.WaitForAll();
 
             ScenarioModule.ScenarioName = "es001_001_m001_a";
             yield return SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Single);
