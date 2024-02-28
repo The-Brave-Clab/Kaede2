@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.github.superunitybuild.buildtool": "7.0.0",
     "com.kaede.thirdparty": "file:com.kaede.thirdparty",
     "com.unity.addressables": "1.21.20",
     "com.unity.feature.2d": "2.0.0",
@@ -25,5 +26,14 @@
     "com.unity.modules.unitywebrequesttexture": "1.0.0",
     "com.unity.modules.unitywebrequestwww": "1.0.0",
     "com.unity.modules.video": "1.0.0"
-  }
+  },
+  "scopedRegistries": [
+    {
+      "name": "OpenUPM",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.github.superunitybuild.buildtool"
+      ]
+    }
+  ]
 }
