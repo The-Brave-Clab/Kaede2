@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Kaede2.Input;
 
 namespace Kaede2
 {
@@ -24,7 +25,7 @@ namespace Kaede2
             CurrentStatus = Status.InProgress;
 
             // Initialize all the things here
-            yield return null;
+            InputManager.EnsureInstance();
 
             CurrentStatus = Status.Done;
         }

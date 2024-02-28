@@ -18,6 +18,11 @@ namespace Kaede2.Utils
             }
         }
 
+        public static T EnsureInstance()
+        {
+            return Instance;
+        }
+
         protected virtual void Awake()
         {
             if (instance == null)
