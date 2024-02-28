@@ -62,17 +62,9 @@ namespace Kaede2.Utils
 
                 CoroutineGroup loadGroup = new();
 
-                IEnumerator WaitForAsyncOperation(IEnumerator operation)
-                {
-                    while (operation.MoveNext())
-                    {
-                        yield return operation.Current;
-                    }
-                }
-
                 var mocFileRequest = Load<TextAsset>($"{basePath}/{modelName}/{model.model}.bytes");
                 handles.Add(mocFileRequest);
-                loadGroup.Add(WaitForAsyncOperation(mocFileRequest.Send()));
+                loadGroup.Add(mocFileRequest.Send());
 
                 loaded.textures = new Texture2D[model.textures.Length];
                 var textureRequests = new LoadAddressableHandle<Texture2D>[model.textures.Length];
@@ -80,7 +72,7 @@ namespace Kaede2.Utils
                 {
                     textureRequests[i] = Load<Texture2D>($"{basePath}/{modelName}/{model.textures[i]}");
                     handles.Add(textureRequests[i]);
-                    loadGroup.Add(WaitForAsyncOperation(textureRequests[i].Send()));
+                    loadGroup.Add(textureRequests[i].Send());
                 }
 
                 loaded.motionFiles = new();
@@ -100,7 +92,7 @@ namespace Kaede2.Utils
                             var motionRequest = Load<TextAsset>($"{basePath}/{modelName}/{motionFile.file}.bytes");
                             handles.Add(motionRequest);
                             motionRequests[motionName].Add(motionRequest);
-                            loadGroup.Add(WaitForAsyncOperation(motionRequest.Send()));
+                            loadGroup.Add(motionRequest.Send());
                         }
                     }
                 }
@@ -110,7 +102,7 @@ namespace Kaede2.Utils
                 {
                     poseRequest = Load<TextAsset>($"{basePath}/{modelName}/{model.pose}");
                     handles.Add(poseRequest);
-                    loadGroup.Add(WaitForAsyncOperation(poseRequest.Send()));
+                    loadGroup.Add(poseRequest.Send());
                 }
 
                 yield return loadGroup.WaitForAll();
