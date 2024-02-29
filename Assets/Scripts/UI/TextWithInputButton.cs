@@ -178,12 +178,11 @@ namespace Kaede2.UI
                 var controlName = path["<Keyboard>/".Length..];
 
                 // first, remove "numpad" and lowercase the first letter
-                Regex regex = new Regex(@"^numpad(\w+)$");
-                if (regex.IsMatch(controlName))
+                if (controlName.StartsWith("numpad"))
                     controlName = controlName.Substring("numpad".Length, 1).ToLower() + controlName[("numpad".Length + 1)..];
 
                 // "0"~"9": just return
-                regex = new Regex(@"^(\d+)$");
+                var regex = new Regex(@"^(\d+)$");
                 if (regex.IsMatch(controlName))
                     return controlName;
 
