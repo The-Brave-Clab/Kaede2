@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.InputSystem.Users;
 using UnityEngine.InputSystem.DualShock;
-using UnityEngine.InputSystem.iOS;
 using UnityEngine.InputSystem.Switch;
 using UnityEngine.InputSystem.XInput;
 using Kaede2.Utils;
@@ -115,7 +114,7 @@ namespace Kaede2.Input
                 Keyboard or Mouse => InputDeviceType.KeyboardAndMouse,
                 Touchscreen => InputDeviceType.Touchscreen,
                 XInputController => InputDeviceType.XboxOneController,
-                DualSenseGamepadHID or DualSenseGampadiOS => InputDeviceType.DualSenseController,
+                DualSenseGamepadHID => InputDeviceType.DualSenseController,
                 DualShockGamepad => InputDeviceType.DualShock4Controller,
                 SwitchProControllerHID => InputDeviceType.SwitchProController,
                 Gamepad => InputDeviceType.GeneralGamepad,
