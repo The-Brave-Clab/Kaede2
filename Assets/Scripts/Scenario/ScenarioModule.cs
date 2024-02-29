@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Kaede2.Scenario
 {
-    public class ScenarioModule : Singleton<ScenarioModule>
+    public partial class ScenarioModule : Singleton<ScenarioModule>
     {
         public static string ScenarioName;
 
@@ -52,7 +52,13 @@ namespace Kaede2.Scenario
             yield return scriptHandle.Send();
 
             var scriptAsset = scriptHandle.Result;
-            Debug.Log(scriptAsset.text);
+            var originalStatements = GetStatementsFromScript(scriptAsset.text);
+
+            Dictionary<string, List<string>> includeFiles = new();
+            yield return PreloadIncludeFiles(originalStatements, includeFiles);
+            var includePreprocessedStatements = PreprocessInclude(originalStatements, includeFiles);
+
+            Debug.Log(string.Join('\n', includePreprocessedStatements));
         }
 
         private void OnDestroy()
@@ -61,6 +67,23 @@ namespace Kaede2.Scenario
             {
                 handle.Dispose();
             }
+        }
+
+        public static List<string> GetStatementsFromScript(string script)
+        {
+            var lines = script.Split('\n', '\r');
+            List<string> result = new List<string>(lines.Length);
+            foreach (var line in lines)
+            {
+                string trimmed = line.Trim();
+                if (trimmed.StartsWith("-")) continue; // I really don't think there's a line starts with -
+                //trimmed = trimmed.Split(new[] {"//"}, StringSplitOptions.None)[0];
+                if (trimmed.StartsWith("//")) continue; // we don't treat // in a valid line as comments any more.
+                if (trimmed == "") continue;
+                result.Add(trimmed);
+            }
+
+            return result;
         }
     }
 }
