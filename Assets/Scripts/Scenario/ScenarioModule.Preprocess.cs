@@ -35,7 +35,10 @@ namespace Kaede2.Scenario
             foreach (var (fileName, handle) in includeHandles)
             {
                 var includeFileContent = handle.Result.text;
+                // include/define files are in a self-contained bundle
+                // since we are not going to use them after this, it's ok to release the handles
                 handle.Dispose();
+
                 Debug.Log($"Pre-Loaded include file {fileName}");
                 var includeFileStatements = GetStatementsFromScript(includeFileContent);
                 includeFiles[fileName] = includeFileStatements;

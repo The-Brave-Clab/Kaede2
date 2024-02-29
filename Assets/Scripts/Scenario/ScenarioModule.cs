@@ -55,6 +55,7 @@ namespace Kaede2.Scenario
 
             Dictionary<string, List<string>> includeFiles = new();
             yield return PreloadIncludeFiles(originalStatements, includeFiles);
+
             var includePreprocessedStatements = PreprocessInclude(originalStatements, includeFiles);
             var finalStatements = PreprocessFunctions(includePreprocessedStatements);
 
