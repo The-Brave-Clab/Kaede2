@@ -35,9 +35,7 @@ namespace Kaede2.Input
             user = InputUser.PerformPairingWithDevice(defaultDevice);
             currentDeviceType = defaultDevice.GetDeviceType();
             actionAsset = Resources.Load<InputActionAsset>("Kaede2InputAction");
-            onDeviceTypeChanged += ChangeControlScheme;
-
-            onDeviceTypeChanged?.Invoke(currentDeviceType);
+            ChangeInputDevice(defaultDevice);
 
             InputUser.listenForUnpairedDeviceActivity = 1;
             InputUser.onUnpairedDeviceUsed += OnUnpairedDeviceUsed;
@@ -51,17 +49,6 @@ namespace Kaede2.Input
                 currentDeviceType != InputDeviceType.Touchscreen)
             {
                 ChangeInputDevice(Touchscreen.current);
-            }
-
-            InputAction skipAction = actionAsset.FindActionMap("SplashScreen").FindAction("Skip");
-            skipAction.Enable();
-            if (skipAction.triggered)
-            {
-                foreach (var binding in skipAction.bindings)
-                {
-                    Debug.Log($"{binding.path}");
-                }
-                Debug.Log("Skip button pressed");
             }
         }
 
@@ -99,6 +86,8 @@ namespace Kaede2.Input
 
             Instance.currentDeviceType = type;
             Debug.Log($"User paired with device type {type:G}");
+
+            ChangeControlScheme(type);
 
             onDeviceTypeChanged?.Invoke(type);
         }
