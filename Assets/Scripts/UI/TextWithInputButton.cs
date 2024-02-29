@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using TMPro;
@@ -140,17 +141,14 @@ namespace Kaede2.UI
 #endif
                     SpriteId spriteId = new()
                     {
-                        spriteSheetName = GetSpriteSheetNameFromDeviceType(deviceType, binding),
-                        spriteName = GetSpriteNameFromBindingPath(binding)
+                        SpriteSheetName = GetSpriteSheetNameFromDeviceType(deviceType, binding),
+                        SpriteName = GetSpriteNameFromBindingPath(binding)
                     };
                     spriteIds.Add(spriteId);
                 }
-                StringBuilder sb = new();
-                foreach (var spriteId in spriteIds)
-                {
-                    sb.Append($"<sprite=\"{spriteId.spriteSheetName}\" name=\"{spriteId.spriteName}\" color=#{ColorUtility.ToHtmlStringRGB(color)}>");
-                }
-                targetText = targetText.Replace(match.Value, sb.ToString());
+
+                var spriteSheetNames = spriteIds.Select(id => $"<sprite=\"{id.SpriteSheetName}\" name=\"{id.SpriteName}\" color=#{ColorUtility.ToHtmlStringRGB(color)}>");
+                targetText = targetText.Replace(match.Value, string.Join(' ', spriteSheetNames));
             }
 
             textComponent.text = targetText;
@@ -386,12 +384,12 @@ namespace Kaede2.UI
 
         private struct SpriteId : IEquatable<SpriteId>
         {
-            public string spriteSheetName;
-            public string spriteName;
+            public string SpriteSheetName;
+            public string SpriteName;
 
             public bool Equals(SpriteId other)
             {
-                return spriteSheetName == other.spriteSheetName && spriteName == other.spriteName;
+                return SpriteSheetName == other.SpriteSheetName && SpriteName == other.SpriteName;
             }
 
             public override bool Equals(object obj)
@@ -401,7 +399,7 @@ namespace Kaede2.UI
 
             public override int GetHashCode()
             {
-                return HashCode.Combine(spriteSheetName, spriteName);
+                return HashCode.Combine(SpriteSheetName, SpriteName);
             }
         }
     }
