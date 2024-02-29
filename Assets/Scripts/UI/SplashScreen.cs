@@ -6,9 +6,9 @@ using UnityEngine.UI;
 using Kaede2.Utils;
 using UnityEngine.SceneManagement;
 
-namespace Kaede2
+namespace Kaede2.UI
 {
-    public class SplashInitializer : MonoBehaviour
+    public class SplashScreen : MonoBehaviour
     {
         [SerializeField]
         private List<Image> splashSprites;
