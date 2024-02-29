@@ -2,8 +2,8 @@ using System;
 using System.Collections;
 using Kaede2.ScriptableObjects;
 using Kaede2.Utils;
-//using biscuit.Scenario.Common;
 using UnityEngine;
+//using biscuit.Scenario.Common;
 
 namespace biscuit.Scenario.Effect
 {
@@ -23,112 +23,110 @@ namespace biscuit.Scenario.Effect
         // Token: 0x0600165A RID: 5722 RVA: 0x00066580 File Offset: 0x00064780
         private void Awake()
         {
-            this.CharacterID = 0;
+            CharacterID = 0;
         }
 
         // Token: 0x0600165B RID: 5723 RVA: 0x0006658C File Offset: 0x0006478C
         public void Setup(CharacterId id)
         {
-            this.CharacterID = id;
-            this.ChangeColor();
-            this.ChangeCharacter();
+            CharacterID = id;
+            ChangeColor();
+            ChangeCharacter();
         }
 
         // Token: 0x0600165C RID: 5724 RVA: 0x000665A4 File Offset: 0x000647A4
         private void ChangeColor()
         {
             Color white = Color.white;
-            CharacterId characterID = this.CharacterID;
+            CharacterId characterID = CharacterID;
             switch (characterID)
             {
                 case CharacterId.YuukiYuuna:
-                    white = this.effectColor_yy;
+                    white = effectColor_yy;
                     break;
                 case CharacterId.TougouMimori:
-                    white = this.effectColor_mt;
+                    white = effectColor_mt;
                     break;
                 case CharacterId.InubouzakiFuu:
-                    white = this.effectColor_fi;
+                    white = effectColor_fi;
                     break;
                 case CharacterId.InubouzakiItsuki:
-                    white = this.effectColor_ii;
+                    white = effectColor_ii;
                     break;
                 case CharacterId.MiyoshiKarin:
-                    white = this.effectColor_km;
+                    white = effectColor_km;
                     break;
                 case CharacterId.WashioSumi:
-                    white = this.effectColor_sw;
+                    white = effectColor_sw;
                     break;
                 case CharacterId.MinowaGin:
-                    white = this.effectColor_gm;
+                    white = effectColor_gm;
                     break;
                 case CharacterId.NogiSonoko_S:
-                    white = this.effectColor_sn;
+                    white = effectColor_sn;
                     break;
                 case CharacterId.NogiWakaba:
-                    white = this.effectColor_wn;
+                    white = effectColor_wn;
                     break;
                 case CharacterId.DoiTamako:
-                    white = this.effectColor_td;
+                    white = effectColor_td;
                     break;
                 case CharacterId.IyojimaAnzu:
-                    white = this.effectColor_ai;
+                    white = effectColor_ai;
                     break;
                 case CharacterId.KooriChikage:
-                    white = this.effectColor_ck;
+                    white = effectColor_ck;
                     break;
                 case CharacterId.TakashimaYuuna:
-                    white = this.effectColor_yt;
+                    white = effectColor_yt;
                     break;
                 case CharacterId.ShiratoriUtano:
-                    white = this.effectColor_us;
+                    white = effectColor_us;
                     break;
                 case CharacterId.NogiSonoko_M:
-                    white = this.effectColor_sn2;
+                    white = effectColor_sn2;
                     break;
                 case CharacterId.AkiharaSekka:
-                    white = this.effectColor_sa;
+                    white = effectColor_sa;
                     break;
                 case CharacterId.KohaguraNatsume:
-                    white = this.effectColor_nk;
+                    white = effectColor_nk;
                     break;
                 case CharacterId.AkamineYuuna:
-                    white = this.effectColor_ya;
+                    white = effectColor_ya;
                     break;
                 case CharacterId.KusunokiMebuki:
-                    white = this.effectColor_mk;
+                    white = effectColor_mk;
                     break;
                 case CharacterId.KagajouSuzume:
-                    white = this.effectColor_sk;
+                    white = effectColor_sk;
                     break;
                 case CharacterId.MirokuYumiko:
-                    white = this.effectColor_ym;
+                    white = effectColor_ym;
                     break;
                 case CharacterId.YamabushiShizuku:
                 case CharacterId.YamabushiShizuku_I:
-                    white = this.effectColor_sy;
+                    white = effectColor_sy;
                     break;
                 case CharacterId.FuyouYuuna:
-                    white = this.effectColor_yf;
+                    white = effectColor_yf;
                     break;
                 case CharacterId.YuzukiYuuna:
-                    white = this.effectColor_yz;
+                    white = effectColor_yz;
                     break;
                 case CharacterId.InubouzakiFuu_E:
-                    white = this.effectColor_fi2;
-                    break;
-                default:
+                    white = effectColor_fi2;
                     break;
             }
-            this.colorChangeBg.color = white;
-            var main = this.colorChangeParticle.main;
+            colorChangeBg.color = white;
+            var main = colorChangeParticle.main;
             main.startColor = white;
         }
 
         // Token: 0x0600165D RID: 5725 RVA: 0x00066720 File Offset: 0x00064920
         private void ChangeCharacter()
         {
-            if (this.CharacterID == 0)
+            if (CharacterID == 0)
             {
                 return;
             }

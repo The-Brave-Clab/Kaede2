@@ -9,18 +9,18 @@ namespace biscuit.Scenario.Effect
         // Token: 0x06001747 RID: 5959 RVA: 0x00069F7C File Offset: 0x0006817C
         private void TimeLineCallbacker()
         {
-            if (this.callback != null)
+            if (callback != null)
             {
-                this.callback();
+                callback();
             }
         }
 
         // Token: 0x06001748 RID: 5960 RVA: 0x00069F94 File Offset: 0x00068194
         private void TimelineCallDestroyer()
         {
-            if (!this.debugFlag)
+            if (!debugFlag)
             {
-                UnityEngine.Object.Destroy(base.gameObject);
+                Destroy(gameObject);
             }
         }
 

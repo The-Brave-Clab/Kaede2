@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Kaede2.Utils;
 using UnityEngine;
@@ -57,8 +56,9 @@ namespace Kaede2.Scenario
             Dictionary<string, List<string>> includeFiles = new();
             yield return PreloadIncludeFiles(originalStatements, includeFiles);
             var includePreprocessedStatements = PreprocessInclude(originalStatements, includeFiles);
+            var finalStatements = PreprocessFunctions(includePreprocessedStatements);
 
-            Debug.Log(string.Join('\n', includePreprocessedStatements));
+            Debug.Log(string.Join("\n", finalStatements));
         }
 
         private void OnDestroy()
