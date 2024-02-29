@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Kaede2.Utils;
+using NCalc;
 using UnityEngine;
 
 namespace Kaede2.Scenario
@@ -22,6 +25,8 @@ namespace Kaede2.Scenario
             base.Awake();
 
             handles = new();
+            aliases = new();
+            variables = new();
         }
 
         private IEnumerator Start()
@@ -70,7 +75,7 @@ namespace Kaede2.Scenario
             }
         }
 
-        public static List<string> GetStatementsFromScript(string script)
+        private static List<string> GetStatementsFromScript(string script)
         {
             var lines = script.Split('\n', '\r');
             List<string> result = new List<string>(lines.Length);
@@ -86,5 +91,66 @@ namespace Kaede2.Scenario
 
             return result;
         }
+
+        #region Variables
+
+        private Dictionary<string, Expression> variables;
+
+        public void AddVariable(string variable, string value)
+        {
+            if (variable == value)
+            {
+                Debug.LogError("Variable cannot be equal to value");
+                return;
+            }
+
+            variables[variable] = new Expression(value);
+        }
+
+        public T Evaluate<T>(string expression)
+        {
+            var exp = new Expression(expression);
+            foreach (var v in variables)
+            {
+                exp.Parameters[v.Key] = v.Value;
+            }
+
+            var result = exp.Evaluate();
+            return (T) Convert.ChangeType(result, typeof(T));
+        }
+
+        #endregion
+
+        #region Alias
+
+        private Dictionary<string, string> aliases;
+
+        public void AddAlias(string orig, string alias)
+        {
+            aliases[alias] = orig;
+        }
+
+        public string ResolveAlias(string alias)
+        {
+            if (aliases == null) return alias;
+            string result = alias;
+            var sortedKeys = aliases.Keys.ToList();
+            sortedKeys.Sort((k2, k1) => k1.Length.CompareTo(k2.Length));
+            while (true)
+            {
+                var replace = sortedKeys.Aggregate(result, 
+                    (current, key) => 
+                        current.Replace(key, aliases[key]));
+
+                if (replace == result)
+                    break;
+
+                result = replace;
+            }
+
+            return result;
+        }
+
+        #endregion
     }
 }
