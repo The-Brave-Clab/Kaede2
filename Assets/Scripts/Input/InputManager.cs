@@ -5,6 +5,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.InputSystem.Users;
+using UnityEngine.InputSystem.DualShock;
+using UnityEngine.InputSystem.iOS;
+using UnityEngine.InputSystem.Switch;
+using UnityEngine.InputSystem.XInput;
 using Kaede2.Utils;
 
 namespace Kaede2.Input
@@ -13,9 +17,13 @@ namespace Kaede2.Input
     {
         private InputUser user;
         private InputDeviceType currentDeviceType;
+        private InputActionAsset actionAsset;
 
         public static InputUser User => Instance.user;
         public static InputDeviceType CurrentDeviceType => Instance.currentDeviceType;
+        public static InputActionAsset ActionAsset => Instance.actionAsset;
+
+        public static event Action<InputDeviceType> onDeviceTypeChanged;
 
         protected override void Awake()
         {
@@ -26,6 +34,10 @@ namespace Kaede2.Input
             var defaultDevice = InputSystem.devices.First(d => d != null);
             user = InputUser.PerformPairingWithDevice(defaultDevice);
             currentDeviceType = defaultDevice.GetDeviceType();
+            actionAsset = Resources.Load<InputActionAsset>("Kaede2InputAction");
+            onDeviceTypeChanged += ChangeControlScheme;
+
+            onDeviceTypeChanged?.Invoke(currentDeviceType);
 
             InputUser.listenForUnpairedDeviceActivity = 1;
             InputUser.onUnpairedDeviceUsed += OnUnpairedDeviceUsed;
@@ -40,13 +52,23 @@ namespace Kaede2.Input
             {
                 ChangeInputDevice(Touchscreen.current);
             }
+
+            InputAction skipAction = actionAsset.FindActionMap("SplashScreen").FindAction("Skip");
+            skipAction.Enable();
+            if (skipAction.triggered)
+            {
+                foreach (var binding in skipAction.bindings)
+                {
+                    Debug.Log($"{binding.path}");
+                }
+                Debug.Log("Skip button pressed");
+            }
         }
 
         private static void OnUnpairedDeviceUsed(InputControl control, InputEventPtr eventPtr)
         {
             var unpairedDevice = control.device;
             ChangeInputDevice(unpairedDevice);
-            
         }
 
         private static void ChangeInputDevice(InputDevice device)
@@ -78,7 +100,20 @@ namespace Kaede2.Input
             Instance.currentDeviceType = type;
             Debug.Log($"User paired with device type {type:G}");
 
-            // change UI elements here
+            onDeviceTypeChanged?.Invoke(type);
+        }
+
+        private static void ChangeControlScheme(InputDeviceType type)
+        {
+            var controlSchemeName = type switch
+            {
+                InputDeviceType.KeyboardAndMouse => "Keyboard&Mouse",
+                InputDeviceType.Touchscreen => "Touchscreen",
+                _ => "Gamepad"
+            };
+
+            var controlScheme = Instance.actionAsset.FindControlScheme(controlSchemeName);
+            if (controlScheme != null) Instance.user.ActivateControlScheme(controlScheme.Value);
         }
     }
 
@@ -86,32 +121,17 @@ namespace Kaede2.Input
     {
         public static InputDeviceType GetDeviceType(this InputDevice device)
         {
-            if (device.layout != null &&
-                device.layout.Equals("Touchscreen", StringComparison.InvariantCultureIgnoreCase))
-                return InputDeviceType.Touchscreen;
-
-            if (device.description.deviceClass != null)
+            return device switch
             {
-                if (device.description.deviceClass.Equals("Keyboard", StringComparison.InvariantCultureIgnoreCase) ||
-                    device.description.deviceClass.Equals("Mouse", StringComparison.InvariantCultureIgnoreCase))
-                    return InputDeviceType.KeyboardAndMouse;
-            }
-
-            if (device.description.manufacturer != null)
-            {
-                if (device.description.manufacturer.Contains("Nintendo", StringComparison.InvariantCultureIgnoreCase))
-                    return InputDeviceType.NintendoController;
-                if (device.description.manufacturer.Contains("Sony", StringComparison.InvariantCultureIgnoreCase))
-                    return InputDeviceType.PlayStationController;
-            }
-
-            if (device.description.interfaceName != null)
-            {
-                if (device.description.interfaceName.Contains("XInput", StringComparison.InvariantCultureIgnoreCase))
-                    return InputDeviceType.XboxController;
-            }
-
-            return InputDeviceType.GeneralGamepad;
+                Keyboard or Mouse => InputDeviceType.KeyboardAndMouse,
+                Touchscreen => InputDeviceType.Touchscreen,
+                XInputController => InputDeviceType.XboxOneController,
+                DualSenseGamepadHID or DualSenseGampadiOS => InputDeviceType.DualSenseController,
+                DualShockGamepad => InputDeviceType.DualShock4Controller,
+                SwitchProControllerHID => InputDeviceType.SwitchProController,
+                Gamepad => InputDeviceType.GeneralGamepad,
+                _ => InputDeviceType.GeneralGamepad
+            };
         }
     }
 }
