@@ -38,7 +38,6 @@ namespace Kaede2.Scenario
                 Asynchronous
             }
 
-            private readonly string[] args;
             private readonly string[] originalArgs;
 
             protected readonly ScenarioModule Module;
@@ -55,16 +54,7 @@ namespace Kaede2.Scenario
             protected Command(ScenarioModule module, string[] arguments)
             {
                 Module = module;
-                args = arguments;
-                originalArgs = new string[arguments.Length];
-                Array.Copy(arguments, originalArgs, arguments.Length);
-
-                for (int i = 0; i < args.Length; i++)
-                {
-                    string resolved = Module.ResolveAlias(args[i]);
-                    if (resolved != null)
-                        args[i] = resolved;
-                }
+                originalArgs = arguments;
             }
 
             public virtual IEnumerator Setup()
@@ -77,7 +67,7 @@ namespace Kaede2.Scenario
             public override string ToString()
             {
                 string result = "";
-                foreach (var s in args)
+                foreach (var s in originalArgs)
                 {
                     result += s + "\t";
                 }
@@ -89,16 +79,18 @@ namespace Kaede2.Scenario
             {
                 try
                 {
-                    if (index >= args.Length) return defaultValue;
-                    if (typeof(T) == typeof(string)) return (T)(object)args[index];
-                    if (typeof(T) == typeof(bool)) return (T)(object)bool.Parse(args[index]);
-                    if (typeof(T) == typeof(Ease)) return (T)(object)CommonUtils.GetEase(args[index]);
-                    return Module.Evaluate<T>(args[index]);
+                    if (index >= originalArgs.Length) return defaultValue;
+
+                    string resolved = Module.ResolveAlias(originalArgs[index]) ?? originalArgs[index];
+
+                    if (typeof(T) == typeof(string)) return (T)(object)resolved;
+                    if (typeof(T) == typeof(bool)) return (T)(object)bool.Parse(resolved);
+                    if (typeof(T) == typeof(Ease)) return (T)(object)CommonUtils.GetEase(resolved);
+                    return Module.Evaluate<T>(resolved);
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError(
-                        $"Cannot parse Arg[{index}] = {args[index]} as {typeof(T).Name}. Using default value {defaultValue}.\n{e.Message}");
+                    Debug.LogError($"Cannot parse Arg[{index}] = {originalArgs[index]} as {typeof(T).Name}. Using default value {defaultValue}.\n{e.Message}");
                     return defaultValue;
                 }
             }
@@ -148,7 +140,7 @@ namespace Kaede2.Scenario
             { "alias_text", typeof(AliasText) },
             { "set", typeof(Set) },
             { "log_message_load", typeof(NotImplemented) },
-            { "auto_load", typeof(NotImplemented) },
+            { "auto_load", typeof(AutoLoad) },
             { "init_end", typeof(NotImplemented) },
             { "mes_speed", typeof(NotImplemented) },
             { "move_anim", typeof(NotImplemented) },

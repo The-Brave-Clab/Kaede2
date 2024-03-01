@@ -27,6 +27,7 @@ namespace Kaede2.Scenario
         {
             base.Awake();
 
+            scenarioResource = new();
             handles = new();
             preprocessedStatements = new();
             aliases = new();
@@ -69,6 +70,7 @@ namespace Kaede2.Scenario
 
             var includePreprocessedStatements = PreprocessInclude(originalStatements, includeFiles);
             preprocessedStatements = PreprocessFunctions(includePreprocessedStatements);
+            yield return PreprocessAliasesAndVariables(preprocessedStatements);
 
             commands = preprocessedStatements.Select(ParseStatement).ToList();
 

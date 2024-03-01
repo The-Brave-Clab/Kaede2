@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Kaede2.Scenario.Commands;
 using Kaede2.Utils;
 using UnityEngine;
 
@@ -209,6 +210,23 @@ namespace Kaede2.Scenario
             }
 
             return outputStatements;
+        }
+
+        private IEnumerator PreprocessAliasesAndVariables(List<string> statements)
+        {
+            foreach (var s in statements)
+            {
+                if (s.StartsWith("alias_text"))
+                {
+                    if (ParseStatement(s) is AliasText command)
+                        yield return ExecuteSingle(command);
+                }
+                else if (s.StartsWith("set"))
+                {
+                    if (ParseStatement(s) is Set command)
+                        command.Execute().InstantExecution();
+                }
+            }
         }
     }
 }
