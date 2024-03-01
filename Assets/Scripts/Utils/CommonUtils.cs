@@ -1,12 +1,33 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using UnityEngine;
 
 namespace Kaede2.Utils
 {
     public static class CommonUtils
     {
+        #region CoroutineHelpers
+
+        public static void InstantExecution(this IEnumerator enumerator)
+        {
+            try
+            {
+                while (enumerator.MoveNext())
+                {
+                    object current = enumerator.Current;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError(ex);
+            }
+        }
+
+        #endregion
+
         #region DOTween
 
         public static Ease GetEase(string easeName)

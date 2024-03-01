@@ -13,6 +13,7 @@ namespace Kaede2.Scenario
         public static string ScenarioName;
 
         private List<ResourceLoader.HandleBase> handles;
+        private List<string> preprocessedStatements;
 
 #if UNITY_EDITOR
         [SerializeField]
@@ -25,8 +26,8 @@ namespace Kaede2.Scenario
             base.Awake();
 
             handles = new();
-            aliases = new();
-            variables = new();
+            preprocessedStatements = new();
+            ResetRuntimeData();
         }
 
         private IEnumerator Start()
@@ -62,9 +63,11 @@ namespace Kaede2.Scenario
             yield return PreloadIncludeFiles(originalStatements, includeFiles);
 
             var includePreprocessedStatements = PreprocessInclude(originalStatements, includeFiles);
-            var finalStatements = PreprocessFunctions(includePreprocessedStatements);
+            preprocessedStatements = PreprocessFunctions(includePreprocessedStatements);
 
-            Debug.Log(string.Join("\n", finalStatements));
+            commands = preprocessedStatements.Select(ParseStatement).ToList();
+
+            StartCoroutine(Execute());
         }
 
         private void OnDestroy()
@@ -73,6 +76,14 @@ namespace Kaede2.Scenario
             {
                 handle.Dispose();
             }
+        }
+
+        private void ResetRuntimeData()
+        {
+            aliases = new();
+            variables = new();
+            commands = new();
+            currentCommandIndex = -1;
         }
 
         private static List<string> GetStatementsFromScript(string script)
