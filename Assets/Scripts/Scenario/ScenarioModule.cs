@@ -15,6 +15,8 @@ namespace Kaede2.Scenario
         private List<ResourceLoader.HandleBase> handles;
         private List<string> preprocessedStatements;
 
+        public int StatementCount => preprocessedStatements.Count;
+
 #if UNITY_EDITOR
         [SerializeField]
         [Header("For editor only")]
@@ -96,6 +98,11 @@ namespace Kaede2.Scenario
             }
 
             return result;
+        }
+
+        public string Statement(int index)
+        {
+            return preprocessedStatements[index];
         }
 
         #region Variables

@@ -106,9 +106,9 @@ namespace Kaede2.Utils
             return Load<TextAsset>($"scenario/{scenario}/{scenario}_script.txt");
         }
 
-        public static LoadAddressableHandle<TextAsset> LoadScenarioAliasText(string scenario)
+        public static LoadAddressableHandle<TextAsset> LoadScenarioAliasText(string scenario, string aliasFileName)
         {
-            return Load<TextAsset>($"scenario/{scenario}/{scenario}_alias.txt");
+            return Load<TextAsset>($"scenario/{scenario}/{aliasFileName}.txt");
         }
 
         public static LoadAddressableHandle<TextAsset> LoadScenarioIgnoreText(string scenario)

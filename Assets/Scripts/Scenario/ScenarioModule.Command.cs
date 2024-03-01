@@ -44,6 +44,8 @@ namespace Kaede2.Scenario
             protected readonly ScenarioModule Module;
 
             public abstract ExecutionType Type { get; }
+
+            // a minus value means that the time is indeterminate, but its absolute value can be used for UI hints
             public abstract float ExpectedExecutionTime { get; }
 
             // constructor will be called before the scenario actually starts
@@ -143,7 +145,7 @@ namespace Kaede2.Scenario
             { "replace", typeof(NotImplemented) },
             { "clone", typeof(NotImplemented) },
             { "color", typeof(NotImplemented) },
-            { "alias_text", typeof(NotImplemented) },
+            { "alias_text", typeof(AliasText) },
             { "set", typeof(Set) },
             { "log_message_load", typeof(NotImplemented) },
             { "auto_load", typeof(NotImplemented) },
