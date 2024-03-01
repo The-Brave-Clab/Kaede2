@@ -30,7 +30,7 @@ namespace Kaede2.Scenario
         {
 #if UNITY_EDITOR
             var args = command.ToString().Split('\t');
-            Debug.Log($"<color=#00FF00>[{Time.frameCount}]</color>\t<color=#FFFF00>{args[0]}</color>\t<color=#7777FF>{string.Join('\t', args[1..])}</color>");
+            Debug.Log($"<color=#00FF00>[{Time.frameCount}]</color>\t<color=#FFFF00>{args[0]}</color>\n\t<color=#7777FF>{string.Join("\n\t", args[1..])}</color>");
 #endif
 
             switch (command.Type)
