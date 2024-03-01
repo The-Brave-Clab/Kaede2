@@ -27,7 +27,10 @@ namespace Kaede2.Scenario
 
             handles = new();
             preprocessedStatements = new();
-            ResetRuntimeData();
+            aliases = new();
+            variables = new();
+            commands = new();
+            currentCommandIndex = -1;
         }
 
         private IEnumerator Start()
@@ -76,14 +79,6 @@ namespace Kaede2.Scenario
             {
                 handle.Dispose();
             }
-        }
-
-        private void ResetRuntimeData()
-        {
-            aliases = new();
-            variables = new();
-            commands = new();
-            currentCommandIndex = -1;
         }
 
         private static List<string> GetStatementsFromScript(string script)
