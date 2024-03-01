@@ -39,12 +39,12 @@ namespace Kaede2.Utils
 
         #region LevenshteinDistance
 
-        public static string FindClosestMatch(string input, IEnumerable<string> dictionary, out int distance)
+        public static string FindClosestMatch(string input, IEnumerable<string> collection, out int distance)
         {
             distance = int.MaxValue;
             var closestMatch = "";
 
-            foreach (var word in dictionary.OrderBy(w => w))
+            foreach (var word in collection.OrderBy(w => w))
             {
                 var currentDistance = CalculateLevenshteinDistance(input, word);
                 if (currentDistance >= distance) continue;

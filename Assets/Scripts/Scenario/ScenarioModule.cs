@@ -136,10 +136,10 @@ namespace Kaede2.Scenario
             aliases[alias] = orig;
         }
 
-        public string ResolveAlias(string alias)
+        public string ResolveAlias(string token)
         {
-            if (aliases == null) return alias;
-            string result = alias;
+            if (aliases == null) return token;
+            string result = token;
             var sortedKeys = aliases.Keys.ToList();
             sortedKeys.Sort((k2, k1) => k1.Length.CompareTo(k2.Length));
             while (true)
