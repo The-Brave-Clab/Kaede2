@@ -35,10 +35,8 @@ namespace Kaede2.Scenario
                 }
             }
 
-            // todo: 16:9 settings
-            private const bool Fixed16By9 = true;
             public static float ScreenWidthScalar =>
-                Fixed16By9 ? 1.0f : Screen.width * 9.0f / 16.0f / Screen.height;
+                GameSettings.Fixed16By9 ? 1.0f : Screen.width * 9.0f / 16.0f / Screen.height;
 
             public virtual float ScaleScalar => 1.0f;
 
