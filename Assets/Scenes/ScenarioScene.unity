@@ -553,9 +553,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingCanvas: {fileID: 1888027803}
   fade: {fileID: 943529618}
-  captionCanvas: {fileID: 1272546360}
+  gameUICanvas: {fileID: 1272546360}
   captionBoxPrefabs:
     mobileStyle: {fileID: 2788868383464662596, guid: 27da1bc6f198f384baff599f8413b314, type: 3}
+    consoleStyle: {fileID: 0}
+  messageBoxPrefabs:
+    mobileStyle: {fileID: 7595576014301023755, guid: aba2e992aad59fe44ab049c93778df2f, type: 3}
     consoleStyle: {fileID: 0}
 --- !u!1 &943529616
 GameObject:
@@ -894,7 +897,7 @@ GameObject:
   - component: {fileID: 1272546357}
   - component: {fileID: 1272546360}
   m_Layer: 5
-  m_Name: CaptionCanvas
+  m_Name: GameUICanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

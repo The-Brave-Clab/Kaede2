@@ -20,16 +20,7 @@ namespace Kaede2.Scenario.Commands
             wait = Arg(2, true);
         }
 
-        public override ExecutionType Type
-        {
-            get
-            {
-                if (duration == 0) return ExecutionType.Instant;
-                if (wait) return ExecutionType.Synchronous;
-                return ExecutionType.Asynchronous;
-            }
-        }
-
+        public override ExecutionType Type => ExecutionTypeBasedOnWaitAndDuration(wait, duration);
         public override float ExpectedExecutionTime => duration;
 
         public override IEnumerator Setup()

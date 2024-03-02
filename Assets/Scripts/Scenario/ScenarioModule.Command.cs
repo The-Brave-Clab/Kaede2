@@ -111,6 +111,13 @@ namespace Kaede2.Scenario
                         $"{typeof(T).Name} '{name}' doesn't exist, using '{substituteName}' instead. Distance is {distance}.");
                 return result;
             }
+
+            protected static ExecutionType ExecutionTypeBasedOnWaitAndDuration(bool wait, float duration)
+            {
+                if (duration <= 0) return ExecutionType.Instant;
+                if (wait) return ExecutionType.Synchronous;
+                return ExecutionType.Asynchronous;
+            }
         }
 
         private static Dictionary<string, Type> CommandTypes => new()
@@ -222,9 +229,9 @@ namespace Kaede2.Scenario
             { "asset_load", typeof(NotImplemented) },
             { "asset_unload", typeof(NotImplemented) },
             { "debug_log_show", typeof(NotImplemented) },
-            { "caption", typeof(NotImplemented) },
-            { "caption_hide", typeof(NotImplemented) },
-            { "caption_color", typeof(NotImplemented) },
+            { "caption", typeof(Caption) },
+            { "caption_hide", typeof(CaptionHide) },
+            { "caption_color", typeof(CaptionColor) },
             { "caption_font_color", typeof(NotImplemented) },
             { "caption_font_size", typeof(NotImplemented) },
             { "wait", typeof(Wait) },
