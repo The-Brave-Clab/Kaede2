@@ -292,6 +292,33 @@ namespace Kaede2.Scenario
                 yield return seq.WaitForCompletion();
                 RemoveSequence(seq);
             }
+
+            protected EntityTransform GetTransformState()
+            {
+                var t = transform;
+
+                return new()
+                {
+                    enabled = gameObject.activeSelf,
+                    position = Position,
+                    angle = t.eulerAngles.z,
+                    scale = t.localScale.x,
+                    pivot = Pivot,
+                    color = GetColor()
+                };
+            }
+
+            protected void RestoreTransformState(EntityTransform state)
+            {
+                var t = transform;
+
+                gameObject.SetActive(state.enabled);
+                Position = state.position;
+                t.eulerAngles = new Vector3(0, 0, state.angle);
+                t.localScale = Vector3.one * state.scale;
+                Pivot = state.pivot;
+                SetColor(state.color);
+            }
         }
     }
 }

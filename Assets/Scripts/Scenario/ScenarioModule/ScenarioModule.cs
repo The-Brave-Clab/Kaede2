@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Kaede2.Scenario.Entities;
 using Kaede2.Utils;
 using NCalc;
 using UnityEngine;
@@ -109,7 +110,6 @@ namespace Kaede2.Scenario
         {
             return preprocessedStatements[index];
         }
-
         #region Variables
 
         private Dictionary<string, Expression> variables;

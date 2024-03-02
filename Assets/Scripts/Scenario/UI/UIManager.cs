@@ -8,6 +8,8 @@ namespace Kaede2.Scenario.UI
     {
         #region Serialized
 
+        public GameObject emptyUIObjectPrefab;
+
         public Canvas loadingCanvas;
         public FadeTransition fade;
 
@@ -19,6 +21,11 @@ namespace Kaede2.Scenario.UI
 
         [SerializeField]
         private MultiStyleObject messageBoxPrefabs;
+
+        public Canvas backgroundCanvas;
+        public Canvas live2DCanvas;
+        public Canvas stillCanvas;
+        public Canvas spriteCanvas;
 
         #endregion
 
