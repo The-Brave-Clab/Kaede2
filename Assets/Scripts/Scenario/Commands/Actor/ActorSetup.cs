@@ -55,6 +55,7 @@ namespace Kaede2.Scenario.Commands
 
             var newModel = Object.Instantiate(UIManager.Instance.emptyUIObjectPrefab, UIManager.Instance.live2DCanvas.transform, false);
             newModel.GetComponent<RectTransform>().anchoredPosition = new Vector2(xPos, 0);
+            newModel.name = readableName;
             entity = newModel.AddComponent<Live2DActorEntity>();
             entity.Assets = asset;
         }

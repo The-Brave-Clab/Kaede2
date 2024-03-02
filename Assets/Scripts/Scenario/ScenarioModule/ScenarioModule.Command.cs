@@ -117,6 +117,12 @@ namespace Kaede2.Scenario
                 var substituteName =
                     CommonUtils.FindClosestMatch(name, entities.Select(e => e.gameObject.name), out var distance);
                 result = entities.First(e => e.gameObject.name == substituteName);
+                if (distance > 5)
+                {
+                    Debug.LogError($"{typeof(T).Name} '{name}' doesn't exist and no substitute found.");
+                    result = null;
+                    return -1;
+                }
                 if (distance != 0)
                     Debug.LogWarning(
                         $"{typeof(T).Name} '{name}' doesn't exist, using '{substituteName}' instead. Distance is {distance}.");

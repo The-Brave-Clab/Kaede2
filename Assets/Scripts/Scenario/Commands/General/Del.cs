@@ -19,8 +19,22 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Setup()
         {
-            if (FindEntity(objectName, out entity) == 0) yield break;
-            Debug.LogError($"Entity {objectName} not found"); // for del command we only do precise match
+            var entities = Object.FindObjectsByType<ScenarioModule.Entity>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            if (entities == null || entities.Length == 0)
+            {
+                entity = null;
+                yield break;
+            }
+
+            foreach (var e in entities)
+            {
+                if (e.name == objectName)
+                {
+                    entity = e;
+                    yield break;
+                }
+            }
+
             entity = null;
         }
 
