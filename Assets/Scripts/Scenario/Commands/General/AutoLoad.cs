@@ -198,7 +198,6 @@ namespace Kaede2.Scenario.Commands
 
         public override void Undo()
         {
-            throw new System.NotImplementedException();
         }
 
         private class LoadData : IEquatable<LoadData>
