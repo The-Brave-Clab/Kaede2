@@ -10,6 +10,7 @@ namespace Kaede2.Scenario.Commands
         private readonly bool setDefault;
 
         private CaptionState startState;
+        private CaptionBox captionBox;
         private Color startDefaultColor;
 
         public CaptionColor(ScenarioModule module, string[] arguments) : base(module, arguments)
@@ -26,7 +27,8 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Setup()
         {
-            startState = UIManager.Instance.CaptionBox.GetState();
+            captionBox = UIManager.Instance.CaptionBox;
+            startState = captionBox.GetState();
             startDefaultColor = UIManager.Instance.CaptionDefaultColor;
             yield break;
         }
@@ -37,14 +39,14 @@ namespace Kaede2.Scenario.Commands
             {
                 UIManager.Instance.CaptionDefaultColor = color;
             }
-            
-            UIManager.Instance.CaptionBox.box.color = color;
+
+            captionBox.box.color = color;
             yield break;
         }
 
         public override void Undo()
         {
-            UIManager.Instance.CaptionBox.RestoreState(startState);
+            captionBox.RestoreState(startState);
             // set default color regardless of the setDefault flag
             UIManager.Instance.CaptionDefaultColor = startDefaultColor;
         }

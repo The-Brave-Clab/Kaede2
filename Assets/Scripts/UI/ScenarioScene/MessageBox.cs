@@ -1,3 +1,4 @@
+using System;
 using Kaede2.Scenario;
 using TMPro;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace Kaede2.UI.ScenarioScene
         public TextMeshProUGUI nameTag;
         public TextMeshProUGUI messagePanel;
         public Breathe nextMessageIndicator;
+        private RectTransform rt;
 
         private RichText currentText;
 
@@ -19,6 +21,12 @@ namespace Kaede2.UI.ScenarioScene
         }
 
         public string DisplayText => currentText?.PlainText;
+
+        public Vector2 Position
+        {
+            get => rt.anchoredPosition * -1;
+            set => rt.anchoredPosition = value * -1;
+        }
 
         private float timeStarted = 1f;
         private float displayTime;
@@ -54,6 +62,11 @@ namespace Kaede2.UI.ScenarioScene
         public void SkipDisplay()
         {
             displayTime = 0;
+        }
+
+        private void Awake()
+        {
+            rt = GetComponent<RectTransform>();
         }
 
         private void Update()

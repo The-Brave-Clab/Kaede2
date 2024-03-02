@@ -18,6 +18,7 @@ namespace Kaede2.Scenario.Commands
         private bool wait = true;
 
         private CaptionState startState;
+        private CaptionBox captionBox;
 
         public Caption(ScenarioModule module, string[] arguments) : base(module, arguments)
         {
@@ -36,13 +37,13 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Setup()
         {
-            startState = UIManager.Instance.CaptionBox.GetState();
+            captionBox = UIManager.Instance.CaptionBox;
+            startState = captionBox.GetState();
             yield break;
         }
 
         public override IEnumerator Execute()
         {
-            var captionBox = UIManager.Instance.CaptionBox;
             captionBox.text.text = text;
             captionBox.text.fontSize = fontSize;
 
@@ -84,7 +85,7 @@ namespace Kaede2.Scenario.Commands
 
         public override void Undo()
         {
-            UIManager.Instance.CaptionBox.RestoreState(startState);
+            captionBox.RestoreState(startState);
         }
     }
 }

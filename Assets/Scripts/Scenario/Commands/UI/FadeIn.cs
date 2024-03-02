@@ -13,6 +13,7 @@ namespace Kaede2.Scenario.Commands
         protected abstract float To { get; }
 
         private FadeState startState;
+        private FadeTransition fade;
 
         protected FadeBase(ScenarioModule module, string[] arguments) : base(module, arguments)
         {
@@ -25,13 +26,13 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Setup()
         {
+            fade = UIManager.Instance.fade;
             startState = UIManager.Instance.fade.GetState();
             yield break;
         }
 
         public override IEnumerator Execute()
         {
-            var fade = UIManager.Instance.fade;
             fade.progress = From;
 
             if (duration <= 0)
@@ -47,7 +48,7 @@ namespace Kaede2.Scenario.Commands
 
         public override void Undo()
         {
-            UIManager.Instance.fade.RestoreState(startState);
+            fade.RestoreState(startState);
         }
     }
 
