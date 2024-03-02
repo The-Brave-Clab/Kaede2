@@ -62,7 +62,6 @@ namespace Kaede2.Scenario
                 yield break;
             }
             public abstract IEnumerator Execute();
-            public abstract void Undo();
 
             public override string ToString()
             {

@@ -27,9 +27,5 @@ namespace Kaede2.Scenario.Commands
             if (task != null)
                 yield return task;
         }
-
-        public override void Undo()
-        {
-        }
     }
 }

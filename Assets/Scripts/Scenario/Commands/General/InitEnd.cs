@@ -17,9 +17,5 @@ namespace Kaede2.Scenario.Commands
             UIManager.Instance.loadingCanvas.gameObject.SetActive(false);
             yield break;
         }
-
-        public override void Undo()
-        {
-        }
     }
 }

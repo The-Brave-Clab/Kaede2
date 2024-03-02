@@ -20,9 +20,5 @@ namespace Kaede2.Scenario.Commands
             if (duration == 0) yield break;
             yield return new WaitForSeconds(duration);
         }
-
-        public override void Undo()
-        {
-        }
     }
 }

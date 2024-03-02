@@ -9,7 +9,6 @@ namespace Kaede2.Scenario.Commands
         private readonly float duration;
         private readonly bool wait;
 
-        private CaptionState startState;
         private CaptionBox captionBox;
 
         public CaptionHide(ScenarioModule module, string[] arguments) : base(module, arguments)
@@ -24,7 +23,6 @@ namespace Kaede2.Scenario.Commands
         public override IEnumerator Setup()
         {
             captionBox = UIManager.Instance.CaptionBox;
-            startState = captionBox.GetState();
             yield break;
         }
 
@@ -60,11 +58,6 @@ namespace Kaede2.Scenario.Commands
             seq.OnComplete(() => captionBox.gameObject.SetActive(false));
 
             yield return seq.WaitForCompletion();
-        }
-
-        public override void Undo()
-        {
-            captionBox.RestoreState(startState);
         }
     }
 }

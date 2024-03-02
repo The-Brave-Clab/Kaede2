@@ -23,10 +23,5 @@ namespace Kaede2.Scenario.Commands
             AudioManager.Instance.PlayBGM(bgmName, volume);
             yield break;
         }
-
-        public override void Undo()
-        {
-            AudioManager.Instance.StopBGM();
-        }
     }
 }

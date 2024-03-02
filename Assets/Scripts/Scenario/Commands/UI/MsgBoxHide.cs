@@ -29,10 +29,5 @@ namespace Kaede2.Scenario.Commands
             messageBox.SetText("");
             yield break;
         }
-
-        public override void Undo()
-        {
-            messageBox.RestoreState(startState);
-        }
     }
 }

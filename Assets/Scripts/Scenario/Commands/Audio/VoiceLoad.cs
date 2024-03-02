@@ -24,9 +24,5 @@ namespace Kaede2.Scenario.Commands
             Module.RegisterLoadHandle(loadHandle);
             yield return loadHandle.Send();
         }
-
-        public override void Undo()
-        {
-        }
     }
 }

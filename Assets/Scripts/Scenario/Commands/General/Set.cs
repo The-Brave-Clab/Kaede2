@@ -22,10 +22,5 @@ namespace Kaede2.Scenario.Commands
             Module.AddVariable(variable, value);
             yield break;
         }
-
-        public override void Undo()
-        {
-            // it's okay to not remove the variable, because it will be overwritten
-        }
     }
 }

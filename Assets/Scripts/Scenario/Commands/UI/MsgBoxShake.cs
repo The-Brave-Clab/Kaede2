@@ -59,9 +59,5 @@ namespace Kaede2.Scenario.Commands
 
             messageBox.Position = originalPos;
         }
-
-        public override void Undo()
-        {
-        }
     }
 }

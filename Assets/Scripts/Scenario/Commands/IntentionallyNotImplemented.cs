@@ -15,9 +15,5 @@ namespace Kaede2.Scenario.Commands
         {
             yield break;
         }
-
-        public override void Undo()
-        {
-        }
     }
 }

@@ -17,9 +17,5 @@ namespace Kaede2.Scenario.Commands
             Debug.LogWarning($"Not Implemented Command {OriginalArg(0)}");
             yield break;
         }
-
-        public override void Undo()
-        {
-        }
     }
 }

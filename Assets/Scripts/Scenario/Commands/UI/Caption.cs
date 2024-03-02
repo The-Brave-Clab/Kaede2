@@ -14,7 +14,6 @@ namespace Kaede2.Scenario.Commands
         private float y = 0.0f;
         private bool wait = true;
 
-        private CaptionState startState;
         private CaptionBox captionBox;
 
         public Caption(ScenarioModule module, string[] arguments) : base(module, arguments)
@@ -35,7 +34,6 @@ namespace Kaede2.Scenario.Commands
         public override IEnumerator Setup()
         {
             captionBox = UIManager.Instance.CaptionBox;
-            startState = captionBox.GetState();
             yield break;
         }
 
@@ -78,11 +76,6 @@ namespace Kaede2.Scenario.Commands
                     captionBox.text.color = color;
                 }));
             yield return seq.WaitForCompletion();
-        }
-
-        public override void Undo()
-        {
-            captionBox.RestoreState(startState);
         }
     }
 }

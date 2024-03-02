@@ -40,10 +40,5 @@ namespace Kaede2.Scenario.Commands
                 Module.AddAlias(orig, alias);
             }
         }
-
-        public override void Undo()
-        {
-            // it's okay to not remove the variable, because it will be overwritten
-        }
     }
 }

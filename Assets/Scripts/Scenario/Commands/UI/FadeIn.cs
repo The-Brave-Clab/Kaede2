@@ -45,11 +45,6 @@ namespace Kaede2.Scenario.Commands
             seq.Append(DOVirtual.Float(From, To, duration, value => { fade.progress = value; }));
             yield return seq.WaitForCompletion();
         }
-
-        public override void Undo()
-        {
-            fade.RestoreState(startState);
-        }
     }
 
     public class FadeIn : FadeBase

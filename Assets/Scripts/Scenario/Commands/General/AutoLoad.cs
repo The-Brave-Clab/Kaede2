@@ -196,10 +196,6 @@ namespace Kaede2.Scenario.Commands
             Debug.Log("Resource Pre-loaded");
         }
 
-        public override void Undo()
-        {
-        }
-
         private class LoadData : IEquatable<LoadData>
         {
             // the order of these enum values is important
