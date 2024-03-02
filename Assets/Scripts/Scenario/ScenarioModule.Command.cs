@@ -199,8 +199,8 @@ namespace Kaede2.Scenario
             { "shake_mes", typeof(NotImplemented) },
             { "focus_on", typeof(NotImplemented) },
             { "focus_off", typeof(NotImplemented) },
-            { "fade_in", typeof(NotImplemented) },
-            { "fade_out", typeof(NotImplemented) },
+            { "fade_in", typeof(FadeIn) },
+            { "fade_out", typeof(FadeOut) },
             { "camera_lookat", typeof(NotImplemented) },
             { "camera_move", typeof(NotImplemented) },
             { "camera_zoom", typeof(NotImplemented) }, // Not tested

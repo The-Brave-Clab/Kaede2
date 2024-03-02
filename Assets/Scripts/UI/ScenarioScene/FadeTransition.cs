@@ -48,10 +48,9 @@ namespace Kaede2.UI.ScenarioScene
             };
         }
 
-        public IEnumerator RestoreState(FadeState state)
+        public void RestoreState(FadeState state)
         {
             progress = state.progress;
-            yield break;
         }
     }
 }

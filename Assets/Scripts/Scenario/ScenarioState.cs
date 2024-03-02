@@ -14,7 +14,7 @@ namespace Kaede2.Scenario
     public interface IStateSavable<T> where T : struct, IState<T>
     {
         T GetState();
-        IEnumerator RestoreState(T state);
+        void RestoreState(T state);
     }
 
     [Serializable]
