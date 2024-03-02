@@ -141,7 +141,7 @@ namespace Kaede2.Scenario
             { "set", typeof(Set) },
             { "log_message_load", typeof(NotImplemented) },
             { "auto_load", typeof(AutoLoad) },
-            { "init_end", typeof(NotImplemented) },
+            { "init_end", typeof(InitEnd) },
             { "mes_speed", typeof(NotImplemented) },
             { "move_anim", typeof(NotImplemented) },
             { "rotate_anim", typeof(NotImplemented) },
