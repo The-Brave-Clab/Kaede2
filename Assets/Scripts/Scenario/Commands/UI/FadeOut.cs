@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using DG.Tweening;
-using Kaede2.UI.ScenarioScene;
-
-namespace Kaede2.Scenario.Commands
+﻿namespace Kaede2.Scenario.Commands
 {
     public class FadeOut : FadeBase
     {

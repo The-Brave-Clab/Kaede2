@@ -2,7 +2,7 @@ using System;
 using Kaede2.Utils;
 using UnityEngine;
 
-namespace Kaede2.UI.ScenarioScene
+namespace Kaede2.Scenario.UI
 {
     public class UIManager : Singleton<UIManager>
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-namespace Kaede2.UI.ScenarioScene
+namespace Kaede2.Scenario.UI
 {
 	public class RichText
 	{

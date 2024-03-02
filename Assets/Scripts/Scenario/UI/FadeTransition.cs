@@ -1,8 +1,6 @@
-using System.Collections;
-using Kaede2.Scenario;
 using UnityEngine;
 
-namespace Kaede2.UI.ScenarioScene
+namespace Kaede2.Scenario.UI
 {
     [ExecuteAlways]
     [RequireComponent(typeof(RectTransform))]

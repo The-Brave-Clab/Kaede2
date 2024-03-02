@@ -1,9 +1,8 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Kaede2.UI.ScenarioScene
+namespace Kaede2.Scenario.UI
 {
     [RequireComponent(typeof(Image))]
     public class Breathe : MonoBehaviour

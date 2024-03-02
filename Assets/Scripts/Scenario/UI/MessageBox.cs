@@ -1,9 +1,7 @@
-using System;
-using Kaede2.Scenario;
 using TMPro;
 using UnityEngine;
 
-namespace Kaede2.UI.ScenarioScene
+namespace Kaede2.Scenario.UI
 {
     public class MessageBox : MonoBehaviour, IStateSavable<MessageBoxState>
     {

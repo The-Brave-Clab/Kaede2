@@ -1,9 +1,8 @@
-using Kaede2.Scenario;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Kaede2.UI.ScenarioScene
+namespace Kaede2.Scenario.UI
 {
     [ExecuteAlways]
     [RequireComponent(typeof(RectTransform))]
