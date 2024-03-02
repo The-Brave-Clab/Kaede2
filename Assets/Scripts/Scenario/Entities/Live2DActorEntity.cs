@@ -10,13 +10,20 @@ using UnityEngine.UI;
 
 namespace Kaede2.Scenario.Entities
 {
-    public class Live2DActorEntity : ScenarioModule.Entity, IStateSavable<ActorState>
+    public partial class Live2DActorEntity : ScenarioModule.Entity, IStateSavable<ActorState>
     {
         public Live2DAssets Assets { get; set; }
 
         public bool Hidden { get; set; }
         public bool UseEyeBlink { get; set; }
         public bool ManualEyeOpen { get; set; }
+
+        public float MouthOpenY { get; set; }
+        public float AddAngleX { get; set; }
+        public float AddAngleY { get; set; }
+        public float AddBodyAngleX { get; set; }
+        public float AddEyeX { get; set; }
+        public float AbsoluteEyeX { get; set; }
 
         private Live2DModelUnity live2DModel;
         private L2DPose pose;
@@ -38,12 +45,6 @@ namespace Kaede2.Scenario.Entities
 
         private int layer;
         private List<Live2DActorEntity> mouthSynced;
-        public float mouthOpenY = 0.0f;
-        public float addAngleX = 0.0f;
-        public float addAngleY = 0.0f;
-        public float addBodyAngleX = 0.0f;
-        public float addEyeX = 0.0f;
-        public float absoluteEyeX = 0.0f;
 
         public static readonly List<Live2DActorEntity> AllActors = new();
 
@@ -166,21 +167,21 @@ namespace Kaede2.Scenario.Entities
                 pose.updateParam(live2DModel);
             }
             live2DModel.saveParam();
-            live2DModel.addToParamFloat("PARAM_ANGLE_X", addAngleX);
-            live2DModel.addToParamFloat("PARAM_ANGLE_Y", addAngleY);
-            live2DModel.addToParamFloat("PARAM_BODY_ANGLE_X", addBodyAngleX);
+            live2DModel.addToParamFloat("PARAM_ANGLE_X", AddAngleX);
+            live2DModel.addToParamFloat("PARAM_ANGLE_Y", AddAngleY);
+            live2DModel.addToParamFloat("PARAM_BODY_ANGLE_X", AddBodyAngleX);
 
-            if (mouthOpenY != 0f)
+            if (MouthOpenY != 0f)
             {
-                live2DModel.setParamFloat("PARAM_MOUTH_OPEN_Y", mouthOpenY);
+                live2DModel.setParamFloat("PARAM_MOUTH_OPEN_Y", MouthOpenY);
             }
-            if (addEyeX != 0f)
+            if (AddEyeX != 0f)
             {
-                live2DModel.addToParamFloat("PARAM_EYE_BALL_X", addEyeX);
+                live2DModel.addToParamFloat("PARAM_EYE_BALL_X", AddEyeX);
             }
-            if (absoluteEyeX != 0f)
+            if (AbsoluteEyeX != 0f)
             {
-                live2DModel.setParamFloat("PARAM_EYE_BALL_X", absoluteEyeX);
+                live2DModel.setParamFloat("PARAM_EYE_BALL_X", AbsoluteEyeX);
             }
 
             live2DModel.update();
@@ -192,114 +193,6 @@ namespace Kaede2.Scenario.Entities
             live2DModel?.releaseModel();
             AllActors.Remove(this);
             base.OnDestroy();
-        }
-
-        public void StartMotion(string motionName, bool loop = false)
-        {
-            if (!FixMotionName(ref motionName)) return;
-
-            var motion = motions[motionName];
-            motion.setLoop(loop);
-            nextMotion = motion;
-            currentMotionName = motionName;
-        }
-
-        public void StartFaceMotion(string motionName)
-        {
-            if (!FixMotionName(ref motionName)) return;
-
-            var motion = motions[motionName];
-            faceMotionMgr.startMotion(motion);
-            currentFaceMotionName = motionName;
-        }
-
-        public void SetLip(float volume, List<Live2DActorEntity> traversalBuffer = null)
-        {
-            mouthOpenY = volume;
-
-            traversalBuffer ??= new List<Live2DActorEntity>();
-
-            traversalBuffer.Add(this);
-            
-            foreach (var modelController in mouthSynced.Where(e => !traversalBuffer.Contains(e)))
-            {
-                modelController.SetLip(volume, traversalBuffer);
-            }
-        }
-
-        public void AddMouthSync(Live2DActorEntity model)
-        {
-            if (model == this) return;
-            if (mouthSynced.Contains(model)) return;
-            mouthSynced.Add(model);
-            model.AddMouthSync(this);
-        }
-
-        public void RemoveAllMouthSync(List<Live2DActorEntity> traversalBuffer = null)
-        {
-            traversalBuffer ??= new List<Live2DActorEntity>();
-
-            traversalBuffer.Add(this);
-
-            foreach (var modelController in mouthSynced.Where(e => !traversalBuffer.Contains(e)))
-            {
-                modelController.RemoveAllMouthSync(traversalBuffer);
-            }
-
-            mouthSynced.RemoveAll(x => true);
-        }
-
-        public void SetEye(string motion)
-        {
-            if (motion == "閉じ")
-            {
-                UseEyeBlink = false;
-                ManualEyeOpen = false;
-            }
-            else if (motion == "開き")
-            {
-                UseEyeBlink = false;
-                ManualEyeOpen = true;
-            }
-            else
-            {
-                UseEyeBlink = true;
-                ManualEyeOpen = false;
-            }
-        }
-
-        public void Render()
-        {
-            // skip live2d rendering in batch mode
-            // if (BatchMode) return;
-
-            RenderTexture active = RenderTexture.active;
-            RenderTexture.active = targetTexture;
-
-            GL.Clear(true, true, Color.clear);
-
-            if (isActiveAndEnabled && !Hidden)
-            {
-                if (live2DModel == null) return;
-                if (live2DModel.getRenderMode() == live2d.Live2D.L2D_RENDER_DRAW_MESH_NOW)
-                {
-                    GL.PushMatrix();
-                    GL.LoadIdentity();
-                    GL.LoadProjectionMatrix(live2DCanvasPos);
-
-                    // this will generate one and only one error but it is absolutely okay
-                    // the cause is that in the draw() call, live2d SDK checks if the stacktrace string
-                    // contains "OnPostRender()" while in the extracted stacktrace the function string
-                    // is actually "OnPostRender ()" instead
-                    // other than an error log, the SDK does absolutely nothing so it's benign
-                    // on iOS platform it doesn't generate the error message
-                    live2DModel.draw();
-
-                    GL.PopMatrix();
-                }
-            }
-            
-            RenderTexture.active = active;
         }
 
         private void CreateWithAssets()
@@ -328,19 +221,6 @@ namespace Kaede2.Scenario.Entities
             }
 
             live2DModel.update();
-
-            gameObject.name = Assets.modelName;
-        }
-
-        public static void ReorderLayers()
-        {
-            if (AllActors == null) return;
-
-            AllActors.Sort((a, b) => a.layer.CompareTo(b.layer));
-            for (int i = 0; i < AllActors.Count; i++)
-            {
-                AllActors[i].transform.SetSiblingIndex(i);
-            }
         }
 
         public override Color GetColor()
@@ -407,10 +287,10 @@ namespace Kaede2.Scenario.Entities
 
                 mouthSynced = mouthSynced.Select(x => x.gameObject.name).ToList(),
 
-                faceAngle = new Vector2(addAngleX, addAngleY),
-                bodyAngle = addBodyAngleX,
+                faceAngle = new Vector2(AddAngleX, AddAngleY),
+                bodyAngle = AddBodyAngleX,
 
-                addEye = addEyeX,
+                addEye = AddEyeX,
 
                 transform = GetTransformState()
             };
@@ -431,11 +311,11 @@ namespace Kaede2.Scenario.Entities
             UseEyeBlink = state.eyeBlink;
             ManualEyeOpen = state.manualEyeOpen;
 
-            addAngleX = state.faceAngle.x;
-            addAngleY = state.faceAngle.y;
-            addBodyAngleX = state.bodyAngle;
+            AddAngleX = state.faceAngle.x;
+            AddAngleY = state.faceAngle.y;
+            AddBodyAngleX = state.bodyAngle;
 
-            addEyeX = state.addEye;
+            AddEyeX = state.addEye;
 
             StartMotion(state.currentMotion);
             StartFaceMotion(state.currentFaceMotion);

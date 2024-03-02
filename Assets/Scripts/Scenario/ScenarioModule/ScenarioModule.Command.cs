@@ -99,16 +99,28 @@ namespace Kaede2.Scenario
                 return index >= originalArgs.Length ? defaultValue : originalArgs[index];
             }
 
-            protected static T FindEntity<T>(string name) where T : Entity
+            protected int ArgLength()
+            {
+                return originalArgs.Length;
+            }
+
+            protected static int FindEntity<T>(string name, out T result) where T : Entity
             {
                 var entities = FindObjectsByType<T>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+                if (entities == null || entities.Length == 0)
+                {
+                    Debug.LogError($"No entities with Type {typeof(T).Name} '{name}' found.");
+                    result = null;
+                    return -1;
+                }
+
                 var substituteName =
                     CommonUtils.FindClosestMatch(name, entities.Select(e => e.gameObject.name), out var distance);
-                var result = entities.First(e => e.gameObject.name == substituteName);
+                result = entities.First(e => e.gameObject.name == substituteName);
                 if (distance != 0)
                     Debug.LogWarning(
                         $"{typeof(T).Name} '{name}' doesn't exist, using '{substituteName}' instead. Distance is {distance}.");
-                return result;
+                return distance;
             }
 
             protected static ExecutionType ExecutionTypeBasedOnWaitAndDuration(bool wait, float duration)
@@ -123,7 +135,7 @@ namespace Kaede2.Scenario
         {
             { "mes", typeof(NotImplemented) },
             { "mes_auto", typeof(NotImplemented) },
-            { "anim", typeof(NotImplemented) },
+            { "anim", typeof(Anim) },
             { "layer", typeof(NotImplemented) },
             { "move", typeof(NotImplemented) },
             { "pos", typeof(NotImplemented) },
@@ -139,7 +151,7 @@ namespace Kaede2.Scenario
             { "transform_prefab_hide", typeof(NotImplemented) },
             { "bg_effect_prefab", typeof(NotImplemented) },
             { "bg_effect_prefab_hide", typeof(NotImplemented) },
-            { "del", typeof(NotImplemented) },
+            { "del", typeof(Del) },
             { "replace", typeof(NotImplemented) },
             { "clone", typeof(NotImplemented) },
             { "color", typeof(NotImplemented) },
@@ -161,25 +173,25 @@ namespace Kaede2.Scenario
             { "bg_hide", typeof(NotImplemented) },
             { "bg_move", typeof(NotImplemented) },
             { "actor", typeof(NotImplemented) },
-            { "actor_setup", typeof(NotImplemented) },
+            { "actor_setup", typeof(ActorSetup) },
             { "actor_move", typeof(NotImplemented) },
-            { "actor_scale", typeof(NotImplemented) },
-            { "actor_show", typeof(NotImplemented) },
-            { "actor_hide", typeof(NotImplemented) },
-            { "actor_eye", typeof(NotImplemented) },
-            { "actor_face", typeof(NotImplemented) },
-            { "actor_enter", typeof(NotImplemented) },
-            { "actor_exit", typeof(NotImplemented) },
-            { "spot_on", typeof(NotImplemented) },
-            { "spot_off", typeof(NotImplemented) },
-            { "actor_angle", typeof(NotImplemented) },
-            { "actor_body_angle", typeof(NotImplemented) },
-            { "actor_auto_mouth", typeof(NotImplemented) },
-            { "actor_mouth_sync", typeof(NotImplemented) },
-            { "actor_eye_add", typeof(NotImplemented) },
-            { "actor_eye_abs", typeof(NotImplemented) },
-            { "actor_eye_off", typeof(NotImplemented) },
-            { "actor_auto_del", typeof(NotImplemented) },
+            { "actor_scale", typeof(ActorScale) },
+            { "actor_show", typeof(ActorShow) },
+            { "actor_hide", typeof(ActorHide) },
+            { "actor_eye", typeof(ActorEye) },
+            { "actor_face", typeof(ActorFace) },
+            { "actor_enter", typeof(ActorEnter) },
+            { "actor_exit", typeof(ActorExit) },
+            { "spot_on", typeof(SpotOn) },
+            { "spot_off", typeof(SpotOff) },
+            { "actor_angle", typeof(ActorAngle) },
+            { "actor_body_angle", typeof(ActorBodyAngle) },
+            { "actor_auto_mouth", typeof(ActorAutoMouth) },
+            { "actor_mouth_sync", typeof(ActorMouthSync) },
+            { "actor_eye_add", typeof(ActorEyeAdd) },
+            { "actor_eye_abs", typeof(ActorEyeAbs) },
+            { "actor_eye_off", typeof(ActorEyeOff) },
+            { "actor_auto_del", typeof(ActorAutoDel) },
             { "pane_create", typeof(NotImplemented) },
             { "pane_select", typeof(NotImplemented) },
             { "pane_show", typeof(NotImplemented) },

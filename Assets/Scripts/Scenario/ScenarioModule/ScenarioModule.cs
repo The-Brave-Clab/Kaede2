@@ -27,6 +27,10 @@ namespace Kaede2.Scenario
         private string defaultScenarioName;
 #endif
 
+        // states
+        public bool ActorAutoDelete { get; set; }
+        public bool LipSync { get; set; }
+
         protected override void Awake()
         {
             base.Awake();
