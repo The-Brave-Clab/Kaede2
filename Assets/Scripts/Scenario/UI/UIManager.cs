@@ -10,11 +10,15 @@ namespace Kaede2.Scenario.UI
 
         public GameObject emptyUIObjectPrefab;
 
+        public Canvas uiCanvas;
+
         public Canvas loadingCanvas;
         public FadeTransition fade;
 
         [SerializeField]
         private Canvas gameUICanvas;
+
+        public Canvas contentCanvas;
 
         [SerializeField]
         private MultiStyleObject captionBoxPrefabs;
@@ -37,6 +41,9 @@ namespace Kaede2.Scenario.UI
         [NonSerialized]
         public Color CaptionDefaultColor;
 
+        private RectTransform live2DCanvasRectTransform;
+        private RectTransform backgroundCanvasRectTransform;
+
         #endregion
 
         protected override void Awake()
@@ -52,7 +59,47 @@ namespace Kaede2.Scenario.UI
             messageBoxObj.SetActive(false);
 
             CaptionDefaultColor = Color.white;
+
+            live2DCanvasRectTransform = live2DCanvas.GetComponent<RectTransform>();
+            backgroundCanvasRectTransform = backgroundCanvas.GetComponent<RectTransform>();
+
+            CameraPos = CameraPosDefault;
+            CameraScale = CameraScaleDefault;
+
+            // on awake, there are some things that need to be disabled
+            uiCanvas.gameObject.SetActive(false);
+            contentCanvas.gameObject.SetActive(false);
         }
+
+        public static Vector2 CameraPos
+        {
+            get => Instance.live2DCanvasRectTransform.anchoredPosition * -1;
+            set
+            {
+                Instance.live2DCanvasRectTransform.anchoredPosition = value * -1.0f;
+                Instance.backgroundCanvasRectTransform.anchoredPosition = value * -1.0f;
+            }
+        }
+
+        public static Vector2 CameraPosDefault => Vector2.zero;
+
+        public static Vector2 CameraScale
+        {
+            get => Instance.live2DCanvasRectTransform.localScale;
+            set
+            {
+                Instance.live2DCanvasRectTransform.localScale = new Vector3(value.x, value.y, Instance.live2DCanvasRectTransform.localScale.z);
+                Instance.backgroundCanvasRectTransform.localScale = new Vector3(value.x, value.y, Instance.backgroundCanvasRectTransform.localScale.z);
+            }
+        }
+
+        public static Vector2 CameraScaleDefault => Vector2.one;
+
+        // public static Vector2 MessageBoxPos
+        // {
+        //     get => Instance.messageBox.rectTransform.anchoredPosition * -1;
+        //     set => Instance.messageBox.rectTransform.anchoredPosition = value * -1.0f;
+        // }
 
         [Serializable]
         private class MultiStyleObject
