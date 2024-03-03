@@ -99,6 +99,34 @@ namespace Kaede2.Scenario.Audio
             voiceAudioInfo = null;
         }
 
+        public float GetVoiceVolume()
+        {
+            if (voiceAudioInfo == null) return 0.0f;
+            if (voiceAudioInfo.source == null) return 0.0f;
+            if (!voiceAudioInfo.source.isPlaying) return 0.0f;
+            return GetCurrentVolume(voiceAudioInfo.source);
+        }
+
+        public bool IsVoicePlaying()
+        {
+            return voiceAudioInfo != null && voiceAudioInfo.source != null && voiceAudioInfo.source.isPlaying;
+        }
+
+
+        private float GetCurrentVolume(AudioSource audio)
+        {
+            const int fftSize = 128;
+            float[] data = new float[fftSize];
+            float sum = 0;
+            audio.GetSpectrumData(data, 0, FFTWindow.Rectangular);
+            foreach (float s in data)
+            {
+                sum += Mathf.Abs(s);
+            }
+
+            return sum / fftSize;
+        }
+
         public IEnumerator PlaySE(string seName, float volume, float duration, bool loop)
         {
             if (!ScenarioModule.Instance.ScenarioResource.soundEffects.TryGetValue(seName, out var clip))

@@ -173,8 +173,8 @@ namespace Kaede2.Scenario
 
         private static Dictionary<string, Type> CommandTypes => new()
         {
-            { "mes", typeof(NotImplemented) },
-            { "mes_auto", typeof(NotImplemented) },
+            { "mes", typeof(Mes) },
+            { "mes_auto", typeof(MesAuto) },
             { "anim", typeof(Anim) },
             { "layer", typeof(Layer) },
             { "move", typeof(Move) },

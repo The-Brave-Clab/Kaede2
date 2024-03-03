@@ -29,15 +29,17 @@ namespace Kaede2.Scenario.UI
         private float timeStarted = 1f;
         private float displayTime;
         private int lastCharacterIndex = -1;
+        private int currentCharacterIndex = 0;
 
         public void SetText(string text)
         {
             CurrentText = new RichText(text.Replace("\\n", "\n"));
             displayTime =
-                CurrentText.Length *
+                (CurrentText.Length + 1) *
                 0.05f; //SingletonMonoBehaviour<ScenarioConfig>.Instance.intervalForCharacterDisplay;
             timeStarted = Time.time;
             lastCharacterIndex = -1;
+            currentCharacterIndex = 0;
             messagePanel.text = string.Empty;
             messagePanel.lineSpacing = 1f - 38f; //SingletonMonoBehaviour<ScenarioConfig>.Instance.messageLineSpacing;
 
@@ -82,15 +84,13 @@ namespace Kaede2.Scenario.UI
             }
 
             if (IsCompleteDisplayText)
-            {
                 return;
-            }
 
-            int characterIndex = (int) (Mathf.Clamp01((Time.time - timeStarted) / displayTime) * CurrentText.Length);
-            if (characterIndex != lastCharacterIndex)
+            currentCharacterIndex = (int) (Mathf.Clamp01((Time.time - timeStarted) / displayTime) * CurrentText.Length);
+            if (currentCharacterIndex != lastCharacterIndex)
             {
-                messagePanel.text = CurrentText.Length == 0 ? string.Empty : CurrentText.Substring(0, characterIndex);
-                lastCharacterIndex = characterIndex;
+                messagePanel.text = CurrentText.Length == 0 ? string.Empty : CurrentText.Substring(0, currentCharacterIndex);
+                lastCharacterIndex = currentCharacterIndex;
             }
 
             if (IsCompleteDisplayText)
@@ -101,7 +101,7 @@ namespace Kaede2.Scenario.UI
         }
 
 
-        public bool IsCompleteDisplayText => Time.time > timeStarted + displayTime;
+        public bool IsCompleteDisplayText => currentCharacterIndex == CurrentText.Length;
 
         public MessageBoxState GetState()
         {
