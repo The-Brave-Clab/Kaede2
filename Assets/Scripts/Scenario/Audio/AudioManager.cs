@@ -48,6 +48,7 @@ namespace Kaede2.Scenario.Audio
                 return;
             }
             bgmAudioInfo = Create(bgmName, AudioType.BGM, clip, volume);
+            UpdateAudioVolume();
             bgmAudioInfo.source.Play();
         }
 
@@ -87,6 +88,7 @@ namespace Kaede2.Scenario.Audio
             }
 
             voiceAudioInfo = Create(voiceName, AudioType.Voice, clip, 1.0f);
+            UpdateAudioVolume();
             voiceAudioInfo.source.Play();
         }
 
@@ -138,6 +140,7 @@ namespace Kaede2.Scenario.Audio
             var seAudioInfo = Create(seName, AudioType.SE, clip, duration <= 0 ? volume : 0);
             seAudioInfos.Add(seAudioInfo);
             seAudioInfo.source.loop = loop;
+            UpdateAudioVolume();
             seAudioInfo.source.Play();
 
             return duration <= 0 ? null : Fade(seAudioInfo, duration, 0, volume, null);
@@ -227,11 +230,19 @@ namespace Kaede2.Scenario.Audio
                 seAudioInfo.source.volume = GameSettings.AudioMasterVolume * GameSettings.AudioSEVolume * seAudioInfo.volume;
         }
 
+        private bool IsDead(AudioSource source)
+        {
+            if (source == null) return true;
+            if (source.clip == null) return true;
+            if (source.time >= source.clip.length) return true;
+            return false;
+        }
+
         private void ClearDeadAudio()
         {
             if (bgmAudioInfo != null)
             {
-                if (bgmAudioInfo.source == null || !bgmAudioInfo.source.isPlaying)
+                if (IsDead(bgmAudioInfo.source))
                 {
                     Destroy(bgmAudioInfo);
                     bgmAudioInfo = null;
@@ -240,7 +251,7 @@ namespace Kaede2.Scenario.Audio
 
             if (voiceAudioInfo != null)
             {
-                if (voiceAudioInfo.source == null || !voiceAudioInfo.source.isPlaying)
+                if (IsDead(voiceAudioInfo.source))
                 {
                     Destroy(voiceAudioInfo);
                     voiceAudioInfo = null;
@@ -250,7 +261,7 @@ namespace Kaede2.Scenario.Audio
             List<AudioInfo> toBeRemoved = new();
             foreach (var seAudioInfo in seAudioInfos)
             {
-                if (seAudioInfo.source == null || !seAudioInfo.source.isPlaying)
+                if (IsDead(seAudioInfo.source))
                 {
                     Destroy(seAudioInfo);
                     toBeRemoved.Add(seAudioInfo);
