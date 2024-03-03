@@ -23,7 +23,7 @@ namespace Kaede2.Scenario
                 {
                     if (rectTransform.pivot == value) return;
 
-                    Vector2 anchoredPosition = Position;
+                    Vector3 anchoredPosition = Position;
                     var sizeDelta = rectTransform.sizeDelta;
                     var pivot = rectTransform.pivot;
                     anchoredPosition.x -= sizeDelta.x * pivot.x;

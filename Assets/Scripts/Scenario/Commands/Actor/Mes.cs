@@ -87,6 +87,14 @@ namespace Kaede2.Scenario.Commands
                     break;
             }
 
+            if (entity != null)
+            {
+                if (Module.LipSync)
+                {
+                    entity.SetLip(0);
+                }
+                entity.RemoveAllMouthSync();
+            }
             AudioManager.Instance.StopVoice();
         }
     }

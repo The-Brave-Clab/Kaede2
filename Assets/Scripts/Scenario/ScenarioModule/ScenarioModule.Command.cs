@@ -9,6 +9,7 @@ using UnityEngine;
 using Kaede2.Utils;
 using Kaede2.Scenario.Commands;
 using Debug = UnityEngine.Debug;
+using Sprite = Kaede2.Scenario.Commands.Sprite;
 
 namespace Kaede2.Scenario
 {
@@ -183,8 +184,8 @@ namespace Kaede2.Scenario
             { "rotate", typeof(Rotate) },
             { "scale", typeof(Scale) },
             { "font", typeof(NotImplemented) },
-            { "sprite", typeof(NotImplemented) },
-            { "sprite_hide", typeof(NotImplemented) },
+            { "sprite", typeof(Sprite) },
+            { "sprite_hide", typeof(SpriteHide) },
             { "animation_prefab", typeof(NotImplemented) },
             { "animation_prefab_hide", typeof(NotImplemented) },
             { "transform_prefab", typeof(NotImplemented) },
