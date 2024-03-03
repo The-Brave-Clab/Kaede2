@@ -69,6 +69,7 @@ namespace Kaede2.Scenario.Commands
                 var newSprite = Object.Instantiate(UIManager.Instance.emptyUIObjectPrefab, UIManager.Instance.spriteCanvas.transform, false);
                 newSprite.name = objName;
                 var image = newSprite.AddComponent<Image>();
+                image.sprite = sprite;
                 entity = newSprite.AddComponent<SpriteEntity>();
                 entity.resourceName = resourceName;
                 entity.SetColor(new(1, 1, 1, 0));

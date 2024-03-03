@@ -189,7 +189,7 @@ namespace Kaede2.Scenario
             { "sprite_hide", typeof(SpriteHide) },
             { "animation_prefab", typeof(AnimationPrefab) },
             { "animation_prefab_hide", typeof(AnimationPrefabHide) },
-            { "transform_prefab", typeof(NotImplemented) },
+            { "transform_prefab", typeof(TransformPrefab) },
             { "transform_prefab_hide", typeof(NotImplemented) },
             { "bg_effect_prefab", typeof(NotImplemented) },
             { "bg_effect_prefab_hide", typeof(NotImplemented) },

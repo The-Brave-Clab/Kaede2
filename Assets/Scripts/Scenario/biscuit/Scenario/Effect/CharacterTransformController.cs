@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Kaede2.Scenario;
 using Kaede2.ScriptableObjects;
 using Kaede2.Utils;
 using UnityEngine;
@@ -131,21 +132,23 @@ namespace biscuit.Scenario.Effect
                 return;
             }
 
-            StartCoroutine(LoadTransSprite(CharacterID));
+            characterImage.sprite = ScenarioModule.Instance.ScenarioResource.transformImages[CharacterID];
+
+            // StartCoroutine(LoadTransSprite(CharacterID));
         }
 
-        private ResourceLoader.LoadAddressableHandle<Sprite> handle;
-        private IEnumerator LoadTransSprite(CharacterId characterId)
-        {
-            if (handle != null) handle.Dispose();
-            handle = ResourceLoader.LoadScenarioTransformEffectSprite(characterId);
-            yield return handle.Send();
-            characterImage.sprite = handle.Result;
-        }
+        // private ResourceLoader.LoadAddressableHandle<Sprite> handle;
+        // private IEnumerator LoadTransSprite(CharacterId characterId)
+        // {
+        //     if (handle != null) handle.Dispose();
+        //     handle = ResourceLoader.LoadScenarioTransformEffectSprite(characterId);
+        //     yield return handle.Send();
+        //     characterImage.sprite = handle.Result;
+        // }
 
         private void OnDestroy()
         {
-            handle?.Dispose();
+            // handle?.Dispose();
         }
 
         // Token: 0x04001376 RID: 4982
