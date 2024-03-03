@@ -45,7 +45,7 @@ namespace Kaede2.Scenario.Commands
                 yield break;
             }
 
-            Color clearWhite = new(1, 1, 1, 0);
+            UnityEngine.Color clearWhite = new(1, 1, 1, 0);
 
             Transform originalTransform = originalEntity.transform;
             originalEntity.gameObject.name = "_REPLACE_" + objName;
@@ -60,13 +60,13 @@ namespace Kaede2.Scenario.Commands
 
             if (duration == 0)
             {
-                newEntity.SetColor(Color.white);
+                newEntity.SetColor(UnityEngine.Color.white);
                 Object.Destroy(originalEntity.gameObject);
                 yield break;
             }
 
             Sequence seq = DOTween.Sequence();
-            seq.Append(DOVirtual.Color(clearWhite, Color.white, duration,
+            seq.Append(DOVirtual.Color(clearWhite, UnityEngine.Color.white, duration,
                 value => newEntity.SetColor(value)));
             seq.OnComplete(() => Object.Destroy(originalEntity.gameObject));
 

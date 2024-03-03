@@ -25,7 +25,7 @@ namespace Kaede2.Scenario.Commands
             foreach (var entity in allEntities)
             {
                 var alpha = entity.GetColor().a;
-                entity.SetColor(new Color(1.0f, 1.0f, 1.0f, alpha));
+                entity.SetColor(new UnityEngine.Color(1.0f, 1.0f, 1.0f, alpha));
             }
             yield break;
         }

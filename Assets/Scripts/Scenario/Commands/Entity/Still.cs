@@ -5,23 +5,23 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class BG : ScenarioModule.Command
+    public class Still : ScenarioModule.Command
     {
         private readonly string resourceName;
         private readonly string objName;
+        private readonly int layer;
         private readonly Vector2 position;
         private readonly float scale;
-        private readonly int layer;
 
         private BackgroundEntity entity;
 
-        public BG(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public Still(ScenarioModule module, string[] arguments) : base(module, arguments)
         {
-            resourceName = Arg(1, "");
-            objName = OriginalArg(1);
-            position = new Vector2(Arg(2, 0.0f), Arg(3, 0.0f));
-            scale = Arg(4, 1.0f);
-            layer = Arg(5, 0);
+            resourceName = Arg(1, ":").Split(":")[0];
+            objName = OriginalArg(1, ":").Split(":")[1];
+            layer = Arg(2, 0);
+            position = new Vector2(Arg(3, 0.0f), Arg(4, 0.0f));
+            scale = Arg(5, 1.0f);
         }
 
         public override ExecutionType Type => ExecutionType.Instant;
@@ -55,15 +55,15 @@ namespace Kaede2.Scenario.Commands
 
             if (entity == null)
             {
-                if (!Module.ScenarioResource.backgrounds.TryGetValue(resourceName, out var tex))
+                if (!Module.ScenarioResource.stills.TryGetValue(resourceName, out var tex))
                 {
-                    Debug.LogError($"Background texture {resourceName} not found");
+                    Debug.LogError($"Still texture {resourceName} not found");
                     yield break;
                 }
 
-                var newBG = Object.Instantiate(UIManager.Instance.backgroundPrefab, UIManager.Instance.backgroundCanvas.transform, false);
-                entity = newBG.GetComponent<BackgroundEntity>();
-                newBG.name = objName;
+                var newStill = Object.Instantiate(UIManager.Instance.backgroundPrefab, UIManager.Instance.stillCanvas.transform, false);
+                entity = newStill.GetComponent<BackgroundEntity>();
+                newStill.name = objName;
                 entity.resourceName = resourceName;
                 entity.SetImage(tex);
             }

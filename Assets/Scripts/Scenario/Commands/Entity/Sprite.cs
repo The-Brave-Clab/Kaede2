@@ -85,7 +85,7 @@ namespace Kaede2.Scenario.Commands
 
             if (duration == 0)
             {
-                Color originalColor = entity.GetColor();
+                var originalColor = entity.GetColor();
                 entity.SetColor(new(originalColor.r, originalColor.g, originalColor.b, alpha));
                 yield break;
             }

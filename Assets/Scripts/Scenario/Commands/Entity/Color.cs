@@ -1,22 +1,25 @@
 ﻿using System.Collections;
-using Kaede2.Scenario.Entities;
-using UnityEngine;
+using DG.Tweening;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class SpriteHide : ScenarioModule.Command
+    public class Color : ScenarioModule.Command
     {
         private readonly string entityName;
+        private readonly UnityEngine.Color color;
         private readonly float duration;
+        private readonly Ease ease;
         private readonly bool wait;
 
-        private SpriteEntity entity;
+        private ScenarioModule.Entity entity;
 
-        public SpriteHide(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public Color(ScenarioModule module, string[] arguments) : base(module, arguments)
         {
             entityName = OriginalArg(1);
-            duration = Arg(2, 0.0f);
-            wait = Arg(3, true);
+            color = new UnityEngine.Color(Arg(2, 0.0f), Arg(3, 0.0f), Arg(4, 0.0f), Arg(5, 1.0f));
+            duration = Arg(6, 0.0f);
+            ease = Arg(7, Ease.Linear);
+            wait = Arg(8, true);
         }
 
         public override ExecutionType Type => ExecutionTypeBasedOnWaitAndDuration(wait, duration);
@@ -30,22 +33,15 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Execute()
         {
-            if (entity == null)
-            {
-                Debug.LogError($"Sprite {entityName} not found");
-                yield break;
-            }
-
-            var color = entity.GetColor();
+            var originalColor = entity.GetColor();
 
             if (duration == 0)
             {
-                entity.SetColor(new(color.r, color.g, color.b, 0));
-                Object.Destroy(entity.gameObject);
+                entity.SetColor(color);
                 yield break;
             }
 
-            yield return entity.ColorAlpha(color, color.a, 0, duration, true);
+            yield return entity.ColorCommand(originalColor, color, duration, ease);
         }
     }
 }

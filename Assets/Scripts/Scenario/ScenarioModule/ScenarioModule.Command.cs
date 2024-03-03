@@ -9,6 +9,7 @@ using UnityEngine;
 using Kaede2.Utils;
 using Kaede2.Scenario.Commands;
 using Debug = UnityEngine.Debug;
+using Color = Kaede2.Scenario.Commands.Color;
 using Sprite = Kaede2.Scenario.Commands.Sprite;
 
 namespace Kaede2.Scenario
@@ -195,7 +196,7 @@ namespace Kaede2.Scenario
             { "del", typeof(Del) },
             { "replace", typeof(Replace) },
             { "clone", typeof(NotImplemented) },
-            { "color", typeof(NotImplemented) },
+            { "color", typeof(Color) },
             { "alias_text", typeof(AliasText) },
             { "set", typeof(Set) },
             { "log_message_load", typeof(NotImplemented) },
@@ -264,8 +265,8 @@ namespace Kaede2.Scenario
             { "camera_move", typeof(CameraMove) },
             { "camera_zoom", typeof(CameraZoom) }, // Not tested
             { "camera_default", typeof(CameraDefault) },
-            { "still", typeof(NotImplemented) },
-            { "still_off", typeof(NotImplemented) },
+            { "still", typeof(Still) },
+            { "still_off", typeof(StillOff) },
             { "still_move", typeof(NotImplemented) },
             { "bgm", typeof(BGM) },
             { "bgm_load", typeof(IntentionallyNotImplemented) },

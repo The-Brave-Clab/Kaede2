@@ -6,7 +6,7 @@ namespace Kaede2.Scenario.Commands
 {
     public class CaptionColor : ScenarioModule.Command
     {
-        private readonly Color color;
+        private readonly UnityEngine.Color color;
         private readonly bool setDefault;
 
         private CaptionBox captionBox;

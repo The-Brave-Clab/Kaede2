@@ -42,6 +42,9 @@ namespace Kaede2.Scenario
             variables = new();
             commands = new();
             currentCommandIndex = -1;
+
+            ActorAutoDelete = false;
+            LipSync = true;
         }
 
         private IEnumerator Start()
