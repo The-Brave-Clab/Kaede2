@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using DG.Tweening;
 using Kaede2.Scenario.Entities;
-using Kaede2.Scenario.UI;
 using UnityEngine;
 
 namespace Kaede2.Scenario.Commands

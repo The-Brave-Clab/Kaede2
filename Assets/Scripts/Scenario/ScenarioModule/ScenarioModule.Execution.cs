@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using Kaede2.Utils;
-using UnityEngine;
 
 namespace Kaede2.Scenario
 {

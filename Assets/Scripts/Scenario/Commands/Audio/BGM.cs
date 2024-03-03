@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using Kaede2.Scenario.Audio;
-using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {

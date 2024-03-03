@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Kaede2.Scenario.Entities;
 using Kaede2.Utils;
 using UnityEngine;

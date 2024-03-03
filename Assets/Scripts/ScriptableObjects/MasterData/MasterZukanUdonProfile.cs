@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 // ReSharper disable IdentifierTypo InconsistentNaming
 
 namespace Kaede2.ScriptableObjects
