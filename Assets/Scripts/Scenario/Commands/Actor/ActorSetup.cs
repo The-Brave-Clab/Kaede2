@@ -57,7 +57,7 @@ namespace Kaede2.Scenario.Commands
             newModel.GetComponent<RectTransform>().anchoredPosition = new Vector2(xPos, 0);
             newModel.name = readableName;
             entity = newModel.AddComponent<Live2DActorEntity>();
-            entity.Assets = asset;
+            entity.CreateWithAssets(asset);
         }
     }
 }

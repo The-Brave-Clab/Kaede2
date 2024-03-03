@@ -3,17 +3,17 @@ using Kaede2.Scenario.Entities;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class ActorEyeAbs : ScenarioModule.Command
+    public class Layer : ScenarioModule.Command
     {
-        private readonly string actorName;
-        private readonly float value;
+        private readonly string entityName;
+        private readonly int layer;
 
         private Live2DActorEntity entity;
 
-        public ActorEyeAbs(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public Layer(ScenarioModule module, string[] arguments) : base(module, arguments)
         {
-            actorName = OriginalArg(1);
-            value = Arg(2, 0.0f);
+            entityName = OriginalArg(1);
+            layer = Arg(2, 0);
         }
 
         public override ExecutionType Type => ExecutionType.Instant;
@@ -21,14 +21,13 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Setup()
         {
-            FindEntity(actorName, out entity);
+            FindEntity(entityName, out entity);
             yield break;
         }
 
         public override IEnumerator Execute()
         {
-            entity.AddEyeX = 0;
-            entity.AbsoluteEyeX = value;
+            entity.Layer = layer;
             yield break;
         }
     }

@@ -34,10 +34,20 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Execute()
         {
-            if (entity != null)
-                yield return entity.ActorAngle(angleX, angleY, duration);
-            else
+            if (entity == null)
+            {
                 Debug.LogError($"Live2D Actor Entity {actorName} not found");
+                yield break;
+            }
+
+            if (duration == 0f)
+            {
+                entity.AddAngleX = angleX;
+                entity.AddAngleY = angleY;
+                yield break;
+            }
+
+            yield return entity.ActorAngle(angleX, angleY, duration);
         }
     }
 }

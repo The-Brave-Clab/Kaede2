@@ -12,7 +12,7 @@ namespace Kaede2.Scenario.Entities
 {
     public partial class Live2DActorEntity : ScenarioModule.Entity, IStateSavable<ActorState>
     {
-        public Live2DAssets Assets { get; set; }
+        public Live2DAssets Assets { get; private set; }
 
         public bool Hidden { get; set; }
         public bool UseEyeBlink { get; set; }
@@ -79,25 +79,16 @@ namespace Kaede2.Scenario.Entities
             live2DCanvasPos = Matrix4x4.identity;
 
             mouthSynced = new();
-        }
-
-        private void Start()
-        {
-            if (Assets == null)
-            {
-                Debug.LogError($"Live2D model is not loaded! Please set {nameof(Assets)} first.");
-                Destroy(gameObject);
-                return;
-            }
-
-            CreateWithAssets();
 
             AllActors.Add(this);
 
             motionMgr = new();
             faceMotionMgr = new();
             eyeBlink = new();
-            
+        }
+
+        private void Start()
+        {
             const float canvasScale = 2.0f;
             const float scale = 1.05f;
             float modelWidth = live2DModel.getCanvasWidth();
@@ -123,8 +114,10 @@ namespace Kaede2.Scenario.Entities
             rectTransform = GetComponent<RectTransform>();
             rectTransform.sizeDelta = new Vector2(modelWidth, modelWidth) * 2;
 
-            StartMotion("mtn_idle00");
-            StartFaceMotion("face_idle01");
+            if (string.IsNullOrEmpty(currentMotionName))
+                StartMotion("mtn_idle00");
+            if (string.IsNullOrEmpty(currentFaceMotionName))
+                StartFaceMotion("face_idle01");
         }
 
         private void Update()
@@ -194,34 +187,6 @@ namespace Kaede2.Scenario.Entities
             AllActors.Remove(this);
             RenderTexture.ReleaseTemporary(targetTexture);
             base.OnDestroy();
-        }
-
-        private void CreateWithAssets()
-        {
-            live2DModel = Live2DModelUnity.loadModel(Assets.mocFile.bytes);
-            live2DModel.setRenderMode(live2d.Live2D.L2D_RENDER_DRAW_MESH_NOW);
-
-            for (int i = 0; i < Assets.textures.Length; i++)
-            {
-                if (Assets.textures[i] == null) continue;
-                live2DModel.setTexture(i, Assets.textures[i]);
-            }
-
-            foreach (var motionFile in Assets.motionFiles)
-            {
-                if (motionFile.files.Count < 1) continue;
-                // even if the json definition allows multiple files, we only load the first one
-                var loadedMotion = Live2DMotion.loadMotion(motionFile.files[0].bytes);
-                motions[motionFile.name] = loadedMotion;
-                if (motionFile.name == "mtn_idle") idleMotion = loadedMotion;
-            }
-
-            if (Assets.poseFile != null)
-            {
-                pose = L2DPose.load(Assets.poseFile.text);
-            }
-
-            live2DModel.update();
         }
 
         public override Color GetColor()

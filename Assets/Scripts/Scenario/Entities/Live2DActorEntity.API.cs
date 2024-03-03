@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using Kaede2.Live2D;
+using live2d;
+using live2d.framework;
 using UnityEngine;
 
 namespace Kaede2.Scenario.Entities
@@ -17,12 +20,52 @@ namespace Kaede2.Scenario.Entities
                 ReorderLayers();
             }
         }
+
+        public void CreateWithAssets(Live2DAssets assets)
+        {
+            Assets = assets;
+
+            live2DModel = Live2DModelUnity.loadModel(Assets.mocFile.bytes);
+            live2DModel.setRenderMode(live2d.Live2D.L2D_RENDER_DRAW_MESH_NOW);
+
+            for (int i = 0; i < Assets.textures.Length; i++)
+            {
+                if (Assets.textures[i] == null) continue;
+                live2DModel.setTexture(i, Assets.textures[i]);
+            }
+
+            foreach (var motionFile in Assets.motionFiles)
+            {
+                if (motionFile.files.Count < 1) continue;
+                // even if the json definition allows multiple files, we only load the first one
+                var loadedMotion = Live2DMotion.loadMotion(motionFile.files[0].bytes);
+                motions[motionFile.name] = loadedMotion;
+                if (motionFile.name == "mtn_idle") idleMotion = loadedMotion;
+            }
+
+            if (Assets.poseFile != null)
+            {
+                pose = L2DPose.load(Assets.poseFile.text);
+            }
+
+            live2DModel.update();
+        }
+
         public void StartMotion(string motionName, bool loop = false)
         {
             if (!FixMotionName(ref motionName)) return;
 
             var motion = motions[motionName];
             motion.setLoop(loop);
+
+            // fix: sometimes anim is used on face motions while the correct command to call is actor_face
+            if (motionName.StartsWith("face_"))
+            {
+                faceMotionMgr.startMotion(motion);
+                currentFaceMotionName = motionName;
+                return;
+            }
+
             nextMotion = motion;
             currentMotionName = motionName;
         }
@@ -138,13 +181,6 @@ namespace Kaede2.Scenario.Entities
 
         public IEnumerator ActorAngle(float angleX, float angleY, float duration)
         {
-            if (duration == 0f)
-            {
-                AddAngleX = angleX;
-                AddAngleY = angleY;
-                yield break;
-            }
-
             Sequence s = GetSequence();
             s.Append(DOVirtual.Float(AddAngleX, angleX, duration,
                 value => { AddAngleX = value; }));
@@ -157,12 +193,6 @@ namespace Kaede2.Scenario.Entities
 
         public IEnumerator ActorBodyAngle(float angleX, float duration)
         {
-            if (duration == 0f)
-            {
-                AddBodyAngleX = angleX;
-                yield break;
-            }
-
             Sequence s = GetSequence();
             s.Append(DOVirtual.Float(AddBodyAngleX, angleX, duration,
                 value => { AddBodyAngleX = value; }));
@@ -175,12 +205,6 @@ namespace Kaede2.Scenario.Entities
         {
             Position = targetPos;
             Hidden = false;
-
-            if (duration == 0)
-            {
-                Position = originalPos;
-                yield break;
-            }
 
             Sequence sequence = GetSequence();
             sequence.Append(DOVirtual.Vector3(targetPos, originalPos, duration, value => { Position = value; }));
@@ -206,13 +230,6 @@ namespace Kaede2.Scenario.Entities
 
         public IEnumerator ActorEyeAdd(float addAngle, float duration)
         {
-            if (duration == 0)
-            {
-                AddEyeX = addAngle;
-                AbsoluteEyeX = 0;
-                yield break;
-            }
-
             Sequence s = GetSequence();
             s.Append(DOVirtual.Float(0, addAngle, duration,
                 value =>
@@ -230,12 +247,6 @@ namespace Kaede2.Scenario.Entities
             RectTransform rt = GetComponent<RectTransform>();
 
             float originalScale = rt.localScale.x;
-
-            if (duration == 0)
-            {
-                rt.localScale = Vector3.one * scale;
-                yield break;
-            }
 
             Sequence s = GetSequence();
             s.Append(DOVirtual.Float(originalScale, scale, duration,

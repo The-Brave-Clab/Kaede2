@@ -32,10 +32,19 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Execute()
         {
-            if (entity != null)
-                yield return entity.ActorBodyAngle(angleX, duration);
-            else
+            if (entity == null)
+            {
                 Debug.LogError($"Live2D Actor Entity {actorName} not found");
+                yield break;
+            }
+
+            if (duration == 0f)
+            {
+                entity.AddBodyAngleX = angleX;
+                yield break;
+            }
+
+            yield return entity.ActorBodyAngle(angleX, duration);
         }
     }
 }

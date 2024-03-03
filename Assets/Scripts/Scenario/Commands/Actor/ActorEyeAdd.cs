@@ -32,10 +32,20 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Execute()
         {
-            if (entity != null)
-                yield return entity.ActorEyeAdd(value, duration);
-            else
+            if (entity == null)
+            {
                 Debug.LogError($"Live2D Actor Entity {actorName} not found");
+                yield break;
+            }
+
+            if (duration == 0)
+            {
+                entity.AddEyeX = value;
+                entity.AbsoluteEyeX = 0;
+                yield break;
+            }
+
+            yield return entity.ActorEyeAdd(value, duration);
         }
     }
 }

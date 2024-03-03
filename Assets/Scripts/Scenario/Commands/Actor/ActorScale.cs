@@ -38,6 +38,13 @@ namespace Kaede2.Scenario.Commands
                 yield break;
             }
 
+            RectTransform rt = entity.GetComponent<RectTransform>();
+            if (duration == 0)
+            {
+                rt.localScale = Vector3.one * scale;
+                yield break;
+            }
+
             yield return entity.ActorScale(scale, duration);
         }
     }

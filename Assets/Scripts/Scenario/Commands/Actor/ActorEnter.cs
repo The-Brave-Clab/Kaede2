@@ -38,6 +38,12 @@ namespace Kaede2.Scenario.Commands
                 yield break;
             }
 
+            if (duration == 0)
+            {
+                entity.Hidden = false;
+                yield break;
+            }
+
             Vector3 pos = entity.Position;
             Vector3 targetPos = pos;
             float num = 1920.0f / 2.0f + 1920.0f / 6.0f;

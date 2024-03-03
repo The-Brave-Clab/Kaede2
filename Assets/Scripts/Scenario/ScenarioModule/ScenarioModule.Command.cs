@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using DG.Tweening;
 using UnityEngine;
 using Kaede2.Utils;
 using Kaede2.Scenario.Commands;
+using Debug = UnityEngine.Debug;
 
 namespace Kaede2.Scenario
 {
@@ -131,9 +134,40 @@ namespace Kaede2.Scenario
 
             protected static ExecutionType ExecutionTypeBasedOnWaitAndDuration(bool wait, float duration)
             {
-                if (duration <= 0) return ExecutionType.Instant;
+                if (duration == 0) return ExecutionType.Instant;
                 if (wait) return ExecutionType.Synchronous;
                 return ExecutionType.Asynchronous;
+            }
+
+            [Conditional("UNITY_EDITOR")]
+            public void Log()
+            {
+                StringBuilder sb = new();
+                sb.Append($"<color=#00FF00>[{Time.frameCount}]</color>\t");
+                sb.Append($"<color=#FFFF00>{originalArgs[0]}</color>\n");
+
+                for (int i = 1; i < originalArgs.Length; i++)
+                {
+                    var resolved = Module.ResolveAlias(originalArgs[i]) ?? originalArgs[i];
+                    sb.Append($"\t<color=#00FFFF>{originalArgs[i]}</color>");
+
+                    if (originalArgs[0] != "set")
+                    {
+                        if (resolved != originalArgs[i])
+                            sb.Append($" <color=#FF00FF>({resolved})</color>");
+                        if (originalArgs[i] is not ("true" or "false"))
+                        {
+                            var parsed = Module.ResolveExpression(resolved);
+                            if (parsed != resolved)
+                                sb.Append($" <color=#FFFFFF>=> {parsed}</color>");
+                        }
+                    }
+                    
+                    if (i < originalArgs.Length - 1)
+                        sb.Append("\n");
+                }
+
+                Debug.Log(sb.ToString());
             }
         }
 
@@ -142,12 +176,12 @@ namespace Kaede2.Scenario
             { "mes", typeof(NotImplemented) },
             { "mes_auto", typeof(NotImplemented) },
             { "anim", typeof(Anim) },
-            { "layer", typeof(NotImplemented) },
-            { "move", typeof(NotImplemented) },
-            { "pos", typeof(NotImplemented) },
+            { "layer", typeof(Layer) },
+            { "move", typeof(Move) },
+            { "pos", typeof(Pos) },
             { "rename", typeof(NotImplemented) },
-            { "rotate", typeof(NotImplemented) },
-            { "scale", typeof(NotImplemented) },
+            { "rotate", typeof(Rotate) },
+            { "scale", typeof(Scale) },
             { "font", typeof(NotImplemented) },
             { "sprite", typeof(NotImplemented) },
             { "sprite_hide", typeof(NotImplemented) },
@@ -167,14 +201,14 @@ namespace Kaede2.Scenario
             { "auto_load", typeof(AutoLoad) },
             { "init_end", typeof(InitEnd) },
             { "mes_speed", typeof(NotImplemented) },
-            { "move_anim", typeof(NotImplemented) },
-            { "rotate_anim", typeof(NotImplemented) },
+            { "move_anim", typeof(MoveAnim) },
+            { "rotate_anim", typeof(RotateAnim) },
             { "scale_anim", typeof(NotImplemented) },
-            { "move_anim_stop", typeof(NotImplemented) },
-            { "rotate_anim_stop", typeof(NotImplemented) }, // Not tested
+            { "move_anim_stop", typeof(MoveAnimStop) },
+            { "rotate_anim_stop", typeof(RotateAnimStop) }, // Not tested
             { "scale_anim_stop", typeof(NotImplemented) },
-            { "pivot", typeof(NotImplemented) },
-            { "include", typeof(NotImplemented) },
+            { "pivot", typeof(Pivot) },
+            { "include", typeof(IntentionallyNotImplemented) },
             { "bg", typeof(BG) },
             { "bg_hide", typeof(BGHide) },
             { "bg_move", typeof(NotImplemented) },
@@ -233,14 +267,14 @@ namespace Kaede2.Scenario
             { "still_off", typeof(NotImplemented) },
             { "still_move", typeof(NotImplemented) },
             { "bgm", typeof(BGM) },
-            { "bgm_load", typeof(BGMLoad) },
+            { "bgm_load", typeof(IntentionallyNotImplemented) },
             { "bgm_stop", typeof(BGMStop) },
             { "se", typeof(SE) },
-            { "se_load", typeof(SELoad) },
+            { "se_load", typeof(IntentionallyNotImplemented) },
             { "se_stop", typeof(SEStop) },
             { "se_loop", typeof(SELoop) },
             { "voice", typeof(NotImplemented) },
-            { "voice_load", typeof(VoiceLoad) },
+            { "voice_load", typeof(IntentionallyNotImplemented) },
             { "voice_stop", typeof(NotImplemented) },
             { "voice_play", typeof(NotImplemented) },
             { "asset_load", typeof(NotImplemented) },

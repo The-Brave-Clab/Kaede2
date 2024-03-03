@@ -26,6 +26,8 @@ namespace Kaede2.Scenario.Commands
                 var statement = Module.Statement(i);
                 string[] statementArgs = statement.Split(new[] { '\t' }, StringSplitOptions.None);
 
+                // we ignore all "_load" commands since the resources they want to use are sometimes not used
+                // since we are doing a full scan, we can just find those are actually used
                 switch (statementArgs[0])
                 {
                     case "人物":
@@ -64,7 +66,7 @@ namespace Kaede2.Scenario.Commands
                         break;
                     }
                     case "se":
-                    case "se_load":
+                    // case "se_load":
                     case "se_loop":
                     {
                         string assetName = Module.ResolveAlias(statementArgs[1]);
@@ -72,22 +74,23 @@ namespace Kaede2.Scenario.Commands
                         break;
                     }
                     case "bgm":
-                    case "bgm_load":
+                    // case "bgm_load":
                     {
                         string assetName = Module.ResolveAlias(statementArgs[1]);
                         allLoadData.Add(new(LoadData.LoadType.BGM, assetName));
                         break;
                     }
                     case "mes":
+                    case "mes_auto":
                     {
                         allLoadData.Add(new(LoadData.LoadType.Voice, statementArgs[2]));
                         break;
                     }
-                    case "voice_load":
-                    {
-                        allLoadData.Add(new(LoadData.LoadType.Voice, statementArgs[1]));
-                        break;
-                    }
+                    // case "voice_load":
+                    // {
+                    //     allLoadData.Add(new(LoadData.LoadType.Voice, statementArgs[1]));
+                    //     break;
+                    // }
                     case "transform_prefab":
                     {
                         string id = statementArgs[2];

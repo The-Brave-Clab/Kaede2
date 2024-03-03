@@ -58,14 +58,14 @@ namespace Kaede2.Scenario
             }
 
             private List<Sequence> sequences;
-            private Dictionary<string, Sequence> animSequences = null;
+            private Dictionary<string, List<Sequence>> animSequences = null;
             private bool isBeingDestroyed = false;
             private RectTransform rectTransform;
 
             protected virtual void Awake()
             {
                 sequences = new List<Sequence>();
-                animSequences = new Dictionary<string, Sequence>();
+                animSequences = new();
                 rectTransform = transform as RectTransform;
             }
 
@@ -112,15 +112,12 @@ namespace Kaede2.Scenario
                 int loop, Ease ease)
             {
                 Sequence seq = GetSequence();
-                if (animSequences.ContainsKey("move"))
+                if (!animSequences.ContainsKey("move"))
                 {
-                    var oldSequence = animSequences["move"];
-                    oldSequence.Kill();
-                    animSequences.Remove("move");
-                    RemoveSequence(oldSequence);
+                    animSequences["move"] = new();
                 }
 
-                animSequences.Add("move", seq);
+                animSequences["move"].Add(seq);
                 seq.Append(DOVirtual.Vector3(originalPosition, targetPosition, duration,
                     value => Position = value));
                 if (rebound)
@@ -132,7 +129,7 @@ namespace Kaede2.Scenario
                 int loops = (loop < 0) ? loop : (loop + 1);
                 seq.SetLoops(loops, LoopType.Restart);
                 seq.SetEase(ease);
-                seq.OnComplete(() => { animSequences.Remove("move"); });
+                seq.OnComplete(() => { animSequences["move"].Remove(seq); });
                 seq.OnKill(() =>
                 {
                     if (isBeingDestroyed) return;
@@ -152,15 +149,12 @@ namespace Kaede2.Scenario
             {
                 Vector3 eulerAngles = transform.eulerAngles;
                 Sequence seq = GetSequence();
-                if (animSequences.ContainsKey("rotate"))
+                if (!animSequences.ContainsKey("rotate"))
                 {
-                    var oldSequence = animSequences["rotate"];
-                    oldSequence.Kill(false);
-                    RemoveSequence(oldSequence);
-                    animSequences.Remove("rotate");
+                    animSequences["rotate"] = new();
                 }
 
-                animSequences.Add("rotate", seq);
+                animSequences["rotate"].Add(seq);
                 seq.Append(DOVirtual.Float(originalAngle, targetAngle, duration,
                     value =>
                     {
@@ -180,7 +174,7 @@ namespace Kaede2.Scenario
                 int loops = loop < 0 ? loop : loop + 1;
                 seq.SetLoops(loops, LoopType.Restart);
                 seq.SetEase(ease);
-                seq.OnComplete(() => { animSequences.Remove("rotate"); });
+                seq.OnComplete(() => { animSequences["rotate"].Remove(seq); });
                 seq.OnKill(delegate
                 {
                     if (isBeingDestroyed) return;
@@ -199,21 +193,22 @@ namespace Kaede2.Scenario
                 RemoveSequence(seq);
             }
 
-            public IEnumerator StopAnim(string animName)
+            public void StopAnim(string animName)
             {
-                if (!animSequences.ContainsKey(animName)) yield break;
-                animSequences[animName].Kill();
-                animSequences.Remove(animName);
+                if (!animSequences.ContainsKey(animName))
+                {
+                    animSequences[animName] = new();
+                }
+
+                foreach (var seq in animSequences[animName])
+                {
+                    seq.Kill();
+                }
+                animSequences[animName].Clear();
             }
 
             public IEnumerator Move(Vector3 originalPosition, Vector3 targetPosition, float duration, Ease ease)
             {
-                if (duration == 0)
-                {
-                    Position = targetPosition;
-                    yield break;
-                }
-
                 Sequence seq = GetSequence();
                 seq.Append(DOVirtual.Vector3(originalPosition, targetPosition, duration,
                     value => Position = value));
@@ -226,12 +221,6 @@ namespace Kaede2.Scenario
             public IEnumerator Rotate(float originalAngle, float targetAngle, float duration, Ease ease)
             {
                 var eulerAngles = transform.eulerAngles;
-                if (duration == 0)
-                {
-                    eulerAngles.z = targetAngle;
-                    transform.eulerAngles = eulerAngles;
-                    yield break;
-                }
 
                 Sequence seq = GetSequence();
                 seq.Append(DOVirtual.Float(originalAngle, targetAngle, duration,
@@ -248,12 +237,6 @@ namespace Kaede2.Scenario
 
             public IEnumerator Scale(Vector3 originalScale, Vector3 targetScale, float duration, Ease ease)
             {
-                if (duration == 0)
-                {
-                    transform.localScale = targetScale;
-                    yield break;
-                }
-
                 Sequence seq = GetSequence();
                 seq.Append(DOVirtual.Vector3(originalScale, targetScale, duration,
                     value => transform.localScale = value));

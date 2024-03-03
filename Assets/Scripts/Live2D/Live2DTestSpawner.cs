@@ -37,7 +37,7 @@ namespace Kaede2.Live2D
             GameObject newModel = Instantiate(uiEmptyPrefab, renderCanvas.transform, false);
             newModel.transform.localPosition = Vector3.zero;
             Live2DActorEntity entity = newModel.AddComponent<Live2DActorEntity>();
-            entity.Assets = loadHandle.Result;
+            entity.CreateWithAssets(loadHandle.Result);
         }
 
         private void OnDestroy()

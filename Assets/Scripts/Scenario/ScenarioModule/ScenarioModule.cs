@@ -141,6 +141,27 @@ namespace Kaede2.Scenario
             return (T) Convert.ChangeType(result, typeof(T));
         }
 
+#if UNITY_EDITOR
+        private string ResolveExpression(string expression)
+        {
+            try
+            {
+                var exp = new Expression(expression);
+                foreach (var v in variables)
+                {
+                    exp.Parameters[v.Key] = v.Value;
+                }
+
+                exp.Evaluate();
+                return exp.Evaluate().ToString();
+            }
+            catch (Exception)
+            {
+                return expression;
+            }
+        }
+#endif
+
         #endregion
 
         #region Alias
