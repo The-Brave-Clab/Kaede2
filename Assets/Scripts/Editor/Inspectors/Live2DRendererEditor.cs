@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Kaede2.Scenario.Entities;
 using UnityEditor;
 using UnityEngine;
 
-namespace Y3ADV.Editor
+namespace Kaede2.Editor.Inspectors
 {
     [CustomEditor(typeof(Live2DActorEntity))]
     public class Live2DActorEntityEditor : UnityEditor.Editor

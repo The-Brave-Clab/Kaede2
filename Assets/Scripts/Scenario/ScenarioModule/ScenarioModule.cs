@@ -20,9 +20,8 @@ namespace Kaede2.Scenario
         public List<GameObject> EffectPrefabs;
 
 #if UNITY_EDITOR
-        [SerializeField]
         [Header("For editor only")]
-        private string defaultScenarioName;
+        public string defaultScenarioName;
 #endif
 
         // states
