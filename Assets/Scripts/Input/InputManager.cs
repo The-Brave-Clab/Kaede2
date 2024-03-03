@@ -6,7 +6,12 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.InputSystem.Users;
 using UnityEngine.InputSystem.DualShock;
+#if UNITY_IOS
+using UnityEngine.InputSystem.iOS;
+#endif
+#if UNITY_EDITOR || !(UNITY_ANDROID || UNITY_IOS || UNITY_WEBGL)
 using UnityEngine.InputSystem.Switch;
+#endif
 using UnityEngine.InputSystem.XInput;
 using Kaede2.Utils;
 
@@ -114,9 +119,16 @@ namespace Kaede2.Input
                 Keyboard or Mouse => InputDeviceType.KeyboardAndMouse,
                 Touchscreen => InputDeviceType.Touchscreen,
                 XInputController => InputDeviceType.XboxOneController,
+#if UNITY_EDITOR || !(UNITY_ANDROID || UNITY_IOS || UNITY_WEBGL)
                 DualSenseGamepadHID => InputDeviceType.DualSenseController,
+#endif
+#if UNITY_IOS
+                DualSenseGampadiOS => InputDeviceType.DualSenseController,
+#endif
                 DualShockGamepad => InputDeviceType.DualShock4Controller,
+#if UNITY_EDITOR || !(UNITY_ANDROID || UNITY_IOS || UNITY_WEBGL)
                 SwitchProControllerHID => InputDeviceType.SwitchProController,
+#endif
                 Gamepad => InputDeviceType.GeneralGamepad,
                 _ => InputDeviceType.GeneralGamepad
             };
