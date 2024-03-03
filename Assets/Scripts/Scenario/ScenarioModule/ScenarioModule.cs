@@ -17,8 +17,7 @@ namespace Kaede2.Scenario
 
         public int StatementCount => preprocessedStatements.Count;
 
-        [SerializeField]
-        private List<GameObject> effectPrefabs;
+        public List<GameObject> EffectPrefabs;
 
 #if UNITY_EDITOR
         [SerializeField]
