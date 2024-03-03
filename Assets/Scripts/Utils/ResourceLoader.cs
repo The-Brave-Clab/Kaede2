@@ -54,9 +54,9 @@ namespace Kaede2.Utils
 
         // scenario_common
 
-        public static LoadAddressableHandle<Sprite> LoadScenarioBackground(string bgName)
+        public static LoadAddressableHandle<Texture2D> LoadScenarioBackground(string bgName)
         {
-            return Load<Sprite>($"scenario_common/bg/{bgName}.png");
+            return Load<Texture2D>($"scenario_common/bg/{bgName}.png");
         }
 
         public static LoadAddressableHandle<Sprite> LoadScenarioSprite(string spriteName)
@@ -121,9 +121,9 @@ namespace Kaede2.Utils
             return Load<AudioClip>($"scenario/{scenario}/voice/{voiceName}.wav");
         }
 
-        public static LoadAddressableHandle<Sprite> LoadScenarioStill(string scenario, string stillImage)
+        public static LoadAddressableHandle<Texture2D> LoadScenarioStill(string scenario, string stillImage)
         {
-            return Load<Sprite>($"scenario/{scenario}/still/{stillImage}.png");
+            return Load<Texture2D>($"scenario/{scenario}/still/{stillImage}.png");
         }
     }
 }

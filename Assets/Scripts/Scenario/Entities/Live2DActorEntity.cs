@@ -107,7 +107,7 @@ namespace Kaede2.Scenario.Entities
             live2DCanvasPos = Matrix4x4.Ortho(lowBound, highBound, highBound, lowBound, -50.0f, 50.0f);
 
             int size = (int)(modelWidth * canvasScale);
-            targetTexture = RenderTexture.GetTemporary(size, size, 32);
+            targetTexture = RenderTexture.GetTemporary(size, size, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Default, 8);
             targetTexture.name = $"{gameObject.name} RT";
 
             RenderTexture.active = targetTexture;
@@ -192,6 +192,7 @@ namespace Kaede2.Scenario.Entities
         {
             live2DModel?.releaseModel();
             AllActors.Remove(this);
+            RenderTexture.ReleaseTemporary(targetTexture);
             base.OnDestroy();
         }
 
@@ -232,8 +233,6 @@ namespace Kaede2.Scenario.Entities
         {
             rawImage.color = color;
         }
-
-        public override float ScaleScalar => 1.0f;
 
         protected override Vector3 TransformVector(Vector3 vec)
         {

@@ -13,8 +13,8 @@ namespace Kaede2.Scenario
             public TextAsset aliasText = null;
             public Dictionary<string, Live2DAssets> actors = new();
             public Dictionary<string, Sprite> sprites = new();
-            public Dictionary<string, Sprite> stills = new();
-            public Dictionary<string, Sprite> backgrounds = new();
+            public Dictionary<string, Texture2D> stills = new();
+            public Dictionary<string, Texture2D> backgrounds = new();
             public Dictionary<string, AudioClip> soundEffects = new();
             public Dictionary<string, AudioClip> backgroundMusics = new();
             public Dictionary<string, AudioClip> voices = new();

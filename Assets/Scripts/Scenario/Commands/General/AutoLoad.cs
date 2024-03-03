@@ -142,14 +142,14 @@ namespace Kaede2.Scenario.Commands
                     {
                         var handle = ResourceLoader.LoadScenarioStill(ScenarioModule.ScenarioName, data.resourceName);
                         Module.RegisterLoadHandle(handle);
-                        group.Add(SendHandleWithFinishCallback(handle, s => Module.ScenarioResource.stills[data.resourceName] = s));
+                        group.Add(SendHandleWithFinishCallback(handle, t => Module.ScenarioResource.stills[data.resourceName] = t));
                         break;
                     }
                     case LoadData.LoadType.Background:
                     {
                         var handle = ResourceLoader.LoadScenarioBackground(data.resourceName);
                         Module.RegisterLoadHandle(handle);
-                        group.Add(SendHandleWithFinishCallback(handle, s => Module.ScenarioResource.backgrounds[data.resourceName] = s));
+                        group.Add(SendHandleWithFinishCallback(handle, t => Module.ScenarioResource.backgrounds[data.resourceName] = t));
                         break;
                     }
                     case LoadData.LoadType.SE:

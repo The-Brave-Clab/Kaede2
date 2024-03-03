@@ -9,6 +9,7 @@ namespace Kaede2.Scenario.UI
         #region Serialized
 
         public GameObject emptyUIObjectPrefab;
+        public GameObject backgroundPrefab;
 
         public Canvas uiCanvas;
 

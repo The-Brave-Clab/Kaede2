@@ -38,8 +38,6 @@ namespace Kaede2.Scenario
             public static float ScreenWidthScalar =>
                 GameSettings.Fixed16By9 ? 1.0f : Screen.width * 9.0f / 16.0f / Screen.height;
 
-            public virtual float ScaleScalar => 1.0f;
-
             protected virtual Vector3 TransformVector(Vector3 vec)
             {
                 return vec;
