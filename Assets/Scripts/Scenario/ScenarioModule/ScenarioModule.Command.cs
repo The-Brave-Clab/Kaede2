@@ -158,7 +158,7 @@ namespace Kaede2.Scenario
             { "bg_effect_prefab", typeof(NotImplemented) },
             { "bg_effect_prefab_hide", typeof(NotImplemented) },
             { "del", typeof(Del) },
-            { "replace", typeof(NotImplemented) },
+            { "replace", typeof(Replace) },
             { "clone", typeof(NotImplemented) },
             { "color", typeof(NotImplemented) },
             { "alias_text", typeof(AliasText) },

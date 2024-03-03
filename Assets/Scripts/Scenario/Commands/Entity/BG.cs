@@ -57,7 +57,7 @@ namespace Kaede2.Scenario.Commands
             {
                 if (!Module.ScenarioResource.backgrounds.TryGetValue(bgName, out var tex))
                 {
-                    Debug.LogError($"Background model {bgName} not found");
+                    Debug.LogError($"Background texture {bgName} not found");
                     yield break;
                 }
 
