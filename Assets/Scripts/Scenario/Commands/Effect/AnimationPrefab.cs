@@ -13,7 +13,7 @@ namespace Kaede2.Scenario.Commands
         private readonly string objectName;
         private readonly Vector2 position;
         private readonly float scale;
-        private bool wait;
+        private readonly bool wait;
 
         public AnimationPrefab(ScenarioModule module, string[] arguments) : base(module, arguments)
         {
@@ -46,12 +46,9 @@ namespace Kaede2.Scenario.Commands
             AnimationPrefabEntity entity = instantiated.AddComponent<AnimationPrefabEntity>();
             entity.Position = position;
 
-            // we don't see a command with wait=true in the script
-            // this behavior is guessed and could potentially result in a deadlock
-            if (wait)
-            {
-                yield return new WaitUntil(() => entity == null);
-            }
+            // bg_effect_prefab command always has wait=true while animation_prefab always has wait=false
+            // it seems that this parameter actually affects nothing
+            // we at least use it to define the execution type
         }
     }
 }
