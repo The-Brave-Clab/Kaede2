@@ -27,7 +27,9 @@ namespace Kaede2.Scenario
 
         public IEnumerator ExecuteSingle(Command command)
         {
+#if UNITY_EDITOR
             command.Log();
+#endif
 
             switch (command.Type)
             {

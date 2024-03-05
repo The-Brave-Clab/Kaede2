@@ -141,7 +141,7 @@ namespace Kaede2.Scenario
                 return ExecutionType.Asynchronous;
             }
 
-            [Conditional("UNITY_EDITOR")]
+#if UNITY_EDITOR
             public void Log()
             {
                 StringBuilder sb = new();
@@ -171,6 +171,7 @@ namespace Kaede2.Scenario
 
                 Debug.Log(sb.ToString());
             }
+#endif
         }
 
         private static Dictionary<string, Type> CommandTypes => new()
