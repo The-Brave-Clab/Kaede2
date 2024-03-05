@@ -7,6 +7,15 @@ namespace Kaede2.Scenario.UI
     [RequireComponent(typeof(RectTransform))]
     public class NamePanel : MonoBehaviour
     {
+        [SerializeField]
+        private float minWidth = 400f;
+
+        [SerializeField]
+        private float additionalWidth = 140f;
+
+        [SerializeField]
+        private float height = 68f;
+
         private RectTransform rt;
 
         public TextMeshProUGUI text;
@@ -19,8 +28,8 @@ namespace Kaede2.Scenario.UI
         void Update()
         {
             rt.sizeDelta = new Vector2(
-                Mathf.Max(400, text.preferredWidth + 140f), 
-                68f);
+                Mathf.Max(minWidth, text.preferredWidth + additionalWidth), 
+                height);
         }
     }
 }

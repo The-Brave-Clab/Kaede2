@@ -10,6 +10,7 @@ namespace Kaede2.Scenario.UI
         private Image image = null;
         private Coroutine breatheCoroutine = null;
 
+        public bool curved = true;
         public float periodInSeconds = 1.0f;
 
         private void Awake()
@@ -23,7 +24,10 @@ namespace Kaede2.Scenario.UI
             float t = 0.0f;
             while (true)
             {
-                color.a = Mathf.Clamp01(Mathf.Sqrt(2 * Mathf.Abs(t - Mathf.Floor(t + 0.5f))) * 1.5f);
+                color.a = curved ?
+                    Mathf.Clamp01(Mathf.Sqrt(2 * Mathf.Abs(t - Mathf.Floor(t + 0.5f))) * 1.5f) :
+                    Mathf.Clamp01(Mathf.Abs(t - Mathf.Floor(t + 0.5f)) * 2.0f);
+
                 image.color = color;
 
                 t += Time.deltaTime / periodInSeconds;
