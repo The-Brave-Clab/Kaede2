@@ -61,11 +61,7 @@ namespace Kaede2.Scenario.Commands
                     yield break;
                 }
 
-                var newBG = Object.Instantiate(UIManager.Instance.backgroundPrefab, UIManager.Instance.backgroundCanvas.transform, false);
-                entity = newBG.GetComponent<BackgroundEntity>();
-                newBG.name = objName;
-                entity.resourceName = resourceName;
-                entity.SetImage(tex);
+                entity = CreateBackground(UIManager.Instance.backgroundCanvas.transform, objName, resourceName, tex);
             }
 
 
@@ -73,6 +69,16 @@ namespace Kaede2.Scenario.Commands
             var rectTransform = entity.transform as RectTransform;
             rectTransform!.localScale = targetScale;
             entity.gameObject.SetActive(true);
+        }
+
+        public static BackgroundEntity CreateBackground(Transform parent, string objectName, string resourceName, Texture2D texture)
+        {
+            var newBG = Object.Instantiate(UIManager.Instance.backgroundPrefab, parent, false);
+            var entity = newBG.GetComponent<BackgroundEntity>();
+            newBG.name = objectName;
+            entity.resourceName = resourceName;
+            entity.SetImage(texture);
+            return entity;
         }
     }
 }

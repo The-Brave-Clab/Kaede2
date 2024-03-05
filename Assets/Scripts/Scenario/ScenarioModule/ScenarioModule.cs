@@ -8,9 +8,10 @@ using UnityEngine;
 
 namespace Kaede2.Scenario
 {
-    public partial class ScenarioModule : Singleton<ScenarioModule>
+    public partial class ScenarioModule : Singleton<ScenarioModule>, IStateSavable<ScenarioSyncPoint>
     {
         public static string ScenarioName;
+        public static ScenarioSyncPoint? SyncPointToBeRestored;
 
         private List<ResourceLoader.HandleBase> handles;
         private List<string> preprocessedStatements;
@@ -25,6 +26,7 @@ namespace Kaede2.Scenario
 #endif
 
         // states
+        public bool Initialized { get; set; }
         public bool ActorAutoDelete { get; set; }
         public bool LipSync { get; set; }
 
@@ -40,6 +42,7 @@ namespace Kaede2.Scenario
             commands = new();
             currentCommandIndex = -1;
 
+            Initialized = false;
             ActorAutoDelete = false;
             LipSync = true;
         }
@@ -114,6 +117,7 @@ namespace Kaede2.Scenario
         {
             return preprocessedStatements[index];
         }
+
         #region Variables
 
         private Dictionary<string, Expression> variables;

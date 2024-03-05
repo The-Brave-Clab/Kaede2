@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Kaede2.Scenario
 {
@@ -19,7 +20,7 @@ namespace Kaede2.Scenario
     [Serializable]
     public struct ScenarioSyncPoint : IState<ScenarioSyncPoint>
     {
-        public int currentStatementIndex;
+        [FormerlySerializedAs("currentStatementIndex")] public int currentCommandIndex;
         public bool initialized;
 
         public List<ActorState> actors;
@@ -35,7 +36,7 @@ namespace Kaede2.Scenario
         {
             return new()
             {
-                currentStatementIndex = 0,
+                currentCommandIndex = 0,
                 initialized = false,
                 actors = new(),
                 sprites = new(),
@@ -55,7 +56,7 @@ namespace Kaede2.Scenario
         {
             ScenarioSyncPoint copied = new()
             {
-                currentStatementIndex = currentStatementIndex,
+                currentCommandIndex = currentCommandIndex,
                 initialized = initialized,
                 actors = new(),
                 sprites = new(),
@@ -89,7 +90,7 @@ namespace Kaede2.Scenario
         
         public bool Equals(ScenarioSyncPoint other)
         {
-            return currentStatementIndex == other.currentStatementIndex &&
+            return currentCommandIndex == other.currentCommandIndex &&
                    initialized == other.initialized &&
                    actors.SequenceEqual(other.actors) &&
                    sprites.SequenceEqual(other.sprites) &&
@@ -109,7 +110,7 @@ namespace Kaede2.Scenario
         public override int GetHashCode()
         {
             var hashCode = new HashCode();
-            hashCode.Add(currentStatementIndex);
+            hashCode.Add(currentCommandIndex);
             hashCode.Add(initialized);
             foreach (var a in actors)
             {
@@ -181,7 +182,8 @@ namespace Kaede2.Scenario
     [Serializable]
     public struct ActorState : IState<ActorState>
     {
-        public string name;
+        [FormerlySerializedAs("name")] public string objectName;
+        public string modelName;
         public string currentMotion;
         public string currentFaceMotion;
 
@@ -205,7 +207,7 @@ namespace Kaede2.Scenario
         {
             ActorState copied = new()
             {
-                name = name,
+                objectName = objectName,
                 currentMotion = currentMotion,
                 currentFaceMotion = currentFaceMotion,
                 layer = layer,
@@ -229,7 +231,7 @@ namespace Kaede2.Scenario
 
         public bool Equals(ActorState other)
         {
-            return name == other.name &&
+            return objectName == other.objectName &&
                    currentMotion == other.currentMotion &&
                    currentFaceMotion == other.currentFaceMotion &&
                    layer == other.layer &&
@@ -251,7 +253,7 @@ namespace Kaede2.Scenario
         public override int GetHashCode()
         {
             var hashCode = new HashCode();
-            hashCode.Add(name);
+            hashCode.Add(objectName);
             hashCode.Add(currentMotion);
             hashCode.Add(currentFaceMotion);
             hashCode.Add(layer);

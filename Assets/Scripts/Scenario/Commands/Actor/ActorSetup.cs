@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Kaede2.Live2D;
 using Kaede2.Scenario.Entities;
 using Kaede2.Scenario.UI;
 using UnityEngine;
@@ -53,11 +54,17 @@ namespace Kaede2.Scenario.Commands
                 yield break;
             }
 
+            CreateActor(new(xPos, 0), readableName, asset);
+        }
+
+        public static Live2DActorEntity CreateActor(Vector2 position, string readableName, Live2DAssets asset)
+        {
             var newModel = Object.Instantiate(UIManager.Instance.emptyUIObjectPrefab, UIManager.Instance.live2DCanvas.transform, false);
-            newModel.GetComponent<RectTransform>().anchoredPosition = new Vector2(xPos, 0);
+            newModel.GetComponent<RectTransform>().anchoredPosition = position;
             newModel.name = readableName;
-            entity = newModel.AddComponent<Live2DActorEntity>();
+            var entity = newModel.AddComponent<Live2DActorEntity>();
             entity.CreateWithAssets(asset);
+            return entity;
         }
     }
 }

@@ -238,7 +238,8 @@ namespace Kaede2.Scenario.Entities
 
             return new()
             {
-                name = gameObject.name,
+                objectName = gameObject.name,
+                modelName = Assets.modelName,
                 currentMotion = currentMotionName,
                 currentFaceMotion = currentFaceMotionName,
 
@@ -262,7 +263,13 @@ namespace Kaede2.Scenario.Entities
 
         public void RestoreState(ActorState state)
         {
-            if (gameObject.name != state.name)
+            if (gameObject.name != state.objectName)
+            {
+                Debug.LogError("Applying state to wrong model!");
+                return;
+            }
+
+            if (Assets.modelName != state.modelName)
             {
                 Debug.LogError("Applying state to wrong model!");
                 return;

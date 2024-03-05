@@ -291,7 +291,7 @@ namespace Kaede2.Scenario
             { "function", typeof(IntentionallyNotImplemented) },
             { "endfunction", typeof(IntentionallyNotImplemented) },
             { "sub", typeof(IntentionallyNotImplemented) },
-            { "end", typeof(NotImplemented) },
+            { "end", typeof(End) },
         };
     }
 }

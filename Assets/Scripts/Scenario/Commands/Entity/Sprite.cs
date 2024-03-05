@@ -66,17 +66,7 @@ namespace Kaede2.Scenario.Commands
                     yield break;
                 }
 
-                var newSprite = Object.Instantiate(UIManager.Instance.emptyUIObjectPrefab, UIManager.Instance.spriteCanvas.transform, false);
-                newSprite.name = objName;
-                var image = newSprite.AddComponent<Image>();
-                image.sprite = sprite;
-                entity = newSprite.AddComponent<SpriteEntity>();
-                entity.resourceName = resourceName;
-                entity.SetColor(new(1, 1, 1, 0));
-                var rectTransform = newSprite.GetComponent<RectTransform>();
-                rectTransform.sizeDelta = new Vector2(sprite.texture.width, sprite.texture.height);
-                rectTransform.pivot = Vector2.zero;
-                rectTransform.anchoredPosition3D = Vector3.zero;
+                entity = CreateSprite(objName, resourceName, sprite);
             }
 
             entity.transform.localScale = Vector3.one * scale;
@@ -92,6 +82,22 @@ namespace Kaede2.Scenario.Commands
             }
 
             yield return entity.ColorAlpha(entity.GetColor(), 0, alpha, duration, false);
+        }
+
+        public static SpriteEntity CreateSprite(string objectName, string resourceName, UnityEngine.Sprite sprite)
+        {
+            var newSprite = Object.Instantiate(UIManager.Instance.emptyUIObjectPrefab, UIManager.Instance.spriteCanvas.transform, false);
+            newSprite.name = objectName;
+            var image = newSprite.AddComponent<Image>();
+            image.sprite = sprite;
+            var entity = newSprite.AddComponent<SpriteEntity>();
+            entity.resourceName = resourceName;
+            entity.SetColor(new(1, 1, 1, 0));
+            var rectTransform = newSprite.GetComponent<RectTransform>();
+            rectTransform.sizeDelta = new Vector2(sprite.texture.width, sprite.texture.height);
+            rectTransform.pivot = Vector2.zero;
+            rectTransform.anchoredPosition3D = Vector3.zero;
+            return entity;
         }
     }
 }
