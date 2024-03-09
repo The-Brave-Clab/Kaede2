@@ -21,11 +21,11 @@ namespace Kaede2.Input
     {
         private InputUser user;
         private InputDeviceType currentDeviceType;
-        private InputActionAsset actionAsset;
+        private Kaede2InputAction inputAction;
 
         public static InputUser User => Instance.user;
         public static InputDeviceType CurrentDeviceType => Instance.currentDeviceType;
-        public static InputActionAsset ActionAsset => Instance.actionAsset;
+        public static Kaede2InputAction InputAction => Instance.inputAction;
 
         public static event Action<InputDeviceType> onDeviceTypeChanged;
 
@@ -38,7 +38,7 @@ namespace Kaede2.Input
             var defaultDevice = InputSystem.devices.First(d => d != null);
             user = InputUser.PerformPairingWithDevice(defaultDevice);
             currentDeviceType = defaultDevice.GetDeviceType();
-            actionAsset = Resources.Load<InputActionAsset>("Kaede2InputAction");
+            inputAction = new();
             ChangeInputDevice(defaultDevice);
 
             InputUser.listenForUnpairedDeviceActivity = 1;
@@ -98,15 +98,15 @@ namespace Kaede2.Input
 
         private static void ChangeControlScheme(InputDeviceType type)
         {
-            var controlSchemeName = type switch
+            var controlScheme = type switch
             {
-                InputDeviceType.KeyboardAndMouse => "Keyboard&Mouse",
-                InputDeviceType.Touchscreen => "Touchscreen",
-                _ => "Gamepad"
+                InputDeviceType.KeyboardAndMouse => InputAction.KeyboardMouseScheme,
+                InputDeviceType.Touchscreen => InputAction.TouchscreenScheme,
+                InputDeviceType.SwitchProController => InputAction.GamepadNintendoStyleScheme,
+                _ => InputAction.GamepadScheme
             };
-
-            var controlScheme = Instance.actionAsset.FindControlScheme(controlSchemeName);
-            if (controlScheme != null) Instance.user.ActivateControlScheme(controlScheme.Value);
+            User.ActivateControlScheme(controlScheme);
+            InputAction.bindingMask = InputBinding.MaskByGroup(controlScheme.bindingGroup);
         }
     }
 

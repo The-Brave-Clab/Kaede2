@@ -80,15 +80,17 @@ namespace Kaede2.UI
                 InputActionMap actionMap;
                 if (Application.isPlaying)
                 {
-                    actionMap = InputManager.ActionAsset.FindActionMap(actionMapName);
+                    actionMap = InputManager.InputAction.asset.FindActionMap(actionMapName);
                 }
                 else
                 {
+                    // when not playing we can't access InputManager
+                    // so load the action asset from AssetDatabase directly
                     var actionAsset = UnityEditor.AssetDatabase.LoadAssetAtPath<InputActionAsset>("Assets/Settings/Resources/Kaede2InputAction.inputactions");
                     actionMap = actionAsset.FindActionMap(actionMapName);
                 }
 #else
-                var actionMap = InputManager.ActionAsset.FindActionMap(actionMapName);
+                var actionMap = InputManager.InputAction.asset.FindActionMap(actionMapName);
 #endif
                 if (actionMap == null)
                 {
@@ -106,21 +108,13 @@ namespace Kaede2.UI
                     continue;
                 }
 
-                var mask = new InputBinding
-                {
-#if UNITY_EDITOR
-                    groups = "Keyboard&Mouse"
-#else
-                    groups = InputManager.User.controlScheme.GetValueOrDefault().bindingGroup
-#endif
-                };
-
-#if UNITY_EDITOR
+                var bindingGroup = "Keyboard&Mouse";
                 if (Application.isPlaying)
                 {
-                    mask.groups = InputManager.User.controlScheme.GetValueOrDefault().bindingGroup;
+                    bindingGroup = InputManager.User.controlScheme.GetValueOrDefault().bindingGroup;
                 }
-#endif
+
+                var mask = InputBinding.MaskByGroup(bindingGroup);
 
                 HashSet<SpriteId> spriteIds = new();
                 foreach (var binding in action.bindings)

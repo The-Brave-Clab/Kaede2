@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Kaede2.Input;
 using Kaede2.Utils;
 using NCalc;
 using UnityEngine;
@@ -45,6 +46,8 @@ namespace Kaede2.Scenario
             Initialized = false;
             ActorAutoDelete = false;
             LipSync = true;
+
+            InputManager.InputAction.Scenario.Enable();
         }
 
         private IEnumerator Start()
@@ -94,6 +97,8 @@ namespace Kaede2.Scenario
             {
                 handle.Dispose();
             }
+
+            InputManager.InputAction.Scenario.Disable();
         }
 
         private static List<string> GetStatementsFromScript(string script)

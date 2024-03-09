@@ -1,8 +1,10 @@
 ﻿using System.Collections;
+using Kaede2.Input;
 using Kaede2.Scenario.Audio;
 using Kaede2.Scenario.Entities;
 using Kaede2.Scenario.UI;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Kaede2.Scenario.Commands
 {
@@ -15,6 +17,7 @@ namespace Kaede2.Scenario.Commands
 
         private Live2DActorEntity entity;
 
+        // ReSharper disable once MemberCanBeProtected.Global
         public Mes(ScenarioModule module, string[] arguments) : base(module, arguments)
         {
             var resourceSplit = OriginalArg(1).Split(':');
@@ -65,8 +68,7 @@ namespace Kaede2.Scenario.Commands
                     entity.SetLip(AudioManager.Instance.GetVoiceVolume() * 128);
                 }
 
-                bool confirmButtonPressed = false; // TODO
-                if (confirmButtonPressed)
+                if (InputManager.InputAction.Scenario.Next.triggered)
                 {
                     if (!messageBox.IsCompleteDisplayText) // if text not finished displaying, skip display
                         messageBox.SkipDisplay();
@@ -80,7 +82,7 @@ namespace Kaede2.Scenario.Commands
                 if (messageBox.IsCompleteDisplayText)
                     extraTimeAfterTextFinishDisplay -= Time.deltaTime;
 
-                bool autoMode = true; // TODO
+                bool autoMode = false; // TODO
 
                 // auto quit in auto mode
                 if (!AudioManager.Instance.IsVoicePlaying() && extraTimeAfterTextFinishDisplay <= 0 && autoMode)
