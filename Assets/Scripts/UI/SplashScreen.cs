@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Kaede2.Input;
 using Kaede2.Scenario;
+using Kaede2.Utils;
 using UnityEngine;
 using UnityEngine.UI;
-using Kaede2.Utils;
 using UnityEngine.SceneManagement;
 
 namespace Kaede2.UI
@@ -31,6 +32,8 @@ namespace Kaede2.UI
             {
                 image.color = new Color(1, 1, 1, 0);
             }
+
+            InputManager.InputAction.SplashScreen.Enable();
         }
 
         private IEnumerator Start()
@@ -44,6 +47,11 @@ namespace Kaede2.UI
             yield return SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Single);
         }
 
+        private void OnDestroy()
+        {
+            InputManager.InputAction.SplashScreen.Disable();
+        }
+
         private void SetSplashSpritesColor(Color c)
         {
             foreach (var image in splashSprites)
@@ -54,12 +62,25 @@ namespace Kaede2.UI
 
         private IEnumerator SplashColor()
         {
-            yield return new WaitForSeconds(delayDuration);
-
             float currentTime = Time.time;
+
+            bool shouldSkip = false;
+
+            while (Time.time - currentTime < delayDuration)
+            {
+                if (shouldSkip) break;
+                shouldSkip = InputManager.InputAction.SplashScreen.Skip.triggered;
+
+                yield return null;
+            }
+
+            currentTime = Time.time;
 
             while (Time.time - currentTime < fadeDuration)
             {
+                if (shouldSkip) break;
+                shouldSkip = InputManager.InputAction.SplashScreen.Skip.triggered;
+
                 var a = Mathf.Clamp01((Time.time - currentTime) / fadeDuration);
                 a = Mathf.Pow(a, 4);
                 SetSplashSpritesColor(new Color(1, 1, 1, a));
@@ -68,12 +89,23 @@ namespace Kaede2.UI
             
             SetSplashSpritesColor(new Color(1, 1, 1, 1));
 
-            yield return new WaitForSeconds(splashDuration);
+            shouldSkip = false;
+
+            while (Time.time - currentTime < splashDuration)
+            {
+                if (shouldSkip) break;
+                shouldSkip = InputManager.InputAction.SplashScreen.Skip.triggered;
+
+                yield return null;
+            }
 
             currentTime = Time.time;
             
             while (Time.time - currentTime < fadeDuration)
             {
+                if (shouldSkip) break;
+                shouldSkip = InputManager.InputAction.SplashScreen.Skip.triggered;
+
                 var a = Mathf.Clamp01(1 - (Time.time - currentTime) / fadeDuration);
                 a = Mathf.Pow(a, 4);
                 SetSplashSpritesColor(new Color(1, 1, 1, a));
