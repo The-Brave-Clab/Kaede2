@@ -40,7 +40,7 @@ namespace Kaede2.Scenario.Audio
         {
             if (bgmAudioInfo != null)
             {
-                if (IsDead(bgmAudioInfo.Source))
+                if (IsDead(bgmAudioInfo))
                 {
                     Destroy(bgmAudioInfo);
                     bgmAudioInfo = null;
@@ -49,7 +49,7 @@ namespace Kaede2.Scenario.Audio
 
             if (voiceAudioInfo != null)
             {
-                if (IsDead(voiceAudioInfo.Source))
+                if (IsDead(voiceAudioInfo))
                 {
                     Destroy(voiceAudioInfo);
                     voiceAudioInfo = null;
@@ -59,7 +59,7 @@ namespace Kaede2.Scenario.Audio
             List<AudioInfo> toBeRemoved = new();
             foreach (var seAudioInfo in seAudioInfos)
             {
-                if (IsDead(seAudioInfo.Source))
+                if (IsDead(seAudioInfo))
                 {
                     Destroy(seAudioInfo);
                     toBeRemoved.Add(seAudioInfo);
@@ -72,13 +72,9 @@ namespace Kaede2.Scenario.Audio
             }
         }
 
-        private void OnApplicationFocus(bool hasFocus)
+        private void OnApplicationPause(bool pauseStatus)
         {
-#if UNITY_EDITOR || UNITY_STANDALONE
-            running = hasFocus || Application.runInBackground;
-#else
-            running = hasFocus;
-#endif
+            running = !pauseStatus;
         }
 
         public void PlayBGM(string bgmName, float volume)
@@ -156,7 +152,7 @@ namespace Kaede2.Scenario.Audio
 
         public bool IsVoicePlaying()
         {
-            return voiceAudioInfo != null && voiceAudioInfo.Source != null && voiceAudioInfo.Source.isPlaying;
+            return !IsDead(voiceAudioInfo);
         }
 
 
@@ -267,12 +263,15 @@ namespace Kaede2.Scenario.Audio
             Destroy(info.Source.gameObject);
         }
 
-        private bool IsDead(AudioSource source)
+        private bool IsDead(AudioInfo info)
         {
-            if (!running) return false; // block dead detection when the game is not focused
-            if (source == null) return true;
-            if (source.clip == null) return true;
-            return !source.loop && !source.isPlaying;
+            if (info == null) return true;
+            if (info.Source == null) return true;
+            if (info.Source.clip == null) return true;
+            if (info.Source.loop) return false; // looped audio never dies
+            if (info.Source.isPlaying) return false; // if the audio is playing, it's not dead
+            if (running) return true; // if the game is running, the audio should be dead
+            return info.Source.time >= info.Source.clip.length; // if the game is not running, the audio should be dead when it reaches the end
         }
 
         private IEnumerator Fade(AudioInfo info, float time, float fromVolume, float toVolume, Action callback)

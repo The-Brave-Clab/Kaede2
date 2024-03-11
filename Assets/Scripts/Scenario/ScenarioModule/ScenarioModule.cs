@@ -98,7 +98,8 @@ namespace Kaede2.Scenario
                 handle.Dispose();
             }
 
-            InputManager.InputAction.Scenario.Disable();
+            if (InputManager.Instance != null)
+                InputManager.InputAction.Scenario.Disable();
         }
 
         private static List<string> GetStatementsFromScript(string script)
