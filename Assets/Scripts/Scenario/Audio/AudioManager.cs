@@ -23,6 +23,8 @@ namespace Kaede2.Scenario.Audio
         private AudioInfo voiceAudioInfo;
         private List<AudioInfo> seAudioInfos;
 
+        private bool running;
+
         protected override void Awake()
         {
             base.Awake();
@@ -30,17 +32,59 @@ namespace Kaede2.Scenario.Audio
             bgmAudioInfo = null;
             voiceAudioInfo = null;
             seAudioInfos = new();
+
+            running = true;
         }
 
         private void Update()
         {
-            ClearDeadAudio();
-            UpdateAudioVolume();
+            if (bgmAudioInfo != null)
+            {
+                if (IsDead(bgmAudioInfo.Source))
+                {
+                    Destroy(bgmAudioInfo);
+                    bgmAudioInfo = null;
+                }
+            }
+
+            if (voiceAudioInfo != null)
+            {
+                if (IsDead(voiceAudioInfo.Source))
+                {
+                    Destroy(voiceAudioInfo);
+                    voiceAudioInfo = null;
+                }
+            }
+
+            List<AudioInfo> toBeRemoved = new();
+            foreach (var seAudioInfo in seAudioInfos)
+            {
+                if (IsDead(seAudioInfo.Source))
+                {
+                    Destroy(seAudioInfo);
+                    toBeRemoved.Add(seAudioInfo);
+                }
+            }
+
+            foreach (var info in toBeRemoved)
+            {
+                seAudioInfos.Remove(info);
+            }
+        }
+
+        private void OnApplicationFocus(bool hasFocus)
+        {
+#if UNITY_EDITOR || UNITY_STANDALONE
+            running = hasFocus || Application.runInBackground;
+#else
+            running = hasFocus;
+#endif
         }
 
         public void PlayBGM(string bgmName, float volume)
         {
-            StopBGM();
+            StopAudioImmediately(bgmAudioInfo);
+            bgmAudioInfo = null;
 
             if (!ScenarioModule.Instance.ScenarioResource.backgroundMusics.TryGetValue(bgmName, out var clip))
             {
@@ -48,17 +92,15 @@ namespace Kaede2.Scenario.Audio
                 return;
             }
             bgmAudioInfo = Create(bgmName, AudioType.BGM, clip, volume);
-            UpdateAudioVolume();
-            bgmAudioInfo.source.Play();
+            bgmAudioInfo.Source.Play();
         }
 
-        public void StopBGM()
+        private void StopAudioImmediately(AudioInfo info)
         {
-            if (bgmAudioInfo == null) return;
-            if (bgmAudioInfo.source == null) return;
-            bgmAudioInfo.source.Stop();
-            Destroy(bgmAudioInfo);
-            bgmAudioInfo = null;
+            if (info == null) return;
+            if (info.Source == null) return;
+            info.Source.Stop();
+            Destroy(info);
         }
 
         public IEnumerator StopBGM(float fadeTime)
@@ -66,11 +108,18 @@ namespace Kaede2.Scenario.Audio
             if (fadeTime > 0)
             {
                 if (bgmAudioInfo == null) return null;
-                if (bgmAudioInfo.source == null) return null;
-                return Fade(bgmAudioInfo, fadeTime, bgmAudioInfo.volume, 0, StopBGM);
+                if (bgmAudioInfo.Source == null) return null;
+                var originalBgmAudioInfo = bgmAudioInfo;
+                bgmAudioInfo = null;
+                return Fade(originalBgmAudioInfo, fadeTime, originalBgmAudioInfo.Volume, 0, () =>
+                {
+                    StopAudioImmediately(originalBgmAudioInfo);
+                    originalBgmAudioInfo = null;
+                });
             }
 
-            StopBGM();
+            StopAudioImmediately(bgmAudioInfo);
+            bgmAudioInfo = null;
             return null;
         }
 
@@ -88,30 +137,26 @@ namespace Kaede2.Scenario.Audio
             }
 
             voiceAudioInfo = Create(voiceName, AudioType.Voice, clip, 1.0f);
-            UpdateAudioVolume();
-            voiceAudioInfo.source.Play();
+            voiceAudioInfo.Source.Play();
         }
 
         public void StopVoice()
         {
-            if (voiceAudioInfo == null) return;
-            if (voiceAudioInfo.source == null) return;
-            voiceAudioInfo.source.Stop();
-            Destroy(voiceAudioInfo);
+            StopAudioImmediately(voiceAudioInfo);
             voiceAudioInfo = null;
         }
 
         public float GetVoiceVolume()
         {
             if (voiceAudioInfo == null) return 0.0f;
-            if (voiceAudioInfo.source == null) return 0.0f;
-            if (!voiceAudioInfo.source.isPlaying) return 0.0f;
-            return GetCurrentVolume(voiceAudioInfo.source);
+            if (voiceAudioInfo.Source == null) return 0.0f;
+            if (!voiceAudioInfo.Source.isPlaying) return 0.0f;
+            return GetCurrentVolume(voiceAudioInfo.Source);
         }
 
         public bool IsVoicePlaying()
         {
-            return voiceAudioInfo != null && voiceAudioInfo.source != null && voiceAudioInfo.source.isPlaying;
+            return voiceAudioInfo != null && voiceAudioInfo.Source != null && voiceAudioInfo.Source.isPlaying;
         }
 
 
@@ -139,9 +184,8 @@ namespace Kaede2.Scenario.Audio
 
             var seAudioInfo = Create(seName, AudioType.SE, clip, duration <= 0 ? volume : 0);
             seAudioInfos.Add(seAudioInfo);
-            seAudioInfo.source.loop = loop;
-            UpdateAudioVolume();
-            seAudioInfo.source.Play();
+            seAudioInfo.Source.loop = loop;
+            seAudioInfo.Source.Play();
 
             return duration <= 0 ? null : Fade(seAudioInfo, duration, 0, volume, null);
         }
@@ -151,7 +195,7 @@ namespace Kaede2.Scenario.Audio
             var seAudioInfo = FindSE(seName);
             if (seAudioInfo == null) return;
 
-            seAudioInfo.source.Stop();
+            seAudioInfo.Source.Stop();
             Destroy(seAudioInfo);
         }
 
@@ -162,17 +206,17 @@ namespace Kaede2.Scenario.Audio
 
             if (fadeTime > 0)
             {
-                return Fade(seAudioInfo, fadeTime, seAudioInfo.volume, 0, () => Destroy(seAudioInfo));
+                return Fade(seAudioInfo, fadeTime, seAudioInfo.Volume, 0, () => Destroy(seAudioInfo));
             }
 
-            seAudioInfo.source.Stop();
+            seAudioInfo.Source.Stop();
             Destroy(seAudioInfo);
             return null;
         }
 
         private AudioInfo FindSE(string seName)
         {
-            return seAudioInfos.Exists(info => info.name == seName) ? seAudioInfos.Find(info => info.name == seName) : null;
+            return seAudioInfos.Exists(info => info.Name == seName) ? seAudioInfos.Find(info => info.Name == seName) : null;
         }
 
         public static bool IsInvalidVoice(string voiceName)
@@ -188,102 +232,59 @@ namespace Kaede2.Scenario.Audio
             newSource.clip = audioClip;
             newSource.spatialize = false;
             newSource.spatialBlend = 0;
+            AudioInfo info = new()
+            {
+                Name = audioName,
+                Source = newSource,
+            };
             switch (type)
             {
                 case AudioType.BGM:
                     newSource.outputAudioMixerGroup = bgmMixerGroup;
                     newSource.loop = true;
+                    info.GetGameSettingsVolume = () => GameSettings.AudioBGMVolume;
                     break;
                 case AudioType.SE:
                     newSource.outputAudioMixerGroup = seMixerGroup;
+                    info.GetGameSettingsVolume = () => GameSettings.AudioSEVolume;
                     break;
                 case AudioType.Voice:
                     newSource.outputAudioMixerGroup = voiceMixerGroup;
+                    info.GetGameSettingsVolume = () => GameSettings.AudioVoiceVolume;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
 
-            return new()
-            {
-                source = newSource,
-                volume = volume
-            };
+            info.Volume = volume;
+            return info;
         }
 
         private void Destroy(AudioInfo info)
         {
             if (info == null) return;
-            if (info.source == null) return;
-            Destroy(info.source.gameObject);
-        }
-
-        private void UpdateAudioVolume()
-        {
-            if (bgmAudioInfo != null && bgmAudioInfo.source != null)
-                bgmAudioInfo.source.volume = GameSettings.AudioMasterVolume * GameSettings.AudioBGMVolume * bgmAudioInfo.volume;
-
-            if (voiceAudioInfo != null && voiceAudioInfo.source != null)
-                voiceAudioInfo.source.volume = GameSettings.AudioMasterVolume * GameSettings.AudioVoiceVolume * voiceAudioInfo.volume;
-
-            foreach (var seAudioInfo in seAudioInfos)
-                seAudioInfo.source.volume = GameSettings.AudioMasterVolume * GameSettings.AudioSEVolume * seAudioInfo.volume;
+            if (info.Source == null) return;
+            Destroy(info.Source.gameObject);
         }
 
         private bool IsDead(AudioSource source)
         {
+            if (!running) return false; // block dead detection when the game is not focused
             if (source == null) return true;
             if (source.clip == null) return true;
-            if (source.time >= source.clip.length) return true;
-            return false;
-        }
-
-        private void ClearDeadAudio()
-        {
-            if (bgmAudioInfo != null)
-            {
-                if (IsDead(bgmAudioInfo.source))
-                {
-                    Destroy(bgmAudioInfo);
-                    bgmAudioInfo = null;
-                }
-            }
-
-            if (voiceAudioInfo != null)
-            {
-                if (IsDead(voiceAudioInfo.source))
-                {
-                    Destroy(voiceAudioInfo);
-                    voiceAudioInfo = null;
-                }
-            }
-
-            List<AudioInfo> toBeRemoved = new();
-            foreach (var seAudioInfo in seAudioInfos)
-            {
-                if (IsDead(seAudioInfo.source))
-                {
-                    Destroy(seAudioInfo);
-                    toBeRemoved.Add(seAudioInfo);
-                }
-            }
-
-            foreach (var info in toBeRemoved)
-            {
-                seAudioInfos.Remove(info);
-            }
+            return !source.loop && !source.isPlaying;
         }
 
         private IEnumerator Fade(AudioInfo info, float time, float fromVolume, float toVolume, Action callback)
         {
             if (time <= 0)
             {
-                info.volume = toVolume;
+                info.Volume = toVolume;
                 yield break;
             }
 
             Sequence seq = DOTween.Sequence();
-            seq.Append(DOVirtual.Float(fromVolume, toVolume, time, value => info.volume = value));
+            seq.Append(DOVirtual.Float(fromVolume, toVolume, time, value => info.Volume = value));
             seq.OnComplete(() => callback?.Invoke());
 
             yield return seq.WaitForCompletion();
@@ -291,9 +292,23 @@ namespace Kaede2.Scenario.Audio
 
         public class AudioInfo
         {
-            public string name;
-            public AudioSource source;
-            public float volume = 1.0f;
+            public string Name { get; set; }
+            public AudioSource Source { get; set; }
+
+            private float volume = 1.0f;
+            public float Volume
+            {
+                get => volume;
+                set
+                {
+                    volume = value;
+                    if (Source != null)
+                    {
+                        Source.volume = GameSettings.AudioMasterVolume * GetGameSettingsVolume() * volume;
+                    }
+                }
+            }
+            public Func<float> GetGameSettingsVolume { get; set; } = () => 1.0f;
         }
 
         private enum AudioType
@@ -307,9 +322,9 @@ namespace Kaede2.Scenario.Audio
         {
             return new()
             {
-                bgmPlaying = bgmAudioInfo != null && bgmAudioInfo.source != null && bgmAudioInfo.source.isPlaying,
-                bgmName = bgmAudioInfo == null || bgmAudioInfo.source == null ? null : bgmAudioInfo.name,
-                bgmVolume = bgmAudioInfo == null || bgmAudioInfo.source == null ? 0 : bgmAudioInfo.volume
+                bgmPlaying = bgmAudioInfo != null && bgmAudioInfo.Source != null && bgmAudioInfo.Source.isPlaying,
+                bgmName = bgmAudioInfo == null || bgmAudioInfo.Source == null ? null : bgmAudioInfo.Name,
+                bgmVolume = bgmAudioInfo == null || bgmAudioInfo.Source == null ? 0 : bgmAudioInfo.Volume
             };
         }
 
@@ -317,27 +332,28 @@ namespace Kaede2.Scenario.Audio
         {
             if (state.bgmPlaying)
             {
-                if (bgmAudioInfo != null && bgmAudioInfo.source != null)
+                if (bgmAudioInfo != null && bgmAudioInfo.Source != null)
                 {
-                    if (state.bgmName != bgmAudioInfo.name)
+                    if (state.bgmName != bgmAudioInfo.Name)
                     {
                         PlayBGM(state.bgmName, state.bgmVolume);
                     }
                     else
                     {
-                        bgmAudioInfo.volume = state.bgmVolume;
+                        bgmAudioInfo.Volume = state.bgmVolume;
                     }
                 }
             }
             else
             {
-                StopBGM();
+                StopAudioImmediately(bgmAudioInfo);
+                bgmAudioInfo = null;
             }
 
             StopVoice();
             foreach (var se in seAudioInfos)
             {
-                StopSE(se.name);
+                StopSE(se.Name);
             }
         }
     }
