@@ -9,10 +9,10 @@ using UnityEngine;
 
 namespace Kaede2.Scenario
 {
-    public partial class ScenarioModule : Singleton<ScenarioModule>, IStateSavable<ScenarioSyncPoint>
+    public partial class ScenarioModule : Singleton<ScenarioModule>, IStateSavable<ScenarioState>
     {
         public static string ScenarioName;
-        public static ScenarioSyncPoint SyncPointToBeRestored;
+        public static ScenarioState StateToBeRestored;
 
         private List<ResourceLoader.HandleBase> handles;
         private List<string> preprocessedStatements;
@@ -42,6 +42,7 @@ namespace Kaede2.Scenario
             variables = new();
             commands = new();
             currentCommandIndex = -1;
+            states = new();
 
             Initialized = false;
             ActorAutoDelete = false;
@@ -85,6 +86,23 @@ namespace Kaede2.Scenario
             yield return PreprocessAliasesAndVariables(preprocessedStatements);
 
             commands = preprocessedStatements.Select(ParseStatement).ToList();
+            states = new List<ScenarioState>();
+            ScenarioState currentState = new()
+            {
+                currentCommandIndex = currentCommandIndex,
+                initialized = Initialized,
+                actorAutoDelete = ActorAutoDelete,
+                lipSync = LipSync,
+            };
+
+            foreach (var command in commands)
+            {
+                var state = currentState.Copy();
+                ++state.currentCommandIndex;
+                command.DryRun(state);
+                states.Add(state);
+                currentState = state;
+            }
 
             StartCoroutine(Execute());
         }

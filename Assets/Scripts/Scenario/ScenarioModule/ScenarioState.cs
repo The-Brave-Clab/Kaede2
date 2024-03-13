@@ -19,10 +19,12 @@ namespace Kaede2.Scenario
     }
 
     [Serializable]
-    public class ScenarioSyncPoint : State<ScenarioSyncPoint>
+    public class ScenarioState : State<ScenarioState>
     {
-        public int currentCommandIndex;
-        public bool initialized;
+        public int currentCommandIndex = -1;
+        public bool initialized = false;
+        public bool actorAutoDelete = false;
+        public bool lipSync = true;
 
         public List<ActorState> actors = new();
         public List<CommonResourceState> sprites = new();
@@ -33,12 +35,14 @@ namespace Kaede2.Scenario
         public FadeState fade = new();
         public AudioState audio = new();
 
-        public override ScenarioSyncPoint Copy()
+        public override ScenarioState Copy()
         {
             return new()
             {
                 currentCommandIndex = currentCommandIndex,
                 initialized = initialized,
+                actorAutoDelete = actorAutoDelete,
+                lipSync = lipSync,
                 actors = actors.Select(a => a.Copy()).ToList(),
                 sprites = sprites.Select(s => s.Copy()).ToList(),
                 backgrounds = backgrounds.Select(b => b.Copy()).ToList(),
@@ -50,12 +54,14 @@ namespace Kaede2.Scenario
             };
         }
 
-        public override bool Equals(ScenarioSyncPoint other)
+        public override bool Equals(ScenarioState other)
         {
             if (other is null) return false;
 
             return currentCommandIndex == other.currentCommandIndex &&
                    initialized == other.initialized &&
+                   actorAutoDelete == other.actorAutoDelete &&
+                   lipSync == other.lipSync &&
                    actors.SequenceEqual(other.actors) &&
                    sprites.SequenceEqual(other.sprites) &&
                    backgrounds.SequenceEqual(other.backgrounds) &&
@@ -198,10 +204,10 @@ namespace Kaede2.Scenario
     [Serializable]
     public class CaptionState : State<CaptionState>
     {
-        public bool enabled;
-        public Color boxColor;
+        public bool enabled = false;
+        public Color boxColor = Color.white;
         public string text = "";
-        public float textAlpha;
+        public float textAlpha = 1.0f;
 
         public override CaptionState Copy()
         {
@@ -228,7 +234,7 @@ namespace Kaede2.Scenario
     [Serializable]
     public class MessageBoxState : State<MessageBoxState>
     {
-        public bool enabled;
+        public bool enabled = false;
         public string speaker = "";
         public string message = "";
 
@@ -273,9 +279,9 @@ namespace Kaede2.Scenario
     [Serializable]
     public class AudioState : State<AudioState>
     {
-        public bool bgmPlaying;
+        public bool bgmPlaying = false;
         public string bgmName = "";
-        public float bgmVolume;
+        public float bgmVolume = 1.0f;
 
         public override AudioState Copy()
         {

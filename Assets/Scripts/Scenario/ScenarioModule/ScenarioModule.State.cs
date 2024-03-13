@@ -12,12 +12,17 @@ namespace Kaede2.Scenario
 {
     public partial class ScenarioModule
     {
-        public ScenarioSyncPoint GetState()
+        // this is the scenario state *after* the command with the same index is executed
+        private List<ScenarioState> states;
+
+        public ScenarioState GetState()
         {
             return new()
             {
                 currentCommandIndex = currentCommandIndex,
                 initialized = Initialized,
+                actorAutoDelete = ActorAutoDelete,
+                lipSync = LipSync,
 
                 actors = Live2DActorEntity.AllActors.Select(c => c.GetState()).ToList(),
                 sprites = UIManager.Instance.spriteCanvas.GetComponentsInChildren<SpriteEntity>().Select(s => s.GetState()).ToList(),
@@ -30,7 +35,7 @@ namespace Kaede2.Scenario
             };
         }
 
-        public void RestoreState(ScenarioSyncPoint state)
+        public void RestoreState(ScenarioState state)
         {
             void CleanAndRestoreStates<T>(Transform parent, List<T> states, Action<T> restoreState) where T : State<T>
             {
@@ -107,6 +112,8 @@ namespace Kaede2.Scenario
 
             currentCommandIndex = state.currentCommandIndex;
             Initialized = state.initialized;
+            ActorAutoDelete = state.actorAutoDelete;
+            LipSync = state.lipSync;
         }
     }
 }

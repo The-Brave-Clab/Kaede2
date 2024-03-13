@@ -18,11 +18,11 @@ namespace Kaede2.Scenario.Commands
             UIManager.Instance.loadingCanvas.gameObject.SetActive(false);
             Module.Initialized = true;
             Debug.Log("Scenario initialized");
-            if (ScenarioModule.SyncPointToBeRestored != null)
+            if (ScenarioModule.StateToBeRestored != null)
             {
                 Debug.Log("Restoring sync point");
-                Module.RestoreState(ScenarioModule.SyncPointToBeRestored);
-                ScenarioModule.SyncPointToBeRestored = null;
+                Module.RestoreState(ScenarioModule.StateToBeRestored);
+                ScenarioModule.StateToBeRestored = null;
             }
             yield break;
         }
