@@ -60,6 +60,7 @@ namespace Kaede2.Scenario.Commands
 
             float extraTimeAfterTextFinishDisplay = 1.0f;
 
+            var lastFrameButtonPressed = false;
             while (true)
             {
                 if (Module.LipSync && entity != null)
@@ -67,13 +68,17 @@ namespace Kaede2.Scenario.Commands
                     entity.SetLip(AudioManager.Instance.GetVoiceVolume() * 128);
                 }
 
-                if (InputManager.InputAction.Scenario.Next.triggered)
+                var currentFrameButtonPressed = InputManager.InputAction.Scenario.Next.triggered;
+
+                if (currentFrameButtonPressed && !lastFrameButtonPressed)
                 {
                     if (!messageBox.IsCompleteDisplayText) // if text not finished displaying, skip display
                         messageBox.SkipDisplay();
                     else
                         break; // manual quit is only available when text is finished displaying
                 }
+
+                lastFrameButtonPressed = currentFrameButtonPressed;
 
                 yield return null;
 
