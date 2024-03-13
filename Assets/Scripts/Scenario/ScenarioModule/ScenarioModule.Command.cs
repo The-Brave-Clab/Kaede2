@@ -68,11 +68,6 @@ namespace Kaede2.Scenario
             }
             public abstract IEnumerator Execute();
 
-            public void DryRun(ScenarioState state)
-            {
-                
-            }
-
             public override string ToString()
             {
                 string result = "";

@@ -57,6 +57,7 @@ namespace Kaede2.Scenario.Entities
 
             var motion = motions[motionName];
             motion.setLoop(loop);
+            currentMotionLoop = loop;
 
             // fix: sometimes anim is used on face motions while the correct command to call is actor_face
             if (motionName.StartsWith("face_"))
@@ -182,10 +183,10 @@ namespace Kaede2.Scenario.Entities
         public IEnumerator ActorAngle(float angleX, float angleY, float duration)
         {
             Sequence s = GetSequence();
-            s.Append(DOVirtual.Float(AddAngleX, angleX, duration,
-                value => { AddAngleX = value; }));
-            s.Join(DOVirtual.Float(AddAngleY, angleY, duration,
-                value => { AddAngleY = value; }));
+            s.Append(DOVirtual.Float(AddFaceAngleX, angleX, duration,
+                value => { AddFaceAngleX = value; }));
+            s.Join(DOVirtual.Float(AddFaceAngleY, angleY, duration,
+                value => { AddFaceAngleY = value; }));
 
             yield return s.WaitForCompletion();
             RemoveSequence(s);

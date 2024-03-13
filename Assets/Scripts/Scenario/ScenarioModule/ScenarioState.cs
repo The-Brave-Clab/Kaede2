@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Kaede2.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -26,10 +27,16 @@ namespace Kaede2.Scenario
         public bool actorAutoDelete = false;
         public bool lipSync = true;
 
+        public bool uiOn = false;
+        public bool cameraOn = false;
+        public Vector2 cameraPosition = Vector2.zero;
+        public float cameraScale = 1.0f;
+
         public List<ActorState> actors = new();
         public List<CommonResourceState> sprites = new();
         public List<CommonResourceState> backgrounds = new();
         public List<CommonResourceState> stills = new();
+        public List<AnimationPrefabState> animationPrefabs = new();
         public CaptionState caption = new();
         public MessageBoxState messageBox = new();
         public FadeState fade = new();
@@ -43,14 +50,19 @@ namespace Kaede2.Scenario
                 initialized = initialized,
                 actorAutoDelete = actorAutoDelete,
                 lipSync = lipSync,
+                uiOn = uiOn,
+                cameraOn = cameraOn,
+                cameraPosition = cameraPosition,
+                cameraScale = cameraScale,
                 actors = actors.Select(a => a.Copy()).ToList(),
                 sprites = sprites.Select(s => s.Copy()).ToList(),
                 backgrounds = backgrounds.Select(b => b.Copy()).ToList(),
                 stills = stills.Select(s => s.Copy()).ToList(),
+                animationPrefabs = animationPrefabs.Select(a => a.Copy()).ToList(),
                 caption = caption.Copy(),
                 messageBox = messageBox.Copy(),
                 fade = fade.Copy(),
-                audio = audio.Copy()
+                audio = audio.Copy(),
             };
         }
 
@@ -62,10 +74,15 @@ namespace Kaede2.Scenario
                    initialized == other.initialized &&
                    actorAutoDelete == other.actorAutoDelete &&
                    lipSync == other.lipSync &&
+                   uiOn == other.uiOn &&
+                   cameraOn == other.cameraOn &&
+                   cameraPosition.Equals(other.cameraPosition) &&
+                   cameraScale.Equals(other.cameraScale) &&
                    actors.SequenceEqual(other.actors) &&
                    sprites.SequenceEqual(other.sprites) &&
                    backgrounds.SequenceEqual(other.backgrounds) &&
                    stills.SequenceEqual(other.stills) &&
+                   animationPrefabs.SequenceEqual(other.animationPrefabs) &&
                    caption.Equals(other.caption) &&
                    messageBox.Equals(other.messageBox) &&
                    fade.Equals(other.fade) &&
@@ -76,12 +93,12 @@ namespace Kaede2.Scenario
     [Serializable]
     public class EntityTransform : State<EntityTransform>
     {
-        public bool enabled;
-        public Vector3 position;
-        public float angle;
-        public float scale;
-        public Vector2 pivot;
-        public Color color;
+        public bool enabled = true;
+        public Vector3 position = Vector3.zero;
+        public float angle = 0.0f;
+        public float scale = 1.0f;
+        public Vector2 pivot = new(0.5f, 0.5f);
+        public Color color = Color.white;
 
         public override EntityTransform Copy()
         {
@@ -116,13 +133,14 @@ namespace Kaede2.Scenario
         public string modelName = "";
         public string currentMotion = "";
         public string currentFaceMotion = "";
+        public bool currentMotionLoop = false;
 
         public int layer;
 
-        public bool hidden;
+        public bool hidden = false;
 
-        public bool eyeBlink;
-        public bool manualEyeOpen;
+        public bool eyeBlink = true;
+        public bool manualEyeOpen = true;
 
         public List<string> mouthSynced = new();
 
@@ -130,6 +148,7 @@ namespace Kaede2.Scenario
         public float bodyAngle;
 
         public float addEye;
+        public float absoluteEye;
 
         public EntityTransform transform = new();
 
@@ -141,6 +160,7 @@ namespace Kaede2.Scenario
                 modelName = string.Copy(modelName),
                 currentMotion = string.Copy(currentMotion),
                 currentFaceMotion = string.Copy(currentFaceMotion),
+                currentMotionLoop = currentMotionLoop,
                 layer = layer,
                 hidden = hidden,
                 eyeBlink = eyeBlink,
@@ -149,6 +169,7 @@ namespace Kaede2.Scenario
                 faceAngle = faceAngle,
                 bodyAngle = bodyAngle,
                 addEye = addEye,
+                absoluteEye = absoluteEye,
                 transform = transform.Copy()
             };
         }
@@ -161,6 +182,7 @@ namespace Kaede2.Scenario
                    string.Equals(modelName, other.modelName) &&
                    string.Equals(currentMotion, other.currentMotion) &&
                    string.Equals(currentFaceMotion, other.currentFaceMotion) &&
+                   currentMotionLoop == other.currentMotionLoop &&
                    layer == other.layer &&
                    hidden == other.hidden &&
                    eyeBlink == other.eyeBlink &&
@@ -169,6 +191,7 @@ namespace Kaede2.Scenario
                    faceAngle.Equals(other.faceAngle) &&
                    bodyAngle.Equals(other.bodyAngle) &&
                    addEye.Equals(other.addEye) &&
+                   absoluteEye.Equals(other.absoluteEye) &&
                    transform.Equals(other.transform);
         }
     }
@@ -300,6 +323,42 @@ namespace Kaede2.Scenario
             return bgmPlaying == other.bgmPlaying &&
                    string.Equals(bgmName, other.bgmName) &&
                    bgmVolume.Equals(other.bgmVolume);
+        }
+    }
+
+    [Serializable]
+    public class AnimationPrefabState : State<AnimationPrefabState>
+    {
+        public string objectName = "";
+        public string prefabName = "";
+        public Vector2 position = Vector2.zero;
+        public float scale = 1.0f;
+        public bool isTransform = false;
+        public CharacterId id = CharacterId.Unknown;
+
+        public override AnimationPrefabState Copy()
+        {
+            return new()
+            {
+                objectName = string.Copy(objectName),
+                prefabName = string.Copy(prefabName),
+                position = position,
+                scale = scale,
+                isTransform = isTransform,
+                id = id
+            };
+        }
+
+        public override bool Equals(AnimationPrefabState other)
+        {
+            if (other is null) return false;
+
+            return string.Equals(objectName, other.objectName) &&
+                   string.Equals(prefabName, other.prefabName) &&
+                   position.Equals(other.position) &&
+                   scale.Equals(other.scale) &&
+                   isTransform == other.isTransform &&
+                    id == other.id;
         }
     }
 }

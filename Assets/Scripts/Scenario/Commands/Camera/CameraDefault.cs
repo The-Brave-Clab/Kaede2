@@ -33,7 +33,7 @@ namespace Kaede2.Scenario.Commands
             Sequence s = DOTween.Sequence();
             s.Append(DOVirtual.Vector3(originalPosition, UIManager.CameraPosDefault, duration,
                 value => UIManager.CameraPos = value));
-            s.Join(DOVirtual.Vector3(originalScale, UIManager.CameraScaleDefault, duration,
+            s.Join(DOVirtual.Float(originalScale, UIManager.CameraScaleDefault, duration,
                 value => UIManager.CameraScale = value));
 
             yield return s.WaitForCompletion();

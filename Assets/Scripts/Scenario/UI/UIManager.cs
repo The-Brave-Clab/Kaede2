@@ -84,17 +84,17 @@ namespace Kaede2.Scenario.UI
 
         public static Vector2 CameraPosDefault => Vector2.zero;
 
-        public static Vector2 CameraScale
+        public static float CameraScale
         {
-            get => Instance.live2DCanvasRectTransform.localScale;
+            get => Instance.live2DCanvasRectTransform.localScale.x;
             set
             {
-                Instance.live2DCanvasRectTransform.localScale = new Vector3(value.x, value.y, Instance.live2DCanvasRectTransform.localScale.z);
-                Instance.backgroundCanvasRectTransform.localScale = new Vector3(value.x, value.y, Instance.backgroundCanvasRectTransform.localScale.z);
+                Instance.live2DCanvasRectTransform.localScale = new Vector3(value, value, Instance.live2DCanvasRectTransform.localScale.z);
+                Instance.backgroundCanvasRectTransform.localScale = new Vector3(value, value, Instance.backgroundCanvasRectTransform.localScale.z);
             }
         }
 
-        public static Vector2 CameraScaleDefault => Vector2.one;
+        public static float CameraScaleDefault => 1.0f;
 
         // public static Vector2 MessageBoxPos
         // {

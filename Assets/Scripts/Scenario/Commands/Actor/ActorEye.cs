@@ -7,14 +7,14 @@ namespace Kaede2.Scenario.Commands
     public class ActorEye : ScenarioModule.Command
     {
         private readonly string actorName;
-        private readonly string state;
+        private readonly string motion;
 
         private Live2DActorEntity entity;
 
         public ActorEye(ScenarioModule module, string[] arguments) : base(module, arguments)
         {
             actorName = OriginalArg(1);
-            state = Arg(2, "");
+            motion = Arg(2, "");
         }
 
         public override ExecutionType Type => ExecutionType.Instant;
@@ -34,7 +34,7 @@ namespace Kaede2.Scenario.Commands
                 yield break;
             }
 
-            entity.SetEye(state);
+            entity.SetEye(motion);
         }
     }
 }

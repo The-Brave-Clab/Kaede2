@@ -19,8 +19,8 @@ namespace Kaede2.Scenario.Entities
         public bool ManualEyeOpen { get; set; }
 
         public float MouthOpenY { get; set; }
-        public float AddAngleX { get; set; }
-        public float AddAngleY { get; set; }
+        public float AddFaceAngleX { get; set; }
+        public float AddFaceAngleY { get; set; }
         public float AddBodyAngleX { get; set; }
         public float AddEyeX { get; set; }
         public float AbsoluteEyeX { get; set; }
@@ -37,6 +37,7 @@ namespace Kaede2.Scenario.Entities
 
         private string currentMotionName;
         private string currentFaceMotionName;
+        private bool currentMotionLoop;
 
         private RenderTexture targetTexture;
         private RawImage rawImage;
@@ -72,6 +73,7 @@ namespace Kaede2.Scenario.Entities
 
             currentMotionName = "";
             currentFaceMotionName = "";
+            currentMotionLoop = false;
 
             targetTexture = null;
             rawImage = null;
@@ -160,8 +162,8 @@ namespace Kaede2.Scenario.Entities
                 pose.updateParam(live2DModel);
             }
             live2DModel.saveParam();
-            live2DModel.addToParamFloat("PARAM_ANGLE_X", AddAngleX);
-            live2DModel.addToParamFloat("PARAM_ANGLE_Y", AddAngleY);
+            live2DModel.addToParamFloat("PARAM_ANGLE_X", AddFaceAngleX);
+            live2DModel.addToParamFloat("PARAM_ANGLE_Y", AddFaceAngleY);
             live2DModel.addToParamFloat("PARAM_BODY_ANGLE_X", AddBodyAngleX);
 
             if (MouthOpenY != 0f)
@@ -242,6 +244,7 @@ namespace Kaede2.Scenario.Entities
                 modelName = Assets.modelName,
                 currentMotion = currentMotionName,
                 currentFaceMotion = currentFaceMotionName,
+                currentMotionLoop = currentMotionLoop,
 
                 layer = layer,
 
@@ -252,10 +255,11 @@ namespace Kaede2.Scenario.Entities
 
                 mouthSynced = mouthSynced.Select(x => x.gameObject.name).ToList(),
 
-                faceAngle = new Vector2(AddAngleX, AddAngleY),
+                faceAngle = new Vector2(AddFaceAngleX, AddFaceAngleY),
                 bodyAngle = AddBodyAngleX,
 
                 addEye = AddEyeX,
+                absoluteEye = AbsoluteEyeX,
 
                 transform = GetTransformState()
             };
@@ -282,13 +286,14 @@ namespace Kaede2.Scenario.Entities
             UseEyeBlink = state.eyeBlink;
             ManualEyeOpen = state.manualEyeOpen;
 
-            AddAngleX = state.faceAngle.x;
-            AddAngleY = state.faceAngle.y;
+            AddFaceAngleX = state.faceAngle.x;
+            AddFaceAngleY = state.faceAngle.y;
             AddBodyAngleX = state.bodyAngle;
 
             AddEyeX = state.addEye;
+            AbsoluteEyeX = state.absoluteEye;
 
-            StartMotion(state.currentMotion);
+            StartMotion(state.currentMotion, state.currentMotionLoop);
             StartFaceMotion(state.currentFaceMotion);
 
             foreach (var model in state.mouthSynced)

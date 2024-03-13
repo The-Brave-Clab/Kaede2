@@ -42,8 +42,8 @@ namespace Kaede2.Scenario.Commands
 
             if (duration == 0f)
             {
-                entity.AddAngleX = angleX;
-                entity.AddAngleY = angleY;
+                entity.AddFaceAngleX = angleX;
+                entity.AddFaceAngleY = angleY;
                 yield break;
             }
 

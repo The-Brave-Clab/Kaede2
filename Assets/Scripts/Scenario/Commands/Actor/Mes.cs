@@ -4,7 +4,6 @@ using Kaede2.Scenario.Audio;
 using Kaede2.Scenario.Entities;
 using Kaede2.Scenario.UI;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Kaede2.Scenario.Commands
 {

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using DG.Tweening;
 using Kaede2.Scenario.UI;
-using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
@@ -23,16 +22,15 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Execute()
         {
-            Vector2 targetScale = Vector2.one * scale;
             if (duration == 0)
             {
-                UIManager.CameraScale = targetScale;
+                UIManager.CameraScale = scale;
                 yield break;
             }
 
-            Vector2 originalScale = UIManager.CameraScale;
+            float originalScale = UIManager.CameraScale;
             Sequence s = DOTween.Sequence();
-            s.Append(DOVirtual.Vector3(originalScale, targetScale, duration,
+            s.Append(DOVirtual.Float(originalScale, scale, duration,
                 value => UIManager.CameraScale = value));
 
             yield return s.WaitForCompletion();

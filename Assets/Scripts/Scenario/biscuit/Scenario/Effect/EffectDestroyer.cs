@@ -21,5 +21,7 @@ namespace biscuit.Scenario.Effect
 
         // Token: 0x04002B8E RID: 11150
         private float timer;
+
+        public float DeathTimer => deathTimer;
     }
 }

@@ -15,6 +15,19 @@ namespace Kaede2.Scenario.Commands
         private readonly CharacterId id;
         private readonly bool wait;
 
+        private GameObject prefab;
+
+        private GameObject Prefab
+        {
+            get
+            {
+                if (prefab != null) return prefab;
+                prefab = Module.EffectPrefabs.Find(p =>
+                    p.name.Equals(prefabName, StringComparison.InvariantCultureIgnoreCase));
+                return prefab;
+            }
+        }
+
         public TransformPrefab(ScenarioModule module, string[] arguments) : base(module, arguments)
         {
             var split = OriginalArg(1, ":").Split(':');
@@ -22,17 +35,16 @@ namespace Kaede2.Scenario.Commands
             objName = split[1];
             id = (CharacterId)Arg(2, 1);
             wait = Arg(3, true);
+
+            prefab = null;
         }
 
         public override ExecutionType Type => wait ? ExecutionType.Synchronous : ExecutionType.Instant;
-        public override float ExpectedExecutionTime => wait ? -5 : 0;
+        public override float ExpectedExecutionTime => wait ? -4 : 0;
 
         public override IEnumerator Execute()
         {
-            GameObject prefab = Module.EffectPrefabs.Find(p =>
-                p.name.Equals(prefabName, StringComparison.InvariantCultureIgnoreCase));
-
-            if (prefab == null)
+            if (Prefab == null)
             {
                 Debug.LogError($"Animation Prefab {prefabName} not found");
                 yield break;
@@ -44,9 +56,10 @@ namespace Kaede2.Scenario.Commands
                 yield break;
             }
 
-            GameObject instantiated = Object.Instantiate(prefab);
+            GameObject instantiated = Object.Instantiate(Prefab);
             instantiated.name = objName;
             AnimationPrefabEntity entity = instantiated.AddComponent<AnimationPrefabEntity>();
+            entity.prefabName = prefabName;
             CharacterTransformController controller = instantiated.GetComponent<CharacterTransformController>();
             controller.Setup(id);
 

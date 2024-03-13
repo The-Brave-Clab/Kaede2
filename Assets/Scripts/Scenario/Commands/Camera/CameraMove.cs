@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-public class CameraMove : ScenarioModule.Command
-{
+    public class CameraMove : ScenarioModule.Command
+    {
         private readonly Vector2 position;
         private readonly float duration;
         private readonly bool wait;

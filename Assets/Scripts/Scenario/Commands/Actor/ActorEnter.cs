@@ -38,9 +38,10 @@ namespace Kaede2.Scenario.Commands
                 yield break;
             }
 
+            entity.Hidden = false;
+
             if (duration == 0)
             {
-                entity.Hidden = false;
                 yield break;
             }
 

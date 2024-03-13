@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using biscuit.Scenario.Effect;
 using Kaede2.Scenario.Audio;
 using Kaede2.Scenario.Commands;
 using Kaede2.Scenario.Entities;
 using Kaede2.Scenario.UI;
 using UnityEngine;
+using Object = UnityEngine.Object;
 using Sprite = Kaede2.Scenario.Commands.Sprite;
 
 namespace Kaede2.Scenario
 {
     public partial class ScenarioModule
     {
-        // this is the scenario state *after* the command with the same index is executed
-        private List<ScenarioState> states;
-
         public ScenarioState GetState()
         {
             return new()
@@ -24,10 +23,16 @@ namespace Kaede2.Scenario
                 actorAutoDelete = ActorAutoDelete,
                 lipSync = LipSync,
 
+                uiOn = UIManager.Instance.uiCanvas.gameObject.activeSelf,
+                cameraOn = UIManager.Instance.contentCanvas.gameObject.activeSelf,
+                cameraPosition = UIManager.CameraPos,
+                cameraScale = UIManager.CameraScale,
+
                 actors = Live2DActorEntity.AllActors.Select(c => c.GetState()).ToList(),
                 sprites = UIManager.Instance.spriteCanvas.GetComponentsInChildren<SpriteEntity>().Select(s => s.GetState()).ToList(),
                 backgrounds = UIManager.Instance.backgroundCanvas.GetComponentsInChildren<BackgroundEntity>().Select(b => b.GetState()).ToList(),
                 stills = UIManager.Instance.stillCanvas.GetComponentsInChildren<BackgroundEntity>().Select(b => b.GetState()).ToList(),
+                animationPrefabs = FindObjectsByType<AnimationPrefabEntity>(FindObjectsInactive.Include, FindObjectsSortMode.None).Select(p => p.GetState()).Where(s => s != null).ToList(),
                 caption = UIManager.Instance.CaptionBox.GetState(),
                 messageBox = UIManager.Instance.MessageBox.GetState(),
                 fade = UIManager.Instance.fade.GetState(),
@@ -105,6 +110,41 @@ namespace Kaede2.Scenario
             CleanAndRestoreStates(UIManager.Instance.spriteCanvas.transform, state.sprites, RestoreSpriteState);
             CleanAndRestoreStates(UIManager.Instance.backgroundCanvas.transform, state.backgrounds, RestoreBackgroundState);
             CleanAndRestoreStates(UIManager.Instance.stillCanvas.transform, state.stills, RestoreStillState);
+
+            // clean and restore animation prefab states
+            foreach (var animPrefab in FindObjectsByType<AnimationPrefabEntity>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+            {
+                Destroy(animPrefab.gameObject);
+            }
+
+            foreach (var animPrefabState in state.animationPrefabs)
+            {
+                var prefab = EffectPrefabs.Find(p =>
+                    p.name.Equals(animPrefabState.prefabName, StringComparison.InvariantCultureIgnoreCase));
+                if (prefab == null)
+                {
+                    Debug.LogError($"Animation Prefab {animPrefabState.prefabName} not found");
+                    continue;
+                }
+
+                GameObject instantiated = Instantiate(prefab);
+                instantiated.name = animPrefabState.objectName;
+                AnimationPrefabEntity entity = instantiated.AddComponent<AnimationPrefabEntity>();
+                entity.prefabName = animPrefabState.prefabName;
+
+                if (animPrefabState.isTransform)
+                {
+                    CharacterTransformController controller = instantiated.GetComponent<CharacterTransformController>();
+                    controller.Setup(animPrefabState.id);
+                }
+                else
+                {
+                    Transform animTransform = instantiated.transform;
+                    animTransform.localScale = Vector3.one * animPrefabState.scale;
+                    entity.Position = animPrefabState.position;
+                }
+            }
+
             UIManager.Instance.CaptionBox.RestoreState(state.caption);
             UIManager.Instance.MessageBox.RestoreState(state.messageBox);
             UIManager.Instance.fade.RestoreState(state.fade);
@@ -114,6 +154,11 @@ namespace Kaede2.Scenario
             Initialized = state.initialized;
             ActorAutoDelete = state.actorAutoDelete;
             LipSync = state.lipSync;
+
+            UIManager.Instance.uiCanvas.gameObject.SetActive(state.uiOn);
+            UIManager.Instance.contentCanvas.gameObject.SetActive(state.cameraOn);
+            UIManager.CameraPos = state.cameraPosition;
+            UIManager.CameraScale = state.cameraScale;
         }
     }
 }

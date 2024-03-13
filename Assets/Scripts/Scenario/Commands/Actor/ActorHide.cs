@@ -44,8 +44,9 @@ namespace Kaede2.Scenario.Commands
             }
 
             entity.Hidden = Hide;
-            if (Hide)
-                entity.transform.eulerAngles = Vector3.zero;
+            if (!Hide) yield break;
+
+            entity.transform.eulerAngles = Vector3.zero;
 
             if (Module.ActorAutoDelete)
             {
