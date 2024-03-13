@@ -60,7 +60,7 @@ namespace Kaede2.Scenario.Commands
 
             float extraTimeAfterTextFinishDisplay = 1.0f;
 
-            var lastFrameButtonPressed = false;
+            var lastFrameButtonPressed = true;
             while (true)
             {
                 if (Module.LipSync && entity != null)
