@@ -75,7 +75,7 @@ namespace Kaede2.Scenario.Entities
         {
             return new()
             {
-                name = gameObject.name,
+                objectName = gameObject.name,
                 resourceName = resourceName,
                 transform = GetTransformState()
             };
@@ -83,7 +83,7 @@ namespace Kaede2.Scenario.Entities
 
         public void RestoreState(CommonResourceState state)
         {
-            if (name != state.name || resourceName != state.resourceName)
+            if (name != state.objectName || resourceName != state.resourceName)
             {
                 Debug.LogError("Applying state to wrong background!");
                 return;

@@ -12,7 +12,7 @@ namespace Kaede2.Scenario
     public partial class ScenarioModule : Singleton<ScenarioModule>, IStateSavable<ScenarioSyncPoint>
     {
         public static string ScenarioName;
-        public static ScenarioSyncPoint? SyncPointToBeRestored;
+        public static ScenarioSyncPoint SyncPointToBeRestored;
 
         private List<ResourceLoader.HandleBase> handles;
         private List<string> preprocessedStatements;
@@ -62,10 +62,8 @@ namespace Kaede2.Scenario
 
                 // we might also need to do a global initialization here
                 // since we have skipped the splash screen
-                if (GlobalInitializer.CurrentStatus == GlobalInitializer.Status.NotStarted)
+                if (GlobalInitializer.CurrentStatus != GlobalInitializer.Status.Done)
                     yield return GlobalInitializer.Initialize();
-                else if (GlobalInitializer.CurrentStatus == GlobalInitializer.Status.InProgress)
-                    yield return GlobalInitializer.Wait();
             }
 #endif
 

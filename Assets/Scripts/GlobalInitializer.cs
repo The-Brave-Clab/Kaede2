@@ -19,6 +19,13 @@ namespace Kaede2
         {
             if (CurrentStatus != Status.NotStarted)
             {
+                // somebody else is already initializing
+                // just wait for it to finish and quit
+                while (CurrentStatus != Status.Done)
+                {
+                    yield return null;
+                }
+
                 yield break;
             }
 
@@ -28,14 +35,6 @@ namespace Kaede2
             InputManager.EnsureInstance();
 
             CurrentStatus = Status.Done;
-        }
-
-        public static IEnumerator Wait()
-        {
-            while (CurrentStatus == Status.InProgress)
-            {
-                yield return null;
-            }
         }
     }
 }

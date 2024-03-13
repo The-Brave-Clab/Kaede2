@@ -21,7 +21,7 @@ namespace Kaede2.Scenario.Commands
             if (ScenarioModule.SyncPointToBeRestored != null)
             {
                 Debug.Log("Restoring sync point");
-                Module.RestoreState(ScenarioModule.SyncPointToBeRestored.Value);
+                Module.RestoreState(ScenarioModule.SyncPointToBeRestored);
                 ScenarioModule.SyncPointToBeRestored = null;
             }
             yield break;

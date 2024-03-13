@@ -6,90 +6,54 @@ using UnityEngine.Serialization;
 
 namespace Kaede2.Scenario
 {
-    public interface IState<T> : IEquatable<T> where T : struct
+    public abstract class State<T> : IEquatable<T>
     {
-        T Copy();
+        public abstract T Copy();
+        public abstract bool Equals(T other);
     }
 
-    public interface IStateSavable<T> where T : struct, IState<T>
+    public interface IStateSavable<T> where T : State<T>
     {
         T GetState();
         void RestoreState(T state);
     }
 
     [Serializable]
-    public struct ScenarioSyncPoint : IState<ScenarioSyncPoint>
+    public class ScenarioSyncPoint : State<ScenarioSyncPoint>
     {
-        [FormerlySerializedAs("currentStatementIndex")] public int currentCommandIndex;
+        public int currentCommandIndex;
         public bool initialized;
 
-        public List<ActorState> actors;
-        public List<CommonResourceState> sprites;
-        public List<CommonResourceState> backgrounds;
-        public List<CommonResourceState> stills;
-        public CaptionState caption;
-        public MessageBoxState messageBox;
-        public FadeState fade;
-        public AudioState audio;
+        public List<ActorState> actors = new();
+        public List<CommonResourceState> sprites = new();
+        public List<CommonResourceState> backgrounds = new();
+        public List<CommonResourceState> stills = new();
+        public CaptionState caption = new();
+        public MessageBoxState messageBox = new();
+        public FadeState fade = new();
+        public AudioState audio = new();
 
-        public static ScenarioSyncPoint Default()
+        public override ScenarioSyncPoint Copy()
         {
             return new()
             {
-                currentCommandIndex = 0,
-                initialized = false,
-                actors = new(),
-                sprites = new(),
-                backgrounds = new(),
-                stills = new(),
-                caption = new(),
-                messageBox = new(),
-                fade = new()
-                {
-                    progress = 1.0f
-                },
-                audio = new()
-            };
-        }
-
-        public ScenarioSyncPoint Copy()
-        {
-            ScenarioSyncPoint copied = new()
-            {
                 currentCommandIndex = currentCommandIndex,
                 initialized = initialized,
-                actors = new(),
-                sprites = new(),
-                backgrounds = new(),
-                stills = new(),
+                actors = actors.Select(a => a.Copy()).ToList(),
+                sprites = sprites.Select(s => s.Copy()).ToList(),
+                backgrounds = backgrounds.Select(b => b.Copy()).ToList(),
+                stills = stills.Select(s => s.Copy()).ToList(),
                 caption = caption.Copy(),
                 messageBox = messageBox.Copy(),
                 fade = fade.Copy(),
                 audio = audio.Copy()
             };
-
-            foreach (var a in actors)
-            {
-                copied.actors.Add(a.Copy());
-            }
-            foreach (var s in sprites)
-            {
-                copied.sprites.Add(s.Copy());
-            }
-            foreach (var b in backgrounds)
-            {
-                copied.backgrounds.Add(b.Copy());
-            }
-            foreach (var s in stills)
-            {
-                copied.stills.Add(s.Copy());
-            }
-
-            return copied;
         }
-        
-        public bool Equals(ScenarioSyncPoint other)
+
+        public override bool Equals(ScenarioSyncPoint other)
         {
+            if (other is null) return false;
+
             return currentCommandIndex == other.currentCommandIndex &&
                    initialized == other.initialized &&
                    actors.SequenceEqual(other.actors) &&
@@ -101,43 +65,10 @@ namespace Kaede2.Scenario
                    fade.Equals(other.fade) &&
                    audio.Equals(other.audio);
         }
-
-        public override bool Equals(object obj)
-        {
-            return obj is ScenarioSyncPoint other && Equals(other);
-        }
-
-        public override int GetHashCode()
-        {
-            var hashCode = new HashCode();
-            hashCode.Add(currentCommandIndex);
-            hashCode.Add(initialized);
-            foreach (var a in actors)
-            {
-                hashCode.Add(a);
-            }
-            foreach (var s in sprites)
-            {
-                hashCode.Add(s);
-            }
-            foreach (var b in backgrounds)
-            {
-                hashCode.Add(b);
-            }
-            foreach (var s in stills)
-            {
-                hashCode.Add(s);
-            }
-            hashCode.Add(caption);
-            hashCode.Add(messageBox);
-            hashCode.Add(fade);
-            hashCode.Add(audio);
-            return hashCode.ToHashCode();
-        }
     }
 
     [Serializable]
-    public struct EntityTransform : IState<EntityTransform>
+    public class EntityTransform : State<EntityTransform>
     {
         public bool enabled;
         public Vector3 position;
@@ -146,13 +77,23 @@ namespace Kaede2.Scenario
         public Vector2 pivot;
         public Color color;
 
-        public EntityTransform Copy()
+        public override EntityTransform Copy()
         {
-            return this;
+            return new()
+            {
+                enabled = enabled,
+                position = position,
+                angle = angle,
+                scale = scale,
+                pivot = pivot,
+                color = color
+            };
         }
 
-        public bool Equals(EntityTransform other)
+        public override bool Equals(EntityTransform other)
         {
+            if (other is null) return false;
+
             return enabled == other.enabled &&
                    position.Equals(other.position) &&
                    angle.Equals(other.angle) &&
@@ -160,32 +101,15 @@ namespace Kaede2.Scenario
                    pivot.Equals(other.pivot) &&
                    color.Equals(other.color);
         }
-
-        public override bool Equals(object obj)
-        {
-            return obj is EntityTransform other && Equals(other);
-        }
-
-        public override int GetHashCode()
-        {
-            var hashCode = new HashCode();
-            hashCode.Add(enabled);
-            hashCode.Add(position);
-            hashCode.Add(angle);
-            hashCode.Add(scale);
-            hashCode.Add(pivot);
-            hashCode.Add(color);
-            return hashCode.ToHashCode();
-        }
     }
 
     [Serializable]
-    public struct ActorState : IState<ActorState>
+    public class ActorState : State<ActorState>
     {
-        [FormerlySerializedAs("name")] public string objectName;
-        public string modelName;
-        public string currentMotion;
-        public string currentFaceMotion;
+        public string objectName = "";
+        public string modelName = "";
+        public string currentMotion = "";
+        public string currentFaceMotion = "";
 
         public int layer;
 
@@ -194,46 +118,43 @@ namespace Kaede2.Scenario
         public bool eyeBlink;
         public bool manualEyeOpen;
 
-        public List<string> mouthSynced;
+        public List<string> mouthSynced = new();
 
         public Vector2 faceAngle;
         public float bodyAngle;
 
         public float addEye;
 
-        public EntityTransform transform;
+        public EntityTransform transform = new();
 
-        public ActorState Copy()
+        public override ActorState Copy()
         {
-            ActorState copied = new()
+            return new()
             {
-                objectName = objectName,
-                currentMotion = currentMotion,
-                currentFaceMotion = currentFaceMotion,
+                objectName = string.Copy(objectName),
+                modelName = string.Copy(modelName),
+                currentMotion = string.Copy(currentMotion),
+                currentFaceMotion = string.Copy(currentFaceMotion),
                 layer = layer,
                 hidden = hidden,
                 eyeBlink = eyeBlink,
                 manualEyeOpen = manualEyeOpen,
-                mouthSynced = new(),
+                mouthSynced = mouthSynced.Select(string.Copy).ToList(),
                 faceAngle = faceAngle,
                 bodyAngle = bodyAngle,
                 addEye = addEye,
                 transform = transform.Copy()
             };
-
-            foreach (var m in mouthSynced)
-            {
-                copied.mouthSynced.Add(m);
-            }
-
-            return copied;
         }
 
-        public bool Equals(ActorState other)
+        public override bool Equals(ActorState other)
         {
-            return objectName == other.objectName &&
-                   currentMotion == other.currentMotion &&
-                   currentFaceMotion == other.currentFaceMotion &&
+            if (other is null) return false;
+
+            return string.Equals(objectName, other.objectName) &&
+                   string.Equals(modelName, other.modelName) &&
+                   string.Equals(currentMotion, other.currentMotion) &&
+                   string.Equals(currentFaceMotion, other.currentFaceMotion) &&
                    layer == other.layer &&
                    hidden == other.hidden &&
                    eyeBlink == other.eyeBlink &&
@@ -244,202 +165,135 @@ namespace Kaede2.Scenario
                    addEye.Equals(other.addEye) &&
                    transform.Equals(other.transform);
         }
-
-        public override bool Equals(object obj)
-        {
-            return obj is ActorState other && Equals(other);
-        }
-
-        public override int GetHashCode()
-        {
-            var hashCode = new HashCode();
-            hashCode.Add(objectName);
-            hashCode.Add(currentMotion);
-            hashCode.Add(currentFaceMotion);
-            hashCode.Add(layer);
-            hashCode.Add(hidden);
-            hashCode.Add(eyeBlink);
-            hashCode.Add(manualEyeOpen);
-            foreach (var m in mouthSynced)
-            {
-                hashCode.Add(m);
-            }
-            hashCode.Add(faceAngle);
-            hashCode.Add(bodyAngle);
-            hashCode.Add(addEye);
-            hashCode.Add(transform);
-            return hashCode.ToHashCode();
-        }
     }
 
     [Serializable]
-    public struct CommonResourceState : IState<CommonResourceState>
+    public class CommonResourceState : State<CommonResourceState>
     {
-        public string name;
-        public string resourceName;
+        public string objectName = "";
+        public string resourceName = "";
 
-        public EntityTransform transform;
+        public EntityTransform transform = new();
 
-        public CommonResourceState Copy()
+        public override CommonResourceState Copy()
         {
             return new()
             {
-                name = name,
-                resourceName = resourceName,
+                objectName = string.Copy(objectName),
+                resourceName = string.Copy(resourceName),
                 transform = transform.Copy()
             };
         }
 
-        public bool Equals(CommonResourceState other)
+        public override bool Equals(CommonResourceState other)
         {
-            return name == other.name &&
-                   resourceName == other.resourceName &&
+            if (other is null) return false;
+
+            return string.Equals(objectName, other.objectName) &&
+                   string.Equals(resourceName, other.resourceName) &&
                    transform.Equals(other.transform);
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is CommonResourceState other && Equals(other);
-        }
-
-        public override int GetHashCode()
-        {
-            var hashCode = new HashCode();
-            hashCode.Add(name);
-            hashCode.Add(resourceName);
-            hashCode.Add(transform);
-            return hashCode.ToHashCode();
         }
     }
 
     [Serializable]
-    public struct CaptionState : IState<CaptionState>
+    public class CaptionState : State<CaptionState>
     {
         public bool enabled;
         public Color boxColor;
-        public string text;
+        public string text = "";
         public float textAlpha;
 
-        public CaptionState Copy()
+        public override CaptionState Copy()
         {
-            return this;
+            return new()
+            {
+                enabled = enabled,
+                boxColor = boxColor,
+                text = string.Copy(text),
+                textAlpha = textAlpha
+            };
         }
 
-        public bool Equals(CaptionState other)
+        public override bool Equals(CaptionState other)
         {
+            if (other is null) return false;
+
             return enabled == other.enabled &&
                    boxColor.Equals(other.boxColor) &&
-                   text == other.text &&
+                   string.Equals(text, other.text) &&
                    textAlpha.Equals(other.textAlpha);
         }
-
-        public override bool Equals(object obj)
-        {
-            return obj is CaptionState other && Equals(other);
-        }
-
-        public override int GetHashCode()
-        {
-            var hashCode = new HashCode();
-            hashCode.Add(enabled);
-            hashCode.Add(boxColor);
-            hashCode.Add(text);
-            hashCode.Add(textAlpha);
-            return hashCode.ToHashCode();
-        }
     }
 
     [Serializable]
-    public struct MessageBoxState : IState<MessageBoxState>
+    public class MessageBoxState : State<MessageBoxState>
     {
         public bool enabled;
-        public string speaker;
-        public string message;
+        public string speaker = "";
+        public string message = "";
 
-        public MessageBoxState Copy()
+        public override MessageBoxState Copy()
         {
-            return this;
+            return new()
+            {
+                enabled = enabled,
+                speaker = string.Copy(speaker),
+                message = string.Copy(message)
+            };
         }
 
-        public bool Equals(MessageBoxState other)
+        public override bool Equals(MessageBoxState other)
         {
+            if (other is null) return false;
+
             return enabled == other.enabled &&
-                   speaker == other.speaker &&
-                   message == other.message;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is MessageBoxState other && Equals(other);
-        }
-
-        public override int GetHashCode()
-        {
-            var hashCode = new HashCode();
-            hashCode.Add(enabled);
-            hashCode.Add(speaker);
-            hashCode.Add(message);
-            return hashCode.ToHashCode();
+                   string.Equals(speaker, other.speaker) &&
+                   string.Equals(message, other.message);
         }
     }
 
     [Serializable]
-    public struct FadeState : IState<FadeState>
+    public class FadeState : State<FadeState>
     {
-        public float progress;
+        public float progress = 1.0f;
 
-        public FadeState Copy()
+        public override FadeState Copy()
         {
-            return this;
+            return new() { progress = progress };
         }
 
-        public bool Equals(FadeState other)
+        public override bool Equals(FadeState other)
         {
+            if (other is null) return false;
+
             return progress.Equals(other.progress);
         }
-
-        public override bool Equals(object obj)
-        {
-            return obj is FadeState other && Equals(other);
-        }
-
-        public override int GetHashCode()
-        {
-            return progress.GetHashCode();
-        }
     }
 
     [Serializable]
-    public struct AudioState : IState<AudioState>
+    public class AudioState : State<AudioState>
     {
         public bool bgmPlaying;
-        public string bgmName;
+        public string bgmName = "";
         public float bgmVolume;
 
-        public AudioState Copy()
+        public override AudioState Copy()
         {
-            return this;
+            return new()
+            {
+                bgmPlaying = bgmPlaying,
+                bgmName = string.Copy(bgmName),
+                bgmVolume = bgmVolume
+            };
         }
 
-        public bool Equals(AudioState other)
+        public override bool Equals(AudioState other)
         {
+            if (other is null) return false;
+
             return bgmPlaying == other.bgmPlaying &&
-                   bgmName == other.bgmName &&
+                   string.Equals(bgmName, other.bgmName) &&
                    bgmVolume.Equals(other.bgmVolume);
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is AudioState other && Equals(other);
-        }
-
-        public override int GetHashCode()
-        {
-            var hashCode = new HashCode();
-            hashCode.Add(bgmPlaying);
-            hashCode.Add(bgmName);
-            hashCode.Add(bgmVolume);
-            return hashCode.ToHashCode();
         }
     }
 }

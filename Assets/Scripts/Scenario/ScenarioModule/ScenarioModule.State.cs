@@ -32,7 +32,7 @@ namespace Kaede2.Scenario
 
         public void RestoreState(ScenarioSyncPoint state)
         {
-            void CleanAndRestoreStates<T>(Transform parent, List<T> states, Action<T> restoreState) where T : struct
+            void CleanAndRestoreStates<T>(Transform parent, List<T> states, Action<T> restoreState) where T : State<T>
             {
                 foreach (var o in parent)
                 {
@@ -68,7 +68,7 @@ namespace Kaede2.Scenario
                     return;
                 }
 
-                var entity = Sprite.CreateSprite(spriteState.name, spriteState.resourceName, sprite);
+                var entity = Sprite.CreateSprite(spriteState.objectName, spriteState.resourceName, sprite);
                 entity.RestoreState(spriteState);
             }
 
@@ -80,7 +80,7 @@ namespace Kaede2.Scenario
                     return;
                 }
 
-                var entity = BG.CreateBackground(UIManager.Instance.backgroundCanvas.transform, backgroundState.name, backgroundState.resourceName, tex);
+                var entity = BG.CreateBackground(UIManager.Instance.backgroundCanvas.transform, backgroundState.objectName, backgroundState.resourceName, tex);
                 entity.RestoreState(backgroundState);
             }
 
@@ -92,7 +92,7 @@ namespace Kaede2.Scenario
                     return;
                 }
 
-                var entity = BG.CreateBackground(UIManager.Instance.stillCanvas.transform, stillState.name, stillState.resourceName, tex);
+                var entity = BG.CreateBackground(UIManager.Instance.stillCanvas.transform, stillState.objectName, stillState.resourceName, tex);
                 entity.RestoreState(stillState);
             }
 
