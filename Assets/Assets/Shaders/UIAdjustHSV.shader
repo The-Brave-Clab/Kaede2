@@ -2,11 +2,10 @@ Shader "UI/HSV Adjustable"
 {
     Properties
     {
-        [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
+        [HideInInspector] [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
 //        _Color ("Tint", Color) = (1,1,1,1)
-        _Hue ("Hue", Range(-0.5, 0.5)) = 0.0
-        _Saturation ("Saturation", Range(-1, 1)) = 0.0
-        _Value ("Value", Range(-1, 1)) = 0.0
+        [HideInInspector] _ReferenceColor ("Reference Color", Color) = (1,0,0,1)
+        [HideInInspector] _TargetColor ("Target Color", Color) = (1,0,0,1)
 
         [HideInInspector] _StencilComp ("Stencil Comparison", Float) = 8
         [HideInInspector] _Stencil ("Stencil ID", Float) = 0
@@ -79,84 +78,64 @@ Shader "UI/HSV Adjustable"
 
             sampler2D _MainTex;
             // fixed4 _Color;
-            float _Hue;
-            float _Saturation;
-            float _Value;
+            fixed4 _ReferenceColor;
+            fixed4 _TargetColor;
             fixed4 _TextureSampleAdd;
             float4 _ClipRect;
             float4 _MainTex_ST;
 
-            float3 RGBtoHSV(float3 rgb)
+            // -------------------------------------------
+            // from com.unity.render-pipeline.core
+
+            // Hue, Saturation, Value
+            // Ranges:
+            //  Hue [0.0, 1.0]
+            //  Sat [0.0, 1.0]
+            //  Lum [0.0, HALF_MAX]
+            fixed3 RgbToHsv(fixed3 c)
             {
-                float R = rgb.x;
-                float G = rgb.y;
-                float B = rgb.z;
-                float minRGB = min(min(R, G), B);
-                float maxRGB = max(max(R, G), B);
-                float deltaRGB = maxRGB - minRGB;
-
-                float H = 0.0;
-                float S = 0.0;
-                float V = maxRGB;
-
-                if (deltaRGB != 0) {
-                    S = deltaRGB / maxRGB;
-                    float deltaR = (((maxRGB - R) / 6) + (deltaRGB / 2)) / deltaRGB;
-                    float deltaG = (((maxRGB - G) / 6) + (deltaRGB / 2)) / deltaRGB;
-                    float deltaB = (((maxRGB - B) / 6) + (deltaRGB / 2)) / deltaRGB;
-
-                    if (R == maxRGB) H = deltaB - deltaG;
-                    else if (G == maxRGB) H = (1.0 / 3.0) + deltaR - deltaB;
-                    else if (B == maxRGB) H = (2.0 / 3.0) + deltaG - deltaR;
-
-                    if (H < 0) H += 1;
-                    if (H > 1) H -= 1;
-                }
-
-                return float3(H, S, V);
+                const fixed4 K = fixed4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
+                fixed4 p = lerp(fixed4(c.bg, K.wz), fixed4(c.gb, K.xy), step(c.b, c.g));
+                fixed4 q = lerp(fixed4(p.xyw, c.r), fixed4(c.r, p.yzx), step(p.x, c.r));
+                float d = q.x - min(q.w, q.y);
+                const float e = 1.0e-4;
+                return fixed3(abs(q.z + (q.w - q.y) / (6.0 * d + e)), d / (q.x + e), q.x);
             }
 
-            float3 HSVtoRGB(float3 hsv)
+            fixed3 HsvToRgb(fixed3 c)
             {
-                float H = hsv.x;
-                float S = hsv.y;
-                float V = hsv.z;
-                float R, G, B;
-
-                if (S == 0) {
-                    R = G = B = V;
-                } else {
-                    uint i = uint(H * 6);
-                    float f = (H * 6) - i;
-                    float p = V * (1 - S);
-                    float q = V * (1 - f * S);
-                    float t = V * (1 - (1 - f) * S);
-
-                    switch (i % 6) {
-                        case 0: R = V; G = t; B = p; break;
-                        case 1: R = q; G = V; B = p; break;
-                        case 2: R = p; G = V; B = t; break;
-                        case 3: R = p; G = q; B = V; break;
-                        case 4: R = t; G = p; B = V; break;
-                        case 5: R = V; G = p; B = q; break;
-                    }
-                }
-
-                return float3(R, G, B);
+                const fixed4 K = fixed4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+                fixed3 p = abs(frac(c.xxx + K.xyz) * 6.0 - K.www);
+                return c.z * lerp(K.xxx, saturate(p - K.xxx), c.y);
             }
 
-            float Frac(float num)
+            float RotateHue(float value, float low, float hi)
             {
-                return step(0.0, -num) + frac(num);
+                return (value < low)
+                        ? value + hi
+                        : (value > hi)
+                            ? value - hi
+                            : value;
+            }
+            // -------------------------------------------
+
+            fixed3 CalculateHSVAdjustment(fixed3 referenceColor, fixed3 targetColor)
+            {
+                const fixed3 hsv1 = RgbToHsv(referenceColor);
+                const fixed3 hsv2 = RgbToHsv(targetColor);
+
+                fixed3 hsv = hsv2 - hsv1;
+
+                return hsv;
             }
 
-            float4 AdjustHSV(float4 rgba, float3 hsvAdjustment)
+            fixed4 AdjustHSV(fixed4 rgba, fixed3 hsvAdjustment)
             {
-                float3 hsv = RGBtoHSV(rgba.rgb);
-                hsv.x = Frac(hsv.x + hsvAdjustment.x);
+                fixed3 hsv = RgbToHsv(rgba.rgb);
+                hsv.x = RotateHue(hsv.x + hsvAdjustment.x, 0, 1);
                 hsv.y = clamp(hsv.y + hsvAdjustment.y, 0, 1);
                 hsv.z = clamp(hsv.z + hsvAdjustment.z, 0, 1);
-                return float4(HSVtoRGB(hsv), rgba.a);
+                return fixed4(HsvToRgb(hsv), rgba.a);
             }
 
             v2f vert(appdata_t v)
@@ -176,7 +155,7 @@ Shader "UI/HSV Adjustable"
             fixed4 frag(v2f IN) : SV_Target
             {
                 half4 color = (tex2D(_MainTex, IN.texcoord) + _TextureSampleAdd) * IN.color;
-                float3 hsvAdjustment = float3(_Hue, _Saturation, _Value);
+                const fixed3 hsvAdjustment = CalculateHSVAdjustment(_ReferenceColor, _TargetColor);
                 color = AdjustHSV(color, hsvAdjustment);
 
                 #ifdef UNITY_UI_CLIP_RECT
