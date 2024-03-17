@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class Rotate : ScenarioModule.Command
+    public class Rotate : Command
     {
         private readonly string entityName;
         private readonly float angle;
@@ -12,8 +12,8 @@ namespace Kaede2.Scenario.Commands
         private readonly Ease ease;
         private readonly bool wait;
 
-        private ScenarioModule.Entity entity;
-        public Rotate(ScenarioModule module, string[] arguments) : base(module, arguments)
+        private Entity entity;
+        public Rotate(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             entityName = OriginalArg(1);
             angle = Arg(2, 0.0f);

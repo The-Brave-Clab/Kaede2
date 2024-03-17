@@ -4,7 +4,7 @@ using Kaede2.Scenario.UI;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class Caption : ScenarioModule.Command
+    public class Caption : Command
     {
         private string resourceName;
         private string text;
@@ -16,7 +16,7 @@ namespace Kaede2.Scenario.Commands
 
         private CaptionBox captionBox;
 
-        public Caption(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public Caption(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             var split = Arg(1, ":").Split(':');
             resourceName = split[0]; // currently we ignore this as there's no more than one caption box at the same time
@@ -33,7 +33,7 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Setup()
         {
-            captionBox = UIManager.Instance.CaptionBox;
+            captionBox = Module.UIManager.CaptionBox;
             yield break;
         }
 
@@ -42,7 +42,7 @@ namespace Kaede2.Scenario.Commands
             captionBox.text.text = text;
             captionBox.text.fontSize = fontSize;
 
-            var colorStart = UIManager.Instance.CaptionDefaultColor;
+            var colorStart = Module.UIManager.CaptionDefaultColor;
             colorStart.a = 0;
             captionBox.box.color = colorStart;
 
@@ -54,7 +54,7 @@ namespace Kaede2.Scenario.Commands
 
             if (duration <= 0)
             {
-                captionBox.box.color = UIManager.Instance.CaptionDefaultColor;
+                captionBox.box.color = Module.UIManager.CaptionDefaultColor;
 
                 var color = captionBox.text.color;
                 color.a = 1;
@@ -69,7 +69,7 @@ namespace Kaede2.Scenario.Commands
                 {
                     if (captionBox == null) return;
 
-                    captionBox.box.color = UIManager.Instance.CaptionDefaultColor;
+                    captionBox.box.color = Module.UIManager.CaptionDefaultColor;
 
                     var color = captionBox.text.color;
                     color.a = value;

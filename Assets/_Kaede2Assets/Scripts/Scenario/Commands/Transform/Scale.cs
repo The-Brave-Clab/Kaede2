@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class Scale : ScenarioModule.Command
+    public class Scale : Command
     {
         private readonly string entityName;
         private readonly float scale;
@@ -12,8 +12,8 @@ namespace Kaede2.Scenario.Commands
         private readonly Ease ease;
         private readonly bool wait;
 
-        private ScenarioModule.Entity entity;
-        public Scale(ScenarioModule module, string[] arguments) : base(module, arguments)
+        private Entity entity;
+        public Scale(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             entityName = OriginalArg(1);
             scale = Arg(2, 0.0f);

@@ -4,13 +4,13 @@ using Kaede2.Scenario.UI;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class CameraZoom : ScenarioModule.Command
+    public class CameraZoom : Command
     {
         private readonly float scale;
         private readonly float duration;
         private readonly bool wait;
 
-        public CameraZoom(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public CameraZoom(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             scale = Arg(1, 1.0f);
             duration = Arg(2, 0.0f);
@@ -24,14 +24,14 @@ namespace Kaede2.Scenario.Commands
         {
             if (duration == 0)
             {
-                UIManager.CameraScale = scale;
+                Module.UIManager.CameraScale = scale;
                 yield break;
             }
 
-            float originalScale = UIManager.CameraScale;
+            float originalScale = Module.UIManager.CameraScale;
             Sequence s = DOTween.Sequence();
             s.Append(DOVirtual.Float(originalScale, scale, duration,
-                value => UIManager.CameraScale = value));
+                value => Module.UIManager.CameraScale = value));
 
             yield return s.WaitForCompletion();
         }

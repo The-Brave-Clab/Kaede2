@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class ShakeMes : ScenarioModule.Command
+    public class ShakeMes : Command
     {
         private readonly bool wait;
         private readonly float duration;
@@ -14,7 +14,7 @@ namespace Kaede2.Scenario.Commands
 
         private MessageBox messageBox;
 
-        public ShakeMes(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public ShakeMes(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             duration = Arg(1, 0f);
             strength = Arg(2, 20f);
@@ -27,7 +27,7 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Setup()
         {
-            messageBox = UIManager.Instance.MessageBox;
+            messageBox = Module.UIManager.MessageBox;
             yield break;
         }
 

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class Mes : ScenarioModule.Command
+    public class Mes : Command
     {
         private readonly string entityName;
         private readonly string speakerName;
@@ -17,7 +17,7 @@ namespace Kaede2.Scenario.Commands
         private Live2DActorEntity entity;
 
         // ReSharper disable once MemberCanBeProtected.Global
-        public Mes(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public Mes(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             var resourceSplit = OriginalArg(1).Split(':');
             if (resourceSplit.Length > 1)
@@ -50,13 +50,13 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Execute()
         {
-            var messageBox = UIManager.Instance.MessageBox;
+            var messageBox = Module.UIManager.MessageBox;
             messageBox.gameObject.SetActive(true);
             messageBox.SetText(message);
             messageBox.nameTag.text = speakerName;
 
             if (!AudioManager.IsInvalidVoice(voiceName))
-                AudioManager.Instance.PlayVoice(voiceName);
+                Module.AudioManager.PlayVoice(voiceName);
 
             float extraTimeAfterTextFinishDisplay = 1.0f;
 
@@ -65,7 +65,7 @@ namespace Kaede2.Scenario.Commands
             {
                 if (Module.LipSync && entity != null)
                 {
-                    entity.SetLip(AudioManager.Instance.GetVoiceVolume() * 128);
+                    entity.SetLip(Module.AudioManager.GetVoiceVolume() * 128);
                 }
 
                 var currentFrameButtonPressed = InputManager.InputAction.Scenario.Next.triggered;
@@ -89,7 +89,7 @@ namespace Kaede2.Scenario.Commands
                 bool autoMode = false; // TODO
 
                 // auto quit in auto mode
-                if (!AudioManager.Instance.IsVoicePlaying() && extraTimeAfterTextFinishDisplay <= 0 && autoMode)
+                if (!Module.AudioManager.IsVoicePlaying() && extraTimeAfterTextFinishDisplay <= 0 && autoMode)
                     break;
             }
 
@@ -101,7 +101,7 @@ namespace Kaede2.Scenario.Commands
                 }
                 entity.RemoveAllMouthSync();
             }
-            AudioManager.Instance.StopVoice();
+            Module.AudioManager.StopVoice();
         }
     }
 }

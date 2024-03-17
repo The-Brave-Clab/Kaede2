@@ -2,7 +2,7 @@
 {
     public class FadeOut : FadeBase
     {
-        public FadeOut(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public FadeOut(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
         }
 

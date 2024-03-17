@@ -2,7 +2,7 @@
 {
     public class RotateAnimStop : AnimStopBase
     {
-        public RotateAnimStop(ScenarioModule module, string[] arguments) : base(module, arguments) { }
+        public RotateAnimStop(ScenarioModuleBase module, string[] arguments) : base(module, arguments) { }
 
         protected override string AnimName => "rotate";
     }

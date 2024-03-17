@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class End : ScenarioModule.Command
+    public class End : Command
     {
-        public End(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public End(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
         }
 
@@ -14,8 +14,7 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Execute()
         {
-            Module.Initialized = false;
-            Debug.Log("Scenario ended");
+            Module.End();
             yield break;
         }
     }

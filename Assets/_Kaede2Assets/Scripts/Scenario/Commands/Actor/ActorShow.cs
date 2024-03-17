@@ -2,7 +2,7 @@
 {
     public class ActorShow : ActorShowHideBase
     {
-        public ActorShow(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public ActorShow(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
         }
 

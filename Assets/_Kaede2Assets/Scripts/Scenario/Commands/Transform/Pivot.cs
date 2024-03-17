@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class Pivot : ScenarioModule.Command
+    public class Pivot : Command
     {
         private readonly string entityName;
         private readonly Vector2 pivot;
 
-        private ScenarioModule.Entity entity;
+        private Entity entity;
 
-        public Pivot(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public Pivot(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             entityName = OriginalArg(1);
             pivot = new Vector2(Arg(2, 0.0f), Arg(3, 0.0f));

@@ -4,12 +4,12 @@ using Kaede2.Scenario.UI;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class CameraDefault : ScenarioModule.Command
+    public class CameraDefault : Command
     {
         private readonly float duration;
         private readonly bool wait;
 
-        public CameraDefault(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public CameraDefault(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             duration = Arg(1, 0.0f);
             wait = Arg(2, true);
@@ -22,19 +22,19 @@ namespace Kaede2.Scenario.Commands
         {
             if (duration == 0)
             {
-                UIManager.CameraPos = UIManager.CameraPosDefault;
-                UIManager.CameraScale = UIManager.CameraScaleDefault;
+                Module.UIManager.CameraPos = UIManager.CameraPosDefault;
+                Module.UIManager.CameraScale = UIManager.CameraScaleDefault;
                 yield break;
             }
 
-            var originalPosition = UIManager.CameraPos;
-            var originalScale = UIManager.CameraScale;
+            var originalPosition = Module.UIManager.CameraPos;
+            var originalScale = Module.UIManager.CameraScale;
 
             Sequence s = DOTween.Sequence();
             s.Append(DOVirtual.Vector3(originalPosition, UIManager.CameraPosDefault, duration,
-                value => UIManager.CameraPos = value));
+                value => Module.UIManager.CameraPos = value));
             s.Join(DOVirtual.Float(originalScale, UIManager.CameraScaleDefault, duration,
-                value => UIManager.CameraScale = value));
+                value => Module.UIManager.CameraScale = value));
 
             yield return s.WaitForCompletion();
         }

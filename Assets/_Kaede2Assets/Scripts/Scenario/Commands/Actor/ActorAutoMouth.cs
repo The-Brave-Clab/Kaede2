@@ -2,11 +2,11 @@
 
 namespace Kaede2.Scenario.Commands
 {
-    public class ActorAutoMouth : ScenarioModule.Command
+    public class ActorAutoMouth : Command
     {
         private readonly bool value;
 
-        public ActorAutoMouth(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public ActorAutoMouth(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             value = Arg(1, true);
         }

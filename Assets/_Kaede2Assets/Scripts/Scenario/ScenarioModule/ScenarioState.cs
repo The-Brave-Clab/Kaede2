@@ -23,7 +23,6 @@ namespace Kaede2.Scenario
     public class ScenarioState : State<ScenarioState>
     {
         public int currentCommandIndex = -1;
-        public bool initialized = false;
         public bool actorAutoDelete = false;
         public bool lipSync = true;
 
@@ -47,7 +46,6 @@ namespace Kaede2.Scenario
             return new()
             {
                 currentCommandIndex = currentCommandIndex,
-                initialized = initialized,
                 actorAutoDelete = actorAutoDelete,
                 lipSync = lipSync,
                 uiOn = uiOn,
@@ -71,7 +69,6 @@ namespace Kaede2.Scenario
             if (other is null) return false;
 
             return currentCommandIndex == other.currentCommandIndex &&
-                   initialized == other.initialized &&
                    actorAutoDelete == other.actorAutoDelete &&
                    lipSync == other.lipSync &&
                    uiOn == other.uiOn &&

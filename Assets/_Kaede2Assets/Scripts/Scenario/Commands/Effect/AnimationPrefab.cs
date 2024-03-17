@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using biscuit.Scenario.Effect;
 using UnityEngine;
 using Kaede2.Scenario.Entities;
@@ -8,7 +9,7 @@ using Object = UnityEngine.Object;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class AnimationPrefab : ScenarioModule.Command
+    public class AnimationPrefab : Command
     {
         private readonly string prefabName;
         private readonly string objectName;
@@ -23,13 +24,13 @@ namespace Kaede2.Scenario.Commands
             get
             {
                 if (prefab != null) return prefab;
-                prefab = Module.EffectPrefabs.Find(p =>
+                prefab = Module.EffectPrefabs.FirstOrDefault(p =>
                     p.name.Equals(prefabName, StringComparison.InvariantCultureIgnoreCase));
                 return prefab;
             }
         }
 
-        public AnimationPrefab(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public AnimationPrefab(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             var split = OriginalArg(1, ":").Split(":");
             prefabName = split[0].Split('/')[^1];

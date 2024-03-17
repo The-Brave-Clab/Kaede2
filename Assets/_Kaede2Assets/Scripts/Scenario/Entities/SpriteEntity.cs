@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Kaede2.Scenario.Entities
 {
-    public class SpriteEntity : ScenarioModule.Entity, IStateSavable<CommonResourceState>
+    public class SpriteEntity : Entity, IStateSavable<CommonResourceState>
     {
         public string resourceName;
 

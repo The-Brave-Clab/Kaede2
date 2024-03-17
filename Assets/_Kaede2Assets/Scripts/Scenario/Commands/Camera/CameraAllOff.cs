@@ -3,9 +3,9 @@ using Kaede2.Scenario.UI;
 
 namespace Kaede2.Scenario.Commands
 {
-    public abstract class CameraAllOnOffBase : ScenarioModule.Command
+    public abstract class CameraAllOnOffBase : Command
     {
-        public CameraAllOnOffBase(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public CameraAllOnOffBase(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
         }
 
@@ -16,14 +16,14 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Execute()
         {
-            UIManager.Instance.contentCanvas.gameObject.SetActive(On);
+            Module.UIManager.contentCanvas.gameObject.SetActive(On);
             yield break;
         }
     }
 
     public class CameraAllOff : CameraAllOnOffBase
     {
-        public CameraAllOff(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public CameraAllOff(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
         }
 

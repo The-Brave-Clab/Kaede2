@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using biscuit.Scenario.Effect;
 using Kaede2.Scenario.Entities;
 using Kaede2.ScriptableObjects;
@@ -8,7 +9,7 @@ using Object = UnityEngine.Object;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class TransformPrefab : ScenarioModule.Command
+    public class TransformPrefab : Command
     {
         private readonly string prefabName;
         private readonly string objName;
@@ -22,13 +23,13 @@ namespace Kaede2.Scenario.Commands
             get
             {
                 if (prefab != null) return prefab;
-                prefab = Module.EffectPrefabs.Find(p =>
+                prefab = Module.EffectPrefabs.FirstOrDefault(p =>
                     p.name.Equals(prefabName, StringComparison.InvariantCultureIgnoreCase));
                 return prefab;
             }
         }
 
-        public TransformPrefab(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public TransformPrefab(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             var split = OriginalArg(1, ":").Split(':');
             prefabName = split[0].Split('/')[^1];
@@ -50,7 +51,7 @@ namespace Kaede2.Scenario.Commands
                 yield break;
             }
 
-            if (!Module.ScenarioResource.transformImages.TryGetValue(id, out var transformImage))
+            if (!Module.ScenarioResource.TransformImages.TryGetValue(id, out var transformImage))
             {
                 Debug.LogError($"Transform Image for {id:G} not found");
                 yield break;

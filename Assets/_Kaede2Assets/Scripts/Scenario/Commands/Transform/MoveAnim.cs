@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class MoveAnim : ScenarioModule.Command
+    public class MoveAnim : Command
     {
         private readonly string entityName;
         private readonly Vector3 posDiff;
@@ -14,9 +14,9 @@ namespace Kaede2.Scenario.Commands
         private readonly Ease ease;
         private readonly bool wait;
 
-        private ScenarioModule.Entity entity;
+        private Entity entity;
 
-        public MoveAnim(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public MoveAnim(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             entityName = OriginalArg(1);
             posDiff = new Vector3(Arg(2, 0.0f), Arg(3, 0.0f), 0);

@@ -3,12 +3,12 @@ using Kaede2.Scenario.Audio;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class BGM : ScenarioModule.Command
+    public class BGM : Command
     {
         private readonly string bgmName;
         private readonly float volume;
 
-        public BGM(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public BGM(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             bgmName = Arg(1, "");
             volume = Arg(2, 1f);
@@ -19,7 +19,7 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Execute()
         {
-            AudioManager.Instance.PlayBGM(bgmName, volume);
+            Module.AudioManager.PlayBGM(bgmName, volume);
             yield break;
         }
     }

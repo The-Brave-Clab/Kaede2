@@ -4,7 +4,7 @@ using Kaede2.Scenario.UI;
 
 namespace Kaede2.Scenario.Commands
 {
-    public abstract class FadeBase : ScenarioModule.Command
+    public abstract class FadeBase : Command
     {
         private readonly float duration;
         private readonly bool wait;
@@ -15,7 +15,7 @@ namespace Kaede2.Scenario.Commands
         private FadeState startState;
         private FadeTransition fade;
 
-        protected FadeBase(ScenarioModule module, string[] arguments) : base(module, arguments)
+        protected FadeBase(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             duration = Arg(1, 1.0f);
             wait = Arg(2, true);
@@ -26,8 +26,8 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Setup()
         {
-            fade = UIManager.Instance.fade;
-            startState = UIManager.Instance.fade.GetState();
+            fade = Module.UIManager.fade;
+            startState = Module.UIManager.fade.GetState();
             yield break;
         }
 
@@ -49,7 +49,7 @@ namespace Kaede2.Scenario.Commands
 
     public class FadeIn : FadeBase
     {
-        public FadeIn(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public FadeIn(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
         }
 

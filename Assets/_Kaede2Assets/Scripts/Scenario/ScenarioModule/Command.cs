@@ -1,180 +1,161 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using DG.Tweening;
-using UnityEngine;
-using Kaede2.Utils;
 using Kaede2.Scenario.Commands;
-using Debug = UnityEngine.Debug;
+using Kaede2.Utils;
+using UnityEngine;
+using Object = UnityEngine.Object;
 using Color = Kaede2.Scenario.Commands.Color;
 using Sprite = Kaede2.Scenario.Commands.Sprite;
 
 namespace Kaede2.Scenario
 {
-    public partial class ScenarioModule
+    public abstract class Command
     {
-        private List<Command> commands;
-        private int currentCommandIndex;
-
-        private Command ParseStatement(string statement)
+        public enum ExecutionType
         {
-            string[] args = statement.Split(new[] {'\t'}, StringSplitOptions.None);
-            string command = args[0];
-
-            Type commandType = CommandTypes.TryGetValue(command, out var type) ? type : typeof(NotImplemented);
-            Command commandObj = (Command) System.ComponentModel.TypeDescriptor.CreateInstance(
-                provider: null,
-                objectType: commandType,
-                argTypes: new[] {typeof(ScenarioModule), typeof(string)},
-                args: new object[] {this, args});
-
-            return commandObj;
+            Instant,
+            Synchronous,
+            Asynchronous
         }
 
-        public abstract class Command
+        private readonly string[] originalArgs;
+
+        protected readonly ScenarioModuleBase Module;
+
+        public abstract ExecutionType Type { get; }
+
+        // a minus value means that the time is indeterminate, but its absolute value can be used for UI hints
+        public abstract float ExpectedExecutionTime { get; }
+
+        // constructor will be called before the scenario actually starts
+        // so any initialization related to the current status of the scene should be done in Setup
+        // the constructor should only be used to do initialization in a deterministic way
+        // when a command is created, it should be able to be executed, undone, and redone as many times as needed
+        protected Command(ScenarioModuleBase module, string[] arguments)
         {
-            public enum ExecutionType
+            Module = module;
+            originalArgs = arguments;
+        }
+
+        public virtual IEnumerator Setup()
+        {
+            yield break;
+        }
+
+        public abstract IEnumerator Execute();
+
+        public override string ToString()
+        {
+            string result = "";
+            foreach (var s in originalArgs)
             {
-                Instant,
-                Synchronous,
-                Asynchronous
+                result += s + "\t";
             }
 
-            private readonly string[] originalArgs;
+            return result.Trim();
+        }
 
-            protected readonly ScenarioModule Module;
-
-            public abstract ExecutionType Type { get; }
-
-            // a minus value means that the time is indeterminate, but its absolute value can be used for UI hints
-            public abstract float ExpectedExecutionTime { get; }
-
-            // constructor will be called before the scenario actually starts
-            // so any initialization related to the current status of the scene should be done in Setup
-            // the constructor should only be used to do initialization in a deterministic way
-            // when a command is created, it should be able to be executed, undone, and redone as many times as needed
-            protected Command(ScenarioModule module, string[] arguments)
+        protected T Arg<T>(int index, T defaultValue = default)
+        {
+            try
             {
-                Module = module;
-                originalArgs = arguments;
+                if (index >= originalArgs.Length) return defaultValue;
+
+                string resolved = Module.ResolveAlias(originalArgs[index]) ?? originalArgs[index];
+
+                if (typeof(T) == typeof(string)) return (T)(object)resolved;
+                if (typeof(T) == typeof(bool)) return (T)(object)bool.Parse(resolved);
+                if (typeof(T) == typeof(Ease)) return (T)(object)CommonUtils.GetEase(resolved);
+                return Module.Evaluate<T>(resolved);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(
+                    $"Cannot parse Arg[{index}] = {originalArgs[index]} as {typeof(T).Name}. Using default value {defaultValue}.\n{e.Message}");
+                return defaultValue;
+            }
+        }
+
+        protected string OriginalArg(int index, string defaultValue = "")
+        {
+            return index >= originalArgs.Length ? defaultValue : originalArgs[index];
+        }
+
+        protected int ArgLength()
+        {
+            return originalArgs.Length;
+        }
+
+        protected static int FindEntity<T>(string name, out T result) where T : Entity
+        {
+            var entities = Object.FindObjectsByType<T>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            if (entities == null || entities.Length == 0)
+            {
+                Debug.LogError($"No entities with Type {typeof(T).Name} '{name}' found.");
+                result = null;
+                return -1;
             }
 
-            public virtual IEnumerator Setup()
+            var substituteName =
+                CommonUtils.FindClosestMatch(name, entities.Select(e => e.gameObject.name), out var distance);
+            result = entities.First(e => e.gameObject.name == substituteName);
+            if (distance > 5)
             {
-                yield break;
-            }
-            public abstract IEnumerator Execute();
-
-            public override string ToString()
-            {
-                string result = "";
-                foreach (var s in originalArgs)
-                {
-                    result += s + "\t";
-                }
-
-                return result.Trim();
+                Debug.LogError($"{typeof(T).Name} '{name}' doesn't exist and no substitute found.");
+                result = null;
+                return -1;
             }
 
-            protected T Arg<T>(int index, T defaultValue = default)
-            {
-                try
-                {
-                    if (index >= originalArgs.Length) return defaultValue;
+            if (distance != 0)
+                Debug.LogWarning(
+                    $"{typeof(T).Name} '{name}' doesn't exist, using '{substituteName}' instead. Distance is {distance}.");
+            return distance;
+        }
 
-                    string resolved = Module.ResolveAlias(originalArgs[index]) ?? originalArgs[index];
-
-                    if (typeof(T) == typeof(string)) return (T)(object)resolved;
-                    if (typeof(T) == typeof(bool)) return (T)(object)bool.Parse(resolved);
-                    if (typeof(T) == typeof(Ease)) return (T)(object)CommonUtils.GetEase(resolved);
-                    return Module.Evaluate<T>(resolved);
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"Cannot parse Arg[{index}] = {originalArgs[index]} as {typeof(T).Name}. Using default value {defaultValue}.\n{e.Message}");
-                    return defaultValue;
-                }
-            }
-
-            protected string OriginalArg(int index, string defaultValue = "")
-            {
-                return index >= originalArgs.Length ? defaultValue : originalArgs[index];
-            }
-
-            protected int ArgLength()
-            {
-                return originalArgs.Length;
-            }
-
-            protected static int FindEntity<T>(string name, out T result) where T : Entity
-            {
-                var entities = FindObjectsByType<T>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-                if (entities == null || entities.Length == 0)
-                {
-                    Debug.LogError($"No entities with Type {typeof(T).Name} '{name}' found.");
-                    result = null;
-                    return -1;
-                }
-
-                var substituteName =
-                    CommonUtils.FindClosestMatch(name, entities.Select(e => e.gameObject.name), out var distance);
-                result = entities.First(e => e.gameObject.name == substituteName);
-                if (distance > 5)
-                {
-                    Debug.LogError($"{typeof(T).Name} '{name}' doesn't exist and no substitute found.");
-                    result = null;
-                    return -1;
-                }
-                if (distance != 0)
-                    Debug.LogWarning(
-                        $"{typeof(T).Name} '{name}' doesn't exist, using '{substituteName}' instead. Distance is {distance}.");
-                return distance;
-            }
-
-            protected static ExecutionType ExecutionTypeBasedOnWaitAndDuration(bool wait, float duration)
-            {
-                if (duration == 0) return ExecutionType.Instant;
-                if (wait) return ExecutionType.Synchronous;
-                return ExecutionType.Asynchronous;
-            }
+        protected static ExecutionType ExecutionTypeBasedOnWaitAndDuration(bool wait, float duration)
+        {
+            if (duration == 0) return ExecutionType.Instant;
+            if (wait) return ExecutionType.Synchronous;
+            return ExecutionType.Asynchronous;
+        }
 
 #if UNITY_EDITOR
-            public void Log()
+        public void Log()
+        {
+            StringBuilder sb = new();
+            sb.Append($"<color=#00FF00>[{Time.frameCount}]</color>\t");
+            sb.Append($"<color=#FFFF00>{originalArgs[0]}</color>\n");
+
+            for (int i = 1; i < originalArgs.Length; i++)
             {
-                StringBuilder sb = new();
-                sb.Append($"<color=#00FF00>[{Time.frameCount}]</color>\t");
-                sb.Append($"<color=#FFFF00>{originalArgs[0]}</color>\n");
+                var resolved = Module.ResolveAlias(originalArgs[i]) ?? originalArgs[i];
+                sb.Append($"\t<color=#00FFFF>{originalArgs[i]}</color>");
 
-                for (int i = 1; i < originalArgs.Length; i++)
+                if (originalArgs[0] != "set")
                 {
-                    var resolved = Module.ResolveAlias(originalArgs[i]) ?? originalArgs[i];
-                    sb.Append($"\t<color=#00FFFF>{originalArgs[i]}</color>");
-
-                    if (originalArgs[0] != "set")
+                    if (resolved != originalArgs[i])
+                        sb.Append($" <color=#FF00FF>({resolved})</color>");
+                    if (originalArgs[i] is not ("true" or "false"))
                     {
-                        if (resolved != originalArgs[i])
-                            sb.Append($" <color=#FF00FF>({resolved})</color>");
-                        if (originalArgs[i] is not ("true" or "false"))
-                        {
-                            var parsed = Module.ResolveExpression(resolved);
-                            if (parsed != resolved)
-                                sb.Append($" <color=#FFFFFF>=> {parsed}</color>");
-                        }
+                        var parsed = Module.ResolveExpression(resolved);
+                        if (parsed != resolved)
+                            sb.Append($" <color=#FFFFFF>=> {parsed}</color>");
                     }
-                    
-                    if (i < originalArgs.Length - 1)
-                        sb.Append("\n");
                 }
 
-                Debug.Log(sb.ToString());
+                if (i < originalArgs.Length - 1)
+                    sb.Append("\n");
             }
-#endif
-        }
 
-        private static Dictionary<string, Type> CommandTypes => new()
+            Debug.Log(sb.ToString());
+        }
+#endif
+
+        public static Dictionary<string, Type> Types => new()
         {
             { "mes", typeof(Mes) },
             { "mes_auto", typeof(MesAuto) },

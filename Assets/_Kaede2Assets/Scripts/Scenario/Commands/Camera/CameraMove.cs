@@ -5,13 +5,13 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class CameraMove : ScenarioModule.Command
+    public class CameraMove : Command
     {
         private readonly Vector2 position;
         private readonly float duration;
         private readonly bool wait;
 
-        public CameraMove(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public CameraMove(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
         }
 
@@ -22,15 +22,15 @@ namespace Kaede2.Scenario.Commands
         {
             if (duration == 0)
             {
-                UIManager.CameraPos = position;
+                Module.UIManager.CameraPos = position;
                 yield break;
             }
 
-            Vector2 originalPosition = UIManager.CameraPos;
+            Vector2 originalPosition = Module.UIManager.CameraPos;
 
             Sequence s = DOTween.Sequence();
             s.Append(DOVirtual.Vector3(originalPosition, position, duration,
-                value => UIManager.CameraPos = value));
+                value => Module.UIManager.CameraPos = value));
 
             yield return s.WaitForCompletion();
         }

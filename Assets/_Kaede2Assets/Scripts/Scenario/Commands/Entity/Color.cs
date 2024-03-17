@@ -3,7 +3,7 @@ using DG.Tweening;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class Color : ScenarioModule.Command
+    public class Color : Command
     {
         private readonly string entityName;
         private readonly UnityEngine.Color color;
@@ -11,9 +11,9 @@ namespace Kaede2.Scenario.Commands
         private readonly Ease ease;
         private readonly bool wait;
 
-        private ScenarioModule.Entity entity;
+        private Entity entity;
 
-        public Color(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public Color(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             entityName = OriginalArg(1);
             color = new UnityEngine.Color(Arg(2, 0.0f), Arg(3, 0.0f), Arg(4, 0.0f), Arg(5, 1.0f));

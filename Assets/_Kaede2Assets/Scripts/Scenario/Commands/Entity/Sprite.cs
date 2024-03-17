@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class Sprite : ScenarioModule.Command
+    public class Sprite : Command
     {
         private readonly string resourceName;
         private readonly string objName;
@@ -19,7 +19,7 @@ namespace Kaede2.Scenario.Commands
 
         private SpriteEntity entity;
 
-        public Sprite(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public Sprite(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             var split = OriginalArg(1).Split(":");
             resourceName = split[0];
@@ -60,13 +60,13 @@ namespace Kaede2.Scenario.Commands
         {
             if (entity == null)
             {
-                if (!Module.ScenarioResource.sprites.TryGetValue(resourceName, out var sprite))
+                if (!Module.ScenarioResource.Sprites.TryGetValue(resourceName, out var sprite))
                 {
                     Debug.LogError($"Sprite {resourceName} not found");
                     yield break;
                 }
 
-                entity = CreateSprite(objName, resourceName, sprite);
+                entity = CreateSprite(Module, objName, resourceName, sprite);
             }
 
             entity.transform.localScale = Vector3.one * scale;
@@ -84,9 +84,9 @@ namespace Kaede2.Scenario.Commands
             yield return entity.ColorAlpha(entity.GetColor(), 0, alpha, duration, false);
         }
 
-        public static SpriteEntity CreateSprite(string objectName, string resourceName, UnityEngine.Sprite sprite)
+        public static SpriteEntity CreateSprite(ScenarioModuleBase module, string objectName, string resourceName, UnityEngine.Sprite sprite)
         {
-            var newSprite = Object.Instantiate(UIManager.Instance.emptyUIObjectPrefab, UIManager.Instance.spriteCanvas.transform, false);
+            var newSprite = Object.Instantiate(module.UIManager.emptyUIObjectPrefab, module.UIManager.spriteCanvas.transform, false);
             newSprite.name = objectName;
             var image = newSprite.AddComponent<Image>();
             image.sprite = sprite;

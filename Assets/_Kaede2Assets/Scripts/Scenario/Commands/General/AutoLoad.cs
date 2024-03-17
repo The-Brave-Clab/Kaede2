@@ -8,9 +8,9 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class AutoLoad : ScenarioModule.Command
+    public class AutoLoad : Command
     {
-        public AutoLoad(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public AutoLoad(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
         }
 
@@ -21,9 +21,9 @@ namespace Kaede2.Scenario.Commands
         {
             HashSet<LoadData> allLoadData = new();
 
-            for (int i = 0; i < Module.StatementCount; ++i)
+            for (int i = 0; i < Module.Statements.Count; ++i)
             {
-                var statement = Module.Statement(i);
+                var statement = Module.Statements[i];
                 string[] statementArgs = statement.Split(new[] { '\t' }, StringSplitOptions.None);
 
                 // we ignore all "_load" commands since the resources they want to use are sometimes not used
@@ -127,7 +127,7 @@ namespace Kaede2.Scenario.Commands
                     Debug.LogError($"Failed to Live2D model {resourceName}");
                 }
 
-                Module.ScenarioResource.actors[resourceName] = handle.Result;
+                Module.ScenarioResource.Actors[resourceName] = handle.Result;
             }
 
             foreach (var data in loadDataList)
@@ -138,42 +138,42 @@ namespace Kaede2.Scenario.Commands
                     {
                         var handle = ResourceLoader.LoadScenarioSprite(data.resourceName);
                         Module.RegisterLoadHandle(handle);
-                        group.Add(SendHandleWithFinishCallback(handle, s => Module.ScenarioResource.sprites[data.resourceName] = s));
+                        group.Add(SendHandleWithFinishCallback(handle, s => Module.ScenarioResource.Sprites[data.resourceName] = s));
                         break;
                     }
                     case LoadData.LoadType.Still:
                     {
-                        var handle = ResourceLoader.LoadScenarioStill(ScenarioModule.ScenarioName, data.resourceName);
+                        var handle = ResourceLoader.LoadScenarioStill(Module.ScenarioName, data.resourceName);
                         Module.RegisterLoadHandle(handle);
-                        group.Add(SendHandleWithFinishCallback(handle, t => Module.ScenarioResource.stills[data.resourceName] = t));
+                        group.Add(SendHandleWithFinishCallback(handle, t => Module.ScenarioResource.Stills[data.resourceName] = t));
                         break;
                     }
                     case LoadData.LoadType.Background:
                     {
                         var handle = ResourceLoader.LoadScenarioBackground(data.resourceName);
                         Module.RegisterLoadHandle(handle);
-                        group.Add(SendHandleWithFinishCallback(handle, t => Module.ScenarioResource.backgrounds[data.resourceName] = t));
+                        group.Add(SendHandleWithFinishCallback(handle, t => Module.ScenarioResource.Backgrounds[data.resourceName] = t));
                         break;
                     }
                     case LoadData.LoadType.SE:
                     {
                         var handle = ResourceLoader.LoadScenarioSoundEffect(data.resourceName);
                         Module.RegisterLoadHandle(handle);
-                        group.Add(SendHandleWithFinishCallback(handle, a => Module.ScenarioResource.soundEffects[data.resourceName] = a));
+                        group.Add(SendHandleWithFinishCallback(handle, a => Module.ScenarioResource.SoundEffects[data.resourceName] = a));
                         break;
                     }
                     case LoadData.LoadType.BGM:
                     {
                         var handle = ResourceLoader.LoadScenarioBackgroundMusic(data.resourceName);
                         Module.RegisterLoadHandle(handle);
-                        group.Add(SendHandleWithFinishCallback(handle, a => Module.ScenarioResource.backgroundMusics[data.resourceName] = a));
+                        group.Add(SendHandleWithFinishCallback(handle, a => Module.ScenarioResource.BackgroundMusics[data.resourceName] = a));
                         break;
                     }
                     case LoadData.LoadType.Voice:
                     {
-                        var handle = ResourceLoader.LoadScenarioVoice(ScenarioModule.ScenarioName, data.resourceName);
+                        var handle = ResourceLoader.LoadScenarioVoice(Module.ScenarioName, data.resourceName);
                         Module.RegisterLoadHandle(handle);
-                        group.Add(SendHandleWithFinishCallback(handle, a => Module.ScenarioResource.voices[data.resourceName] = a));
+                        group.Add(SendHandleWithFinishCallback(handle, a => Module.ScenarioResource.Voices[data.resourceName] = a));
                         break;
                     }
                     case LoadData.LoadType.TransformPrefab:
@@ -181,7 +181,7 @@ namespace Kaede2.Scenario.Commands
                         CharacterId id = (CharacterId)int.Parse(data.resourceName);
                         var handle = ResourceLoader.LoadScenarioTransformEffectSprite(id);
                         Module.RegisterLoadHandle(handle);
-                        group.Add(SendHandleWithFinishCallback(handle, s => Module.ScenarioResource.transformImages[id] = s));
+                        group.Add(SendHandleWithFinishCallback(handle, s => Module.ScenarioResource.TransformImages[id] = s));
                         break;
                     }
                     case LoadData.LoadType.Actor:

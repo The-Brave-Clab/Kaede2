@@ -8,7 +8,7 @@ using UnityEngine.Audio;
 
 namespace Kaede2.Scenario.Audio
 {
-    public class AudioManager : Singleton<AudioManager>, IStateSavable<AudioState>
+    public class AudioManager : MonoBehaviour, IStateSavable<AudioState>
     {
         [SerializeField]
         private AudioMixerGroup bgmMixerGroup;
@@ -25,10 +25,8 @@ namespace Kaede2.Scenario.Audio
 
         private bool running;
 
-        protected override void Awake()
+        protected void Awake()
         {
-            base.Awake();
-
             bgmAudioInfo = null;
             voiceAudioInfo = null;
             seAudioInfos = new();
@@ -82,7 +80,7 @@ namespace Kaede2.Scenario.Audio
             StopAudioImmediately(bgmAudioInfo);
             bgmAudioInfo = null;
 
-            if (!ScenarioModule.Instance.ScenarioResource.backgroundMusics.TryGetValue(bgmName, out var clip))
+            if (!ScenarioModule.Instance.ScenarioResource.BackgroundMusics.TryGetValue(bgmName, out var clip))
             {
                 Debug.LogError($"BGM {bgmName} not found");
                 return;
@@ -126,7 +124,7 @@ namespace Kaede2.Scenario.Audio
             if (IsInvalidVoice(voiceName))
                 return;
 
-            if (!ScenarioModule.Instance.ScenarioResource.voices.TryGetValue(voiceName, out var clip))
+            if (!ScenarioModule.Instance.ScenarioResource.Voices.TryGetValue(voiceName, out var clip))
             {
                 Debug.LogError($"Voice {voiceName} not found");
                 return;
@@ -172,7 +170,7 @@ namespace Kaede2.Scenario.Audio
 
         public IEnumerator PlaySE(string seName, float volume, float duration, bool loop)
         {
-            if (!ScenarioModule.Instance.ScenarioResource.soundEffects.TryGetValue(seName, out var clip))
+            if (!ScenarioModule.Instance.ScenarioResource.SoundEffects.TryGetValue(seName, out var clip))
             {
                 Debug.LogError($"SE {seName} not found");
                 return null;

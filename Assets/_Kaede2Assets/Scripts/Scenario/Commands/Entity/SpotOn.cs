@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class SpotOn : ScenarioModule.Command
+    public class SpotOn : Command
     {
         private readonly string targetName;
 
-        private ScenarioModule.Entity targetEntity;
-        private ScenarioModule.Entity[] allEntities;
+        private Entity targetEntity;
+        private Entity[] allEntities;
 
-        public SpotOn(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public SpotOn(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             targetName = OriginalArg(1);
         }
@@ -21,7 +21,7 @@ namespace Kaede2.Scenario.Commands
         public override IEnumerator Setup()
         {
             FindEntity(targetName, out targetEntity);
-            allEntities = Object.FindObjectsByType<ScenarioModule.Entity>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+            allEntities = Object.FindObjectsByType<Entity>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
             yield break;
         }
 

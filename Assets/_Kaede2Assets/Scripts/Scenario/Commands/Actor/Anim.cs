@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class Anim : ScenarioModule.Command
+    public class Anim : Command
     {
         private readonly string actorName;
         private readonly string motionName;
@@ -12,7 +12,7 @@ namespace Kaede2.Scenario.Commands
 
         private Live2DActorEntity entity;
 
-        public Anim(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public Anim(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             actorName = OriginalArg(1);
             motionName = Arg(2, "");

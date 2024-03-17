@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Entities
 {
-    public class AnimationPrefabEntity : ScenarioModule.Entity, IStateSavable<AnimationPrefabState>
+    public class AnimationPrefabEntity : Entity, IStateSavable<AnimationPrefabState>
     {
         public string prefabName;
 

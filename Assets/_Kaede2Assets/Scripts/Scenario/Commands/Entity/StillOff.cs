@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class StillOff : ScenarioModule.Command
+    public class StillOff : Command
     {
         private readonly string objName;
 
         private BackgroundEntity entity;
 
-        public StillOff(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public StillOff(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             objName = OriginalArg(1);
         }

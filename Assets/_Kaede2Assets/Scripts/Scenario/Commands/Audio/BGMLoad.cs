@@ -3,11 +3,11 @@ using Kaede2.Utils;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class BGMLoad : ScenarioModule.Command
+    public class BGMLoad : Command
     {
         private readonly string bgmName;
 
-        public BGMLoad(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public BGMLoad(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             bgmName = Arg<string>(1);
         }
@@ -17,7 +17,7 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Execute()
         {
-            if (Module.ScenarioResource.backgroundMusics.ContainsKey(bgmName))
+            if (Module.ScenarioResource.BackgroundMusics.ContainsKey(bgmName))
                 yield break;
 
             var loadHandle = ResourceLoader.LoadScenarioBackgroundMusic(bgmName);

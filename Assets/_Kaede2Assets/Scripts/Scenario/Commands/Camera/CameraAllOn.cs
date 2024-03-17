@@ -2,7 +2,7 @@
 {
     public class CameraAllOn : CameraAllOnOffBase
     {
-        public CameraAllOn(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public CameraAllOn(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
         }
 

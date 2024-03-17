@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public abstract class PosBase : ScenarioModule.Command
+    public abstract class PosBase : Command
     {
         private readonly string entityName;
         protected readonly Vector2 Position;
@@ -12,11 +12,11 @@ namespace Kaede2.Scenario.Commands
         private readonly Ease ease;
         private readonly bool wait;
 
-        protected ScenarioModule.Entity Entity;
+        protected Entity Entity;
 
         protected abstract Vector3 TargetPos { get; }
 
-        protected PosBase(ScenarioModule module, string[] arguments) : base(module, arguments)
+        protected PosBase(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             entityName = OriginalArg(1);
             Position = new Vector2(Arg(2, 0.0f), Arg(3, 0.0f));
@@ -54,7 +54,7 @@ namespace Kaede2.Scenario.Commands
 
     public class Pos : PosBase
     {
-        public Pos(ScenarioModule module, string[] arguments) : base(module, arguments) { }
+        public Pos(ScenarioModuleBase module, string[] arguments) : base(module, arguments) { }
 
         protected override Vector3 TargetPos => Position;
     }

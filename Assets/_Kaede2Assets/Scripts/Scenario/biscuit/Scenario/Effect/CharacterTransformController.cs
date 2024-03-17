@@ -132,7 +132,7 @@ namespace biscuit.Scenario.Effect
                 return;
             }
 
-            characterImage.sprite = ScenarioModule.Instance.ScenarioResource.transformImages[CharacterID];
+            characterImage.sprite = ScenarioModule.Instance.ScenarioResource.TransformImages[CharacterID];
 
             // StartCoroutine(LoadTransSprite(CharacterID));
         }

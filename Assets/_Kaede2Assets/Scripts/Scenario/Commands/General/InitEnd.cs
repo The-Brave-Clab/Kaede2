@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class InitEnd : ScenarioModule.Command
+    public class InitEnd : Command
     {
-        public InitEnd(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public InitEnd(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
         }
 
@@ -15,15 +15,7 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Execute()
         {
-            UIManager.Instance.loadingCanvas.gameObject.SetActive(false);
-            Module.Initialized = true;
-            Debug.Log("Scenario initialized");
-            if (ScenarioModule.StateToBeRestored != null)
-            {
-                Debug.Log("Restoring sync point");
-                Module.RestoreState(ScenarioModule.StateToBeRestored);
-                ScenarioModule.StateToBeRestored = null;
-            }
+            Module.InitEnd();
             yield break;
         }
     }

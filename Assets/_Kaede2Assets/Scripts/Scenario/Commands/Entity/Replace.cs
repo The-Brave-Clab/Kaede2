@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class Replace : ScenarioModule.Command
+    public class Replace : Command
     {
         private readonly string resourceName;
         private readonly string objName;
@@ -13,7 +13,7 @@ namespace Kaede2.Scenario.Commands
         private readonly bool wait;
 
         private BackgroundEntity originalEntity;
-        public Replace(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public Replace(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             resourceName = Arg(1, "");
             objName = OriginalArg(2);
@@ -38,7 +38,7 @@ namespace Kaede2.Scenario.Commands
                 yield break;
             }
 
-            if (!Module.ScenarioResource.backgrounds.TryGetValue(resourceName, out var tex))
+            if (!Module.ScenarioResource.Backgrounds.TryGetValue(resourceName, out var tex))
             {
                 Debug.LogError($"Background texture {resourceName} not found");
                 yield break;
@@ -53,6 +53,7 @@ namespace Kaede2.Scenario.Commands
             var newEntity = newBG.GetComponent<BackgroundEntity>();
             newBG.name = objName;
             newEntity.resourceName = resourceName;
+            newEntity.Canvas = Module.UIManager.contentCanvas.transform as RectTransform;
             newEntity.SetColor(clearWhite);
             newEntity.SetImage(tex);
             newEntity.transform.SetSiblingIndex(originalTransform.GetSiblingIndex() + 1);

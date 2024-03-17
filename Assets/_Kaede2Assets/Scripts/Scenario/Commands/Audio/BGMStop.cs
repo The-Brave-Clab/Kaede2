@@ -3,11 +3,11 @@ using Kaede2.Scenario.Audio;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class BGMStop : ScenarioModule.Command
+    public class BGMStop : Command
     {
         private readonly float duration;
 
-        public BGMStop(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public BGMStop(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             duration = Arg(1, 0.0f);
         }
@@ -17,7 +17,7 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Execute()
         {
-            var task = AudioManager.Instance.StopBGM(duration);
+            var task = Module.AudioManager.StopBGM(duration);
             if (task != null)
                 yield return task;
         }

@@ -3,75 +3,105 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Kaede2.Input;
+using Kaede2.Scenario.Audio;
+using Kaede2.Scenario.Commands;
+using Kaede2.Scenario.UI;
 using Kaede2.Utils;
 using NCalc;
 using UnityEngine;
 
 namespace Kaede2.Scenario
 {
-    public partial class ScenarioModule : Singleton<ScenarioModule>, IStateSavable<ScenarioState>
+    public class ScenarioModule : ScenarioModuleBase
     {
-        public static string ScenarioName;
+        public static string GlobalScenarioName;
         public static ScenarioState StateToBeRestored;
 
-        private List<ResourceLoader.HandleBase> handles;
-        private List<string> preprocessedStatements;
+        private List<string> statements;
+        private List<Command> commands;
+        private int currentCommandIndex;
 
-        public int StatementCount => preprocessedStatements.Count;
+        [SerializeField]
+        private UIManager uiManager;
 
-        public List<GameObject> EffectPrefabs;
+        [SerializeField]
+        private AudioManager audioManager;
 
 #if UNITY_EDITOR
         [Header("For editor only")]
         public string defaultScenarioName;
 #endif
 
-        // states
-        public bool Initialized { get; set; }
-        public bool ActorAutoDelete { get; set; }
-        public bool LipSync { get; set; }
+        public override string ScenarioName
+        {
+            get
+            {
+#if UNITY_EDITOR
+                if (string.IsNullOrEmpty(GlobalScenarioName))
+                {
+                    // in editor we might directly run the scenario scene
+                    // in this case, we set a default scenario name
+                    return defaultScenarioName;
+                }
+#endif
+                return GlobalScenarioName;
+            }
+        }
+
+        public override IReadOnlyList<string> Statements => statements.AsReadOnly();
+        public override IReadOnlyList<Command> Commands => commands.AsReadOnly();
+
+        public override int CurrentCommandIndex
+        {
+            get => currentCommandIndex;
+            protected set => currentCommandIndex = value;
+        }
+
+        public override UIManager UIManager => uiManager;
+        public override AudioManager AudioManager => audioManager;
+
+        public override void InitEnd()
+        {
+            UIManager.loadingCanvas.gameObject.SetActive(false);
+            Debug.Log("Scenario initialized");
+            if (StateToBeRestored != null)
+            {
+                Debug.Log("Restoring sync point");
+                RestoreState(StateToBeRestored);
+                StateToBeRestored = null;
+            }
+        }
+
+        public override void End()
+        {
+            Debug.Log("Scenario ended");
+        }
 
         protected override void Awake()
         {
             base.Awake();
 
-            scenarioResource = new();
-            handles = new();
-            preprocessedStatements = new();
-            aliases = new();
-            variables = new();
+            statements = new();
             commands = new();
             currentCommandIndex = -1;
-
-            Initialized = false;
-            ActorAutoDelete = false;
-            LipSync = true;
 
             InputManager.InputAction.Scenario.Enable();
         }
 
         private IEnumerator Start()
         {
-
 #if UNITY_EDITOR
-            if (string.IsNullOrEmpty(ScenarioName))
-            {
-                // in editor we might directly run the scenario scene
-                // in this case, we set a default scenario name
-                ScenarioName = defaultScenarioName;
-
-                // we might also need to do a global initialization here
-                // since we have skipped the splash screen
-                if (GlobalInitializer.CurrentStatus != GlobalInitializer.Status.Done)
-                    yield return GlobalInitializer.Initialize();
-            }
+            // we might want to do a global initialization here
+            // since we might skip the splash screen
+            if (GlobalInitializer.CurrentStatus != GlobalInitializer.Status.Done)
+                yield return GlobalInitializer.Initialize();
 #endif
 
             var scriptHandle = ResourceLoader.LoadScenarioScriptText(ScenarioName);
             // we could just release this right after getting the text string instead of releasing with other handles,
             // but it will usually unload the scenario bundle too which we are still going to use right after this
             // so we will release it with other handles
-            handles.Add(scriptHandle);
+            RegisterLoadHandle(scriptHandle);
             yield return scriptHandle.Send();
 
             var scriptAsset = scriptHandle.Result;
@@ -81,20 +111,17 @@ namespace Kaede2.Scenario
             yield return PreloadIncludeFiles(originalStatements, includeFiles);
 
             var includePreprocessedStatements = PreprocessInclude(originalStatements, includeFiles);
-            preprocessedStatements = PreprocessFunctions(includePreprocessedStatements);
-            yield return PreprocessAliasesAndVariables(preprocessedStatements);
+            statements = PreprocessFunctions(includePreprocessedStatements);
+            yield return PreprocessAliasesAndVariables(statements);
 
-            commands = preprocessedStatements.Select(ParseStatement).ToList();
+            commands = statements.Select(ParseStatement).ToList();
 
             StartCoroutine(Execute());
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
-            foreach (var handle in handles)
-            {
-                handle.Dispose();
-            }
+            base.OnDestroy();
 
             if (InputManager.Instance != null)
                 InputManager.InputAction.Scenario.Disable();
@@ -116,92 +143,149 @@ namespace Kaede2.Scenario
 
             return result;
         }
-
-        public string Statement(int index)
+        private IEnumerator PreloadIncludeFiles(List<string> statements, Dictionary<string, List<string>> includeFiles)
         {
-            return preprocessedStatements[index];
-        }
+            var includeStatements = statements.Where(s => s.StartsWith("include")).ToList();
 
-        #region Variables
-
-        private Dictionary<string, Expression> variables;
-
-        public void AddVariable(string variable, string value)
-        {
-            if (variable == value)
+            List<Tuple<string, ResourceLoader.LoadAddressableHandle<TextAsset>>> includeHandles = new();
+            foreach (var s in includeStatements)
             {
-                Debug.LogError("Variable cannot be equal to value");
-                return;
+                string[] args = s.Split(new[] { '\t' }, StringSplitOptions.None);
+                string includeFileName = args[1];
+                if (includeFileName == "define_function") includeFileName = "define_functions"; // a fix
+                // for now the include files are only in defines
+                var includeHandle = ResourceLoader.LoadScenarioDefineText(includeFileName);
+                includeHandles.Add(new(includeFileName, includeHandle));
             }
 
-            variables[variable] = new Expression(value);
-        }
+            if (includeHandles.Count == 0)
+                yield break;
 
-        public T Evaluate<T>(string expression)
-        {
-            var exp = new Expression(expression);
-            foreach (var v in variables)
+            CoroutineGroup group = new();
+            foreach (var (_, handle) in includeHandles)
+                group.Add(handle.Send(), this);
+            yield return group.WaitForAll();
+
+            foreach (var (fileName, handle) in includeHandles)
             {
-                exp.Parameters[v.Key] = v.Value;
+                var includeFileContent = handle.Result.text;
+                // include/define files are in a self-contained bundle
+                // since we are not going to use them after this, it's ok to release the handles
+                handle.Dispose();
+
+                Debug.Log($"Pre-Loaded include file {fileName}");
+                var includeFileStatements = GetStatementsFromScript(includeFileContent);
+                includeFiles[fileName] = includeFileStatements;
+                yield return PreloadIncludeFiles(includeFileStatements, includeFiles);
             }
-
-            var result = exp.Evaluate();
-            return (T) Convert.ChangeType(result, typeof(T));
         }
 
-#if UNITY_EDITOR
-        private string ResolveExpression(string expression)
+        private static List<string> PreprocessInclude(List<string> originalStatements,
+            Dictionary<string, List<string>> includeFiles)
         {
-            try
+            List<string> outputStatements = new();
+
+            foreach (var s in originalStatements)
             {
-                var exp = new Expression(expression);
-                foreach (var v in variables)
+                if (!s.StartsWith("include"))
                 {
-                    exp.Parameters[v.Key] = v.Value;
+                    outputStatements.Add(s);
+                    continue;
                 }
 
-                exp.Evaluate();
-                return exp.Evaluate().ToString();
+                string[] args = s.Split(new[] { '\t' }, StringSplitOptions.None);
+                string includeFileName = args[1];
+                if (includeFileName == "define_function") includeFileName = "define_functions"; // a fix
+                var includeStatements = includeFiles[includeFileName];
+                var processedIncludeStatements = PreprocessInclude(includeStatements, includeFiles);
+                outputStatements.AddRange(processedIncludeStatements);
             }
-            catch (Exception)
-            {
-                return expression;
-            }
+
+            return outputStatements;
         }
-#endif
 
-        #endregion
-
-        #region Alias
-
-        private Dictionary<string, string> aliases;
-
-        public void AddAlias(string orig, string alias)
+        private static List<string> PreprocessFunctions(List<string> statements)
         {
-            aliases[alias] = orig;
-        }
+            Dictionary<string, Function> functions = new();
+            Function currentFunction = null;
+            bool recordingFunction = false;
 
-        public string ResolveAlias(string token)
-        {
-            if (aliases == null) return token;
-            string result = token;
-            var sortedKeys = aliases.Keys.ToList();
-            sortedKeys.Sort((k2, k1) => k1.Length.CompareTo(k2.Length));
-            while (true)
+            List<string> outputStatements = new List<string>();
+
+            foreach (var s in statements)
             {
-                var replace = sortedKeys.Aggregate(result, 
-                    (current, key) => 
-                        current.Replace(key, aliases[key]));
+                // if recording function, just add to current function
+                if (recordingFunction && !s.StartsWith("endfunction"))
+                {
+                    currentFunction.AddStatement(s);
+                    continue;
+                }
 
-                if (replace == result)
-                    break;
+                // if recording and we should end, finish recording
+                if (recordingFunction && s.StartsWith("endfunction"))
+                {
+                    currentFunction.FinishDefinition();
+                    functions.Add(currentFunction.FunctionName, currentFunction);
 
-                result = replace;
+                    currentFunction = null;
+                    recordingFunction = false;
+                    continue;
+                }
+
+                // if not recording and we should start, start recording
+                if (s.StartsWith("function"))
+                {
+                    currentFunction = new Function(s);
+                    recordingFunction = true;
+                    continue;
+                }
+
+                // if not recording and we should call a function, call it
+                if (s.StartsWith("sub"))
+                {
+                    var split = s.Split('\t');
+                    var functionName = split[1];
+                    var parameters = new List<string>(split.Length - 2);
+                    for (int i = 2; i < split.Length; ++i)
+                    {
+                        parameters.Add(split[i]);
+                    }
+
+                    if (!functions.ContainsKey(functionName))
+                    {
+                        Debug.LogError($"Function {functionName} doesn't exist!");
+                        continue;
+                    }
+
+                    Function f = functions[functionName];
+                    var functionStatements = f.GetStatements(parameters);
+
+                    outputStatements.AddRange(functionStatements);
+                    continue;
+                }
+
+                // if not recording and we should do something else, just add it
+                outputStatements.Add(s);
             }
 
-            return result;
+            return outputStatements;
         }
 
-        #endregion
+        private IEnumerator PreprocessAliasesAndVariables(List<string> statements)
+        {
+            foreach (var s in statements)
+            {
+                if (s.StartsWith("alias_text"))
+                {
+                    if (ParseStatement(s) is AliasText command)
+                        yield return ExecuteSingle(command);
+                }
+                else if (s.StartsWith("set"))
+                {
+                    if (ParseStatement(s) is Set command)
+                        command.Execute().InstantExecution();
+                }
+            }
+        }
     }
 }

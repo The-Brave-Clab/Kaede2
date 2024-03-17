@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class BG : ScenarioModule.Command
+    public class BG : Command
     {
         private readonly string resourceName;
         private readonly string objName;
@@ -15,7 +15,7 @@ namespace Kaede2.Scenario.Commands
 
         private BackgroundEntity entity;
 
-        public BG(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public BG(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             resourceName = Arg(1, "");
             objName = OriginalArg(1);
@@ -55,13 +55,13 @@ namespace Kaede2.Scenario.Commands
 
             if (entity == null)
             {
-                if (!Module.ScenarioResource.backgrounds.TryGetValue(resourceName, out var tex))
+                if (!Module.ScenarioResource.Backgrounds.TryGetValue(resourceName, out var tex))
                 {
                     Debug.LogError($"Background texture {resourceName} not found");
                     yield break;
                 }
 
-                entity = CreateBackground(UIManager.Instance.backgroundCanvas.transform, objName, resourceName, tex);
+                entity = CreateBackground(Module, Module.UIManager.backgroundCanvas.transform, objName, resourceName, tex);
             }
 
 
@@ -71,12 +71,13 @@ namespace Kaede2.Scenario.Commands
             entity.gameObject.SetActive(true);
         }
 
-        public static BackgroundEntity CreateBackground(Transform parent, string objectName, string resourceName, Texture2D texture)
+        public static BackgroundEntity CreateBackground(ScenarioModuleBase module, Transform parent, string objectName, string resourceName, Texture2D texture)
         {
-            var newBG = Object.Instantiate(UIManager.Instance.backgroundPrefab, parent, false);
+            var newBG = Object.Instantiate(module.UIManager.backgroundPrefab, parent, false);
             var entity = newBG.GetComponent<BackgroundEntity>();
             newBG.name = objectName;
             entity.resourceName = resourceName;
+            entity.Canvas = module.UIManager.contentCanvas.transform as RectTransform;
             entity.SetImage(texture);
             return entity;
         }

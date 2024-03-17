@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class ActorEyeAdd : ScenarioModule.Command
+    public class ActorEyeAdd : Command
     {
         private readonly string actorName;
         private readonly float value;
@@ -13,7 +13,7 @@ namespace Kaede2.Scenario.Commands
 
         private Live2DActorEntity entity;
 
-        public ActorEyeAdd(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public ActorEyeAdd(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             actorName = OriginalArg(1);
             value = Arg(2, 0.0f);

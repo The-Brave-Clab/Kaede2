@@ -1616,7 +1616,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e32f8e7410a544c7af79dc56106f5f72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EffectPrefabs:
+  effectPrefabs:
   - {fileID: 1790748788823908178, guid: 88209ff2529b470baf47016723952e75, type: 3}
   - {fileID: 1790748788823908176, guid: c03a0acbe57e44bcb2457ee8935349ac, type: 3}
   - {fileID: 1790748788823908176, guid: 3aac881db15746e29e2db607af86f76c, type: 3}
@@ -1628,6 +1628,8 @@ MonoBehaviour:
   - {fileID: 1790748788823908175, guid: b07c9f8180d6427b88345b8b7ab49dca, type: 3}
   - {fileID: 1790748788823908175, guid: 3de42051e36242d680732c701970a319, type: 3}
   - {fileID: 1790748788823908187, guid: e285bd815010443d913ece67daee1ca4, type: 3}
+  uiManager: {fileID: 712115856}
+  audioManager: {fileID: 1735965833}
   defaultScenarioName: ss001_m001_a
 --- !u!4 &1969040972
 Transform:

@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class Wait : ScenarioModule.Command
+    public class Wait : Command
     {
         private readonly float duration;
 
-        public Wait(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public Wait(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             duration = Arg(1, 0.0f);
         }

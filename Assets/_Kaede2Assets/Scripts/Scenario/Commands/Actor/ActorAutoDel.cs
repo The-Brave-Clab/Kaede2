@@ -2,11 +2,11 @@
 
 namespace Kaede2.Scenario.Commands
 {
-    public class ActorAutoDel : ScenarioModule.Command
+    public class ActorAutoDel : Command
     {
         private readonly bool value;
 
-        public ActorAutoDel(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public ActorAutoDel(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             value = Arg(1, false);
         }

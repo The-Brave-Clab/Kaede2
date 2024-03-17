@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class ActorBodyAngle : ScenarioModule.Command
+    public class ActorBodyAngle : Command
     {
         private readonly string actorName;
         private readonly float angleX;
@@ -13,7 +13,7 @@ namespace Kaede2.Scenario.Commands
 
         private Live2DActorEntity entity;
 
-        public ActorBodyAngle(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public ActorBodyAngle(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             actorName = OriginalArg(1);
             angleX = Arg(2, 0.0f);

@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class BGHide : ScenarioModule.Command
+    public class BGHide : Command
     {
         private readonly string objName;
 
         private BackgroundEntity entity;
 
-        public BGHide(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public BGHide(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             objName = OriginalArg(1);
         }

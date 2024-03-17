@@ -3,11 +3,11 @@ using Kaede2.Utils;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class SELoad : ScenarioModule.Command
+    public class SELoad : Command
     {
         private readonly string seName;
 
-        public SELoad(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public SELoad(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             seName = Arg<string>(1);
         }
@@ -17,7 +17,7 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Execute()
         {
-            if (Module.ScenarioResource.soundEffects.ContainsKey(seName))
+            if (Module.ScenarioResource.SoundEffects.ContainsKey(seName))
                 yield break;
 
             var loadHandle = ResourceLoader.LoadScenarioSoundEffect(seName);

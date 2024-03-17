@@ -4,14 +4,14 @@ using Kaede2.Scenario.UI;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class CaptionHide : ScenarioModule.Command
+    public class CaptionHide : Command
     {
         private readonly float duration;
         private readonly bool wait;
 
         private CaptionBox captionBox;
 
-        public CaptionHide(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public CaptionHide(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             duration = Arg(2, 0.0f);
             wait = Arg(3, true);
@@ -22,7 +22,7 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Setup()
         {
-            captionBox = UIManager.Instance.CaptionBox;
+            captionBox = Module.UIManager.CaptionBox;
             yield break;
         }
 

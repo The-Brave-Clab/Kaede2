@@ -2,7 +2,7 @@
 {
     public class SELoop : SE
     {
-        public SELoop(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public SELoop(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
         }
 

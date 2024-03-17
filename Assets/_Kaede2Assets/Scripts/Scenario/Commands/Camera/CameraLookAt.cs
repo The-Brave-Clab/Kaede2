@@ -5,14 +5,14 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class CameraLookAt : ScenarioModule.Command
+    public class CameraLookAt : Command
     {
         private readonly Vector2 position;
         private readonly float scale;
         private readonly float duration;
         private readonly bool wait;
 
-        public CameraLookAt(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public CameraLookAt(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             position = new Vector2(Arg(1, 0.0f), Arg(2, 0.0f));
             scale = Arg(3, 1.0f);
@@ -27,19 +27,19 @@ namespace Kaede2.Scenario.Commands
         {
             if (duration == 0)
             {
-                UIManager.CameraPos = position;
-                UIManager.CameraScale = scale;
+                Module.UIManager.CameraPos = position;
+                Module.UIManager.CameraScale = scale;
                 yield break;
             }
 
-            Vector2 originalPosition = UIManager.CameraPos;
-            float originalScale = UIManager.CameraScale;
+            Vector2 originalPosition = Module.UIManager.CameraPos;
+            float originalScale = Module.UIManager.CameraScale;
 
             Sequence s = DOTween.Sequence();
             s.Append(DOVirtual.Vector3(originalPosition, position, duration,
-                value => UIManager.CameraPos = value));
+                value => Module.UIManager.CameraPos = value));
             s.Join(DOVirtual.Float(originalScale, scale, duration,
-                value => UIManager.CameraScale = value));
+                value => Module.UIManager.CameraScale = value));
 
             yield return s.WaitForCompletion();
         }

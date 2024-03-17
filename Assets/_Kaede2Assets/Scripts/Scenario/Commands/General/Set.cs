@@ -2,12 +2,12 @@
 
 namespace Kaede2.Scenario.Commands
 {
-    public class Set : ScenarioModule.Command
+    public class Set : Command
     {
         private readonly string variable;
         private readonly string value;
 
-        public Set(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public Set(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             string[] split = OriginalArg(1).Split('=');
             variable = split[0].Trim();

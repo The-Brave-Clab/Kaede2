@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class ActorScale : ScenarioModule.Command
+    public class ActorScale : Command
     {
         private readonly string actorName;
         private readonly float scale;
@@ -13,7 +13,7 @@ namespace Kaede2.Scenario.Commands
 
         private Live2DActorEntity entity;
 
-        public ActorScale(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public ActorScale(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             actorName = OriginalArg(1);
             scale = Arg(2, 1.0f);

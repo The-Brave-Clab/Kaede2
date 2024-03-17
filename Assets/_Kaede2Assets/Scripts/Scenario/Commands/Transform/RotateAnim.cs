@@ -3,7 +3,7 @@ using DG.Tweening;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class RotateAnim : ScenarioModule.Command
+    public class RotateAnim : Command
     {
         private readonly string entityName;
         private readonly float angleDiff;
@@ -13,9 +13,9 @@ namespace Kaede2.Scenario.Commands
         private readonly Ease ease;
         private readonly bool wait;
 
-        private ScenarioModule.Entity entity;
+        private Entity entity;
 
-        public RotateAnim(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public RotateAnim(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             entityName = OriginalArg(1);
             angleDiff = Arg(2, 0.0f);

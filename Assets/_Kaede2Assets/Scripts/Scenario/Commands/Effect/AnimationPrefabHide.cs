@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class AnimationPrefabHide : ScenarioModule.Command
+    public class AnimationPrefabHide : Command
     {
         private readonly string entityName;
 
         private AnimationPrefabEntity entity;
 
-        public AnimationPrefabHide(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public AnimationPrefabHide(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             entityName = OriginalArg(1);
         }

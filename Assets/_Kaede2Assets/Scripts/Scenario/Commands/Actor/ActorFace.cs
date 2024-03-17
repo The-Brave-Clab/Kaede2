@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class ActorFace : ScenarioModule.Command
+    public class ActorFace : Command
     {
         private readonly string actorName;
         private readonly string faceMotionName;
 
         private Live2DActorEntity entity;
 
-        public ActorFace(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public ActorFace(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             actorName = OriginalArg(1);
             faceMotionName = Arg(2, "");

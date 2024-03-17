@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class ActorMouthSync : ScenarioModule.Command
+    public class ActorMouthSync : Command
     {
         private readonly string slaveName;
         private readonly string masterName;
@@ -12,7 +12,7 @@ namespace Kaede2.Scenario.Commands
         private Live2DActorEntity slave;
         private Live2DActorEntity master;
 
-        public ActorMouthSync(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public ActorMouthSync(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             slaveName = OriginalArg(1);
             masterName = OriginalArg(2);

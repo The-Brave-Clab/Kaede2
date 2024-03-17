@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class SpriteHide : ScenarioModule.Command
+    public class SpriteHide : Command
     {
         private readonly string entityName;
         private readonly float duration;
@@ -12,7 +12,7 @@ namespace Kaede2.Scenario.Commands
 
         private SpriteEntity entity;
 
-        public SpriteHide(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public SpriteHide(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             entityName = OriginalArg(1);
             duration = Arg(2, 0.0f);

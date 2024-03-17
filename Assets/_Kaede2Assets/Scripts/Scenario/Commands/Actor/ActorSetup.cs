@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class ActorSetup : ScenarioModule.Command
+    public class ActorSetup : Command
     {
         private readonly string modelName;
         private readonly string readableName;
@@ -14,7 +14,7 @@ namespace Kaede2.Scenario.Commands
 
         private Live2DActorEntity entity;
 
-        public ActorSetup(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public ActorSetup(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             modelName = Arg(1, "");
             readableName = OriginalArg(1);
@@ -48,18 +48,18 @@ namespace Kaede2.Scenario.Commands
         public override IEnumerator Execute()
         {
             if (entity != null) yield break;
-            if (!Module.ScenarioResource.actors.TryGetValue(modelName, out var asset))
+            if (!Module.ScenarioResource.Actors.TryGetValue(modelName, out var asset))
             {
                 Debug.LogError($"Live2D model {modelName} not found");
                 yield break;
             }
 
-            CreateActor(new(xPos, 0), readableName, asset);
+            CreateActor(Module, new(xPos, 0), readableName, asset);
         }
 
-        public static Live2DActorEntity CreateActor(Vector2 position, string readableName, Live2DAssets asset)
+        public static Live2DActorEntity CreateActor(ScenarioModuleBase module, Vector2 position, string readableName, Live2DAssets asset)
         {
-            var newModel = Object.Instantiate(UIManager.Instance.emptyUIObjectPrefab, UIManager.Instance.live2DCanvas.transform, false);
+            var newModel = Object.Instantiate(module.UIManager.emptyUIObjectPrefab, module.UIManager.live2DCanvas.transform, false);
             newModel.GetComponent<RectTransform>().anchoredPosition = position;
             newModel.name = readableName;
             var entity = newModel.AddComponent<Live2DActorEntity>();

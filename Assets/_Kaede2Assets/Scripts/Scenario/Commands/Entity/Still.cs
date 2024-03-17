@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class Still : ScenarioModule.Command
+    public class Still : Command
     {
         private readonly string resourceName;
         private readonly string objName;
@@ -15,7 +15,7 @@ namespace Kaede2.Scenario.Commands
 
         private BackgroundEntity entity;
 
-        public Still(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public Still(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             resourceName = Arg(1, ":").Split(":")[0];
             objName = OriginalArg(1, ":").Split(":")[1];
@@ -55,16 +55,17 @@ namespace Kaede2.Scenario.Commands
 
             if (entity == null)
             {
-                if (!Module.ScenarioResource.stills.TryGetValue(resourceName, out var tex))
+                if (!Module.ScenarioResource.Stills.TryGetValue(resourceName, out var tex))
                 {
                     Debug.LogError($"Still texture {resourceName} not found");
                     yield break;
                 }
 
-                var newStill = Object.Instantiate(UIManager.Instance.backgroundPrefab, UIManager.Instance.stillCanvas.transform, false);
+                var newStill = Object.Instantiate(Module.UIManager.backgroundPrefab, Module.UIManager.stillCanvas.transform, false);
                 entity = newStill.GetComponent<BackgroundEntity>();
                 newStill.name = objName;
                 entity.resourceName = resourceName;
+                entity.Canvas = Module.UIManager.stillCanvas.transform as RectTransform;
                 entity.SetImage(tex);
             }
 

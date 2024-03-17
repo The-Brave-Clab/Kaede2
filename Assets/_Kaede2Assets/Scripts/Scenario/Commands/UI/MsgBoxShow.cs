@@ -3,12 +3,12 @@ using Kaede2.Scenario.UI;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class MsgBoxShow : ScenarioModule.Command
+    public class MsgBoxShow : Command
     {
         private MessageBoxState startState;
         private MessageBox messageBox;
 
-        public MsgBoxShow(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public MsgBoxShow(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
         }
 
@@ -17,7 +17,7 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Setup()
         {
-            messageBox = UIManager.Instance.MessageBox;
+            messageBox = Module.UIManager.MessageBox;
             startState = messageBox.GetState();
             yield break;
         }

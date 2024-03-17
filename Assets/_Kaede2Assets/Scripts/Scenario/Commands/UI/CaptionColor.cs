@@ -3,14 +3,14 @@ using Kaede2.Scenario.UI;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class CaptionColor : ScenarioModule.Command
+    public class CaptionColor : Command
     {
         private readonly UnityEngine.Color color;
         private readonly bool setDefault;
 
         private CaptionBox captionBox;
 
-        public CaptionColor(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public CaptionColor(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             color.r = Arg(2, 0);
             color.g = Arg(3, 0);
@@ -24,7 +24,7 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Setup()
         {
-            captionBox = UIManager.Instance.CaptionBox;
+            captionBox = Module.UIManager.CaptionBox;
             yield break;
         }
 
@@ -32,7 +32,7 @@ namespace Kaede2.Scenario.Commands
         {
             if (setDefault)
             {
-                UIManager.Instance.CaptionDefaultColor = color;
+                Module.UIManager.CaptionDefaultColor = color;
             }
 
             captionBox.box.color = color;

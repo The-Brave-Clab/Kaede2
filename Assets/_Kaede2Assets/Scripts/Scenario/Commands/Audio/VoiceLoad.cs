@@ -3,11 +3,11 @@ using Kaede2.Utils;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class VoiceLoad : ScenarioModule.Command
+    public class VoiceLoad : Command
     {
         private readonly string voiceName;
 
-        public VoiceLoad(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public VoiceLoad(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             voiceName = Arg<string>(1);
         }
@@ -17,10 +17,10 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Execute()
         {
-            if (Module.ScenarioResource.voices.ContainsKey(voiceName))
+            if (Module.ScenarioResource.Voices.ContainsKey(voiceName))
                 yield break;
 
-            var loadHandle = ResourceLoader.LoadScenarioVoice(ScenarioModule.ScenarioName, voiceName);
+            var loadHandle = ResourceLoader.LoadScenarioVoice(Module.ScenarioName, voiceName);
             Module.RegisterLoadHandle(loadHandle);
             yield return loadHandle.Send();
         }

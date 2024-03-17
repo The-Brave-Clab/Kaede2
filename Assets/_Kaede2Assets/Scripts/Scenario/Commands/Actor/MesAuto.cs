@@ -2,7 +2,7 @@
 {
     public class MesAuto : Mes
     {
-        public MesAuto(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public MesAuto(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
         }
 

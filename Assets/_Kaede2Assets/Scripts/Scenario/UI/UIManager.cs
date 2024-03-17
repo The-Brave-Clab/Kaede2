@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.UI
 {
-    public class UIManager : Singleton<UIManager>
+    public class UIManager : MonoBehaviour
     {
         #region Serialized
 
@@ -47,10 +47,8 @@ namespace Kaede2.Scenario.UI
 
         #endregion
 
-        protected override void Awake()
+        protected void Awake()
         {
-            base.Awake();
-
             var captionBoxObj = captionBoxPrefabs.Instantiate(GameSettings.ConsoleStyle, gameUICanvas.transform);
             CaptionBox = captionBoxObj.GetComponent<CaptionBox>();
             captionBoxObj.SetActive(false);
@@ -72,25 +70,25 @@ namespace Kaede2.Scenario.UI
             contentCanvas.gameObject.SetActive(false);
         }
 
-        public static Vector2 CameraPos
+        public Vector2 CameraPos
         {
-            get => Instance.live2DCanvasRectTransform.anchoredPosition * -1;
+            get => live2DCanvasRectTransform.anchoredPosition * -1;
             set
             {
-                Instance.live2DCanvasRectTransform.anchoredPosition = value * -1.0f;
-                Instance.backgroundCanvasRectTransform.anchoredPosition = value * -1.0f;
+                live2DCanvasRectTransform.anchoredPosition = value * -1.0f;
+                backgroundCanvasRectTransform.anchoredPosition = value * -1.0f;
             }
         }
 
         public static Vector2 CameraPosDefault => Vector2.zero;
 
-        public static float CameraScale
+        public float CameraScale
         {
-            get => Instance.live2DCanvasRectTransform.localScale.x;
+            get => live2DCanvasRectTransform.localScale.x;
             set
             {
-                Instance.live2DCanvasRectTransform.localScale = new Vector3(value, value, Instance.live2DCanvasRectTransform.localScale.z);
-                Instance.backgroundCanvasRectTransform.localScale = new Vector3(value, value, Instance.backgroundCanvasRectTransform.localScale.z);
+                live2DCanvasRectTransform.localScale = new Vector3(value, value, live2DCanvasRectTransform.localScale.z);
+                backgroundCanvasRectTransform.localScale = new Vector3(value, value, backgroundCanvasRectTransform.localScale.z);
             }
         }
 

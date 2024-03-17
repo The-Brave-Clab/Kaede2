@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class Del : ScenarioModule.Command
+    public class Del : Command
     {
         private readonly string objectName;
 
-        private ScenarioModule.Entity entity;
+        private Entity entity;
 
-        public Del(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public Del(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             objectName = OriginalArg(1);
         }
@@ -19,7 +19,7 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Setup()
         {
-            var entities = Object.FindObjectsByType<ScenarioModule.Entity>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            var entities = Object.FindObjectsByType<Entity>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             if (entities == null || entities.Length == 0)
             {
                 entity = null;

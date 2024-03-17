@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class ActorEye : ScenarioModule.Command
+    public class ActorEye : Command
     {
         private readonly string actorName;
         private readonly string motion;
 
         private Live2DActorEntity entity;
 
-        public ActorEye(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public ActorEye(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             actorName = OriginalArg(1);
             motion = Arg(2, "");

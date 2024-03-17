@@ -3,9 +3,9 @@ using Kaede2.Scenario.UI;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class UIShow : ScenarioModule.Command
+    public class UIShow : Command
     {
-        public UIShow(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public UIShow(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
         }
 
@@ -14,7 +14,7 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Execute()
         {
-            UIManager.Instance.uiCanvas.gameObject.SetActive(true);
+            Module.UIManager.uiCanvas.gameObject.SetActive(true);
             yield break;
         }
     }

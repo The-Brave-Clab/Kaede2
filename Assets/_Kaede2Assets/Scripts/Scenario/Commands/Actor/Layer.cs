@@ -3,14 +3,14 @@ using Kaede2.Scenario.Entities;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class Layer : ScenarioModule.Command
+    public class Layer : Command
     {
         private readonly string entityName;
         private readonly int layer;
 
         private Live2DActorEntity entity;
 
-        public Layer(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public Layer(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             entityName = OriginalArg(1);
             layer = Arg(2, 0);

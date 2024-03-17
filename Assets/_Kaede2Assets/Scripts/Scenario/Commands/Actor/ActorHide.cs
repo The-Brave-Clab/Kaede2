@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public abstract class ActorShowHideBase : ScenarioModule.Command
+    public abstract class ActorShowHideBase : Command
     {
         private readonly string actorName;
         private readonly float duration;
@@ -14,7 +14,7 @@ namespace Kaede2.Scenario.Commands
 
         protected abstract bool Hide { get; }
 
-        public ActorShowHideBase(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public ActorShowHideBase(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             actorName = OriginalArg(1);
             duration = Arg(2, 0.0f);
@@ -57,7 +57,7 @@ namespace Kaede2.Scenario.Commands
 
     public class ActorHide : ActorShowHideBase
     {
-        public ActorHide(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public ActorHide(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
         }
 

@@ -3,14 +3,14 @@ using Kaede2.Scenario.Entities;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class ActorEyeAbs : ScenarioModule.Command
+    public class ActorEyeAbs : Command
     {
         private readonly string actorName;
         private readonly float value;
 
         private Live2DActorEntity entity;
 
-        public ActorEyeAbs(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public ActorEyeAbs(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             actorName = OriginalArg(1);
             value = Arg(2, 0.0f);

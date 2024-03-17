@@ -3,15 +3,15 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public abstract class AnimStopBase : ScenarioModule.Command
+    public abstract class AnimStopBase : Command
     {
         private readonly string entityName;
 
-        private ScenarioModule.Entity entity;
+        private Entity entity;
 
         protected abstract string AnimName { get; }
 
-        protected AnimStopBase(ScenarioModule module, string[] arguments) : base(module, arguments)
+        protected AnimStopBase(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             entityName = OriginalArg(1);
         }
@@ -39,7 +39,7 @@ namespace Kaede2.Scenario.Commands
 
     public class MoveAnimStop : AnimStopBase
     {
-        public MoveAnimStop(ScenarioModule module, string[] arguments) : base(module, arguments) { }
+        public MoveAnimStop(ScenarioModuleBase module, string[] arguments) : base(module, arguments) { }
 
         protected override string AnimName => "move";
     }

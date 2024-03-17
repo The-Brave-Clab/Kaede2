@@ -3,7 +3,7 @@ using Kaede2.Scenario.Audio;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class SE : ScenarioModule.Command
+    public class SE : Command
     {
         private readonly string seName;
         private readonly float volume;
@@ -11,7 +11,7 @@ namespace Kaede2.Scenario.Commands
 
         protected virtual bool Loop => false;
 
-        public SE(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public SE(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             seName = Arg<string>(1);
             volume = Arg(2, 1.0f);
@@ -23,7 +23,7 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Execute()
         {
-            var task = AudioManager.Instance.PlaySE(seName, volume, duration, Loop);
+            var task = Module.AudioManager.PlaySE(seName, volume, duration, Loop);
             if (task != null)
                 yield return task;
         }

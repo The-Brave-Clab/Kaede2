@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace Kaede2.Scenario.Entities
 {
-    public partial class Live2DActorEntity : ScenarioModule.Entity, IStateSavable<ActorState>
+    public partial class Live2DActorEntity : Entity, IStateSavable<ActorState>
     {
         public Live2DAssets Assets { get; private set; }
 

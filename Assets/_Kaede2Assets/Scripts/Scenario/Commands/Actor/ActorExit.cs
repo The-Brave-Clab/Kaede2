@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class ActorExit : ScenarioModule.Command
+    public class ActorExit : Command
     {
         private readonly string actorName;
         private readonly float duration;
@@ -13,7 +13,7 @@ namespace Kaede2.Scenario.Commands
 
         private Live2DActorEntity entity;
 
-        public ActorExit(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public ActorExit(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             actorName = OriginalArg(1);
             duration = Arg(2, 0.0f);

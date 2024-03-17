@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class ActorEyeOff : ScenarioModule.Command
+    public class ActorEyeOff : Command
     {
         private readonly string actorName;
 
         private Live2DActorEntity entity;
 
-        public ActorEyeOff(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public ActorEyeOff(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             actorName = OriginalArg(1);
         }

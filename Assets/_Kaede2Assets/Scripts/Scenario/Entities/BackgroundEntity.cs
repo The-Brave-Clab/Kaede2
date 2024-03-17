@@ -1,20 +1,17 @@
 ﻿using Kaede2.Scenario.UI;
+using Kaede2.Scenario;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Kaede2.Scenario.Entities
 {
-    public class BackgroundEntity : ScenarioModule.Entity, IStateSavable<CommonResourceState>
+    public class BackgroundEntity : Entity, IStateSavable<CommonResourceState>
     {
         public string resourceName;
 
         public RawImage image;
-        private RectTransform canvas;
-        protected override void Awake()
-        {
-            base.Awake();
-            canvas = UIManager.Instance.contentCanvas.transform as RectTransform;
-        }
+
+        public RectTransform Canvas { get; set; }
 
         private void Update()
         {
@@ -24,7 +21,7 @@ namespace Kaede2.Scenario.Entities
         private void Resize()
         {
             var rectTransform = image.rectTransform;
-            var pixelRect = canvas.rect;
+            var pixelRect = Canvas.rect;
 
             // if we are in fixed 16:9 mode, adjust pixelRect first
             if (GameSettings.Fixed16By9)

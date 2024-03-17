@@ -3,12 +3,12 @@ using Kaede2.Scenario.Audio;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class SEStop : ScenarioModule.Command
+    public class SEStop : Command
     {
         private readonly string seName;
         private readonly float duration;
 
-        public SEStop(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public SEStop(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
             seName = Arg(1, "");
             duration = Arg(2, 0.0f);
@@ -19,7 +19,7 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Execute()
         {
-            var task = AudioManager.Instance.StopSE(seName, duration);
+            var task = Module.AudioManager.StopSE(seName, duration);
             if (task != null)
                 yield return task;
         }

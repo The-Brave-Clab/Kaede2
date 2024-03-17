@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class NotImplemented : ScenarioModule.Command
+    public class NotImplemented : Command
     {
-        public NotImplemented(ScenarioModule module, string[] arguments) : base(module, arguments)
+        public NotImplemented(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
         }
 
