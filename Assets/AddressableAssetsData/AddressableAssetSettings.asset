@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468a46d0ae32c3544b7d98094e6448a9, type: 3}
   m_Name: AddressableAssetSettings
   m_EditorClassIdentifier: 
-  m_DefaultGroup: 64c2b5014e81dae41ac7ba827c9a1b1e
+  m_DefaultGroup: d9fab5d213f363d42817279ff9aa58de
   m_currentHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
@@ -24,11 +24,11 @@ MonoBehaviour:
   m_InternalBundleIdMode: 1
   m_AssetLoadMode: 0
   m_BundledAssetProviderType:
-    m_AssemblyName: Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    m_ClassName: UnityEngine.ResourceManagement.ResourceProviders.BundledAssetProvider
+    m_AssemblyName: 
+    m_ClassName: 
   m_AssetBundleProviderType:
-    m_AssemblyName: Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    m_ClassName: UnityEngine.ResourceManagement.ResourceProviders.AssetBundleProvider
+    m_AssemblyName: 
+    m_ClassName: 
   m_IgnoreUnsupportedFilesInBuild: 0
   m_UniqueBundleIds: 0
   m_EnableJsonCatalog: 0
@@ -42,7 +42,7 @@ MonoBehaviour:
   m_SharedBundleSettings: 0
   m_SharedBundleSettingsCustomGroupIndex: 0
   m_ContiguousBundles: 1
-  m_StripUnityVersionFromBundleBuild: 1
+  m_StripUnityVersionFromBundleBuild: 0
   m_DisableVisibleSubAssetRepresentations: 0
   m_BuiltInBundleNaming: 0
   mBuiltInBundleCustomNaming: 
@@ -50,16 +50,15 @@ MonoBehaviour:
   m_CheckForContentUpdateRestrictionsOption: 0
   m_MonoScriptBundleCustomNaming: 
   m_RemoteCatalogBuildPath:
-    m_Id: 
+    m_Id: 9c2b371738918c949966a52e4c8a9bbb
   m_RemoteCatalogLoadPath:
-    m_Id: 
+    m_Id: cfca3cd065d66a647bee0aca81d86ff3
   m_ContentStateBuildPathProfileVariableName: <default settings path>
   m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 0
   m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
   m_GroupAssets:
-  - {fileID: 11400000, guid: 0bd078df9ac01d34abe76ce68cce895e, type: 2}
   - {fileID: 11400000, guid: 0eec3c5f47f21c644bfb2a207f808dc0, type: 2}
   - {fileID: 11400000, guid: 57632f6194974e0478f4e61de0f26e91, type: 2}
   m_BuildSettings:
@@ -68,38 +67,39 @@ MonoBehaviour:
   m_ProfileSettings:
     m_Profiles:
     - m_InheritedParent: 
-      m_Id: e97876c142cb5c345abe2946b32bace5
+      m_Id: 85cb9cbaa431cc946981a993b3ebe8ec
       m_ProfileName: Default
       m_Values:
-      - m_Id: 9545691edcc37a74f96757132a513683
+      - m_Id: d038d99a54e08f344882e3b78fb5cecd
         m_Value: '[Kaede2.Editor.SimplifiedBuildTarget.currentActive]'
-      - m_Id: 0eaf3c7de20ba1742b9960e3aff19401
+      - m_Id: 316fcbc72c5641744b9f78198245ea53
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
-      - m_Id: b86a8151725ce0347932d000f046ca77
+      - m_Id: 6209078759526ea4d989241e7249ad05
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
-      - m_Id: ae795528c22713b4bb3ae4082abd4bc9
+      - m_Id: 9c2b371738918c949966a52e4c8a9bbb
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
-      - m_Id: 04297a966aa99934ba2367d4b66ed500
+      - m_Id: cfca3cd065d66a647bee0aca81d86ff3
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
     m_ProfileEntryNames:
-    - m_Id: 9545691edcc37a74f96757132a513683
+    - m_Id: d038d99a54e08f344882e3b78fb5cecd
       m_Name: BuildTarget
       m_InlineUsage: 0
-    - m_Id: 0eaf3c7de20ba1742b9960e3aff19401
+    - m_Id: 316fcbc72c5641744b9f78198245ea53
       m_Name: Local.BuildPath
       m_InlineUsage: 0
-    - m_Id: b86a8151725ce0347932d000f046ca77
+    - m_Id: 6209078759526ea4d989241e7249ad05
       m_Name: Local.LoadPath
       m_InlineUsage: 0
-    - m_Id: ae795528c22713b4bb3ae4082abd4bc9
+    - m_Id: 9c2b371738918c949966a52e4c8a9bbb
       m_Name: Remote.BuildPath
       m_InlineUsage: 0
-    - m_Id: 04297a966aa99934ba2367d4b66ed500
+    - m_Id: cfca3cd065d66a647bee0aca81d86ff3
       m_Name: Remote.LoadPath
       m_InlineUsage: 0
     m_ProfileVersion: 1
   m_LabelTable:
     m_LabelNames:
+    - default
     - kaede2/illust
     - kaede2/master_data
     - kaede2/audio/bgm
@@ -1846,6 +1846,7 @@ MonoBehaviour:
     - kaede2/scenario_common/define
     - kaede2/scenario_common/se
     - kaede2/scenario_common/sprite
+    - kaede2/scenario_common/trans_scene
     - kaede2/scenario_common/live2d/adv_01yy01_moc_01
     - kaede2/scenario_common/live2d/adv_01yy01_moc_02
     - kaede2/scenario_common/live2d/adv_01yy01_moc_03
@@ -2063,7 +2064,6 @@ MonoBehaviour:
     - kaede2/scenario_common/live2d/adv_53yh01_moc_02
     - kaede2/scenario_common/live2d/adv_54ha01_moc_02
     - kaede2/scenario_common/live2d/adv_55fs01_moc_02
-    - kaede2/scenario_common/trans_scene
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: a6b2b15f1e274dd4bbd977a2eefbe76c, type: 2}
@@ -2076,4 +2076,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f620e7ac0b713df4ab541f10c17be090, type: 2}
   - {fileID: 11400000, guid: 11e2e68e2bd9467459001a0795767a81, type: 2}
   - {fileID: 11400000, guid: 082f7181dd3e93e44b534390c3f09447, type: 2}
-  m_ActiveProfileId: e97876c142cb5c345abe2946b32bace5
+  m_ActiveProfileId: 85cb9cbaa431cc946981a993b3ebe8ec

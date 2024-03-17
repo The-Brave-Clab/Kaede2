@@ -85,6 +85,9 @@ namespace Kaede2.Editor.Addressables
         public bool Filter(string baseFolder, string assetPath, out string bundleName)
         {
             bundleName = "";
+            if (string.IsNullOrEmpty(baseFolder) || string.IsNullOrEmpty(assetPath))
+                return false;
+
             if (Path.HasExtension(assetPath))
                 return false;
 

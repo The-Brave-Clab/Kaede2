@@ -9,7 +9,7 @@ namespace Kaede2.Editor
         Linux,
         Android,
         iOS,
-        WebGL,
+        Web,
     }
 
     public static class SimplifiedBuildTarget
@@ -32,7 +32,7 @@ namespace Kaede2.Editor
                     case BuildTarget.iOS:
                         return SimplifiedPlatform.iOS;
                     case BuildTarget.WebGL:
-                        return SimplifiedPlatform.WebGL;
+                        return SimplifiedPlatform.Web;
                     default:
                         return SimplifiedPlatform.Windows;
                 }
