@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Kaede2.Editor.Addressables;
 using Kaede2.Scenario;
 using Kaede2.ScriptableObjects;
 using UnityEditor;
@@ -44,18 +45,26 @@ namespace Kaede2.Editor.Inspectors
             return sortedScenarioInfo.FindIndex(si => si.ScenarioName == scenarioName);
         }
 
+        private static MasterScenarioInfo GetMasterData()
+        {
+            var taggerGUIDs = AssetDatabase.FindAssets($"t:{nameof(Kaede2AddressableTagger)}");
+            if (taggerGUIDs.Length == 0)
+                return null;
+
+            var taggerPath = AssetDatabase.GUIDToAssetPath(taggerGUIDs[0]);
+            var tagger = AssetDatabase.LoadAssetAtPath<Kaede2AddressableTagger>(taggerPath);
+            if (tagger == null)
+                return null;
+
+            if (string.IsNullOrEmpty(tagger.AddressableBaseFolder))
+                return null;
+
+            return AssetDatabase.LoadAssetAtPath<MasterScenarioInfo>($"{tagger.AddressableBaseFolder}/master_data/MasterScenarioInfo.masterdata");
+        }
+
         private void DrawScenarioSelector(SerializedProperty property)
         {
-            if (masterData == null)
-            {
-                masterData = AssetDatabase.LoadAssetAtPath<MasterScenarioInfo>("Assets/AddressableAssets/master_data/MasterScenarioInfo.masterdata");
-                if (masterData == null)
-                {
-                    EditorGUILayout.HelpBox("MasterScenarioInfo.masterdata not found!", MessageType.Error);
-                    return;
-                }
-            }
-
+            // draw header first
             FieldInfo fieldInfo = typeof(ScenarioModule).GetField(property.name, BindingFlags.Public | BindingFlags.Instance);
 
             HeaderAttribute headerAttr = fieldInfo!.GetCustomAttribute<HeaderAttribute>();
@@ -64,14 +73,7 @@ namespace Kaede2.Editor.Inspectors
                 EditorGUILayout.LabelField(headerAttr.header, EditorStyles.boldLabel);
             }
 
-            sortedScenarioInfo ??= masterData.scenarioInfo
-                .OrderBy(si => si.Id)
-                .ToList();
-
-            string[] popupOptions = sortedScenarioInfo
-                .Select(si => $"{si.KindName}/{si.ChapterName}/{si.EpisodeNumber} {si.EpisodeName}/{si.Label} {si.StoryName}")
-                .ToArray();
-
+            // original scenario string field
             string originalValue = property.stringValue;
             string newValue = EditorGUILayout.TextField(property.displayName, originalValue);
             if (originalValue != newValue)
@@ -82,13 +84,33 @@ namespace Kaede2.Editor.Inspectors
                 }
             }
 
+            // get master data for popup
+            const string noMasterDataMessage = "Quick selection is not available due to MasterScenarioInfo.masterdata not found.";
+            if (masterData == null)
+            {
+                masterData = GetMasterData();
+                if (masterData == null)
+                {
+                    EditorGUILayout.HelpBox(noMasterDataMessage, MessageType.Warning);
+                    return;
+                }
+            }
+
+            // draw popup
+            sortedScenarioInfo ??= masterData.scenarioInfo
+                .OrderBy(si => si.Id)
+                .ToList();
+
+            string[] popupOptions = sortedScenarioInfo
+                .Select(si => $"{si.KindName}/{si.ChapterName}/【{si.EpisodeNumber}】{si.EpisodeName}/【{si.Label}】{si.StoryName}")
+                .ToArray();
+
             int originalIndex = GetIndexOfScenarioName(property.stringValue);
             int selection = EditorGUILayout.Popup(originalIndex, popupOptions.ToArray());
 
             if (selection != originalIndex)
             {
                 property.stringValue = sortedScenarioInfo[selection].ScenarioName;
-                return;
             }
         }
     }
