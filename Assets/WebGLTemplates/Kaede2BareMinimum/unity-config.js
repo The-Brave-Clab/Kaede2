@@ -1,4 +1,10 @@
-var buildUrl = "Build";
+// if baseUrl is a variable and a string, buildUrl will be "<baseUrl>/Build"
+// otherwise it will just be "Build"
+// baseUrl is provided in the outer scope in production environments
+// if baseUrl is not provided, it will be set to the current directory for easier local development
+var baseUrl = typeof baseUrl === "string" ? baseUrl : "";
+var buildUrl = baseUrl + (baseUrl.length > 0 ? "/" : "") + "Build";
+var streamingAssetsUrl = baseUrl + (baseUrl.length > 0 ? "/" : "") + "StreamingAssets";
 var loaderUrl = buildUrl + "/{{{ LOADER_FILENAME }}}";
 var unityConfig = {
   dataUrl: buildUrl + "/{{{ DATA_FILENAME }}}",
@@ -12,7 +18,7 @@ var unityConfig = {
 #if SYMBOLS_FILENAME
   symbolsUrl: buildUrl + "/{{{ SYMBOLS_FILENAME }}}",
 #endif
-  streamingAssetsUrl: "StreamingAssets",
+  streamingAssetsUrl: streamingAssetsUrl,
   companyName: "{{{ COMPANY_NAME }}}",
   productName: "{{{ PRODUCT_NAME }}}",
   productVersion: "{{{ PRODUCT_VERSION }}}",
