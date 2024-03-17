@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using DG.Tweening;
-using Kaede2.Scenario.UI;
+using Kaede2.Scenario.Base;
 using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
@@ -29,16 +29,16 @@ namespace Kaede2.Scenario.Commands
                 yield break;
             }
 
-            Vector2 originalPos = Module.UIManager.CameraPos;
+            Vector2 originalPos = Module.UIController.CameraPos;
 
             Sequence s = DOTween.Sequence();
             s.Append(DOTween.Punch(
-                () => Module.UIManager.CameraPos,
+                () => Module.UIController.CameraPos,
                 value =>
                 {
-                    Vector3 pos = Module.UIManager.CameraPos;
+                    Vector3 pos = Module.UIController.CameraPos;
                     pos.x = -value.x; // * canvasScale;
-                    Module.UIManager.CameraPos = pos;
+                    Module.UIController.CameraPos = pos;
                 },
                 Vector3.one * strength,
                 duration,
@@ -47,7 +47,7 @@ namespace Kaede2.Scenario.Commands
 
             yield return s.WaitForCompletion();
 
-            Module.UIManager.CameraPos = originalPos;
+            Module.UIController.CameraPos = originalPos;
         }
     }
 }

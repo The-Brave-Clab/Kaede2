@@ -1,6 +1,6 @@
 ﻿using System.Collections;
+using Kaede2.Scenario.Base;
 using Kaede2.Scenario.Entities;
-using Kaede2.Scenario.UI;
 using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
@@ -61,12 +61,7 @@ namespace Kaede2.Scenario.Commands
                     yield break;
                 }
 
-                var newStill = Object.Instantiate(Module.UIManager.backgroundPrefab, Module.UIManager.stillCanvas.transform, false);
-                entity = newStill.GetComponent<BackgroundEntity>();
-                newStill.name = objName;
-                entity.resourceName = resourceName;
-                entity.Canvas = Module.UIManager.stillCanvas.transform as RectTransform;
-                entity.SetImage(tex);
+                entity = Module.UIController.CreateStill(objName, resourceName, tex);
             }
 
 

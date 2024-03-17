@@ -1,4 +1,5 @@
 ﻿using biscuit.Scenario.Effect;
+using Kaede2.Scenario.Base;
 using UnityEngine;
 
 namespace Kaede2.Scenario.Entities

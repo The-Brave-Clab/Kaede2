@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using UnityEngine;
+using Kaede2.Scenario.Base;
 
 namespace Kaede2.Scenario.Commands
 {

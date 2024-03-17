@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Kaede2.Scenario.Base;
 using Kaede2.Scenario.UI;
 
 namespace Kaede2.Scenario.Commands
@@ -24,7 +25,7 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Setup()
         {
-            captionBox = Module.UIManager.CaptionBox;
+            captionBox = Module.UIController.CaptionBox;
             yield break;
         }
 
@@ -32,7 +33,7 @@ namespace Kaede2.Scenario.Commands
         {
             if (setDefault)
             {
-                Module.UIManager.CaptionDefaultColor = color;
+                Module.UIController.CaptionDefaultColor = color;
             }
 
             captionBox.box.color = color;

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Kaede2.Scenario.Base;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Kaede2.Scenario.Entities

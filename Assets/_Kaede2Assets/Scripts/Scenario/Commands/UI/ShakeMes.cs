@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using DG.Tweening;
+using Kaede2.Scenario.Base;
 using Kaede2.Scenario.UI;
 using UnityEngine;
 
@@ -27,7 +28,7 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Setup()
         {
-            messageBox = Module.UIManager.MessageBox;
+            messageBox = Module.UIController.MessageBox;
             yield break;
         }
 

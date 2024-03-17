@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using Kaede2.Utils;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -154,7 +153,7 @@ namespace Kaede2.Scenario.Audio
         }
 
 
-        private float GetCurrentVolume(AudioSource audio)
+        private static float GetCurrentVolume(AudioSource audio)
         {
             const int fftSize = 128;
             float[] data = new float[fftSize];
@@ -287,7 +286,7 @@ namespace Kaede2.Scenario.Audio
             yield return seq.WaitForCompletion();
         }
 
-        public class AudioInfo
+        private class AudioInfo
         {
             public string Name { get; set; }
             public AudioSource Source { get; set; }

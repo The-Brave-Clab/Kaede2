@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Kaede2.Scenario.Base;
 using Kaede2.ScriptableObjects;
 using Kaede2.Utils;
 using UnityEngine;

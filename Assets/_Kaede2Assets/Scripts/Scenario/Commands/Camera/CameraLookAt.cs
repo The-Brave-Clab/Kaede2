@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using DG.Tweening;
-using Kaede2.Scenario.UI;
+using Kaede2.Scenario.Base;
 using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
@@ -27,19 +27,19 @@ namespace Kaede2.Scenario.Commands
         {
             if (duration == 0)
             {
-                Module.UIManager.CameraPos = position;
-                Module.UIManager.CameraScale = scale;
+                Module.UIController.CameraPos = position;
+                Module.UIController.CameraScale = scale;
                 yield break;
             }
 
-            Vector2 originalPosition = Module.UIManager.CameraPos;
-            float originalScale = Module.UIManager.CameraScale;
+            Vector2 originalPosition = Module.UIController.CameraPos;
+            float originalScale = Module.UIController.CameraScale;
 
             Sequence s = DOTween.Sequence();
             s.Append(DOVirtual.Vector3(originalPosition, position, duration,
-                value => Module.UIManager.CameraPos = value));
+                value => Module.UIController.CameraPos = value));
             s.Join(DOVirtual.Float(originalScale, scale, duration,
-                value => Module.UIManager.CameraScale = value));
+                value => Module.UIController.CameraScale = value));
 
             yield return s.WaitForCompletion();
         }

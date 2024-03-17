@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Linq;
 using biscuit.Scenario.Effect;
+using Kaede2.Scenario.Base;
 using Kaede2.Scenario.Entities;
 using Kaede2.ScriptableObjects;
 using UnityEngine;

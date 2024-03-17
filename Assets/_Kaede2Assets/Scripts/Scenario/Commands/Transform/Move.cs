@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Kaede2.Scenario.Base;
+using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
 {

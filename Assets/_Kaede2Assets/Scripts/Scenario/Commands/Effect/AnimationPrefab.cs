@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Linq;
 using biscuit.Scenario.Effect;
+using Kaede2.Scenario.Base;
 using UnityEngine;
 using Kaede2.Scenario.Entities;
-using Kaede2.ScriptableObjects;
 using Object = UnityEngine.Object;
 
 namespace Kaede2.Scenario.Commands

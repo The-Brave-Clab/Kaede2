@@ -1,4 +1,5 @@
 using System.Collections;
+using Kaede2.Scenario.Base;
 using Kaede2.Scenario.UI;
 
 namespace Kaede2.Scenario.Commands
@@ -17,7 +18,7 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Setup()
         {
-            messageBox = Module.UIManager.MessageBox;
+            messageBox = Module.UIController.MessageBox;
             startState = messageBox.GetState();
             yield break;
         }

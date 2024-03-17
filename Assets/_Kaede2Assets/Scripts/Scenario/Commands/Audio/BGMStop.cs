@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using Kaede2.Scenario.Audio;
+using Kaede2.Scenario.Base;
 
 namespace Kaede2.Scenario.Commands
 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Kaede2.Scenario.Base;
 using Kaede2.Utils;
 
 namespace Kaede2.Scenario.Commands

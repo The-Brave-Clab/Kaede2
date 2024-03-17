@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using Kaede2.Scenario.UI;
+using Kaede2.Scenario.Base;
 
 namespace Kaede2.Scenario.Commands
 {
@@ -14,7 +14,7 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Execute()
         {
-            Module.UIManager.uiCanvas.gameObject.SetActive(false);
+            Module.UIController.UICanvas.gameObject.SetActive(false);
             yield break;
         }
     }

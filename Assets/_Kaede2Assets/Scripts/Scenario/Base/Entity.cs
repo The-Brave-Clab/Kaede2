@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-namespace Kaede2.Scenario
+namespace Kaede2.Scenario.Base
 {
     [RequireComponent(typeof(RectTransform))]
     public class Entity : MonoBehaviour

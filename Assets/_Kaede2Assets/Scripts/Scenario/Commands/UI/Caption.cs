@@ -1,5 +1,6 @@
 using System.Collections;
 using DG.Tweening;
+using Kaede2.Scenario.Base;
 using Kaede2.Scenario.UI;
 
 namespace Kaede2.Scenario.Commands
@@ -33,7 +34,7 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Setup()
         {
-            captionBox = Module.UIManager.CaptionBox;
+            captionBox = Module.UIController.CaptionBox;
             yield break;
         }
 
@@ -42,7 +43,7 @@ namespace Kaede2.Scenario.Commands
             captionBox.text.text = text;
             captionBox.text.fontSize = fontSize;
 
-            var colorStart = Module.UIManager.CaptionDefaultColor;
+            var colorStart = Module.UIController.CaptionDefaultColor;
             colorStart.a = 0;
             captionBox.box.color = colorStart;
 
@@ -54,7 +55,7 @@ namespace Kaede2.Scenario.Commands
 
             if (duration <= 0)
             {
-                captionBox.box.color = Module.UIManager.CaptionDefaultColor;
+                captionBox.box.color = Module.UIController.CaptionDefaultColor;
 
                 var color = captionBox.text.color;
                 color.a = 1;
@@ -69,7 +70,7 @@ namespace Kaede2.Scenario.Commands
                 {
                     if (captionBox == null) return;
 
-                    captionBox.box.color = Module.UIManager.CaptionDefaultColor;
+                    captionBox.box.color = Module.UIController.CaptionDefaultColor;
 
                     var color = captionBox.text.color;
                     color.a = value;

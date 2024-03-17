@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using DG.Tweening;
+using Kaede2.Scenario.Base;
 using Kaede2.Scenario.UI;
 
 namespace Kaede2.Scenario.Commands
@@ -26,8 +27,8 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Setup()
         {
-            fade = Module.UIManager.fade;
-            startState = Module.UIManager.fade.GetState();
+            fade = Module.UIController.Fade;
+            startState = Module.UIController.Fade.GetState();
             yield break;
         }
 

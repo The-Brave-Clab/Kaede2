@@ -1,6 +1,6 @@
 ﻿using System.Collections;
+using Kaede2.Scenario.Base;
 using Kaede2.Scenario.Entities;
-using Kaede2.Scenario.UI;
 using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
@@ -61,7 +61,7 @@ namespace Kaede2.Scenario.Commands
                     yield break;
                 }
 
-                entity = CreateBackground(Module, Module.UIManager.backgroundCanvas.transform, objName, resourceName, tex);
+                entity = Module.UIController.CreateBackground(objName, resourceName, tex);
             }
 
 
@@ -69,17 +69,6 @@ namespace Kaede2.Scenario.Commands
             var rectTransform = entity.transform as RectTransform;
             rectTransform!.localScale = targetScale;
             entity.gameObject.SetActive(true);
-        }
-
-        public static BackgroundEntity CreateBackground(ScenarioModuleBase module, Transform parent, string objectName, string resourceName, Texture2D texture)
-        {
-            var newBG = Object.Instantiate(module.UIManager.backgroundPrefab, parent, false);
-            var entity = newBG.GetComponent<BackgroundEntity>();
-            newBG.name = objectName;
-            entity.resourceName = resourceName;
-            entity.Canvas = module.UIManager.contentCanvas.transform as RectTransform;
-            entity.SetImage(texture);
-            return entity;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using DG.Tweening;
+using Kaede2.Scenario.Base;
 using Kaede2.Scenario.Entities;
 using UnityEngine;
 
@@ -49,13 +50,8 @@ namespace Kaede2.Scenario.Commands
             Transform originalTransform = originalEntity.transform;
             originalEntity.gameObject.name = "_REPLACE_" + objName;
 
-            var newBG = Object.Instantiate(originalTransform.gameObject, originalTransform.parent);
-            var newEntity = newBG.GetComponent<BackgroundEntity>();
-            newBG.name = objName;
-            newEntity.resourceName = resourceName;
-            newEntity.Canvas = Module.UIManager.contentCanvas.transform as RectTransform;
+            var newEntity = Module.UIController.CreateBackground(objName, resourceName, tex);
             newEntity.SetColor(clearWhite);
-            newEntity.SetImage(tex);
             newEntity.transform.SetSiblingIndex(originalTransform.GetSiblingIndex() + 1);
 
             if (duration == 0)

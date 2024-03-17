@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using DG.Tweening;
+using Kaede2.Scenario.Base;
 using Kaede2.Scenario.UI;
 
 namespace Kaede2.Scenario.Commands
@@ -22,7 +23,7 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Setup()
         {
-            captionBox = Module.UIManager.CaptionBox;
+            captionBox = Module.UIController.CaptionBox;
             yield break;
         }
 

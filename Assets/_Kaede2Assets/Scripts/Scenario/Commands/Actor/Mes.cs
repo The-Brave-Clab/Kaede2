@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using Kaede2.Input;
 using Kaede2.Scenario.Audio;
+using Kaede2.Scenario.Base;
 using Kaede2.Scenario.Entities;
-using Kaede2.Scenario.UI;
 using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
@@ -50,7 +50,7 @@ namespace Kaede2.Scenario.Commands
 
         public override IEnumerator Execute()
         {
-            var messageBox = Module.UIManager.MessageBox;
+            var messageBox = Module.UIController.MessageBox;
             messageBox.gameObject.SetActive(true);
             messageBox.SetText(message);
             messageBox.nameTag.text = speakerName;

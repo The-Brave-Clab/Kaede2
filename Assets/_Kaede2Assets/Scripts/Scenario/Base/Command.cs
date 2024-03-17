@@ -11,7 +11,7 @@ using Object = UnityEngine.Object;
 using Color = Kaede2.Scenario.Commands.Color;
 using Sprite = Kaede2.Scenario.Commands.Sprite;
 
-namespace Kaede2.Scenario
+namespace Kaede2.Scenario.Base
 {
     public abstract class Command
     {

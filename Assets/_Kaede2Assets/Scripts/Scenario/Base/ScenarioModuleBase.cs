@@ -7,16 +7,15 @@ using Kaede2.Live2D;
 using Kaede2.Scenario.Audio;
 using Kaede2.Scenario.Commands;
 using Kaede2.Scenario.Entities;
-using Kaede2.Scenario.UI;
 using Kaede2.ScriptableObjects;
 using Kaede2.Utils;
 using NCalc;
 using UnityEngine;
 using Sprite = UnityEngine.Sprite;
 
-namespace Kaede2.Scenario
+namespace Kaede2.Scenario.Base
 {
-    public abstract class ScenarioModuleBase : Singleton<ScenarioModule>, IStateSavable<ScenarioState>
+    public abstract class ScenarioModuleBase : Singleton<ScenarioModuleBase>, IStateSavable<ScenarioState>
     {
         public abstract string ScenarioName { get; }
 
@@ -24,7 +23,7 @@ namespace Kaede2.Scenario
         public abstract IReadOnlyList<Command> Commands { get; }
         public abstract int CurrentCommandIndex { get; protected set; }
 
-        public abstract UIManager UIManager { get; }
+        public abstract UIControllerBase UIController { get; }
         public abstract AudioManager AudioManager { get; }
 
         [SerializeField]
@@ -254,19 +253,19 @@ namespace Kaede2.Scenario
                 actorAutoDelete = ActorAutoDelete,
                 lipSync = LipSync,
 
-                uiOn = UIManager.uiCanvas.gameObject.activeSelf,
-                cameraOn = UIManager.contentCanvas.gameObject.activeSelf,
-                cameraPosition = UIManager.CameraPos,
-                cameraScale = UIManager.CameraScale,
+                uiOn = UIController.UICanvas.gameObject.activeSelf,
+                cameraOn = UIController.ContentCanvas.gameObject.activeSelf,
+                cameraPosition = UIController.CameraPos,
+                cameraScale = UIController.CameraScale,
 
                 actors = Live2DActorEntity.AllActors.Select(c => c.GetState()).ToList(),
-                sprites = UIManager.spriteCanvas.GetComponentsInChildren<SpriteEntity>().Select(s => s.GetState()).ToList(),
-                backgrounds = UIManager.backgroundCanvas.GetComponentsInChildren<BackgroundEntity>().Select(b => b.GetState()).ToList(),
-                stills = UIManager.stillCanvas.GetComponentsInChildren<BackgroundEntity>().Select(b => b.GetState()).ToList(),
+                sprites = UIController.SpriteCanvas.GetComponentsInChildren<SpriteEntity>().Select(s => s.GetState()).ToList(),
+                backgrounds = UIController.BackgroundCanvas.GetComponentsInChildren<BackgroundEntity>().Select(b => b.GetState()).ToList(),
+                stills = UIController.StillCanvas.GetComponentsInChildren<BackgroundEntity>().Select(b => b.GetState()).ToList(),
                 animationPrefabs = FindObjectsByType<AnimationPrefabEntity>(FindObjectsInactive.Include, FindObjectsSortMode.None).Select(p => p.GetState()).Where(s => s != null).ToList(),
-                caption = UIManager.CaptionBox.GetState(),
-                messageBox = UIManager.MessageBox.GetState(),
-                fade = UIManager.fade.GetState(),
+                caption = UIController.CaptionBox.GetState(),
+                messageBox = UIController.MessageBox.GetState(),
+                fade = UIController.Fade.GetState(),
                 audio = AudioManager.GetState()
             };
         }
@@ -297,7 +296,7 @@ namespace Kaede2.Scenario
                     return;
                 }
 
-                var entity = ActorSetup.CreateActor(this, actorState.transform.position, actorState.objectName, asset);
+                var entity = UIController.CreateActor(actorState.transform.position, actorState.objectName, asset);
                 entity.RestoreState(actorState);
             }
 
@@ -309,7 +308,7 @@ namespace Kaede2.Scenario
                     return;
                 }
 
-                var entity = Kaede2.Scenario.Commands.Sprite.CreateSprite(this, spriteState.objectName, spriteState.resourceName, sprite);
+                var entity = UIController.CreateSprite(spriteState.objectName, spriteState.resourceName, sprite);
                 entity.RestoreState(spriteState);
             }
 
@@ -321,7 +320,7 @@ namespace Kaede2.Scenario
                     return;
                 }
 
-                var entity = BG.CreateBackground(this, UIManager.backgroundCanvas.transform, backgroundState.objectName, backgroundState.resourceName, tex);
+                var entity = UIController.CreateBackground(backgroundState.objectName, backgroundState.resourceName, tex);
                 entity.RestoreState(backgroundState);
             }
 
@@ -333,14 +332,14 @@ namespace Kaede2.Scenario
                     return;
                 }
 
-                var entity = BG.CreateBackground(this, UIManager.stillCanvas.transform, stillState.objectName, stillState.resourceName, tex);
+                var entity = UIController.CreateStill(stillState.objectName, stillState.resourceName, tex);
                 entity.RestoreState(stillState);
             }
 
-            CleanAndRestoreStates(UIManager.live2DCanvas.transform, state.actors, RestoreActorState);
-            CleanAndRestoreStates(UIManager.spriteCanvas.transform, state.sprites, RestoreSpriteState);
-            CleanAndRestoreStates(UIManager.backgroundCanvas.transform, state.backgrounds, RestoreBackgroundState);
-            CleanAndRestoreStates(UIManager.stillCanvas.transform, state.stills, RestoreStillState);
+            CleanAndRestoreStates(UIController.Live2DCanvas.transform, state.actors, RestoreActorState);
+            CleanAndRestoreStates(UIController.SpriteCanvas.transform, state.sprites, RestoreSpriteState);
+            CleanAndRestoreStates(UIController.BackgroundCanvas.transform, state.backgrounds, RestoreBackgroundState);
+            CleanAndRestoreStates(UIController.StillCanvas.transform, state.stills, RestoreStillState);
 
             // clean and restore animation prefab states
             foreach (var animPrefab in FindObjectsByType<AnimationPrefabEntity>(FindObjectsInactive.Include, FindObjectsSortMode.None))
@@ -376,19 +375,19 @@ namespace Kaede2.Scenario
                 }
             }
 
-            UIManager.CaptionBox.RestoreState(state.caption);
-            UIManager.MessageBox.RestoreState(state.messageBox);
-            UIManager.fade.RestoreState(state.fade);
+            UIController.CaptionBox.RestoreState(state.caption);
+            UIController.MessageBox.RestoreState(state.messageBox);
+            UIController.Fade.RestoreState(state.fade);
             AudioManager.RestoreState(state.audio);
 
             CurrentCommandIndex = state.currentCommandIndex;
             ActorAutoDelete = state.actorAutoDelete;
             LipSync = state.lipSync;
 
-            UIManager.uiCanvas.gameObject.SetActive(state.uiOn);
-            UIManager.contentCanvas.gameObject.SetActive(state.cameraOn);
-            UIManager.CameraPos = state.cameraPosition;
-            UIManager.CameraScale = state.cameraScale;
+            UIController.UICanvas.gameObject.SetActive(state.uiOn);
+            UIController.ContentCanvas.gameObject.SetActive(state.cameraOn);
+            UIController.CameraPos = state.cameraPosition;
+            UIController.CameraScale = state.cameraScale;
         }
     }
 }

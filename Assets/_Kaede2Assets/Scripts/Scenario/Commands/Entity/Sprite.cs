@@ -1,8 +1,7 @@
 ﻿using System.Collections;
+using Kaede2.Scenario.Base;
 using Kaede2.Scenario.Entities;
-using Kaede2.Scenario.UI;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Kaede2.Scenario.Commands
 {
@@ -66,7 +65,7 @@ namespace Kaede2.Scenario.Commands
                     yield break;
                 }
 
-                entity = CreateSprite(Module, objName, resourceName, sprite);
+                entity = Module.UIController.CreateSprite(objName, resourceName, sprite);
             }
 
             entity.transform.localScale = Vector3.one * scale;
@@ -82,22 +81,6 @@ namespace Kaede2.Scenario.Commands
             }
 
             yield return entity.ColorAlpha(entity.GetColor(), 0, alpha, duration, false);
-        }
-
-        public static SpriteEntity CreateSprite(ScenarioModuleBase module, string objectName, string resourceName, UnityEngine.Sprite sprite)
-        {
-            var newSprite = Object.Instantiate(module.UIManager.emptyUIObjectPrefab, module.UIManager.spriteCanvas.transform, false);
-            newSprite.name = objectName;
-            var image = newSprite.AddComponent<Image>();
-            image.sprite = sprite;
-            var entity = newSprite.AddComponent<SpriteEntity>();
-            entity.resourceName = resourceName;
-            entity.SetColor(new(1, 1, 1, 0));
-            var rectTransform = newSprite.GetComponent<RectTransform>();
-            rectTransform.sizeDelta = new Vector2(sprite.texture.width, sprite.texture.height);
-            rectTransform.pivot = Vector2.zero;
-            rectTransform.anchoredPosition3D = Vector3.zero;
-            return entity;
         }
     }
 }

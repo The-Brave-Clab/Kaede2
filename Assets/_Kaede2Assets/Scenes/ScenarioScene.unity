@@ -691,20 +691,20 @@ MonoBehaviour:
   emptyUIObjectPrefab: {fileID: 5110510404284451405, guid: 7cde391d5822f0d4fb37eabc3bda5383, type: 3}
   backgroundPrefab: {fileID: 3539029295642117359, guid: c4a356bf9a1fd374f91a8ab6db401e6d, type: 3}
   uiCanvas: {fileID: 1502977533}
-  loadingCanvas: {fileID: 1888027803}
-  fade: {fileID: 943529618}
-  gameUICanvas: {fileID: 1272546360}
   contentCanvas: {fileID: 686082868}
+  loadingCanvas: {fileID: 1888027803}
+  backgroundCanvas: {fileID: 1006144030}
+  live2DCanvas: {fileID: 174358307}
+  stillCanvas: {fileID: 1579994317}
+  spriteCanvas: {fileID: 1215272901}
   captionBoxPrefabs:
     mobileStyle: {fileID: 2788868383464662596, guid: 27da1bc6f198f384baff599f8413b314, type: 3}
     consoleStyle: {fileID: 307021447238460446, guid: e23ec7ed124b6ca43b9bb2ed4ee3a0f7, type: 3}
   messageBoxPrefabs:
     mobileStyle: {fileID: 7595576014301023755, guid: aba2e992aad59fe44ab049c93778df2f, type: 3}
     consoleStyle: {fileID: 8378984195467213101, guid: efe586afb140b6d4599cb9bd1ff04655, type: 3}
-  backgroundCanvas: {fileID: 1006144030}
-  live2DCanvas: {fileID: 174358307}
-  stillCanvas: {fileID: 1579994317}
-  spriteCanvas: {fileID: 1215272901}
+  fade: {fileID: 943529618}
+  gameUICanvas: {fileID: 1272546360}
 --- !u!1 &943529616
 GameObject:
   m_ObjectHideFlags: 0
@@ -1628,7 +1628,7 @@ MonoBehaviour:
   - {fileID: 1790748788823908175, guid: b07c9f8180d6427b88345b8b7ab49dca, type: 3}
   - {fileID: 1790748788823908175, guid: 3de42051e36242d680732c701970a319, type: 3}
   - {fileID: 1790748788823908187, guid: e285bd815010443d913ece67daee1ca4, type: 3}
-  uiManager: {fileID: 712115856}
+  uiController: {fileID: 712115856}
   audioManager: {fileID: 1735965833}
   defaultScenarioName: ss001_m001_a
 --- !u!4 &1969040972

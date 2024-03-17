@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Kaede2.Input;
 using Kaede2.Scenario.Audio;
+using Kaede2.Scenario.Base;
 using Kaede2.Scenario.Commands;
-using Kaede2.Scenario.UI;
 using Kaede2.Utils;
-using NCalc;
 using UnityEngine;
 
 namespace Kaede2.Scenario
@@ -22,7 +21,7 @@ namespace Kaede2.Scenario
         private int currentCommandIndex;
 
         [SerializeField]
-        private UIManager uiManager;
+        private UIControllerBase uiController;
 
         [SerializeField]
         private AudioManager audioManager;
@@ -57,12 +56,12 @@ namespace Kaede2.Scenario
             protected set => currentCommandIndex = value;
         }
 
-        public override UIManager UIManager => uiManager;
+        public override UIControllerBase UIController => uiController;
         public override AudioManager AudioManager => audioManager;
 
         public override void InitEnd()
         {
-            UIManager.loadingCanvas.gameObject.SetActive(false);
+            UIController.LoadingCanvas.gameObject.SetActive(false);
             Debug.Log("Scenario initialized");
             if (StateToBeRestored != null)
             {

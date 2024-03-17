@@ -1,5 +1,4 @@
-﻿using Kaede2.Scenario.UI;
-using Kaede2.Scenario;
+﻿using Kaede2.Scenario.Base;
 using UnityEngine;
 using UnityEngine.UI;
 

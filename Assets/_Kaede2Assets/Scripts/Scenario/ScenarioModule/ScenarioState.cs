@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Kaede2.ScriptableObjects;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Kaede2.Scenario
 {

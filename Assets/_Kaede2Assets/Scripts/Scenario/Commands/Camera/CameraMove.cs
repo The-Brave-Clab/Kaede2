@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using DG.Tweening;
-using Kaede2.Scenario.UI;
+using Kaede2.Scenario.Base;
 using UnityEngine;
 
 namespace Kaede2.Scenario.Commands
@@ -22,15 +22,15 @@ namespace Kaede2.Scenario.Commands
         {
             if (duration == 0)
             {
-                Module.UIManager.CameraPos = position;
+                Module.UIController.CameraPos = position;
                 yield break;
             }
 
-            Vector2 originalPosition = Module.UIManager.CameraPos;
+            Vector2 originalPosition = Module.UIController.CameraPos;
 
             Sequence s = DOTween.Sequence();
             s.Append(DOVirtual.Vector3(originalPosition, position, duration,
-                value => Module.UIManager.CameraPos = value));
+                value => Module.UIController.CameraPos = value));
 
             yield return s.WaitForCompletion();
         }

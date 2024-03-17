@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Kaede2.Live2D;
+using Kaede2.Scenario.Base;
 using Kaede2.Utils;
 using live2d;
 using live2d.framework;
