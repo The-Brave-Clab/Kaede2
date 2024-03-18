@@ -27,7 +27,7 @@ namespace Kaede2.Scenario.Commands
         {
             messageBox.gameObject.SetActive(false);
             messageBox.nameTag.text = "";
-            messageBox.SetText("");
+            messageBox.Text = "";
             yield break;
         }
     }

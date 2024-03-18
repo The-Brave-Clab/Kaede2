@@ -4,7 +4,7 @@ using System.Linq;
 using Kaede2.ScriptableObjects;
 using UnityEngine;
 
-namespace Kaede2.Scenario
+namespace Kaede2.Scenario.Base
 {
     public abstract class State<T> : IEquatable<T>
     {

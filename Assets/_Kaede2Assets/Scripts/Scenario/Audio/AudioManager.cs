@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Kaede2.Scenario.Base;
 using UnityEngine;
 using UnityEngine.Audio;
 

@@ -52,7 +52,7 @@ namespace Kaede2.Scenario.Commands
         {
             var messageBox = Module.UIController.MessageBox;
             messageBox.gameObject.SetActive(true);
-            messageBox.SetText(message);
+            messageBox.Text = message;
             messageBox.nameTag.text = speakerName;
 
             if (!AudioManager.IsInvalidVoice(voiceName))

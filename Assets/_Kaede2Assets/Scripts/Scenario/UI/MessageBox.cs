@@ -1,3 +1,4 @@
+using Kaede2.Scenario.Base;
 using TMPro;
 using UnityEngine;
 
@@ -12,10 +13,22 @@ namespace Kaede2.Scenario.UI
 
         private RichText currentText;
 
-        private RichText CurrentText
+        public string Text
         {
-            get => currentText ??= new RichText("");
-            set => currentText = value;
+            set
+            {
+                currentText = new RichText(value.Replace("\\n", "\n"));
+                displayTime =
+                    (currentText.Length + 1) *
+                    0.05f; //SingletonMonoBehaviour<ScenarioConfig>.Instance.intervalForCharacterDisplay;
+                timeStarted = Time.time;
+                lastCharacterIndex = -1;
+                currentCharacterIndex = 0;
+                messagePanel.text = string.Empty;
+                messagePanel.lineSpacing = 1f - 38f; //SingletonMonoBehaviour<ScenarioConfig>.Instance.messageLineSpacing;
+
+                nextMessageIndicator.gameObject.SetActive(false);
+            }
         }
 
         public string DisplayText => currentText?.PlainText;
@@ -30,21 +43,6 @@ namespace Kaede2.Scenario.UI
         private float displayTime;
         private int lastCharacterIndex = -1;
         private int currentCharacterIndex = 0;
-
-        public void SetText(string text)
-        {
-            CurrentText = new RichText(text.Replace("\\n", "\n"));
-            displayTime =
-                (CurrentText.Length + 1) *
-                0.05f; //SingletonMonoBehaviour<ScenarioConfig>.Instance.intervalForCharacterDisplay;
-            timeStarted = Time.time;
-            lastCharacterIndex = -1;
-            currentCharacterIndex = 0;
-            messagePanel.text = string.Empty;
-            messagePanel.lineSpacing = 1f - 38f; //SingletonMonoBehaviour<ScenarioConfig>.Instance.messageLineSpacing;
-
-            nextMessageIndicator.gameObject.SetActive(false);
-        }
 
         public void EnterAutoMode()
         {
@@ -86,10 +84,10 @@ namespace Kaede2.Scenario.UI
             if (IsCompleteDisplayText)
                 return;
 
-            currentCharacterIndex = (int) (Mathf.Clamp01((Time.time - timeStarted) / displayTime) * CurrentText.Length);
+            currentCharacterIndex = (int) (Mathf.Clamp01((Time.time - timeStarted) / displayTime) * currentText.Length);
             if (currentCharacterIndex != lastCharacterIndex)
             {
-                messagePanel.text = CurrentText.Length == 0 ? string.Empty : CurrentText.Substring(0, currentCharacterIndex);
+                messagePanel.text = currentText.Length == 0 ? string.Empty : currentText.Substring(0, currentCharacterIndex);
                 lastCharacterIndex = currentCharacterIndex;
             }
 
@@ -101,7 +99,7 @@ namespace Kaede2.Scenario.UI
         }
 
 
-        public bool IsCompleteDisplayText => currentCharacterIndex == CurrentText.Length;
+        public bool IsCompleteDisplayText => currentCharacterIndex == currentText.Length;
 
         public MessageBoxState GetState()
         {
@@ -109,7 +107,7 @@ namespace Kaede2.Scenario.UI
             {
                 enabled = gameObject.activeSelf,
                 speaker = nameTag.text,
-                message = CurrentText.PlainText
+                message = currentText.PlainText
             };
         }
 
@@ -117,7 +115,7 @@ namespace Kaede2.Scenario.UI
         {
             gameObject.SetActive(state.enabled);
             nameTag.text = state.speaker;
-            SetText(state.message);
+            Text = state.message;
             SkipDisplay();
         }
     }

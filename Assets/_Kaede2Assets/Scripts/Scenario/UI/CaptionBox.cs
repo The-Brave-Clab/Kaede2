@@ -1,3 +1,4 @@
+using Kaede2.Scenario.Base;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
