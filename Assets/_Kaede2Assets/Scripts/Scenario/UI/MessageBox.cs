@@ -31,7 +31,7 @@ namespace Kaede2.Scenario.UI
             }
         }
 
-        public string DisplayText => currentText?.PlainText;
+        public string DisplayText => currentText?.MacroText;
 
         public Vector2 Position
         {
@@ -87,7 +87,7 @@ namespace Kaede2.Scenario.UI
             currentCharacterIndex = (int) (Mathf.Clamp01((Time.time - timeStarted) / displayTime) * currentText.Length);
             if (currentCharacterIndex != lastCharacterIndex)
             {
-                messagePanel.text = currentText.Length == 0 ? string.Empty : currentText.Substring(0, currentCharacterIndex);
+                messagePanel.text = currentText.Length == 0 ? string.Empty : currentText.String(currentCharacterIndex);
                 lastCharacterIndex = currentCharacterIndex;
             }
 
@@ -107,7 +107,7 @@ namespace Kaede2.Scenario.UI
             {
                 enabled = gameObject.activeSelf,
                 speaker = nameTag.text,
-                message = currentText.PlainText
+                message = currentText.MacroText
             };
         }
 
