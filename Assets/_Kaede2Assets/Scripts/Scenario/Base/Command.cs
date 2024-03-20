@@ -155,7 +155,7 @@ namespace Kaede2.Scenario.Base
         }
 #endif
 
-        public static Dictionary<string, Type> Types => new()
+        public static IReadOnlyDictionary<string, Type> Types => new Dictionary<string, Type>()
         {
             { "mes", typeof(Mes) },
             { "mes_auto", typeof(MesAuto) },
