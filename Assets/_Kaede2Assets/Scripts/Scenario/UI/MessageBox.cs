@@ -17,7 +17,7 @@ namespace Kaede2.Scenario.UI
         {
             set
             {
-                currentText = new RichText(value.Replace("\\n", "\n"));
+                currentText = value.Replace("\\n", "\n");
                 displayTime =
                     (currentText.Length + 1) *
                     0.05f; //SingletonMonoBehaviour<ScenarioConfig>.Instance.intervalForCharacterDisplay;

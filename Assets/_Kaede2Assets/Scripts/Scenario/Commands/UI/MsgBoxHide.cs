@@ -1,34 +1,13 @@
-using System.Collections;
 using Kaede2.Scenario.Base;
-using Kaede2.Scenario.UI;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class MsgBoxHide : Command
+    public class MsgBoxHide : MsgBoxShowHideBase
     {
-        private MessageBoxState startState;
-        private MessageBox messageBox;
-
         public MsgBoxHide(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
         }
 
-        public override ExecutionType Type => ExecutionType.Instant;
-        public override float ExpectedExecutionTime => 0;
-
-        public override IEnumerator Setup()
-        {
-            messageBox = Module.UIController.MessageBox;
-            startState = messageBox.GetState();
-            yield break;
-        }
-
-        public override IEnumerator Execute()
-        {
-            messageBox.gameObject.SetActive(false);
-            messageBox.nameTag.text = "";
-            messageBox.Text = "";
-            yield break;
-        }
+        protected override bool IsShow => false;
     }
 }

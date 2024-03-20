@@ -4,29 +4,40 @@ using Kaede2.Scenario.UI;
 
 namespace Kaede2.Scenario.Commands
 {
-    public class MsgBoxShow : Command
+    public abstract class MsgBoxShowHideBase : Command
     {
-        private MessageBoxState startState;
         private MessageBox messageBox;
 
-        public MsgBoxShow(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
+        protected MsgBoxShowHideBase(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
         {
         }
 
-        public override ExecutionType Type { get; }
-        public override float ExpectedExecutionTime { get; }
+        public override ExecutionType Type => ExecutionType.Instant;
+        public override float ExpectedExecutionTime => 0;
+
+        protected abstract bool IsShow { get; }
 
         public override IEnumerator Setup()
         {
             messageBox = Module.UIController.MessageBox;
-            startState = messageBox.GetState();
             yield break;
         }
 
         public override IEnumerator Execute()
         {
-            messageBox.gameObject.SetActive(true);
+            messageBox.gameObject.SetActive(IsShow);
+            messageBox.nameTag.text = "";
+            messageBox.Text = "";
             yield break;
         }
+    }
+
+    public class MsgBoxShow : MsgBoxShowHideBase
+    {
+        public MsgBoxShow(ScenarioModuleBase module, string[] arguments) : base(module, arguments)
+        {
+        }
+
+        protected override bool IsShow => true;
     }
 }
