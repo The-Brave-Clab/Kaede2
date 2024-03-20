@@ -13,17 +13,25 @@ namespace Kaede2.Utils
 
         public static void InstantExecution(this IEnumerator enumerator)
         {
-            try
+            void Run()
             {
                 while (enumerator.MoveNext())
                 {
                     object current = enumerator.Current;
                 }
             }
+#if !UNITY_EDITOR
+            try
+            {
+                Run();
+            }
             catch (Exception ex)
             {
                 Debug.LogError(ex);
             }
+#else
+            Run();
+#endif
         }
 
         #endregion
