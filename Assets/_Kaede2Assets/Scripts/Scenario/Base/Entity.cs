@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Kaede2.Scenario.Base
 {
     [RequireComponent(typeof(RectTransform))]
-    public class Entity : MonoBehaviour
+    public abstract class Entity : MonoBehaviour
     {
         public virtual Vector3 Position
         {
