@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
-using UnityEngine.UIElements;
-using YamlDotNet.Core;
 
 namespace Kaede2.Scenario.UI
 {
@@ -13,22 +11,26 @@ namespace Kaede2.Scenario.UI
     {
         public static bool DumpText;
 
-        private readonly TextNode textNode;
+        private TextNode rootNode;
 
         public string MacroText { get; }
+        public string TagText => String();
+        public string PlainText => String(-1, true);
 
-        public int Length => textNode.Length;
+        public int Length => rootNode.Length;
 
         public RichText(string macroText)
         {
             MacroText = macroText;
-            textNode = TextNode.Parse(macroText);
+            rootNode = TextNode.Parse(macroText);
             if (DumpText)
             {
-                Debug.LogError(macroText);
+                Debug.Log(macroText);
                 Dump(0);
             }
         }
+
+        public static implicit operator RichText(string macroText) => new(macroText);
 
         public override string ToString()
         {
@@ -42,13 +44,13 @@ namespace Kaede2.Scenario.UI
 
         public string Substring(int index, int length, bool noTag = false)
         {
-            return textNode.Substring(index, length, !noTag);
+            return rootNode.Substring(index, length, !noTag);
         }
 
         public void Dump(int indent)
         {
             StringBuilder logText = new();
-            DumpLog(textNode, 0, indent, logText);
+            DumpLog(rootNode, 0, indent, logText);
             Debug.Log(logText.ToString());
         }
 
@@ -82,30 +84,36 @@ namespace Kaede2.Scenario.UI
             Size,
         }
 
-        private class TextNode
+        private struct TextNode
         {
-            public int Length => text.Length + children.Sum(c => c.Length);
-            public NodeType NodeType => nodeType;
-            public string Text => text;
-            public string Option => option;
-            public IReadOnlyList<TextNode> Children => children.AsReadOnly();
+            private static readonly Regex RegexColor = new(@"\((#[0-9a-fA-F]{6})\)");
+            private static readonly Regex RegexSize = new(@"\(([0-9]+)\)");
 
-            private string text;
-            private string option;
-
+            private readonly string optionOrText; // for Text, it's text; for others, it's option
             private readonly NodeType nodeType;
 
             private readonly string prefix;
             private readonly string suffix;
             private readonly List<TextNode> children;
 
-            private static readonly Regex RegexColor = new(@"\((#[0-9a-fA-F]{6})\)");
-            private static readonly Regex RegexSize = new(@"\(([0-9]+)\)");
+            public NodeType NodeType => nodeType;
+            public string Text => nodeType == NodeType.Text ? optionOrText : string.Empty;
+            public string Option => nodeType == NodeType.Text ? string.Empty : optionOrText;
+            public IReadOnlyList<TextNode> Children => children.AsReadOnly();
 
-            private TextNode(NodeType type = NodeType.Text)
+            private int? lazyLength;
+            public int Length
             {
-                text = string.Empty;
-                option = string.Empty;
+                get
+                {
+                    lazyLength ??= Text.Length + children.Sum(c => c.Length);
+                    return lazyLength.Value;
+                }
+            }
+
+            private TextNode(string optionOrText, NodeType type)
+            {
+                this.optionOrText = optionOrText;
                 nodeType = type;
                 switch (type)
                 {
@@ -131,6 +139,7 @@ namespace Kaede2.Scenario.UI
                         break;
                 }
                 children = new();
+                lazyLength = null;
             }
 
             // the rich text is made with text and following special tags
@@ -156,16 +165,15 @@ namespace Kaede2.Scenario.UI
             public static TextNode Parse(string text)
             {
                 int position = 0;
-                TextNode rootNode = new TextNode(NodeType.Root);
+                TextNode rootNode = new TextNode("", NodeType.Root);
                 ParseRecursive(text, rootNode, ref position);
                 return rootNode;
             }
 
             public string Substring(int startIndex, int length, bool withTag)
             {
-                int fullLength = Length;
-                startIndex = Math.Clamp(startIndex, 0, fullLength);
-                length = length < 0 ? fullLength - startIndex : Math.Clamp(length, 0, fullLength - startIndex);
+                startIndex = Math.Clamp(startIndex, 0, Length);
+                length = length < 0 ? Length - startIndex : Math.Clamp(length, 0, Length - startIndex);
 
                 int position = 0;
                 StringBuilder result = new();
@@ -175,12 +183,10 @@ namespace Kaede2.Scenario.UI
 
             private void SubstringRecursive(ref int index, ref int length, bool withTag, ref int position, StringBuilder result)
             {
-                int fullLength = Length;
-
                 // we need to determine which node the index is in first
-                if (position + fullLength <= index)
+                if (position + Length <= index)
                 {
-                    position += fullLength;
+                    position += Length;
                     return;
                 }
 
@@ -188,10 +194,10 @@ namespace Kaede2.Scenario.UI
 
                 // first, add text from this node
                 var startIndex = index - position;
-                if (startIndex <= text.Length)
+                if (startIndex <= Text.Length)
                 {
-                    int selfTextLength = Math.Min(text.Length - startIndex, length);
-                    selfResult.Append(text.Substring(startIndex, selfTextLength));
+                    int selfTextLength = Math.Min(Text.Length - startIndex, length);
+                    selfResult.Append(Text.Substring(startIndex, selfTextLength));
                     length -= selfTextLength;
                     index += selfTextLength;
                     position = index;
@@ -208,7 +214,7 @@ namespace Kaede2.Scenario.UI
 
                 // add prefix and suffix
                 if (withTag)
-                    result.Append(prefix.Replace("%option%", option));
+                    result.Append(prefix.Replace("%option%", Option));
                 result.Append(selfResult);
                 if (withTag)
                     result.Append(suffix);
@@ -226,7 +232,7 @@ namespace Kaede2.Scenario.UI
                     // if not found, just create a text node as child
                     if (nextTagPosition == -1 && nextClosePosition == -1)
                     {
-                        parentNode.children.Add(new TextNode { text = text[position..] });
+                        parentNode.children.Add(new TextNode(text[position..], NodeType.Text));
                         position = text.Length;
                         break;
                     }
@@ -238,7 +244,7 @@ namespace Kaede2.Scenario.UI
                         parentNode.nodeType != NodeType.Root)
                     {
                         if (nextClosePosition != position)
-                            parentNode.children.Add(new TextNode { text = text.Substring(position, nextClosePosition - position) });
+                            parentNode.children.Add(new TextNode(text.Substring(position, nextClosePosition - position), NodeType.Text));
                         position = nextClosePosition + 1;
                         return;
                     }
@@ -247,7 +253,7 @@ namespace Kaede2.Scenario.UI
                     {
                         // if nextTagPosition is -1, it means there is no more tag
                         // create a text node with the rest of the text and return
-                        parentNode.children.Add(new TextNode { text = text[position..] });
+                        parentNode.children.Add(new TextNode(text[position..], NodeType.Text));
                         position = text.Length;
                         return;
                     }
@@ -256,7 +262,7 @@ namespace Kaede2.Scenario.UI
                     // create a text node with the text before the tag
                     if (nextTagPosition != position)
                     {
-                        parentNode.children.Add(new TextNode { text = text.Substring(position, nextTagPosition - position) });
+                        parentNode.children.Add(new TextNode(text.Substring(position, nextTagPosition - position), NodeType.Text));
 
                         position = nextTagPosition;// now text[position] is '@'
                     }
@@ -264,7 +270,7 @@ namespace Kaede2.Scenario.UI
                     // get note type and option
                     if (GetTypeAndOption(text, ref position, out var childType, out var childOption))
                     {
-                        var newNode = new TextNode(childType) { option = childOption };
+                        var newNode = new TextNode(childOption, childType);
                         parentNode.children.Add(newNode);
                         ParseRecursive(text, newNode, ref position);
                     }
@@ -272,7 +278,7 @@ namespace Kaede2.Scenario.UI
                     {
                         // invalid tag
                         // at this point, text[position] must be '@', so we need to create a text with only '@' and skip to next
-                        parentNode.children.Add(new TextNode { text = "@" });
+                        parentNode.children.Add(new TextNode("@", NodeType.Text));
                         ++position;
                     }
                 }
