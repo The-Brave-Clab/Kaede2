@@ -52,6 +52,10 @@ namespace Kaede2.Scenario.Framework.Commands
             messageBox.Text = message;
             messageBox.nameTag.text = speakerName;
 
+            // this is needed to guard the situation where the last message
+            // ends on the same frame as the current message starts
+            bool lastMesClicked = Module.MesClicked;
+
             if (!AudioManager.IsInvalidVoice(voiceName))
                 Module.AudioManager.PlayVoice(voiceName);
 
@@ -64,13 +68,15 @@ namespace Kaede2.Scenario.Framework.Commands
                     entity.SetLip(Module.AudioManager.GetVoiceVolume() * 128);
                 }
 
-                if (Module.MesClicked())
+                bool currentMesClicked = Module.MesClicked;
+                if (currentMesClicked && !lastMesClicked)
                 {
                     if (!messageBox.IsCompleteDisplayText) // if text not finished displaying, skip display
                         messageBox.SkipDisplay();
                     else
                         break; // manual quit is only available when text is finished displaying
                 }
+                lastMesClicked = currentMesClicked;
 
                 yield return null;
 

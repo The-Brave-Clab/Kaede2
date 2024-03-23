@@ -22,9 +22,6 @@ namespace Kaede2.Scenario
 
         private List<ResourceLoader.HandleBase> resourceHandles;
 
-        private bool mesClicked;
-        private bool lastClicked;
-
         [SerializeField]
         private UIController uiController;
 
@@ -87,6 +84,8 @@ namespace Kaede2.Scenario
             protected set => currentCommandIndex = value;
         }
 
+        public override bool MesClicked => InputManager.InputAction.Scenario.Next.triggered;
+
         public override UIController UIController => uiController;
         public override AudioManager AudioManager => audioManager;
 
@@ -99,9 +98,6 @@ namespace Kaede2.Scenario
             currentCommandIndex = -1;
 
             resourceHandles = new();
-
-            mesClicked = false;
-            lastClicked = false;
 
             InputManager.InputAction.Scenario.Enable();
         }
@@ -137,13 +133,6 @@ namespace Kaede2.Scenario
             StartCoroutine(Execute());
         }
 
-        private void Update()
-        {
-            var currentClicked = InputManager.InputAction.Scenario.Next.triggered;
-            mesClicked = currentClicked && !lastClicked;
-            lastClicked = currentClicked;
-        }
-
         protected void OnDestroy()
         {
             foreach (var handle in resourceHandles)
@@ -170,11 +159,6 @@ namespace Kaede2.Scenario
         public override void End()
         {
             Debug.Log("Scenario ended");
-        }
-
-        public override bool MesClicked()
-        {
-            return mesClicked;
         }
 
         private IEnumerator SendHandleWithFinishCallback<T>(ResourceLoader.LoadAddressableHandle<T> handle, Action<T> callback) where T : UnityEngine.Object

@@ -40,10 +40,10 @@ namespace Kaede2.Scenario.Framework
         public abstract float AudioSEVolume { get; set; }
         public abstract float AudioVoiceVolume { get; set; }
 
+        public abstract bool MesClicked { get; }
+
         public abstract void InitEnd();
         public abstract void End();
-
-        public abstract bool MesClicked();
 
         private List<GameObject> effectPrefabs;
         public IReadOnlyList<GameObject> EffectPrefabs
