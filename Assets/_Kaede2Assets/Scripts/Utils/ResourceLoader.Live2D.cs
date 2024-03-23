@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Kaede2.Live2D;
+using Kaede2.Scenario.Framework.Live2D;
+using Kaede2.Scenario.Framework.Utils;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Kaede2.Utils

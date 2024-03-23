@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Kaede2.Scenario.Framework.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
@@ -13,7 +14,6 @@ using UnityEngine.InputSystem.iOS;
 using UnityEngine.InputSystem.Switch;
 #endif
 using UnityEngine.InputSystem.XInput;
-using Kaede2.Utils;
 
 namespace Kaede2.Input
 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Kaede2.Input;
 using Kaede2.Scenario;
-using Kaede2.Utils;
+using Kaede2.Scenario.Framework.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -43,7 +43,7 @@ namespace Kaede2.UI
             group.Add(GlobalInitializer.Initialize(), this);
             yield return group.WaitForAll();
 
-            ScenarioModule.GlobalScenarioName = "es001_001_m001_a";
+            PlayerScenarioModule.GlobalScenarioName = "es001_001_m001_a";
             yield return SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Single);
         }
 

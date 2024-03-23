@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Kaede2.Scenario.Framework;
 using UnityEngine;
 using Kaede2.ScriptableObjects;
 

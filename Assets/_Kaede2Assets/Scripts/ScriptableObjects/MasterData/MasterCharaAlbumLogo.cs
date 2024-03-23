@@ -1,4 +1,6 @@
 ﻿using System;
+using Kaede2.Scenario.Framework;
+
 // ReSharper disable IdentifierTypo InconsistentNaming
 
 namespace Kaede2.ScriptableObjects
