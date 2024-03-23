@@ -10,9 +10,7 @@ namespace Kaede2.Scenario.Framework
     {
         public ScenarioModule Module { get; set; }
 
-        [SerializeField]
         private GameObject emptyUIObjectPrefab;
-        [SerializeField]
         private GameObject backgroundPrefab;
 
         public abstract Canvas UICanvas { get; }
@@ -54,6 +52,9 @@ namespace Kaede2.Scenario.Framework
             MessageBox.UIController = this;
             Fade.UIController = this;
             Filler.UIController = this;
+
+            emptyUIObjectPrefab = Resources.Load<GameObject>("Prefabs/Scenario/EmptyUIObject");
+            backgroundPrefab = Resources.Load<GameObject>("Prefabs/Scenario/Background");
         }
 
         public Vector2 CameraPos
