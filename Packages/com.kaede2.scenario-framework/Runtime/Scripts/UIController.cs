@@ -105,6 +105,7 @@ namespace Kaede2.Scenario.Framework
             var entity = newModel.AddComponent<Live2DActorEntity>();
             entity.Module = Module;
             entity.CreateWithAssets(asset);
+            entity.Hidden = true;
             return entity;
         }
 

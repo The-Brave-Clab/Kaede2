@@ -14,7 +14,17 @@ namespace Kaede2.Scenario.Framework.Entities
     {
         public Live2DAssets Assets { get; private set; }
 
-        public bool Hidden { get; set; }
+        private bool hidden;
+        public bool Hidden
+        {
+            get => hidden;
+            set
+            {
+                if (value == hidden) return;
+                hidden = value;
+                if (hidden) Render(); // force hide
+            }
+        }
         public bool UseEyeBlink { get; set; }
         public bool ManualEyeOpen { get; set; }
 
@@ -57,7 +67,7 @@ namespace Kaede2.Scenario.Framework.Entities
 
             Assets = null;
 
-            Hidden = false;
+            Hidden = true;
             UseEyeBlink = true;
             ManualEyeOpen = true;
 
