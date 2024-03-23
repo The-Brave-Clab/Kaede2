@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Kaede2.Input;
+using UnityEngine;
 
 namespace Kaede2
 {
@@ -33,6 +34,7 @@ namespace Kaede2
 
             // Initialize all the things here
             InputManager.EnsureInstance();
+            Application.targetFrameRate = 1800;
 
             CurrentStatus = Status.Done;
         }
