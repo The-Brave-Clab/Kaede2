@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a80b530ea1484817a1e91936baaf86f8
+guid: 8e32a8947c4343df907b7eac7db29c76
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: 21300000
-    second: Tex_speed01
+    second: Tex_thunder
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -38,11 +38,11 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 1
-    aniso: 1
+    aniso: 16
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
-    wrapW: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -70,7 +70,7 @@ TextureImporter:
   swizzle: 50462976
   cookieLightType: 1
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -83,7 +83,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -96,7 +96,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -109,7 +109,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -122,8 +122,8 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: iPhone
+  - serializedVersion: 4
+    buildTarget: iOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -139,17 +139,18 @@ TextureImporter:
     serializedVersion: 2
     sprites: []
     outline:
-    - - {x: -128, y: -128}
-      - {x: -128, y: 128}
-      - {x: 128, y: -128}
-    - - {x: 128, y: 128}
-      - {x: 128, y: -128}
-      - {x: -128, y: 128}
+    - - {x: -256, y: -256}
+      - {x: -256, y: 256}
+      - {x: 256, y: -256}
+    - - {x: 256, y: 256}
+      - {x: 256, y: -256}
+      - {x: -256, y: 256}
+    customData: 
     physicsShape:
-    - - {x: -128, y: 128}
-      - {x: -128, y: -128}
-      - {x: 128, y: -128}
-      - {x: 128, y: 128}
+    - - {x: -256, y: 256}
+      - {x: -256, y: -256}
+      - {x: 256, y: -256}
+      - {x: 256, y: 256}
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
     internalID: 0

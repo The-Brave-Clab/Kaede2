@@ -24,10 +24,6 @@ namespace Kaede2.Scenario.Framework
         public abstract UIController UIController { get; }
         public abstract AudioManager AudioManager { get; }
 
-        [SerializeField]
-        private List<GameObject> effectPrefabs;
-        public IReadOnlyList<GameObject> EffectPrefabs => effectPrefabs;
-
         private Resource scenarioResource;
         public Resource ScenarioResource => scenarioResource;
 
@@ -48,6 +44,23 @@ namespace Kaede2.Scenario.Framework
         public abstract void End();
 
         public abstract bool MesClicked();
+
+        private List<GameObject> effectPrefabs;
+        public IReadOnlyList<GameObject> EffectPrefabs
+        {
+            get
+            {
+                if (effectPrefabs != null) return effectPrefabs;
+
+                effectPrefabs = new List<GameObject>();
+                foreach (var prefab in Resources.LoadAll<GameObject>("biscuit/scenario/effectsatadv/prefabs"))
+                {
+                    effectPrefabs.Add(prefab);
+                }
+
+                return effectPrefabs;
+            }
+        }
 
         public abstract IEnumerator LoadResource(Resource.Type type, string resourceName);
 
