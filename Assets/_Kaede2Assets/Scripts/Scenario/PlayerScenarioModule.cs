@@ -100,6 +100,7 @@ namespace Kaede2.Scenario
             resourceHandles = new();
 
             InputManager.InputAction.Scenario.Enable();
+            WebInterop.Module = this;
         }
 
         private IEnumerator Start()
@@ -142,6 +143,8 @@ namespace Kaede2.Scenario
 
             if (InputManager.Instance != null)
                 InputManager.InputAction.Scenario.Disable();
+
+            WebInterop.Module = null;
         }
 
         public override void InitEnd()

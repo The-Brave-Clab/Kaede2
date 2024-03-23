@@ -123,27 +123,32 @@ namespace Kaede2.Scenario.Framework
             return ExecutionType.Asynchronous;
         }
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
         public void Log()
         {
+#if UNITY_EDITOR
+            const bool colorTag = true;
+#else
+            const bool colorTag = false;
+#endif
             StringBuilder sb = new();
-            sb.Append($"<color=#00FF00>[{Time.frameCount}]</color>\t");
-            sb.Append($"<color=#FFFF00>{originalArgs[0]}</color>\n");
+            sb.Append(colorTag ? $"<color=#00FF00>[{Time.frameCount}]</color>\t" : $"[{Time.frameCount}]\t");
+            sb.Append(colorTag ? $"<color=#FFFF00>{originalArgs[0]}</color>\n" : $"{originalArgs[0]}\n");
 
             for (int i = 1; i < originalArgs.Length; i++)
             {
                 var resolved = Module.ResolveAlias(originalArgs[i]) ?? originalArgs[i];
-                sb.Append($"\t<color=#00FFFF>{originalArgs[i]}</color>");
+                sb.Append(colorTag ? $"\t<color=#00FFFF>{originalArgs[i]}</color>" : $"\t{originalArgs[i]}");
 
                 if (originalArgs[0] != "set")
                 {
                     if (resolved != originalArgs[i])
-                        sb.Append($" <color=#FF00FF>({resolved})</color>");
+                        sb.Append(colorTag ? $" <color=#FF00FF>({resolved})</color>" : $" ({resolved})");
                     if (originalArgs[i] is not ("true" or "false"))
                     {
                         var parsed = Module.ResolveExpression(resolved);
                         if (parsed != resolved)
-                            sb.Append($" <color=#FFFFFF>=> {parsed}</color>");
+                            sb.Append(colorTag ? $" <color=#FFFFFF>=> {parsed}</color>" : $" => {parsed}");
                     }
                 }
 

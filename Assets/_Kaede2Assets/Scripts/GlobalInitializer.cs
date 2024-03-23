@@ -33,6 +33,7 @@ namespace Kaede2
             CurrentStatus = Status.InProgress;
 
             // Initialize all the things here
+            // yield return LocalizationSettings.InitializationOperation;
             InputManager.EnsureInstance();
             Application.targetFrameRate = 1800;
 

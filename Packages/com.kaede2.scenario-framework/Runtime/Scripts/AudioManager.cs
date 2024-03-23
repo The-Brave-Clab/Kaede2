@@ -44,6 +44,10 @@ namespace Kaede2.Scenario.Framework
                     Destroy(bgmAudioInfo);
                     bgmAudioInfo = null;
                 }
+                else
+                {
+                    bgmAudioInfo.UpdateVolume();
+                }
             }
 
             if (voiceAudioInfo != null)
@@ -52,6 +56,10 @@ namespace Kaede2.Scenario.Framework
                 {
                     Destroy(voiceAudioInfo);
                     voiceAudioInfo = null;
+                }
+                else
+                {
+                    voiceAudioInfo.UpdateVolume();
                 }
             }
 
@@ -62,6 +70,10 @@ namespace Kaede2.Scenario.Framework
                 {
                     Destroy(seAudioInfo);
                     toBeRemoved.Add(seAudioInfo);
+                }
+                else
+                {
+                    seAudioInfo.UpdateVolume();
                 }
             }
 
@@ -309,14 +321,17 @@ namespace Kaede2.Scenario.Framework
                 set
                 {
                     volume = value;
-                    if (Source != null)
-                    {
-                        Source.volume = GetGameSettingsMasterVolume() * GetGameSettingsVolume() * volume;
-                    }
+                    UpdateVolume();
                 }
             }
             public Func<float> GetGameSettingsMasterVolume { get; set; } = () => 1.0f;
             public Func<float> GetGameSettingsVolume { get; set; } = () => 1.0f;
+
+            public void UpdateVolume()
+            {
+                if (Source == null) return;
+                Source.volume = GetGameSettingsMasterVolume() * GetGameSettingsVolume() * volume;
+            }
         }
 
         private enum AudioType

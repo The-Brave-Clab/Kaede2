@@ -33,6 +33,9 @@ namespace Kaede2.UI
 
         private IEnumerator Start()
         {
+            WebInterop.EnsureInstance();
+
+            // skip one frame to hide the webgl/webgpu logo change
             yield return null;
 
             unityLogo.color = Color.white;

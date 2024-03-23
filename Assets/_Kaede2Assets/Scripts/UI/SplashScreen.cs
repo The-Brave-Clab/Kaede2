@@ -43,7 +43,7 @@ namespace Kaede2.UI
             group.Add(GlobalInitializer.Initialize(), this);
             yield return group.WaitForAll();
 
-            PlayerScenarioModule.GlobalScenarioName = "es001_001_m001_a";
+            PlayerScenarioModule.GlobalScenarioName = "ss031_m006_a";
             yield return SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Single);
         }
 

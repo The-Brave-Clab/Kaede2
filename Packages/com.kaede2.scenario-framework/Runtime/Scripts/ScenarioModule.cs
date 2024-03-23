@@ -147,7 +147,7 @@ namespace Kaede2.Scenario.Framework
             return (T) Convert.ChangeType(result, typeof(T));
         }
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
         public string ResolveExpression(string expression)
         {
             try
@@ -221,7 +221,7 @@ namespace Kaede2.Scenario.Framework
 
         protected IEnumerator ExecuteSingle(Command command)
         {
-#if UNITY_EDITOR
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
             command.Log();
 #endif
 

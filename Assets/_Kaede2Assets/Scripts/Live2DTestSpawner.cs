@@ -4,7 +4,7 @@ using Kaede2.Scenario.Framework.Live2D;
 using Kaede2.Utils;
 using UnityEngine;
 
-namespace Kaede2.Live2D
+namespace Kaede2
 {
     public class Live2DTestSpawner : MonoBehaviour
     {
