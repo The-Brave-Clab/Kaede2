@@ -2,10 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Kaede2.Input;
 using Kaede2.Scenario.Audio;
 using Kaede2.Scenario.Base;
 using Kaede2.Scenario.Commands;
+using Kaede2.ScriptableObjects;
 using Kaede2.Utils;
 using UnityEngine;
 
@@ -19,6 +21,8 @@ namespace Kaede2.Scenario
         private List<string> statements;
         private List<Command> commands;
         private int currentCommandIndex;
+
+        private List<ResourceLoader.HandleBase> resourceHandles;
 
         [SerializeField]
         private UIControllerBase uiController;
@@ -59,23 +63,6 @@ namespace Kaede2.Scenario
         public override UIControllerBase UIController => uiController;
         public override AudioManager AudioManager => audioManager;
 
-        public override void InitEnd()
-        {
-            UIController.LoadingCanvas.gameObject.SetActive(false);
-            Debug.Log("Scenario initialized");
-            if (StateToBeRestored != null)
-            {
-                Debug.Log("Restoring sync point");
-                RestoreState(StateToBeRestored);
-                StateToBeRestored = null;
-            }
-        }
-
-        public override void End()
-        {
-            Debug.Log("Scenario ended");
-        }
-
         protected override void Awake()
         {
             base.Awake();
@@ -83,6 +70,8 @@ namespace Kaede2.Scenario
             statements = new();
             commands = new();
             currentCommandIndex = -1;
+
+            resourceHandles = new();
 
             InputManager.InputAction.Scenario.Enable();
         }
@@ -100,7 +89,7 @@ namespace Kaede2.Scenario
             // we could just release this right after getting the text string instead of releasing with other handles,
             // but it will usually unload the scenario bundle too which we are still going to use right after this
             // so we will release it with other handles
-            RegisterLoadHandle(scriptHandle);
+            resourceHandles.Add(scriptHandle);
             yield return scriptHandle.Send();
 
             var scriptAsset = scriptHandle.Result;
@@ -118,12 +107,119 @@ namespace Kaede2.Scenario
             StartCoroutine(Execute());
         }
 
-        protected override void OnDestroy()
+        protected void OnDestroy()
         {
-            base.OnDestroy();
+            foreach (var handle in resourceHandles)
+            {
+                handle.Dispose();
+            }
 
             if (InputManager.Instance != null)
                 InputManager.InputAction.Scenario.Disable();
+        }
+
+        public override void InitEnd()
+        {
+            UIController.LoadingCanvas.gameObject.SetActive(false);
+            Debug.Log("Scenario initialized");
+            if (StateToBeRestored != null)
+            {
+                Debug.Log("Restoring sync point");
+                RestoreState(StateToBeRestored);
+                StateToBeRestored = null;
+            }
+        }
+
+        public override void End()
+        {
+            Debug.Log("Scenario ended");
+        }
+
+        private IEnumerator SendHandleWithFinishCallback<T>(ResourceLoader.LoadAddressableHandle<T> handle, Action<T> callback) where T : UnityEngine.Object
+        {
+            yield return handle.Send();
+            if (handle.Result == null)
+            {
+                Debug.LogError($"Failed to load asset {handle.AssetAddress}");
+            }
+
+            callback(handle.Result);
+        }
+
+        private IEnumerator SendLive2DHandleWithFinish(ResourceLoader.LoadLive2DHandle handle, string resourceName)
+        {
+            yield return handle.Send();
+            if (handle.Result == null)
+            {
+                Debug.LogError($"Failed to Live2D model {resourceName}");
+            }
+
+            ScenarioResource.Actors[resourceName] = handle.Result;
+        }
+
+        public override IEnumerator LoadResource(Resource.Type type, string resourceName)
+        {
+            switch (type)
+            {
+                case Resource.Type.Sprite:
+                {
+                    var handle = ResourceLoader.LoadScenarioSprite(resourceName);
+                    resourceHandles.Add(handle);
+                    return SendHandleWithFinishCallback(handle, s => ScenarioResource.Sprites[resourceName] = s);
+                }
+                case Resource.Type.Still:
+                {
+                    var handle = ResourceLoader.LoadScenarioStill(ScenarioName, resourceName);
+                    resourceHandles.Add(handle);
+                    return SendHandleWithFinishCallback(handle, t => ScenarioResource.Stills[resourceName] = t);
+                }
+                case Resource.Type.Background:
+                {
+                    var handle = ResourceLoader.LoadScenarioBackground(resourceName);
+                    resourceHandles.Add(handle);
+                    return SendHandleWithFinishCallback(handle, t => ScenarioResource.Backgrounds[resourceName] = t);
+                }
+                case Resource.Type.SE:
+                {
+                    var handle = ResourceLoader.LoadScenarioSoundEffect(resourceName);
+                    resourceHandles.Add(handle);
+                    return SendHandleWithFinishCallback(handle, a => ScenarioResource.SoundEffects[resourceName] = a);
+                }
+                case Resource.Type.BGM:
+                {
+                    var handle = ResourceLoader.LoadScenarioBackgroundMusic(resourceName);
+                    resourceHandles.Add(handle);
+                    return SendHandleWithFinishCallback(handle, a => ScenarioResource.BackgroundMusics[resourceName] = a);
+                }
+                case Resource.Type.Voice:
+                {
+                    var handle = ResourceLoader.LoadScenarioVoice(ScenarioName, resourceName);
+                    resourceHandles.Add(handle);
+                    return SendHandleWithFinishCallback(handle, a => ScenarioResource.Voices[resourceName] = a);
+                }
+                case Resource.Type.TransformPrefab:
+                {
+                    CharacterId id = (CharacterId)int.Parse(resourceName);
+                    var handle = ResourceLoader.LoadScenarioTransformEffectSprite(id);
+                    resourceHandles.Add(handle);
+                    return SendHandleWithFinishCallback(handle, s => ScenarioResource.TransformImages[id] = s);
+                }
+                case Resource.Type.Actor:
+                {
+                    var handle = ResourceLoader.LoadLive2DModel(resourceName);
+                    resourceHandles.Add(handle);
+                    return SendLive2DHandleWithFinish(handle, resourceName);
+                }
+                case Resource.Type.AliasText:
+                {
+                    
+                    var handle = ResourceLoader.LoadScenarioAliasText(ScenarioName, resourceName);
+                    resourceHandles.Add(handle);
+                    return SendHandleWithFinishCallback(handle, t => ScenarioResource.AliasText = t);
+                }
+            }
+
+            return null;
         }
 
         private static List<string> GetStatementsFromScript(string script)

@@ -21,11 +21,7 @@ namespace Kaede2.Scenario.Commands
         {
             if (Module.ScenarioResource.AliasText == null)
             {
-                var aliasHandle = ResourceLoader.LoadScenarioAliasText(Module.ScenarioName, aliasFileName);
-                Module.RegisterLoadHandle(aliasHandle);
-                yield return aliasHandle.Send();
-
-                Module.ScenarioResource.AliasText = aliasHandle.Result;
+                yield return Module.LoadResource(ScenarioModuleBase.Resource.Type.AliasText, aliasFileName);
             }
 
             var aliasFileContent = Module.ScenarioResource.AliasText.text;

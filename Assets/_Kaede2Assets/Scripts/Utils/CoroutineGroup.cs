@@ -15,6 +15,18 @@ namespace Kaede2.Utils
 
         private readonly List<CoroutineStatus> coroutineStatus = new();
 
+        public CoroutineGroup()
+        {
+        }
+
+        public CoroutineGroup(IEnumerable<IEnumerator> coroutines, MonoBehaviour owner = null)
+        {
+            foreach (var coroutine in coroutines)
+            {
+                Add(coroutine, owner);
+            }
+        }
+
         public Coroutine Add(IEnumerator coroutine, MonoBehaviour owner = null)
         {
             if (owner == null)

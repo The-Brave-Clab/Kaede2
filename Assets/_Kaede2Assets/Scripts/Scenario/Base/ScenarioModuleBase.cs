@@ -36,8 +36,6 @@ namespace Kaede2.Scenario.Base
         private Dictionary<string, Expression> variables;
         private Dictionary<string, string> aliases;
 
-        private List<ResourceLoader.HandleBase> resourceHandles;
-
         public bool ActorAutoDelete { get; set; }
         public bool LipSync { get; set; }
         
@@ -46,17 +44,35 @@ namespace Kaede2.Scenario.Base
         public abstract void InitEnd();
         public abstract void End();
 
+        public abstract IEnumerator LoadResource(Resource.Type type, string resourceName);
+
         public class Resource
         {
             public TextAsset AliasText = null;
-            public Dictionary<string, Live2DAssets> Actors = new();
-            public Dictionary<string, Sprite> Sprites = new();
-            public Dictionary<string, Texture2D> Stills = new();
-            public Dictionary<string, Texture2D> Backgrounds = new();
-            public Dictionary<string, AudioClip> SoundEffects = new();
-            public Dictionary<string, AudioClip> BackgroundMusics = new();
-            public Dictionary<string, AudioClip> Voices = new();
-            public Dictionary<CharacterId, Sprite> TransformImages = new();
+            public readonly Dictionary<string, Live2DAssets> Actors = new();
+            public readonly Dictionary<string, Sprite> Sprites = new();
+            public readonly Dictionary<string, Texture2D> Stills = new();
+            public readonly Dictionary<string, Texture2D> Backgrounds = new();
+            public readonly Dictionary<string, AudioClip> SoundEffects = new();
+            public readonly Dictionary<string, AudioClip> BackgroundMusics = new();
+            public readonly Dictionary<string, AudioClip> Voices = new();
+            public readonly Dictionary<CharacterId, Sprite> TransformImages = new();
+
+            // the order of these enum values is important
+            // it's used to hint the general size of the asset to be loaded
+            // so larger assets are loaded first to save time
+            public enum Type
+            {
+                BGM,
+                Voice,
+                SE,
+                Actor,
+                Background,
+                Still,
+                Sprite,
+                TransformPrefab,
+                AliasText,
+            }
         }
 
         protected override void Awake()
@@ -69,20 +85,6 @@ namespace Kaede2.Scenario.Base
             scenarioResource = new();
             aliases = new();
             variables = new();
-            resourceHandles = new();
-        }
-
-        protected virtual void OnDestroy()
-        {
-            foreach (var handle in resourceHandles)
-            {
-                handle.Dispose();
-            }
-        }
-
-        public void RegisterLoadHandle(ResourceLoader.HandleBase handle)
-        {
-            resourceHandles.Add(handle);
         }
 
         protected Command ParseStatement(string statement)
