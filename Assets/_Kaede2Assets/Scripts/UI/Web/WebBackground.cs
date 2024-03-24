@@ -1,5 +1,8 @@
+using Kaede2.Scenario;
 using Kaede2.Scenario.Framework.Utils;
+using Kaede2.ScriptableObjects;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Kaede2.UI.Web
@@ -8,6 +11,12 @@ namespace Kaede2.UI.Web
     {
         [SerializeField]
         private Button playButton;
+
+        [SerializeField]
+        private Button replayButton;
+
+        [SerializeField]
+        private Button nextButton;
 
 #if UNITY_WEBGL && !UNITY_EDITOR
         private Status currentStatus;
@@ -29,13 +38,24 @@ namespace Kaede2.UI.Web
 
         protected override void Awake()
         {
-#if !UNITY_WEBGL || UNITY_EDITOR
-            Debug.LogError("WebBackground should only be used in Web builds");
-            Destroy(gameObject);
-#endif
             base.Awake();
 
-            playButton.onClick.AddListener(() => { UpdateStatusInternal(Status.Hidden); });
+            playButton.onClick.AddListener(() =>
+            {
+                UpdateStatusInternal(Status.Hidden);
+            });
+            replayButton.onClick.AddListener(() =>
+            {
+                UpdateStatusInternal(Status.Hidden);
+                SceneManager.LoadScene("ScenarioScene", LoadSceneMode.Single);
+            });
+            nextButton.onClick.AddListener(() =>
+            {
+                UpdateStatusInternal(Status.Hidden);
+                PlayerScenarioModule.GlobalScenarioName = MasterScenarioInfo.GetNextScenarioInfo(PlayerScenarioModule.GlobalScenarioName).ScenarioName;
+                WebInterop.OnScenarioChanged(PlayerScenarioModule.GlobalScenarioName);
+                SceneManager.LoadScene("ScenarioScene", LoadSceneMode.Single);
+            });
 
             UpdateStatusInternal(Status.Initial);
             DontDestroyOnLoad(gameObject);
@@ -54,18 +74,26 @@ namespace Kaede2.UI.Web
                 case Status.Initial:
                     gameObject.SetActive(true);
                     playButton.gameObject.SetActive(false);
+                    replayButton.gameObject.SetActive(false);
+                    nextButton.gameObject.SetActive(false);
                     break;
                 case Status.ReadyToPlay:
                     gameObject.SetActive(true);
                     playButton.gameObject.SetActive(true);
+                    replayButton.gameObject.SetActive(false);
+                    nextButton.gameObject.SetActive(false);
                     break;
                 case Status.Hidden:
                     gameObject.SetActive(false);
                     playButton.gameObject.SetActive(false);
+                    replayButton.gameObject.SetActive(false);
+                    nextButton.gameObject.SetActive(false);
                     break;
                 case Status.Finished:
                     gameObject.SetActive(true);
                     playButton.gameObject.SetActive(false);
+                    replayButton.gameObject.SetActive(true);
+                    nextButton.gameObject.SetActive(MasterScenarioInfo.GetNextScenarioInfo(PlayerScenarioModule.GlobalScenarioName) != null);
                     break;
             }
         }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+
 // ReSharper disable IdentifierTypo InconsistentNaming
 
 namespace Kaede2.ScriptableObjects
@@ -25,5 +27,24 @@ namespace Kaede2.ScriptableObjects
         }
 
         public ScenarioInfo[] scenarioInfo;
+
+        public static ScenarioInfo GetScenarioInfo(string scenarioName)
+        {
+            return Instance.scenarioInfo.FirstOrDefault(scenarioInfo => scenarioInfo.ScenarioName == scenarioName);
+        }
+
+        public static ScenarioInfo GetNextScenarioInfo(string scenarioName)
+        {
+            var currentScenarioInfo = GetScenarioInfo(scenarioName);
+            if (currentScenarioInfo == null) return null;
+
+            return Instance.scenarioInfo
+                .Where(si =>
+                    si.KindId == currentScenarioInfo.KindId &&
+                    si.ChapterId == currentScenarioInfo.ChapterId &&
+                    si.EpisodeId == currentScenarioInfo.EpisodeId)
+                .OrderBy(si => si.StoryId)
+                .FirstOrDefault(si => si.StoryId > currentScenarioInfo.StoryId);
+        }
     }
 }

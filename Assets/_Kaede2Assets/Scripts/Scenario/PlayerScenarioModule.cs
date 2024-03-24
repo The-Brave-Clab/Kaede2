@@ -125,6 +125,9 @@ namespace Kaede2.Scenario
             yield return scriptHandle.Send();
 
             var scriptAsset = scriptHandle.Result;
+#if UNITY_WEBGL && !UNITY_EDITOR
+            WebInterop.OnScriptLoaded(scriptAsset.text);
+#endif
             var originalStatements = GetStatementsFromScript(scriptAsset.text);
 
             Dictionary<string, List<string>> includeFiles = new();

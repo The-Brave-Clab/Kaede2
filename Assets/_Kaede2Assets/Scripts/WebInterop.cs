@@ -30,6 +30,9 @@ namespace Kaede2
         public static extern void OnScriptLoaded(string script);
 
         [DllImport(DllName)]
+        public static extern void OnScenarioChanged(string scenarioName);
+
+        [DllImport(DllName)]
         public static extern void OnMessageCommand(string speaker, string voiceId, string message);
 
         [DllImport(DllName)]
@@ -55,7 +58,7 @@ namespace Kaede2
             DontDestroyOnLoad(gameObject);
 
             RegisterInterops();
-            WebInterop.OnScenarioListLoaded(JsonUtility.ToJson(MasterScenarioInfo.Instance));
+            OnScenarioListLoaded(JsonUtility.ToJson(MasterScenarioInfo.Instance));
         }
 
         [Conditional("DEVELOPMENT_BUILD")]

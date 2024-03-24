@@ -127,6 +127,10 @@
       console.warn(script);
     }
 
+    function myOnScenarioChanged(scenarioId) {
+      console.warn("scenario changed: " + scenarioId);
+    }
+
     function myOnMessageCommand(speaker, voiceId, message) {
       console.warn("speaker: " + speaker);
       console.warn("voice: " + voiceId);
@@ -180,6 +184,9 @@
       callbacks.OnScenarioListLoaded = myOnScenarioListLoaded;
       // will be called when script is loaded. parameter is patched, translated, and normalized script text
       callbacks.OnScriptLoaded = myOnScriptLoaded;
+      // will be called if scenario changed inside Unity
+      // eg. when user press "Next" button
+      callbacks.OnScenarioChanged = myOnScenarioChanged;
       // will be called when scenario script hits "mes" and "mes_auto" command
       // will also be called when script hits "caption" command
       callbacks.OnMessageCommand = myOnMessageCommand;

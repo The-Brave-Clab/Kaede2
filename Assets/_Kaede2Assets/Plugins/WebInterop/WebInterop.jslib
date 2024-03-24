@@ -5,6 +5,7 @@ var WebInterop = {
     $InteropCallbacks: {
         OnScenarioListLoaded: function(scenarioList) { },
         OnScriptLoaded: function(script) { },
+        OnScenarioChanged: function(scenarioName) { },
         OnMessageCommand: function(speaker, voiceId, message) { },
         OnScenarioStarted: function() { },
         OnScenarioFinished: function() { },
@@ -97,6 +98,10 @@ var WebInterop = {
 
     OnScriptLoaded: function (script) {
         InteropCallbacks.OnScriptLoaded(UTF8ToString(script));
+    },
+
+    OnScenarioChanged: function (scenarioName) {
+        InteropCallbacks.OnScenarioChanged(UTF8ToString(scenarioName));
     },
 
     OnMessageCommand: function (speaker, voiceId, message) {
