@@ -58,9 +58,7 @@
       background-color: rgba(255, 255, 255, 0.8);
       padding: 10px;
       border-radius: 5px;
-#if !DEVELOPMENT_PLAYER
       display: none;
-#endif
     }
   </style>
 
@@ -121,6 +119,10 @@
     function ToggleInputInterception(on) { }
 
     // Example callbacks
+    function myOnScenarioListLoaded(scenarioList) {
+      console.warn(scenarioList);
+    }
+
     function myOnScriptLoaded(script) {
       console.warn(script);
     }
@@ -173,6 +175,9 @@
       toggleAutoModeMethod,
       toggleDramaModeMethod,
       toggleInputInterception) {
+      // will be called when Unity loads the scenario list
+      // parameter is a parsed JSON object (not string)
+      callbacks.OnScenarioListLoaded = myOnScenarioListLoaded;
       // will be called when script is loaded. parameter is patched, translated, and normalized script text
       callbacks.OnScriptLoaded = myOnScriptLoaded;
       // will be called when scenario script hits "mes" and "mes_auto" command

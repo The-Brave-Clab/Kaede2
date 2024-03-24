@@ -1,10 +1,4 @@
-﻿#if UNITY_WEBGL && !UNITY_EDITOR
-#define IS_WEBGL
-#else
-#define IS_NOT_WEBGL
-#endif
-
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using UnityEngine;
@@ -96,30 +90,31 @@ namespace Kaede2
 
         static GameSettings()
         {
-#if IS_NOT_WEBGL
             _instance = Load();
-#else
-            _instance = new();
-#endif
         }
 
+#if !UNITY_WEBGL || UNITY_EDITOR
         private static string fileName => Path.Combine(Application.persistentDataPath, "settings.json");
+#endif
 
-#if IS_NOT_WEBGL
         public static GameSettings Load()
         {
+#if !UNITY_WEBGL || UNITY_EDITOR
             if (!File.Exists(fileName)) return new GameSettings();
 
             var json = File.ReadAllText(fileName);
             return JsonUtility.FromJson<GameSettings>(json);
-        }
+#else
+            return new();
 #endif
+        }
 
-        [Conditional("IS_NOT_WEBGL")]
         public static void Save()
         {
+#if !UNITY_WEBGL || UNITY_EDITOR
             var json = JsonUtility.ToJson(_instance, false);
             File.WriteAllText(fileName, json);
+#endif
         }
     }
 }

@@ -3,6 +3,7 @@ var WebInterop = {
     $InteropGameObject: null,
 
     $InteropCallbacks: {
+        OnScenarioListLoaded: function(scenarioList) { },
         OnScriptLoaded: function(script) { },
         OnMessageCommand: function(speaker, voiceId, message) { },
         OnScenarioStarted: function() { },
@@ -80,14 +81,18 @@ var WebInterop = {
     RegisterInterops: function () {
         console.log("Registering interops...");
         b352a51964f6fc4813af8f08d403ec0d(
-            InteropCallbacks, 
-            InteropFunctions.ResetPlayer, 
+            InteropCallbacks,
+            InteropFunctions.ResetPlayer,
             InteropFunctions.SetVolume,
             InteropFunctions.EnterFullscreen,
             InteropFunctions.ExitFullscreen,
             InteropFunctions.ToggleAutoMode,
             InteropFunctions.ToggleDramaMode,
             InteropFunctions.ToggleInputInterception);
+    },
+
+    OnScenarioListLoaded: function (scenarioListJson) {
+        InteropCallbacks.OnScenarioListLoaded(JSON.parse(UTF8ToString(scenarioListJson)));
     },
 
     OnScriptLoaded: function (script) {

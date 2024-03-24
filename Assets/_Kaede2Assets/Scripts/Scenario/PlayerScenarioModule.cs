@@ -100,7 +100,9 @@ namespace Kaede2.Scenario
             resourceHandles = new();
 
             InputManager.InputAction.Scenario.Enable();
+#if UNITY_WEBGL && !UNITY_EDITOR
             WebInterop.Module = this;
+#endif
         }
 
         private IEnumerator Start()
@@ -144,7 +146,9 @@ namespace Kaede2.Scenario
             if (InputManager.Instance != null)
                 InputManager.InputAction.Scenario.Disable();
 
+#if UNITY_WEBGL && !UNITY_EDITOR
             WebInterop.Module = null;
+#endif
         }
 
         public override void InitEnd()
