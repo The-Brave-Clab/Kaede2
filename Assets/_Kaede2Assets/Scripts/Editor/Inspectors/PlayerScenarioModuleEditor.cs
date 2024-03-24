@@ -45,23 +45,6 @@ namespace Kaede2.Editor.Inspectors
             return sortedScenarioInfo.FindIndex(si => si.ScenarioName == scenarioName);
         }
 
-        private static MasterScenarioInfo GetMasterData()
-        {
-            var taggerGUIDs = AssetDatabase.FindAssets($"t:{nameof(Kaede2AddressableTagger)}");
-            if (taggerGUIDs.Length == 0)
-                return null;
-
-            var taggerPath = AssetDatabase.GUIDToAssetPath(taggerGUIDs[0]);
-            var tagger = AssetDatabase.LoadAssetAtPath<Kaede2AddressableTagger>(taggerPath);
-            if (tagger == null)
-                return null;
-
-            if (string.IsNullOrEmpty(tagger.AddressableBaseFolder))
-                return null;
-
-            return AssetDatabase.LoadAssetAtPath<MasterScenarioInfo>($"{tagger.AddressableBaseFolder}/master_data/MasterScenarioInfo.masterdata");
-        }
-
         private void DrawScenarioSelector(SerializedProperty property)
         {
             // draw header first
@@ -88,7 +71,7 @@ namespace Kaede2.Editor.Inspectors
             const string noMasterDataMessage = "Quick selection is not available due to MasterScenarioInfo.masterdata not found.";
             if (masterData == null)
             {
-                masterData = GetMasterData();
+                masterData = MasterScenarioInfo.Instance;
                 if (masterData == null)
                 {
                     EditorGUILayout.HelpBox(noMasterDataMessage, MessageType.Warning);

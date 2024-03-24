@@ -3,7 +3,7 @@
 
 namespace Kaede2.ScriptableObjects
 {
-    public class MasterScenarioInfo : BaseMasterData
+    public class MasterScenarioInfo : BaseMasterData<MasterScenarioInfo>
     {
         [Serializable]
         public class ScenarioInfo

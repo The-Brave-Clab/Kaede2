@@ -21,7 +21,7 @@ namespace Kaede2.Editor.Importers
                 {
                     foreach (var type in assembly.GetTypes())
                     {
-                        if (type.IsSubclassOf(typeof(BaseMasterData)))
+                        if (type.IsSubclassOf(typeof(BaseMasterData<>)))
                         {
                             masterDataTypes.Add(type);
                         }

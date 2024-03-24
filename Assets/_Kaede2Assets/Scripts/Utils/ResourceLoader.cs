@@ -46,13 +46,6 @@ namespace Kaede2.Utils
             return Load<Sprite>($"illust/{illustName}.png");
         }
 
-        // master_data
-
-        public static LoadAddressableHandle<T> LoadMasterData<T>() where T : BaseMasterData
-        {
-            return Load<T>($"master_data/{typeof(T).Name}.masterdata");
-        }
-
         // scenario_common
 
         public static LoadAddressableHandle<Texture2D> LoadScenarioBackground(string bgName)

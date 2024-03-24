@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Kaede2.Scenario;
 using Kaede2.Scenario.Framework.Utils;
+using Kaede2.ScriptableObjects;
 using Kaede2.UI.Web;
 using UnityEngine;
 // using UnityEngine.Localization.Settings;
@@ -54,6 +55,7 @@ namespace Kaede2
             DontDestroyOnLoad(gameObject);
 
             RegisterInterops();
+            WebInterop.OnScenarioListLoaded(JsonUtility.ToJson(MasterScenarioInfo.Instance));
         }
 
         [Conditional("DEVELOPMENT_BUILD")]

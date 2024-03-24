@@ -5,7 +5,7 @@ using Kaede2.Scenario.Framework;
 
 namespace Kaede2.ScriptableObjects
 {
-    public class MasterCharaInfo : BaseMasterData
+    public class MasterCharaInfo : BaseMasterData<MasterCharaInfo>
     {
         [Serializable]
         public class CharacterInfo

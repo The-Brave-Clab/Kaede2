@@ -5,7 +5,7 @@ using Kaede2.Scenario.Framework;
 
 namespace Kaede2.ScriptableObjects
 {
-    public class MasterAlbumInfo : BaseMasterData
+    public class MasterAlbumInfo : BaseMasterData<MasterAlbumInfo>
     {
         [Serializable]
         public class AlbumInfo

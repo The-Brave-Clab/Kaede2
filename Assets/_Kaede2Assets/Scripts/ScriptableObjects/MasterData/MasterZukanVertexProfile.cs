@@ -23,7 +23,7 @@ namespace Kaede2.ScriptableObjects
         public string Description;
     }
 
-    public class MasterZukanVertexProfile : BaseMasterData
+    public class MasterZukanVertexProfile : BaseMasterData<MasterZukanVertexProfile>
     {
         public ZukanProfile[] zukanProfile;
     }

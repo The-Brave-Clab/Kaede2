@@ -3,7 +3,7 @@
 
 namespace Kaede2.ScriptableObjects
 {
-    public class MasterBgmData : BaseMasterData
+    public class MasterBgmData : BaseMasterData<MasterBgmData>
     {
         [Serializable]
         public class BgmData

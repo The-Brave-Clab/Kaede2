@@ -5,7 +5,7 @@ using Kaede2.Scenario.Framework;
 
 namespace Kaede2.ScriptableObjects
 {
-    public class MasterCharaAlbumLogo : BaseMasterData
+    public class MasterCharaAlbumLogo : BaseMasterData<MasterCharaAlbumLogo>
     {
         [Serializable]
         public class CharacterAlbumLogo

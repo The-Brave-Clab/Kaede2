@@ -3,7 +3,7 @@
 
 namespace Kaede2.ScriptableObjects
 {
-    public class MasterSystemVoiceData : BaseMasterData
+    public class MasterSystemVoiceData : BaseMasterData<MasterSystemVoiceData>
     {
         [Serializable]
         public class SystemVoiceData

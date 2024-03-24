@@ -5,7 +5,7 @@ using Kaede2.Scenario.Framework;
 
 namespace Kaede2.ScriptableObjects
 {
-    public class MasterScenarioCast : BaseMasterData
+    public class MasterScenarioCast : BaseMasterData<MasterScenarioCast>
     {
         [Serializable]
         public class ScenarioCast

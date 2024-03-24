@@ -15,7 +15,7 @@ namespace Kaede2.ScriptableObjects
         public int Collabo; // could be boolean?
     }
 
-    public class MasterZukanVertexInfo : BaseMasterData
+    public class MasterZukanVertexInfo : BaseMasterData<MasterZukanVertexInfo>
     {
         public ZukanInfo[] zukanInfo;
     }

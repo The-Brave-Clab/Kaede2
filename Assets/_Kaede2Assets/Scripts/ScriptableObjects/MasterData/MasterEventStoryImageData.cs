@@ -3,7 +3,7 @@
 
 namespace Kaede2.ScriptableObjects
 {
-    public class MasterEventStoryImageData : BaseMasterData
+    public class MasterEventStoryImageData : BaseMasterData<MasterEventStoryImageData>
     {
         [Serializable]
         public class EventStoryImage

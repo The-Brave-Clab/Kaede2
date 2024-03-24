@@ -3,7 +3,7 @@
 
 namespace Kaede2.ScriptableObjects
 {
-    public class MasterChapterThumbnail : BaseMasterData
+    public class MasterChapterThumbnail : BaseMasterData<MasterChapterThumbnail>
     {
         [Serializable]
         public class ChapterThumbnail

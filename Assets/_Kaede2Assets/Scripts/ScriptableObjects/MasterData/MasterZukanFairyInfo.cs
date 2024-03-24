@@ -3,7 +3,7 @@
 
 namespace Kaede2.ScriptableObjects
 {
-    public class MasterZukanFairyInfo : BaseMasterData
+    public class MasterZukanFairyInfo : BaseMasterData<MasterZukanFairyInfo>
     {
         public ZukanInfo[] zukanInfo;
     }

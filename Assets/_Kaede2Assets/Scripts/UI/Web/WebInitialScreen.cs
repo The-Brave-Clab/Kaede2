@@ -43,7 +43,6 @@ namespace Kaede2.UI.Web
 
             CoroutineGroup group = new CoroutineGroup();
             group.Add(ShowLogos(), this);
-            group.Add(LoadScenarioMasterData(), this);
             group.Add(GlobalInitializer.Initialize(), this);
             yield return group.WaitForAll();
         }
@@ -57,18 +56,6 @@ namespace Kaede2.UI.Web
             webglLogo.color = Color.white;
             webgpuLogo.color = Color.white;
             live2dLogo.color = Color.white;
-        }
-
-        private IEnumerator LoadScenarioMasterData()
-        {
-            using var handle = ResourceLoader.LoadMasterData<MasterScenarioInfo>();
-            yield return handle.Send();
-            if (handle.Result == null)
-            {
-                Debug.LogError("Failed to load scenario master data");
-                yield break;
-            }
-            WebInterop.OnScenarioListLoaded(JsonUtility.ToJson(handle.Result));
         }
 #endif
     }
