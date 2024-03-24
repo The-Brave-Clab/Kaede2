@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Kaede2.Scenario;
 using Kaede2.Scenario.Framework.Utils;
+using Kaede2.UI.Web;
 using UnityEngine;
 // using UnityEngine.Localization.Settings;
 using UnityEngine.SceneManagement;
@@ -69,6 +70,7 @@ namespace Kaede2
             string languageCode = split[1];
 
             if (scenarioName == "") return;
+            WebBackground.UpdateStatus(WebBackground.Status.ReadyToPlay);
             PlayerScenarioModule.GlobalScenarioName = scenarioName;
             // LocalizationSettings.Instance.SetSelectedLocale(LocalizationSettings.AvailableLocales.Locales
             //     .Find(l => l.Identifier.CultureInfo.TwoLetterISOLanguageName == languageCode));

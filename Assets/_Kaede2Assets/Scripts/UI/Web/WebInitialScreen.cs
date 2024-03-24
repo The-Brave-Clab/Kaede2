@@ -1,12 +1,14 @@
+#if UNITY_WEBGL && !UNITY_EDITOR
 using System.Collections;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
 using Kaede2.Utils;
-using UnityEngine;
 using UnityEngine.Rendering;
+#endif
+using UnityEngine;
 using UnityEngine.UI;
 
-namespace Kaede2.UI
+namespace Kaede2.UI.Web
 {
     public class WebInitialScreen : MonoBehaviour
     {

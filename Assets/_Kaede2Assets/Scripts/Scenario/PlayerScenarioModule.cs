@@ -6,6 +6,9 @@ using Kaede2.Input;
 using Kaede2.Scenario.Framework;
 using Kaede2.Scenario.Framework.Commands;
 using Kaede2.Scenario.Framework.Utils;
+#if UNITY_WEBGL && !UNITY_EDITOR
+using Kaede2.UI.Web;
+#endif
 using Kaede2.Utils;
 using UnityEngine;
 
@@ -151,7 +154,7 @@ namespace Kaede2.Scenario
 #endif
         }
 
-        public override void InitEnd()
+        public override IEnumerator InitEnd()
         {
             UIController.LoadingCanvas.gameObject.SetActive(false);
             Debug.Log("Scenario initialized");
@@ -161,11 +164,22 @@ namespace Kaede2.Scenario
                 RestoreState(StateToBeRestored);
                 StateToBeRestored = null;
             }
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+            while (WebBackground.CurrentStatus == WebBackground.Status.ReadyToPlay)
+                yield return null;
+#endif
+
+            yield break;
         }
 
-        public override void End()
+        public override IEnumerator End()
         {
             Debug.Log("Scenario ended");
+#if UNITY_WEBGL && !UNITY_EDITOR
+            WebBackground.UpdateStatus(WebBackground.Status.Finished);
+#endif
+            yield break;
         }
 
         private IEnumerator SendHandleWithFinishCallback<T>(ResourceLoader.LoadAddressableHandle<T> handle, Action<T> callback) where T : UnityEngine.Object

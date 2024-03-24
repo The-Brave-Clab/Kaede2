@@ -42,8 +42,8 @@ namespace Kaede2.Scenario.Framework
 
         public abstract bool MesClicked { get; }
 
-        public abstract void InitEnd();
-        public abstract void End();
+        public abstract IEnumerator InitEnd();
+        public abstract IEnumerator End();
 
         private List<GameObject> effectPrefabs;
         public IReadOnlyList<GameObject> EffectPrefabs

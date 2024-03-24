@@ -8,13 +8,12 @@ namespace Kaede2.Scenario.Framework.Commands
         {
         }
 
-        public override ExecutionType Type => ExecutionType.Instant;
+        public override ExecutionType Type => ExecutionType.Synchronous;
         public override float ExpectedExecutionTime => 0;
 
         public override IEnumerator Execute()
         {
-            Module.End();
-            yield break;
+            yield return Module.End();
         }
     }
 }
