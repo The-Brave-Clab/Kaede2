@@ -45,6 +45,8 @@ namespace Kaede2.Scenario.Framework
         public abstract IEnumerator InitEnd();
         public abstract IEnumerator End();
 
+        public Action<string, string, string> OnMesCommand; // speaker, voiceId, message
+
         private List<GameObject> effectPrefabs;
         public IReadOnlyList<GameObject> EffectPrefabs
         {

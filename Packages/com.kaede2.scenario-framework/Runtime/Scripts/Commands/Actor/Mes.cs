@@ -47,6 +47,7 @@ namespace Kaede2.Scenario.Framework.Commands
 
         public override IEnumerator Execute()
         {
+            Module.OnMesCommand?.Invoke(speakerName, voiceName, message);
             var messageBox = Module.UIController.MessageBox;
             messageBox.gameObject.SetActive(true);
             messageBox.Text = message;

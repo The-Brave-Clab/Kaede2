@@ -105,6 +105,7 @@ namespace Kaede2.Scenario
             InputManager.InputAction.Scenario.Enable();
 #if UNITY_WEBGL && !UNITY_EDITOR
             WebInterop.Module = this;
+            OnMesCommand += WebInterop.OnMessageCommand;
 #endif
         }
 
@@ -171,6 +172,7 @@ namespace Kaede2.Scenario
 #if UNITY_WEBGL && !UNITY_EDITOR
             while (WebBackground.CurrentStatus == WebBackground.Status.ReadyToPlay)
                 yield return null;
+            WebInterop.OnScenarioStarted();
 #endif
 
             yield break;
@@ -181,6 +183,7 @@ namespace Kaede2.Scenario
             Debug.Log("Scenario ended");
 #if UNITY_WEBGL && !UNITY_EDITOR
             WebBackground.UpdateStatus(WebBackground.Status.Finished);
+            WebInterop.OnScenarioFinished();
 #endif
             yield break;
         }
