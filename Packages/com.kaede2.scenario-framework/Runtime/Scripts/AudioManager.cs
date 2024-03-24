@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+#if UNITY_WEBGL && !UNITY_EDITOR
+using System.Runtime.InteropServices;
+#endif
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -25,6 +29,8 @@ namespace Kaede2.Scenario.Framework
         private List<AudioInfo> seAudioInfos;
 
         private bool running;
+
+        private const int FFTSize = 128;
 
         protected void Awake()
         {
@@ -145,11 +151,22 @@ namespace Kaede2.Scenario.Framework
 
             voiceAudioInfo = Create(voiceName, AudioType.Voice, clip, 1.0f);
             voiceAudioInfo.Source.Play();
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+            WaitUntilContidionAndRun(() =>
+            {
+                StartAudioSampling(voiceAudioInfo.UniqueName, clip.samples, FFTSize);
+                voiceAudioInfo.CanGetSpectrumData = true;
+            }, () => clip.samples > 0);
+#endif
         }
 
         public void StopVoice()
         {
             StopAudioImmediately(voiceAudioInfo);
+#if UNITY_WEBGL && !UNITY_EDITOR
+            CloseAudioSampling(voiceAudioInfo.UniqueName);
+#endif
             voiceAudioInfo = null;
         }
 
@@ -158,27 +175,21 @@ namespace Kaede2.Scenario.Framework
             if (voiceAudioInfo == null) return 0.0f;
             if (voiceAudioInfo.Source == null) return 0.0f;
             if (!voiceAudioInfo.Source.isPlaying) return 0.0f;
-            return GetCurrentVolume(voiceAudioInfo.Source);
+#if UNITY_WEBGL && !UNITY_EDITOR
+            if (!voiceAudioInfo.CanGetSpectrumData) return 0.0f;
+#endif
+            float[] data = new float[FFTSize];
+#if UNITY_WEBGL && !UNITY_EDITOR
+            GetAudioSamples(voiceAudioInfo.UniqueName, data, FFTSize);
+#else
+            voiceAudioInfo.Source.GetSpectrumData(data, 0, FFTWindow.Rectangular);
+#endif
+            return data.Sum(Mathf.Abs);
         }
 
         public bool IsVoicePlaying()
         {
             return !IsDead(voiceAudioInfo);
-        }
-
-
-        private static float GetCurrentVolume(AudioSource audio)
-        {
-            const int fftSize = 128;
-            float[] data = new float[fftSize];
-            float sum = 0;
-            audio.GetSpectrumData(data, 0, FFTWindow.Rectangular);
-            foreach (float s in data)
-            {
-                sum += Mathf.Abs(s);
-            }
-
-            return sum / fftSize;
         }
 
         public IEnumerator PlaySE(string seName, float volume, float duration, bool loop)
@@ -313,6 +324,12 @@ namespace Kaede2.Scenario.Framework
         {
             public string Name { get; set; }
             public AudioSource Source { get; set; }
+#if UNITY_WEBGL && !UNITY_EDITOR
+            public bool CanGetSpectrumData { get; set; } = false;
+            private Guid ID { get; set; } = Guid.NewGuid();
+
+            public string UniqueName => $"{Name} ({ID})";
+#endif
 
             private float volume = 1.0f;
             public float Volume
@@ -379,5 +396,29 @@ namespace Kaede2.Scenario.Framework
                 StopSE(se.Name);
             }
         }
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        private const string WebDllName = "__Internal";
+
+        [DllImport(WebDllName)]
+        private static extern bool StartAudioSampling(string name, float samples, int bufferSize);
+
+        [DllImport(WebDllName)]
+        private static extern bool CloseAudioSampling(string name);
+
+        [DllImport(WebDllName)]
+        private static extern bool GetAudioSamples(string name, float[] freqData, int size);
+
+        private void WaitUntilContidionAndRun(Action action, Func<bool> condition)
+        {
+            IEnumerator WaitUntilCondition()
+            {
+                yield return new WaitUntil(condition);
+                action();
+            }
+
+            StartCoroutine(WaitUntilCondition());
+        }
+#endif
     }
 }

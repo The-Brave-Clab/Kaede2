@@ -13,36 +13,36 @@ namespace Kaede2
 {
     public class WebInterop : Singleton<WebInterop>
     {
-        private const string DLLName = "__Internal";
+        private const string DllName = "__Internal";
 
-        [DllImport(DLLName)]
+        [DllImport(DllName)]
         private static extern void RegisterWebInteropGameObject(string gameObjectName);
 
-        [DllImport(DLLName)]
+        [DllImport(DllName)]
         private static extern void RegisterInterops();
 
-        [DllImport(DLLName)]
+        [DllImport(DllName)]
         public static extern void OnScenarioListLoaded(string scenarioListJson);
 
-        [DllImport(DLLName)]
+        [DllImport(DllName)]
         public static extern void OnScriptLoaded(string script);
 
-        [DllImport(DLLName)]
+        [DllImport(DllName)]
         public static extern void OnMessageCommand(string speaker, string voiceId, string message);
 
-        [DllImport(DLLName)]
+        [DllImport(DllName)]
         public static extern void OnScenarioStarted();
 
-        [DllImport(DLLName)]
+        [DllImport(DllName)]
         public static extern void OnScenarioFinished();
 
-        [DllImport(DLLName)]
+        [DllImport(DllName)]
         public static extern void OnExitFullscreen();
 
-        [DllImport(DLLName)]
+        [DllImport(DllName)]
         public static extern void OnToggleAutoMode(int on);
 
-        [DllImport(DLLName)]
+        [DllImport(DllName)]
         public static extern void OnToggleDramaMode(int on);
 
         public static PlayerScenarioModule Module { get; set; }

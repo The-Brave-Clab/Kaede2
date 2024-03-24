@@ -65,7 +65,7 @@ namespace Kaede2.Scenario.Framework.Commands
             {
                 if (Module.LipSync && entity != null)
                 {
-                    entity.SetLip(Module.AudioManager.GetVoiceVolume() * 128);
+                    entity.SetLip(Module.AudioManager.GetVoiceVolume());
                 }
 
                 bool currentMesClicked = Module.MesClicked;
