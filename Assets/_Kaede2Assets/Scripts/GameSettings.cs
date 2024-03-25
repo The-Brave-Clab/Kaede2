@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Kaede2
 {
@@ -103,6 +104,7 @@ namespace Kaede2
             if (!File.Exists(fileName)) return new GameSettings();
 
             var json = File.ReadAllText(fileName);
+            Debug.Log($"Loaded game settings from: {fileName}");
             return JsonUtility.FromJson<GameSettings>(json);
 #else
             return new();

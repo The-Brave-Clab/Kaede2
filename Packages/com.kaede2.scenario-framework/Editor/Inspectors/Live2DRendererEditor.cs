@@ -14,7 +14,6 @@ namespace Kaede2.Scenario.Framework.Editor.Inspectors
         private Live2DActorEntity component = null;
         private void OnEnable()
         {
-            //throw new NotImplementedException();
             component = target as Live2DActorEntity;
         }
 

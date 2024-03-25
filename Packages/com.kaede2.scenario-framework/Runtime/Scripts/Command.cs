@@ -23,6 +23,7 @@ namespace Kaede2.Scenario.Framework
         }
 
         private readonly string[] originalArgs;
+        public IReadOnlyList<string> OriginalArgs => originalArgs;
 
         protected readonly ScenarioModule Module;
 

@@ -3,6 +3,8 @@ using System.Linq;
 using System.Reflection;
 using Kaede2.Editor.Addressables;
 using Kaede2.Scenario;
+using Kaede2.Scenario.Framework;
+using Kaede2.Scenario.Framework.Editor.Inspectors;
 using Kaede2.ScriptableObjects;
 using UnityEditor;
 using UnityEngine;
@@ -10,23 +12,29 @@ using UnityEngine;
 namespace Kaede2.Editor.Inspectors
 {
     [CustomEditor(typeof(PlayerScenarioModule))]
-    public class PlayerScenarioModuleEditor : UnityEditor.Editor
+    public class PlayerScenarioModuleEditor : ScenarioModuleEditor
     {
         public override void OnInspectorGUI()
         {
+            base.OnInspectorGUI();
+
+            EditorGUILayout.LabelField("Fields", EditorStyles.boldLabel);
+
             EditorGUI.BeginChangeCheck();
             serializedObject.UpdateIfRequiredOrScript();
             SerializedProperty iterator = serializedObject.GetIterator();
             for (bool enterChildren = true; iterator.NextVisible(enterChildren); enterChildren = false)
             {
-                if (iterator.propertyPath == nameof(PlayerScenarioModule.defaultScenarioName))
+                switch (iterator.propertyPath)
                 {
-                    DrawScenarioSelector(iterator);
-                }
-                else
-                {
-                    using (new EditorGUI.DisabledScope("m_Script" == iterator.propertyPath))
+                    case nameof(PlayerScenarioModule.defaultScenarioName):
+                        DrawScenarioSelector(iterator);
+                        break;
+                    case "m_Script":
+                        continue;
+                    default:
                         EditorGUILayout.PropertyField(iterator, true);
+                        break;
                 }
             }
 

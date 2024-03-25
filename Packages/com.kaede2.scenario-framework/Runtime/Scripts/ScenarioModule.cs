@@ -30,6 +30,9 @@ namespace Kaede2.Scenario.Framework
         private Dictionary<string, Expression> variables;
         private Dictionary<string, string> aliases;
 
+        public IReadOnlyDictionary<string, Expression> Variables => variables;
+        public IReadOnlyDictionary<string, string> Aliases => aliases;
+
         public virtual bool ActorAutoDelete { get; set; }
         public virtual bool LipSync { get; set; }
         public virtual bool AutoMode { get; set; }
@@ -45,6 +48,7 @@ namespace Kaede2.Scenario.Framework
         public abstract IEnumerator InitEnd();
         public abstract IEnumerator End();
 
+        public Action<Command> OnCommand;
         public Action<string, string, string> OnMesCommand; // speaker, voiceId, message
 
         private List<GameObject> effectPrefabs;
@@ -213,6 +217,7 @@ namespace Kaede2.Scenario.Framework
                 }
 
                 var command = Commands[CurrentCommandIndex];
+                OnCommand?.Invoke(command);
                 var execution = ExecuteSingle(command);
                 while (execution.MoveNext())
                 {
