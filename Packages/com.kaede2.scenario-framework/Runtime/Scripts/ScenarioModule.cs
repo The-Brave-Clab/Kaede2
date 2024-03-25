@@ -30,9 +30,9 @@ namespace Kaede2.Scenario.Framework
         private Dictionary<string, Expression> variables;
         private Dictionary<string, string> aliases;
 
-        public bool ActorAutoDelete { get; set; }
-        public bool LipSync { get; set; }
-        public bool AutoMode { get; set; }
+        public virtual bool ActorAutoDelete { get; set; }
+        public virtual bool LipSync { get; set; }
+        public virtual bool AutoMode { get; set; }
 
         public abstract bool Fixed16By9 { get; set; }
         public abstract float AudioMasterVolume { get; set; }

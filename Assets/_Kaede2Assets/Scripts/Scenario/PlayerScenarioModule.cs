@@ -19,6 +19,8 @@ namespace Kaede2.Scenario
         public static string GlobalScenarioName;
         public static ScenarioState StateToBeRestored;
 
+        private static bool? lastAutoMode = null;
+
         private List<string> statements;
         private List<Command> commands;
         private int currentCommandIndex;
@@ -54,6 +56,12 @@ namespace Kaede2.Scenario
 
         public override IReadOnlyList<string> Statements => statements.AsReadOnly();
         public override IReadOnlyList<Command> Commands => commands.AsReadOnly();
+
+        public override bool AutoMode
+        {
+            get => lastAutoMode ?? base.AutoMode;
+            set => lastAutoMode = base.AutoMode = value;
+        }
 
         public override bool Fixed16By9
         {
@@ -135,7 +143,7 @@ namespace Kaede2.Scenario
             yield return PreloadIncludeFiles(originalStatements, includeFiles);
 
             var includePreprocessedStatements = PreprocessInclude(originalStatements, includeFiles);
-            statements = PreprocessFunctions(includePreprocessedStatements);
+            statements = Function.PreprocessFunctions(includePreprocessedStatements);
             yield return PreprocessAliasesAndVariables(statements);
 
             commands = statements.Select(ParseStatement).ToList();
@@ -347,73 +355,6 @@ namespace Kaede2.Scenario
                 var includeStatements = includeFiles[includeFileName];
                 var processedIncludeStatements = PreprocessInclude(includeStatements, includeFiles);
                 outputStatements.AddRange(processedIncludeStatements);
-            }
-
-            return outputStatements;
-        }
-
-        private static List<string> PreprocessFunctions(List<string> statements)
-        {
-            Dictionary<string, Function> functions = new();
-            Function currentFunction = null;
-            bool recordingFunction = false;
-
-            List<string> outputStatements = new List<string>();
-
-            foreach (var s in statements)
-            {
-                // if recording function, just add to current function
-                if (recordingFunction && !s.StartsWith("endfunction"))
-                {
-                    currentFunction.AddStatement(s);
-                    continue;
-                }
-
-                // if recording and we should end, finish recording
-                if (recordingFunction && s.StartsWith("endfunction"))
-                {
-                    currentFunction.FinishDefinition();
-                    functions.Add(currentFunction.FunctionName, currentFunction);
-
-                    currentFunction = null;
-                    recordingFunction = false;
-                    continue;
-                }
-
-                // if not recording and we should start, start recording
-                if (s.StartsWith("function"))
-                {
-                    currentFunction = new Function(s);
-                    recordingFunction = true;
-                    continue;
-                }
-
-                // if not recording and we should call a function, call it
-                if (s.StartsWith("sub"))
-                {
-                    var split = s.Split('\t');
-                    var functionName = split[1];
-                    var parameters = new List<string>(split.Length - 2);
-                    for (int i = 2; i < split.Length; ++i)
-                    {
-                        parameters.Add(split[i]);
-                    }
-
-                    if (!functions.ContainsKey(functionName))
-                    {
-                        Debug.LogError($"Function {functionName} doesn't exist!");
-                        continue;
-                    }
-
-                    Function f = functions[functionName];
-                    var functionStatements = f.GetStatements(parameters);
-
-                    outputStatements.AddRange(functionStatements);
-                    continue;
-                }
-
-                // if not recording and we should do something else, just add it
-                outputStatements.Add(s);
             }
 
             return outputStatements;

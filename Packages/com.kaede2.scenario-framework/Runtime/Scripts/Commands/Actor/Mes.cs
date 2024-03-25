@@ -85,10 +85,8 @@ namespace Kaede2.Scenario.Framework.Commands
                 if (messageBox.IsCompleteDisplayText)
                     extraTimeAfterTextFinishDisplay -= Time.deltaTime;
 
-                bool autoMode = false; // TODO
-
                 // auto quit in auto mode
-                if (!Module.AudioManager.IsVoicePlaying() && extraTimeAfterTextFinishDisplay <= 0 && autoMode)
+                if (!Module.AudioManager.IsVoicePlaying() && extraTimeAfterTextFinishDisplay <= 0 && Module.AutoMode)
                     break;
             }
 
