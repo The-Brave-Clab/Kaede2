@@ -45,9 +45,9 @@ namespace Kaede2.Scenario.Framework
 
             // on awake, there are some things that need to be disabled
             CaptionBox.gameObject.SetActive(false);
-            MessageBox.gameObject.SetActive(false);
             UICanvas.gameObject.SetActive(false);
             ContentCanvas.gameObject.SetActive(false);
+            MessageBox.Enabled = false;
 
             MessageBox.UIController = this;
             Fade.UIController = this;

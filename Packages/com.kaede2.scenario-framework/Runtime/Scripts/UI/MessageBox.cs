@@ -6,10 +6,16 @@ namespace Kaede2.Scenario.Framework.UI
     public class MessageBox : MonoBehaviour, IStateSavable<MessageBoxState>
     {
         [SerializeField]
-        private TextMeshProUGUI nameTag;
+        private TextMeshProUGUI nameText;
 
         [SerializeField]
-        private TextMeshProUGUI messagePanel;
+        private GameObject namePanel;
+
+        [SerializeField]
+        private TextMeshProUGUI messageText;
+
+        [SerializeField]
+        private GameObject messagePanel;
 
         [SerializeField]
         private Breathe nextMessageIndicator;
@@ -37,8 +43,8 @@ namespace Kaede2.Scenario.Framework.UI
                 timeStarted = Time.time;
                 lastCharacterIndex = -1;
                 currentCharacterIndex = 0;
-                messagePanel.text = string.Empty;
-                messagePanel.lineSpacing = 1f - 38f; //SingletonMonoBehaviour<ScenarioConfig>.Instance.messageLineSpacing;
+                messageText.text = string.Empty;
+                messageText.lineSpacing = 1f - 38f; //SingletonMonoBehaviour<ScenarioConfig>.Instance.messageLineSpacing;
 
                 nextMessageIndicator.gameObject.SetActive(false);
             }
@@ -46,8 +52,16 @@ namespace Kaede2.Scenario.Framework.UI
 
         public string NameTag
         {
-            get => nameTag.text;
-            set => nameTag.text = value;
+            set => nameText.text = value;
+        }
+
+        public bool Enabled
+        {
+            set
+            {
+                messagePanel.SetActive(value);
+                namePanel.SetActive(value);
+            }
         }
 
         public bool AutoMode
@@ -129,26 +143,26 @@ namespace Kaede2.Scenario.Framework.UI
             currentCharacterIndex = (int) (Mathf.Clamp01((Time.time - timeStarted) / displayTime) * currentText.Length);
             if (currentCharacterIndex != lastCharacterIndex)
             {
-                messagePanel.text = currentText.Length == 0 ? string.Empty : currentText.String(currentCharacterIndex);
+                messageText.text = currentText.Length == 0 ? string.Empty : currentText.String(currentCharacterIndex);
                 lastCharacterIndex = currentCharacterIndex;
             }
 
             if (IsCompleteDisplayText)
             {
-                if (!UIController.Module.AutoMode && !string.IsNullOrEmpty(messagePanel.text))
+                if (!UIController.Module.AutoMode && !string.IsNullOrEmpty(messageText.text))
                     nextMessageIndicator.gameObject.SetActive(true);
             }
         }
 
 
-        public bool IsCompleteDisplayText => currentCharacterIndex == currentText.Length;
+        public bool IsCompleteDisplayText => currentCharacterIndex == (currentText?.Length ?? 0);
 
         public MessageBoxState GetState()
         {
             return new()
             {
                 enabled = gameObject.activeSelf,
-                speaker = nameTag.text,
+                speaker = nameText.text,
                 message = currentText.MacroText
             };
         }
@@ -156,7 +170,7 @@ namespace Kaede2.Scenario.Framework.UI
         public void RestoreState(MessageBoxState state)
         {
             gameObject.SetActive(state.enabled);
-            nameTag.text = state.speaker;
+            nameText.text = state.speaker;
             Message = state.message;
             SkipDisplay();
         }

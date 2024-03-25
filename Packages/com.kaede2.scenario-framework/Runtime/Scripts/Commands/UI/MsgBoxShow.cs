@@ -24,7 +24,7 @@ namespace Kaede2.Scenario.Framework.Commands
 
         public override IEnumerator Execute()
         {
-            messageBox.gameObject.SetActive(IsShow);
+            messageBox.Enabled = IsShow;
             messageBox.NameTag = "";
             messageBox.Message = "";
             yield break;
