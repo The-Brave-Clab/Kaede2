@@ -11,6 +11,7 @@ var WebInterop = {
         OnScenarioFinished: function() { },
         OnExitFullscreen: function() { },
         OnToggleAutoMode: function(on) { },
+        OnToggleContinuousMode: function(on) { },
         OnToggleDramaMode: function(on) { }
     },
 
@@ -41,6 +42,13 @@ var WebInterop = {
                 SendMessage(InteropGameObject, "ToggleAutoMode", 1);
             else
                 SendMessage(InteropGameObject, "ToggleAutoMode", 0);
+        },
+
+        ToggleContinuousMode: function(on) {
+            if (on)
+                SendMessage(InteropGameObject, "ToggleContinuousMode", 1);
+            else
+                SendMessage(InteropGameObject, "ToggleContinuousMode", 0);
         },
 
         ToggleDramaMode: function(on) {
@@ -88,6 +96,7 @@ var WebInterop = {
             InteropFunctions.EnterFullscreen,
             InteropFunctions.ExitFullscreen,
             InteropFunctions.ToggleAutoMode,
+            InteropFunctions.ToggleContinuousMode,
             InteropFunctions.ToggleDramaMode,
             InteropFunctions.ToggleInputInterception);
     },
@@ -122,6 +131,10 @@ var WebInterop = {
 
     OnToggleAutoMode: function (on) {
         InteropCallbacks.OnToggleAutoMode(on > 0);
+    },
+
+    OnToggleContinuousMode: function (on) {
+        InteropCallbacks.OnToggleContinuousMode(on > 0);
     },
 
     OnToggleDramaMode: function (on) {

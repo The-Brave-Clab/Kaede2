@@ -97,6 +97,8 @@
 
     <label for="auto-mode">Auto Mode:</label>
     <input type="checkbox" id="auto-mode"><br>
+    <label for="continuous-mode">Continuous Mode:</label>
+    <input type="checkbox" id="continuous-mode"><br>
     <label for="drama-mode">Drama Mode:</label>
     <input type="checkbox" id="drama-mode">
   </div>
@@ -115,6 +117,7 @@
     function EnterFullscreen() { }
     function ExitFullscreen() { }
     function ToggleAutoMode(on) { }
+    function ToggleContinuousMode(on) { }
     function ToggleDramaMode(on) { }
     function ToggleInputInterception(on) { }
 
@@ -160,6 +163,13 @@
         console.warn("Auto mode is OFF!");
     }
 
+    function myOnToggleContinuousMode(on) {
+      if (on)
+        console.warn("Continuous mode is ON!");
+      else
+        console.warn("Continuous mode is OFF!");
+    }
+
     function myOnToggleDramaMode(on) {
       if (on)
         console.warn("Drama mode is ON!");
@@ -172,13 +182,14 @@
     // auto mode, drama mode should not be available to the user before reset is called!
     // b352a51964f6fc4813af8f08d403ec0d: MD5 hash of "GlobalRegisterCallbacks"
     function b352a51964f6fc4813af8f08d403ec0d(callbacks,
-      resetPlayerMethod,
-      setVolumeMethod,
-      enterFullscreenMethod,
-      exitFullscreenMethod,
-      toggleAutoModeMethod,
-      toggleDramaModeMethod,
-      toggleInputInterception) {
+                                              resetPlayerMethod,
+                                              setVolumeMethod,
+                                              enterFullscreenMethod,
+                                              exitFullscreenMethod,
+                                              toggleAutoModeMethod, 
+                                              toggleContinuousMethod,
+                                              toggleDramaModeMethod,
+                                              toggleInputInterception) {
       // will be called when Unity loads the scenario list
       // parameter is a parsed JSON object (not string)
       callbacks.OnScenarioListLoaded = myOnScenarioListLoaded;
@@ -199,6 +210,8 @@
       callbacks.OnExitFullscreen = myOnExitFullscreen;
       // unlike exit fullscreen, this WILL be called no matter how auto mode is triggered, either through browser or Unity
       callbacks.OnToggleAutoMode = myOnToggleAutoMode;
+      // unlike exit fullscreen, this WILL be called no matter how continuous mode is triggered, either through browser or Unity
+      callbacks.OnToggleContinuousMode = myOnToggleContinuousMode;
       // unlike exit fullscreen, this WILL be called no matter how drama mode is triggered, either through browser or Unity
       callbacks.OnToggleDramaMode = myOnToggleDramaMode;
 
@@ -218,6 +231,9 @@
       // Note this should disable drama mode toggle
       // parameter is boolean
       ToggleAutoMode = toggleAutoModeMethod;
+      // call this when entering/exiting continuous mode, this WILL trigger onToggleContinuousMode callback
+      // parameter is boolean
+      ToggleContinuousMode = toggleContinuousMethod;
       // call this when entering/exiting drama mode, this WILL trigger onToggleDramaMode callback
       // Note this should disable auto mode toggle
       // parameter is boolean
@@ -325,6 +341,10 @@
 
     document.getElementById('auto-mode').addEventListener('change', (e) => {
       ToggleAutoMode(e.target.checked);
+    });
+
+    document.getElementById('continuous-mode').addEventListener('change', (e) => {
+      ToggleContinuousMode(e.target.checked);
     });
 
     document.getElementById('drama-mode').addEventListener('change', (e) => {

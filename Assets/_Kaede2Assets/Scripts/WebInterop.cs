@@ -48,6 +48,9 @@ namespace Kaede2
         public static extern void OnToggleAutoMode(int on);
 
         [DllImport(DllName)]
+        public static extern void OnToggleContinuousMode(int on);
+
+        [DllImport(DllName)]
         public static extern void OnToggleDramaMode(int on);
 
         public static PlayerScenarioModule Module { get; set; }
@@ -126,6 +129,12 @@ namespace Kaede2
         {
             InteropOptionLog($"toggling auto mode to {on > 0}");
             Module.AutoMode = on > 0;
+        }
+
+        public void ToggleContinuousMode(int on)
+        {
+            InteropOptionLog($"toggling continuous mode to {on > 0}");
+            Module.ContinuousMode = on > 0;
         }
 
         public void ToggleDramaMode(int on)

@@ -77,7 +77,7 @@ namespace Kaede2.Scenario
             {
                 lastContinuousMode = base.ContinuousMode = value;
 #if UNITY_WEBGL && !UNITY_EDITOR
-                WebInterop.OnToggleDramaMode(value ? 1 : 0);
+                WebInterop.OnToggleContinuousMode(value ? 1 : 0);
 #endif
             }
         }
