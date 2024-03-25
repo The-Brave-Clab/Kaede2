@@ -50,8 +50,8 @@ namespace Kaede2.Scenario.Framework.Commands
             Module.OnMesCommand?.Invoke(speakerName, voiceName, message);
             var messageBox = Module.UIController.MessageBox;
             messageBox.gameObject.SetActive(true);
-            messageBox.Text = message;
-            messageBox.nameTag.text = speakerName;
+            messageBox.Message = message;
+            messageBox.NameTag = speakerName;
 
             // this is needed to guard the situation where the last message
             // ends on the same frame as the current message starts

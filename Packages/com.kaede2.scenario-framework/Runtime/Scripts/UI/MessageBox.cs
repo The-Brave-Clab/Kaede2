@@ -5,16 +5,28 @@ namespace Kaede2.Scenario.Framework.UI
 {
     public class MessageBox : MonoBehaviour, IStateSavable<MessageBoxState>
     {
-        public TextMeshProUGUI nameTag;
-        public TextMeshProUGUI messagePanel;
-        public Breathe nextMessageIndicator;
+        [SerializeField]
+        private TextMeshProUGUI nameTag;
+
+        [SerializeField]
+        private TextMeshProUGUI messagePanel;
+
+        [SerializeField]
+        private Breathe nextMessageIndicator;
+
+        [SerializeField]
+        private GameObject autoModeIndicator;
+
+        [SerializeField]
+        private GameObject continuousModeIndicator;
+
         private RectTransform rt;
 
         private RichText currentText;
 
         public UIController UIController { get; set; }
 
-        public string Text
+        public string Message
         {
             set
             {
@@ -29,6 +41,32 @@ namespace Kaede2.Scenario.Framework.UI
                 messagePanel.lineSpacing = 1f - 38f; //SingletonMonoBehaviour<ScenarioConfig>.Instance.messageLineSpacing;
 
                 nextMessageIndicator.gameObject.SetActive(false);
+            }
+        }
+
+        public string NameTag
+        {
+            get => nameTag.text;
+            set => nameTag.text = value;
+        }
+
+        public bool AutoMode
+        {
+            get => autoModeIndicator != null && autoModeIndicator.activeSelf;
+            set
+            {
+                if (autoModeIndicator == null) return;
+                autoModeIndicator.SetActive(value);
+            }
+        }
+
+        public bool ContinuousMode
+        {
+            get => continuousModeIndicator != null && continuousModeIndicator.activeSelf;
+            set
+            {
+                if (continuousModeIndicator == null) return;
+                continuousModeIndicator.SetActive(value);
             }
         }
 
@@ -66,6 +104,9 @@ namespace Kaede2.Scenario.Framework.UI
         private void Awake()
         {
             rt = GetComponent<RectTransform>();
+
+            if (autoModeIndicator != null) autoModeIndicator.SetActive(false);
+            if (continuousModeIndicator != null) continuousModeIndicator.SetActive(false);
         }
 
         private void Update()
@@ -116,7 +157,7 @@ namespace Kaede2.Scenario.Framework.UI
         {
             gameObject.SetActive(state.enabled);
             nameTag.text = state.speaker;
-            Text = state.message;
+            Message = state.message;
             SkipDisplay();
         }
     }

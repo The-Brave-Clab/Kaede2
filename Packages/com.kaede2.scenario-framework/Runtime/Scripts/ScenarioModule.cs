@@ -35,7 +35,32 @@ namespace Kaede2.Scenario.Framework
 
         public virtual bool ActorAutoDelete { get; set; }
         public virtual bool LipSync { get; set; }
-        public virtual bool AutoMode { get; set; }
+
+        private bool autoMode;
+        public virtual bool AutoMode
+        {
+            get => autoMode;
+            set
+            {
+                autoMode = value;
+                if (UIController == null) return;
+                if (UIController.MessageBox == null) return;
+                UIController.MessageBox.AutoMode = value;
+            }
+        }
+
+        private bool continuousMode;
+        public virtual bool ContinuousMode
+        {
+            get => continuousMode;
+            set
+            {
+                continuousMode = value;
+                if (UIController == null) return;
+                if (UIController.MessageBox == null) return;
+                UIController.MessageBox.ContinuousMode = value;
+            }
+        }
 
         public abstract bool Fixed16By9 { get; set; }
         public abstract float AudioMasterVolume { get; set; }

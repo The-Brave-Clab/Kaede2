@@ -125,7 +125,7 @@ namespace Kaede2
         public void ToggleAutoMode(int on)
         {
             InteropOptionLog($"toggling auto mode to {on > 0}");
-            // TODO
+            Module.AutoMode = on > 0;
         }
 
         public void ToggleDramaMode(int on)

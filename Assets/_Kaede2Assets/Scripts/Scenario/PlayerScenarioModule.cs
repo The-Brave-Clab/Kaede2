@@ -20,6 +20,7 @@ namespace Kaede2.Scenario
         public static ScenarioState StateToBeRestored;
 
         private static bool? lastAutoMode = null;
+        private static bool? lastContinuousMode = null;
 
         private List<string> statements;
         private List<Command> commands;
@@ -60,7 +61,25 @@ namespace Kaede2.Scenario
         public override bool AutoMode
         {
             get => lastAutoMode ?? base.AutoMode;
-            set => lastAutoMode = base.AutoMode = value;
+            set
+            {
+                lastAutoMode = base.AutoMode = value;
+#if UNITY_WEBGL && !UNITY_EDITOR
+                WebInterop.OnToggleAutoMode(value ? 1 : 0);
+#endif
+            }
+        }
+
+        public override bool ContinuousMode
+        {
+            get => lastContinuousMode ?? base.ContinuousMode;
+            set
+            {
+                lastContinuousMode = base.ContinuousMode = value;
+#if UNITY_WEBGL && !UNITY_EDITOR
+                WebInterop.OnToggleDramaMode(value ? 1 : 0);
+#endif
+            }
         }
 
         public override bool Fixed16By9

@@ -101,6 +101,9 @@ namespace Kaede2.Scenario.Framework.Editor.Inspectors
             bool newAutoMode = EditorGUILayout.Toggle(nameof(component.AutoMode), component.AutoMode);
             if (newAutoMode != component.AutoMode) component.AutoMode = newAutoMode;
 
+            bool newContinuousMode = EditorGUILayout.Toggle(nameof(component.ContinuousMode), component.ContinuousMode);
+            if (newContinuousMode != component.ContinuousMode) component.ContinuousMode = newContinuousMode;
+
             EditorGUILayout.LabelField("Game Settings", EditorStyles.boldLabel);
 
             bool newFixed16By9 = EditorGUILayout.Toggle(nameof(component.Fixed16By9), component.Fixed16By9);
