@@ -12,11 +12,6 @@ namespace Kaede2.Utils
             return new LoadAddressableHandle<T>(assetAddress);
         }
 
-        public static LoadAddressableHandle<AudioLoopInfo> LoadAudioLoopInfo(LoadAddressableHandle<AudioClip> audioLoadHandle)
-        {
-            return Load<AudioLoopInfo>(Path.ChangeExtension(audioLoadHandle.AssetAddress, ".loopinfo"));
-        }
-
         // audio
 
         public static LoadAddressableHandle<AudioClip> LoadSystemBackgroundMusic(string bgmName)
