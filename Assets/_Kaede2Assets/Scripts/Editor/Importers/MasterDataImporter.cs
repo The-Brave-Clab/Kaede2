@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using UnityEditor.AssetImporters;
 using UnityEngine;
 
@@ -24,18 +25,9 @@ namespace Kaede2.Editor.Importers
 
         private static Type FindType(string name)
         {
-            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                foreach (var type in assembly.GetTypes())
-                {
-                    if (type.Name == name)
-                    {
-                        return type;
-                    }
-                }
-            }
-
-            return null;
+            return AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(assembly => assembly.GetTypes())
+                .FirstOrDefault(type => type.Name == name);
         }
     }
 }
