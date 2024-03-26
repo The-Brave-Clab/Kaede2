@@ -38,6 +38,7 @@ namespace Kaede2
             newModel.transform.localPosition = Vector3.zero;
             Live2DActorEntity entity = newModel.AddComponent<Live2DActorEntity>();
             entity.CreateWithAssets(loadHandle.Result);
+            entity.Hidden = false;
         }
 
         private void OnDestroy()
