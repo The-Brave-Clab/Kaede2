@@ -106,6 +106,9 @@ namespace Kaede2.Editor.Addressables
             if (segments[0] == "scenario")
                 return segments.Length == 2;
 
+            if (segments[0] == "cartoon_images")
+                return segments.Length == 2;
+
             if (segments[0] == "scenario_common")
             {
                 if (segments.Length > 1 && segments[1] == "live2d")

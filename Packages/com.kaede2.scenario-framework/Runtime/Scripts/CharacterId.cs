@@ -77,5 +77,39 @@ namespace Kaede2.Scenario.Framework
         YuzukiYuuna = 35,
         [InspectorName("犬吠埼 風 (眼帯)")]
         InubouzakiFuu_E = 43, // used in character transform controller
+
+        // collab characters
+
+        // spyce (collab type 1)
+        [InspectorName("源 モモ")]
+        MinamotoMomo = 50,
+        [InspectorName("石川 五恵")]
+        IshikawaGoe = 51,
+        [InspectorName("八千代 命")]
+        YachiyoMei = 52,
+        [InspectorName("半蔵門 雪")]
+        HanzoumonYuki = 53,
+        [InspectorName("青葉 初芽")]
+        AobaHatsume = 54,
+        [InspectorName("相模 楓")]
+        SagamiFuu = 55,
+
+        // toji (collab type 2)
+        [InspectorName("衛藤 可奈美")]
+        EtouKanami = 56,
+        [InspectorName("十条 姫和")]
+        JyujouHiyori = 57,
+        [InspectorName("獅童 真希")]
+        ShidouMaki = 58,
+
+        // railgun (collab type 3)
+        [InspectorName("御坂 美琴")]
+        MisakaMikoto = 59,
+        [InspectorName("白井 黒子")]
+        ShiraiKuroko = 60,
+        [InspectorName("初春 飾利")]
+        UiharuKazari = 61,
+        [InspectorName("佐天 涙子")]
+        SatenRuiko = 62,
     }
 }
