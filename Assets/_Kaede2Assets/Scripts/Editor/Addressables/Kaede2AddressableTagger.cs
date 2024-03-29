@@ -109,6 +109,14 @@ namespace Kaede2.Editor.Addressables
             if (segments[0] == "cartoon_images")
                 return segments.Length == 2;
 
+            if (segments[0] == "zukan")
+                return segments.Length == 2;
+
+            // we don't include opening_movie in addressables
+            // it's in this folder but we use it as a common asset
+            if (segments[0] == "opening_movie")
+                return false;
+
             if (segments[0] == "scenario_common")
             {
                 if (segments.Length > 1 && segments[1] == "live2d")
