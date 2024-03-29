@@ -10,6 +10,19 @@ namespace Kaede2
     public class GameSettings
     {
         [SerializeField]
+        private int openingMovie = 0; // -1: disabled, 0: random, 1: op1, 2: op2
+
+        public static int OpeningMovie
+        {
+            get => _instance.openingMovie;
+            set
+            {
+                _instance.openingMovie = value;
+                Save();
+            }
+        }
+
+        [SerializeField]
         private bool fixed16By9 = true;
 
         public static bool Fixed16By9
