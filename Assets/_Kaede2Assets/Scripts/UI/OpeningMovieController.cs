@@ -36,6 +36,9 @@ namespace Kaede2.UI
             OnOpeningMovieFinished += () =>
             {
                 Debug.Log($"Opening movie finished: {index}");
+#if UNITY_IOS
+                UnityEngine.iOS.Device.hideHomeButton = false;
+#endif
 
                 PlayerScenarioModule.GlobalScenarioName = "ms006_s011_a";
                 SceneManager.LoadScene("ScenarioScene", LoadSceneMode.Single);
@@ -54,6 +57,9 @@ namespace Kaede2.UI
 
                 OnOpeningMovieFinished?.Invoke();
             };
+#if UNITY_IOS
+            UnityEngine.iOS.Device.hideHomeButton = true;
+#endif
         }
 
         private void OnDisable()

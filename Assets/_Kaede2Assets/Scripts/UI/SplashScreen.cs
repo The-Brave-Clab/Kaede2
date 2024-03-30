@@ -30,6 +30,9 @@ namespace Kaede2.UI
             }
 
             InputManager.InputAction.SplashScreen.Enable();
+#if UNITY_IOS
+            UnityEngine.iOS.Device.hideHomeButton = true;
+#endif
         }
 
         private IEnumerator Start()
@@ -45,6 +48,9 @@ namespace Kaede2.UI
         private void OnDestroy()
         {
             InputManager.InputAction.SplashScreen.Disable();
+#if UNITY_IOS
+            UnityEngine.iOS.Device.hideHomeButton = false;
+#endif
         }
 
         private void SetSplashSpritesColor(Color c)

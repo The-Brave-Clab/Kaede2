@@ -130,6 +130,9 @@ namespace Kaede2.Scenario
             resourceHandles = new();
 
             InputManager.InputAction.Scenario.Enable();
+#if UNITY_IOS
+            UnityEngine.iOS.Device.hideHomeButton = true;
+#endif
 #if UNITY_WEBGL && !UNITY_EDITOR
             WebInterop.Module = this;
             OnMesCommand += WebInterop.OnMessageCommand;
@@ -144,6 +147,8 @@ namespace Kaede2.Scenario
             if (GlobalInitializer.CurrentStatus != GlobalInitializer.Status.Done)
                 yield return GlobalInitializer.Initialize();
 #endif
+
+            yield return Resources.UnloadUnusedAssets();
 
             var scriptHandle = ResourceLoader.LoadScenarioScriptText(ScenarioName);
             // we could just release this right after getting the text string instead of releasing with other handles,
@@ -180,6 +185,9 @@ namespace Kaede2.Scenario
             if (InputManager.Instance != null)
                 InputManager.InputAction.Scenario.Disable();
 
+#if UNITY_IOS
+            UnityEngine.iOS.Device.hideHomeButton = false;
+#endif
 #if UNITY_WEBGL && !UNITY_EDITOR
             WebInterop.Module = null;
 #endif
