@@ -13,7 +13,9 @@ namespace Kaede2.ScriptableObjects
             public Sprite titleBackground;
 
             [Header("Menu")]
+            [ColorUsage(false, false)]
             public Color menuButtonHighlight;
+            [ColorUsage(false, true)]
             public Color menuButtonTextRim;
         }
 
