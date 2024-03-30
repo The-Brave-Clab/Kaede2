@@ -112,9 +112,9 @@ namespace Kaede2.Editor.Addressables
             if (segments[0] == "zukan")
                 return segments.Length == 2;
 
-            // we don't include opening_movie in addressables
+            // we don't include opening_movie and ui in addressables
             // it's in this folder but we use it as a common asset
-            if (segments[0] == "opening_movie")
+            if (segments[0] == "opening_movie" || segments[0] == "ui")
                 return false;
 
             if (segments[0] == "scenario_common")

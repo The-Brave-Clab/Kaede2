@@ -28,14 +28,13 @@ namespace Kaede2.UI
 
             videoPlayer.loopPointReached += _ => { OnOpeningMovieFinished?.Invoke(); };
 
-            int index = GameSettings.OpeningMovie == 0 ? UnityEngine.Random.Range(0, 2) : GameSettings.OpeningMovie - 1;
-            Debug.Log($"Playing opening movie: {index}");
-            videoPlayer.clip = openingMovies[index];
+            Debug.Log($"Playing opening movie: {GameSettings.OpeningMovie}");
+            videoPlayer.clip = openingMovies[GameSettings.OpeningMovie];
             videoPlayer.Play();
     
             OnOpeningMovieFinished += () =>
             {
-                Debug.Log($"Opening movie finished: {index}");
+                Debug.Log($"Opening movie finished: {GameSettings.OpeningMovie}");
 #if UNITY_IOS
                 UnityEngine.iOS.Device.hideHomeButton = false;
 #endif

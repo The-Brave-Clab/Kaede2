@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 namespace Kaede2
 {
@@ -10,14 +8,31 @@ namespace Kaede2
     public class GameSettings
     {
         [SerializeField]
-        private int openingMovie = 0; // -1: disabled, 0: random, 1: op1, 2: op2
+        private int openingMovie = -1; // -2: disabled, -1: random, 0: op1, 1: op2
+
+        private int runtimeOpeningMovie = -1;
 
         public static int OpeningMovie
         {
-            get => _instance.openingMovie;
+            get => _instance.runtimeOpeningMovie;
             set
             {
                 _instance.openingMovie = value;
+                Save();
+            }
+        }
+
+        [SerializeField]
+        private int themeVolume = -1; // -1: random, 0: volume1, 1: volume2...
+
+        private int runtimeThemeVolume = -1;
+
+        public static int ThemeVolume
+        {
+            get => _instance.runtimeThemeVolume;
+            set
+            {
+                _instance.themeVolume = value;
                 Save();
             }
         }
@@ -105,6 +120,12 @@ namespace Kaede2
         static GameSettings()
         {
             _instance = Load();
+
+            // initialize runtime values
+            _instance.runtimeOpeningMovie = _instance.openingMovie == -1 ? UnityEngine.Random.Range(0, 2) : _instance.openingMovie;
+            Debug.Log($"Selecting opening movie: {_instance.runtimeOpeningMovie}");
+            _instance.runtimeThemeVolume = _instance.themeVolume == -1 ? UnityEngine.Random.Range(0, 8) : _instance.themeVolume;
+            Debug.Log($"Selecting theme volume: {_instance.runtimeThemeVolume}");
         }
 
 #if !UNITY_WEBGL || UNITY_EDITOR
