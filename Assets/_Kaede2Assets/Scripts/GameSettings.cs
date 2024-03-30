@@ -108,16 +108,16 @@ namespace Kaede2
         }
 
 #if !UNITY_WEBGL || UNITY_EDITOR
-        private static string fileName => Path.Combine(Application.persistentDataPath, "settings.json");
+        private static string FileName => Path.Combine(Application.persistentDataPath, "settings.json");
 #endif
 
         public static GameSettings Load()
         {
 #if !UNITY_WEBGL || UNITY_EDITOR
-            if (!File.Exists(fileName)) return new GameSettings();
+            if (!File.Exists(FileName)) return new GameSettings();
 
-            var json = File.ReadAllText(fileName);
-            Debug.Log($"Loaded game settings from: {fileName}");
+            var json = File.ReadAllText(FileName);
+            Debug.Log($"Loaded game settings from: {FileName}");
             return JsonUtility.FromJson<GameSettings>(json);
 #else
             return new();
@@ -128,7 +128,7 @@ namespace Kaede2
         {
 #if !UNITY_WEBGL || UNITY_EDITOR
             var json = JsonUtility.ToJson(_instance, false);
-            File.WriteAllText(fileName, json);
+            File.WriteAllText(FileName, json);
 #endif
         }
     }

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Kaede2.Input;
-using Kaede2.Scenario;
 using Kaede2.Scenario.Framework.Utils;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,9 +22,6 @@ namespace Kaede2.UI
         [SerializeField]
         private float splashDuration = 2.0f;
 
-        [SerializeField]
-        private string sceneToLoad;
-
         private void Awake()
         {
             foreach (var image in splashSprites)
@@ -43,8 +39,7 @@ namespace Kaede2.UI
             group.Add(GlobalInitializer.Initialize(), this);
             yield return group.WaitForAll();
 
-            PlayerScenarioModule.GlobalScenarioName = "ss001_m001_a";
-            yield return SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Single);
+            yield return SceneManager.LoadSceneAsync("OpeningMovieScene", LoadSceneMode.Single);
         }
 
         private void OnDestroy()

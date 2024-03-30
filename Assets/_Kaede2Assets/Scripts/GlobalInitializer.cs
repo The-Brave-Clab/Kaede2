@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Kaede2.Input;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace Kaede2
 {
@@ -36,6 +37,8 @@ namespace Kaede2
             // yield return LocalizationSettings.InitializationOperation;
             InputManager.EnsureInstance();
             Application.targetFrameRate = 1800;
+
+            yield return Addressables.InitializeAsync(false);
 
             CurrentStatus = Status.Done;
         }
