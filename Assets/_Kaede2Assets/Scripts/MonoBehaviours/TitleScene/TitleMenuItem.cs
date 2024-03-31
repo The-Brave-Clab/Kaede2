@@ -1,4 +1,3 @@
-using System.Collections;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI.Framework;
 using TMPro;

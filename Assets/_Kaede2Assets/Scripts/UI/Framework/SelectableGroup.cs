@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Kaede2.UI.Framework
@@ -11,33 +11,26 @@ namespace Kaede2.UI.Framework
         [SerializeField]
         private int selectedIndex = -1;
 
+        public IReadOnlyList<SelectableItem> Items => items;
         public SelectableItem SelectedItem => selectedIndex < 0 ? null : items[selectedIndex];
 
         private void Awake()
         {
             if (selectedIndex >= 0)
-            {
                 selectedIndex = NextAvailable(1, true);
-            }
 
             for (var i = 0; i < items.Length; i++)
             {
-                var item = items[i];
-                item.selected = i == selectedIndex;
+                var sel = i;
+                var item = items[sel];
+                item.selected = sel == selectedIndex;
                 item.onSelectedChanged.AddListener(selected =>
                 {
                     if (!selected) return;
 
+                    selectedIndex = sel;
                     for (var j = 0; j < items.Length; j++)
-                    {
-                        if (items[j] == item)
-                        {
-                            selectedIndex = j;
-                            continue;
-                        }
-
-                        items[j].selected = false;
-                    }
+                        items[j].selected = sel == j;
                 });
             }
         }

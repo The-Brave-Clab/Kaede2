@@ -1,12 +1,10 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
+using UnityEngine.EventSystems;
 
 namespace Kaede2.UI.Framework
 {
-    [ExecuteAlways]
-    public class SelectableItem : MonoBehaviour
+    public class SelectableItem : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
     {
         public bool selected;
         private bool lastSelected;
@@ -31,6 +29,16 @@ namespace Kaede2.UI.Framework
         {
             if (selected)
                 onConfirmed?.Invoke();
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            onSelectedChanged?.Invoke(true);
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            Confirm();
         }
     }
 }
