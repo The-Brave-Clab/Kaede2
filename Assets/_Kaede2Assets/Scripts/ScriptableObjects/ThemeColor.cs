@@ -14,9 +14,17 @@ namespace Kaede2.ScriptableObjects
 
             [Header("Menu")]
             [ColorUsage(false, false)]
-            public Color menuButtonHighlight;
+            [SerializeField]
+            private Color menuButtonHighlightTop;
+            public Color MenuButtonHighlightTop => NonTransparent(menuButtonHighlightTop);
+            [ColorUsage(false, false)]
+            [SerializeField]
+            private Color menuButtonHighlightBottom;
+            public Color MenuButtonHighlightBottom => NonTransparent(menuButtonHighlightBottom);
             [ColorUsage(false, true)]
-            public Color menuButtonTextRim;
+            [SerializeField]
+            private Color menuButtonTextRim;
+            public Color MenuButtonTextRim => NonTransparent(menuButtonTextRim);
         }
 
         [SerializeField]
@@ -38,6 +46,11 @@ namespace Kaede2.ScriptableObjects
 
                 return _instance;
             }
+        }
+
+        private static Color NonTransparent(Color input)
+        {
+            return new Color(input.r, input.g, input.b, 1);
         }
     }
 }
