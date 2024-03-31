@@ -27,7 +27,7 @@ namespace Kaede2.UI
             lastSelected = Selected;
 
             overlay.enabled = Selected;
-            background.color = Selected ? Theme.Vol[GameSettings.ThemeVolume].menuButtonHighlight : Color.white;
+            background.color = Selected ? Theme.Vol[GameSettings.ThemeVolume].menuButtonHighlight : new Color(1, 1, 1, 0.9019608f);
             text.color = Selected ? Color.white : Color.black;
             text.outlineColor = Selected ? Theme.Vol[GameSettings.ThemeVolume].menuButtonTextRim : Color.black;
             text.outlineWidth = Selected ? 1 : 0;
