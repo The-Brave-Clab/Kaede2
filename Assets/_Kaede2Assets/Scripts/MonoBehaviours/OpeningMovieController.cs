@@ -1,6 +1,7 @@
 using System;
+using System.Collections;
 using Kaede2.Input;
-using Kaede2.Scenario;
+using Kaede2.UI;
 using Kaede2.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -39,8 +40,7 @@ namespace Kaede2
 #if UNITY_IOS
                 UnityEngine.iOS.Device.hideHomeButton = false;
 #endif
-
-                SceneManager.LoadScene("TitleScene", LoadSceneMode.Single);
+                StartCoroutine(LoadNextScene());
             };
         }
 
@@ -51,7 +51,7 @@ namespace Kaede2
             {
                 if (videoPlayer.isPlaying)
                 {
-                    videoPlayer.Stop();
+                    videoPlayer.Pause();
                 }
 
                 OnOpeningMovieFinished?.Invoke();
@@ -64,6 +64,12 @@ namespace Kaede2
         private void OnDisable()
         {
             InputManager.InputAction.SplashScreen.Disable();
+        }
+
+        private IEnumerator LoadNextScene()
+        {
+            yield return SceneTransition.Fade(1);
+            yield return SceneManager.LoadSceneAsync("TitleScene", LoadSceneMode.Single);
         }
     }
 }

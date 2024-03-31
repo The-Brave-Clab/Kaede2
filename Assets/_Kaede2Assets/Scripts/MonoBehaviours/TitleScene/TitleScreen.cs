@@ -1,6 +1,8 @@
-﻿using Kaede2.Input;
+﻿using System.Collections;
+using Kaede2.Input;
 using Kaede2.Scenario;
 using Kaede2.ScriptableObjects;
+using Kaede2.UI;
 using Kaede2.UI.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -21,6 +23,11 @@ namespace Kaede2
             background.sprite = Theme.Vol[GameSettings.ThemeVolume].titleBackground;
         }
 
+        private IEnumerator Start()
+        {
+            yield return SceneTransition.Fade(0);
+        }
+
         private void Update()
         {
             if (InputManager.InputAction.GeneralUI.NavigateDown.triggered)
@@ -33,8 +40,14 @@ namespace Kaede2
 
         public void MainMenuConfirm()
         {
+            StartCoroutine(LoadNextScene());
+        }
+
+        private IEnumerator LoadNextScene()
+        {
+            yield return SceneTransition.Fade(1);
             PlayerScenarioModule.GlobalScenarioName = "ms006_s011_a";
-            SceneManager.LoadScene("ScenarioScene", LoadSceneMode.Single);
+            yield return SceneManager.LoadSceneAsync("ScenarioScene", LoadSceneMode.Single);
         }
     }
 }

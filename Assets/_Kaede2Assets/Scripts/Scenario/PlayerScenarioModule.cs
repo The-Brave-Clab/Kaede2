@@ -6,6 +6,7 @@ using Kaede2.Input;
 using Kaede2.Scenario.Framework;
 using Kaede2.Scenario.Framework.Commands;
 using Kaede2.Scenario.Framework.Utils;
+using Kaede2.UI;
 #if UNITY_WEBGL && !UNITY_EDITOR
 using Kaede2.UI.Web;
 #endif
@@ -149,6 +150,7 @@ namespace Kaede2.Scenario
 #endif
 
             yield return Resources.UnloadUnusedAssets();
+            yield return SceneTransition.Fade(0);
 
             var scriptHandle = ResourceLoader.LoadScenarioScriptText(ScenarioName);
             // we could just release this right after getting the text string instead of releasing with other handles,
