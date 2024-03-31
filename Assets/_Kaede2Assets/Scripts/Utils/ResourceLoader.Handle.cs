@@ -27,7 +27,7 @@ namespace Kaede2.Utils
             {
                 if (disposed)
                 {
-                    Debug.LogWarning("ResourceLoader Handle was already disposed!");
+                    this.LogWarning("ResourceLoader Handle was already disposed!");
                     return;
                 }
                 disposed = true;
@@ -43,7 +43,7 @@ namespace Kaede2.Utils
                 const bool exitingPlayMode = false;
 #endif
                 if (!exitingPlayMode)
-                    Debug.LogWarning("ResourceLoader Handle was not disposed properly! This may cause memory leaks.");
+                    this.LogWarning("ResourceLoader Handle was not disposed properly! This may cause memory leaks.");
                 Dispose();
             }
         }

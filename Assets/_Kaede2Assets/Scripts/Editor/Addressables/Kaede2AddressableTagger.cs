@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Kaede2.Utils;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
@@ -20,10 +21,10 @@ namespace Kaede2.Editor.Addressables
 
         public void Apply()
         {
-            if (addressableBaseFolder == null) Debug.LogError("AddressableBaseFolder is not set.");
-            if (addressableBaseFolder is not DefaultAsset) Debug.LogError("AddressableBaseFolder is not a folder.");
+            if (addressableBaseFolder == null) this.LogError("AddressableBaseFolder is not set.");
+            if (addressableBaseFolder is not DefaultAsset) this.LogError("AddressableBaseFolder is not a folder.");
             string baseFolder = AddressableBaseFolder;
-            if (!Directory.Exists(baseFolder)) Debug.LogError("AddressableBaseFolder is not a folder.");
+            if (!Directory.Exists(baseFolder)) this.LogError("AddressableBaseFolder is not a folder.");
 
             var settings = AddressableAssetSettingsDefaultObject.Settings;
 
@@ -134,7 +135,7 @@ namespace Kaede2.Editor.Addressables
             var taggerGUIDs = AssetDatabase.FindAssets($"t:{nameof(Kaede2AddressableTagger)}");
             if (taggerGUIDs.Length == 0)
             {
-                Debug.LogError("Kaede2AddressableTagger not found.");
+                typeof(Kaede2AddressableTagger).LogError("Kaede2AddressableTagger not found.");
                 return;
             }
 
@@ -142,7 +143,7 @@ namespace Kaede2.Editor.Addressables
             var tagger = AssetDatabase.LoadAssetAtPath<Kaede2AddressableTagger>(taggerPath);
             if (tagger == null)
             {
-                Debug.LogError("Kaede2AddressableTagger not found.");
+                typeof(Kaede2AddressableTagger).LogError("Kaede2AddressableTagger not found.");
                 return;
             }
 

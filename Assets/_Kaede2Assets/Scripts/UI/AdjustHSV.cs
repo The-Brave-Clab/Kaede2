@@ -38,12 +38,6 @@ namespace Kaede2.UI
             }
 #endif
 
-            // if (!TryGetComponent(out canvasRenderer))
-            // {
-            //     Debug.LogError("AdjustHSV requires a CanvasRenderer component");
-            //     return;
-            // }
-
             material = new Material(adjustHSVShader);
             material.SetColor(ReferenceColor, referenceColor);
             material.SetColor(TargetColor, CalculateTargetColor(referenceColor, hsvAdjustment));

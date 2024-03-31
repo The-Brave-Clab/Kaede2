@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Kaede2.Utils;
 using UnityEngine;
 
 namespace Kaede2
@@ -123,9 +124,9 @@ namespace Kaede2
 
             // initialize runtime values
             _instance.runtimeOpeningMovie = _instance.openingMovie == -1 ? UnityEngine.Random.Range(0, 2) : _instance.openingMovie;
-            Debug.Log($"Selecting opening movie: {_instance.runtimeOpeningMovie}");
+            _instance.Log($"Selecting opening movie: {_instance.runtimeOpeningMovie}");
             _instance.runtimeThemeVolume = _instance.themeVolume == -1 ? UnityEngine.Random.Range(0, 8) : _instance.themeVolume;
-            Debug.Log($"Selecting theme volume: {_instance.runtimeThemeVolume}");
+            _instance.Log($"Selecting theme volume: {_instance.runtimeThemeVolume}");
         }
 
 #if !UNITY_WEBGL || UNITY_EDITOR
@@ -138,8 +139,9 @@ namespace Kaede2
             if (!File.Exists(FileName)) return new GameSettings();
 
             var json = File.ReadAllText(FileName);
-            Debug.Log($"Loaded game settings from: {FileName}");
-            return JsonUtility.FromJson<GameSettings>(json);
+            var result = JsonUtility.FromJson<GameSettings>(json);
+            result.Log($"Loaded game settings from: {FileName}");
+            return result;
 #else
             return new();
 #endif

@@ -196,10 +196,10 @@ namespace Kaede2.Scenario
         public override IEnumerator InitEnd()
         {
             UIController.LoadingCanvas.gameObject.SetActive(false);
-            Debug.Log("Scenario initialized");
+            this.Log("Scenario initialized");
             if (StateToBeRestored != null)
             {
-                Debug.Log("Restoring sync point");
+                this.Log("Restoring sync point");
                 RestoreState(StateToBeRestored);
                 StateToBeRestored = null;
             }
@@ -215,7 +215,7 @@ namespace Kaede2.Scenario
 
         public override IEnumerator End()
         {
-            Debug.Log("Scenario ended");
+            this.Log("Scenario ended");
 #if UNITY_WEBGL && !UNITY_EDITOR
             WebBackground.UpdateStatus(WebBackground.Status.Finished);
             WebInterop.OnScenarioFinished();
@@ -228,7 +228,7 @@ namespace Kaede2.Scenario
             yield return handle.Send();
             if (handle.Result == null)
             {
-                Debug.LogError($"Failed to load asset {handle.AssetAddress}");
+                this.LogError($"Failed to load asset {handle.AssetAddress}");
             }
 
             callback(handle.Result);
@@ -239,7 +239,7 @@ namespace Kaede2.Scenario
             yield return handle.Send();
             if (handle.Result == null)
             {
-                Debug.LogError($"Failed to Live2D model {resourceName}");
+                this.LogError($"Failed to Live2D model {resourceName}");
             }
 
             ScenarioResource.Actors[resourceName] = handle.Result;
@@ -356,7 +356,7 @@ namespace Kaede2.Scenario
                 // since we are not going to use them after this, it's ok to release the handles
                 handle.Dispose();
 
-                Debug.Log($"Pre-Loaded include file {fileName}");
+                this.Log($"Pre-Loaded include file {fileName}");
                 var includeFileStatements = GetStatementsFromScript(includeFileContent);
                 includeFiles[fileName] = includeFileStatements;
                 yield return PreloadIncludeFiles(includeFileStatements, includeFiles);

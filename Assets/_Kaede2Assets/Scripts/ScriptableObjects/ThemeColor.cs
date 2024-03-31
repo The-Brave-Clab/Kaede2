@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Kaede2.Utils;
 using UnityEngine;
 
 namespace Kaede2.ScriptableObjects
@@ -41,7 +42,7 @@ namespace Kaede2.ScriptableObjects
 
                 if (_instance != null) return _instance;
 
-                Debug.LogError("Theme asset not found, creating new instance.");
+                _instance.LogError("Theme asset not found, creating new instance.");
                 _instance = CreateInstance<Theme>();
 
                 return _instance;

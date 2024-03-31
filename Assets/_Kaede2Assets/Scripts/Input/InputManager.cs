@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Kaede2.Scenario.Framework.Utils;
+using Kaede2.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
@@ -68,7 +69,7 @@ namespace Kaede2.Input
         {
             var type = device.GetDeviceType();
 
-            // Debug.Log($"User used unpaired device: {JsonUtility.ToJson(unpairedDevice.description, true)}");
+            // Instance.Log($"User used unpaired device: {JsonUtility.ToJson(unpairedDevice.description, true)}");
 
             List<InputDevice> devicesToPair = new();
             if (type == InputDeviceType.KeyboardAndMouse)
@@ -91,7 +92,7 @@ namespace Kaede2.Input
             }
 
             Instance.currentDeviceType = type;
-            Debug.Log($"User paired with device type {type:G}");
+            Instance.Log($"User paired with device type {type:G}");
 
             ChangeControlScheme(type);
 

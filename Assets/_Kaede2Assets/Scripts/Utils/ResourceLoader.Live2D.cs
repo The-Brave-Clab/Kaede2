@@ -43,7 +43,7 @@ namespace Kaede2.Utils
 
                 if (modelJson.Result == null)
                 {
-                    Debug.LogError($"Failed to load model.json for {modelName}");
+                    typeof(ResourceLoader).LogError($"Failed to load model.json for {modelName}");
                     OnFinishedCallback(null);
                     yield break;
                 }
@@ -52,7 +52,7 @@ namespace Kaede2.Utils
 
                 if (model == null)
                 {
-                    Debug.LogError($"Failed to parse model.json for {modelName}");
+                    typeof(ResourceLoader).LogError($"Failed to parse model.json for {modelName}");
                     OnFinishedCallback(null);
                     yield break;
                 }
@@ -111,7 +111,7 @@ namespace Kaede2.Utils
                 loaded.mocFile = mocFileRequest.Result;
                 if (loaded.mocFile == null)
                 {
-                    Debug.LogError($"Failed to load moc file for {modelName}");
+                    typeof(ResourceLoader).LogError($"Failed to load moc file for {modelName}");
                     OnFinishedCallback(null);
                     yield break;
                 }
@@ -121,7 +121,7 @@ namespace Kaede2.Utils
                     loaded.textures[i] = textureRequests[i].Result;
                     if (loaded.textures[i] == null)
                     {
-                        Debug.LogError($"Failed to load texture {model.textures[i]} for {modelName}");
+                        typeof(ResourceLoader).LogError($"Failed to load texture {model.textures[i]} for {modelName}");
                         OnFinishedCallback(null);
                         yield break;
                     }
@@ -136,7 +136,7 @@ namespace Kaede2.Utils
                             var loadedMotion = motionRequests[motionName][i].Result;
                             if (loadedMotion == null)
                             {
-                                Debug.LogError($"Failed to load motion file {motionFiles[i].file} for {modelName}");
+                                typeof(ResourceLoader).LogError($"Failed to load motion file {motionFiles[i].file} for {modelName}");
                                 OnFinishedCallback(null);
                                 yield break;
                             }
@@ -151,7 +151,7 @@ namespace Kaede2.Utils
                     loaded.poseFile = poseRequest.Result;
                     if (loaded.poseFile == null)
                     {
-                        Debug.LogError($"Failed to load pose file for {modelName}");
+                        typeof(ResourceLoader).LogError($"Failed to load pose file for {modelName}");
                         OnFinishedCallback(null);
                         yield break;
                     }

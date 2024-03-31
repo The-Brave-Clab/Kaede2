@@ -8,6 +8,7 @@ using Amazon.Runtime;
 using Amazon.S3;
 using Amazon.S3.Transfer;
 using Amazon.Runtime.CredentialManagement;
+using Kaede2.Utils;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
 using UnityEngine;
@@ -53,7 +54,7 @@ namespace Kaede2.Editor.Build
 
             if (!buildPath.Exists)
             {
-                Debug.LogError($"Build path {buildPath} does not exist.");
+                typeof(Upload).LogError($"Build path {buildPath} does not exist.");
                 yield break;
             }
 
@@ -126,7 +127,7 @@ namespace Kaede2.Editor.Build
 
                     if (uploadCancelled)
                     {
-                        Debug.LogError($"Upload {buildFolder} to AWS cancelled.");
+                        typeof(Upload).LogError($"Upload {buildFolder} to AWS cancelled.");
                         break;
                     }
                 }
@@ -144,7 +145,7 @@ namespace Kaede2.Editor.Build
             }
 
             if (!uploadCancelled)
-                Debug.Log($"Upload {buildFolder} to AWS completed successfully.");
+                typeof(Upload).Log($"Upload {buildFolder} to AWS completed successfully.");
         }
 
         private static IEnumerator UploadSingleFile(FileInfo file, string key, AWSCredentials credentials, int parentProgressId, Action<string> onFinished = null)

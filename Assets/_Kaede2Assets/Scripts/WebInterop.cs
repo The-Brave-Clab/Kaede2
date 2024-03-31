@@ -1,15 +1,14 @@
 #if UNITY_WEBGL && !UNITY_EDITOR
 
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Kaede2.Scenario;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
-using Kaede2.UI.Web;
+using Kaede2.Web;
+using Kaede2.Utils;
 using UnityEngine;
 // using UnityEngine.Localization.Settings;
 using UnityEngine.SceneManagement;
-using Debug = UnityEngine.Debug;
 
 namespace Kaede2
 {
@@ -64,15 +63,9 @@ namespace Kaede2
             OnScenarioListLoaded(JsonUtility.ToJson(MasterScenarioInfo.Instance));
         }
 
-        [Conditional("DEVELOPMENT_BUILD")]
-        private static void InteropOptionLog(string message)
-        {
-            Debug.Log($"[WebInterop] {message}");
-        }
-
         public void ResetPlayer(string unifiedName)
         {
-            InteropOptionLog($"resetting player to {unifiedName}");
+            this.Log($"resetting player to {unifiedName}");
             var split = unifiedName.Split(':');
             string scenarioName = split[0];
             string languageCode = split[1];
@@ -88,25 +81,25 @@ namespace Kaede2
 
         public void SetMasterVolume(float volume)
         {
-            InteropOptionLog($"setting master volume to {volume}");
+            this.Log($"setting master volume to {volume}");
             Module.AudioMasterVolume = Mathf.Clamp01(volume);
         }
 
         public void SetBGMVolume(float volume)
         {
-            InteropOptionLog($"setting BGM volume to {volume}");
+            this.Log($"setting BGM volume to {volume}");
             Module.AudioBGMVolume = Mathf.Clamp01(volume);
         }
 
         public void SetVoiceVolume(float volume)
         {
-            InteropOptionLog($"setting voice volume to {volume}");
+            this.Log($"setting voice volume to {volume}");
             Module.AudioVoiceVolume = Mathf.Clamp01(volume);
         }
 
         public void SetSEVolume(float volume)
         {
-            InteropOptionLog($"setting SE volume to {volume}");
+            this.Log($"setting SE volume to {volume}");
             Module.AudioSEVolume = Mathf.Clamp01(volume);
         }
 
@@ -115,37 +108,37 @@ namespace Kaede2
 
         public void ChangeFullscreen(int status)
         {
-            InteropOptionLog($"changing fullscreen to {status > 0}");
+            this.Log($"changing fullscreen to {status > 0}");
             fullscreen = status > 0;
         }
 
         public void HideMenu()
         {
-            InteropOptionLog("hiding menu");
+            this.Log("hiding menu");
             // TODO
         }
 
         public void ToggleAutoMode(int on)
         {
-            InteropOptionLog($"toggling auto mode to {on > 0}");
+            this.Log($"toggling auto mode to {on > 0}");
             Module.AutoMode = on > 0;
         }
 
         public void ToggleContinuousMode(int on)
         {
-            InteropOptionLog($"toggling continuous mode to {on > 0}");
+            this.Log($"toggling continuous mode to {on > 0}");
             Module.ContinuousMode = on > 0;
         }
 
         public void ToggleDramaMode(int on)
         {
-            InteropOptionLog($"toggling drama mode to {on > 0}");
+            this.Log($"toggling drama mode to {on > 0}");
             // TODO
         }
 
         public void ToggleWebInput(int on)
         {
-            InteropOptionLog($"toggling web input to {on > 0}");
+            this.Log($"toggling web input to {on > 0}");
             WebGLInput.captureAllKeyboardInput = on > 0;
         }
     }

@@ -1,6 +1,7 @@
 using System;
 using Kaede2.Input;
 using Kaede2.Scenario;
+using Kaede2.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
@@ -28,13 +29,13 @@ namespace Kaede2
 
             videoPlayer.loopPointReached += _ => { OnOpeningMovieFinished?.Invoke(); };
 
-            Debug.Log($"Playing opening movie: {GameSettings.OpeningMovie}");
+            this.Log($"Playing opening movie: {GameSettings.OpeningMovie}");
             videoPlayer.clip = openingMovies[GameSettings.OpeningMovie];
             videoPlayer.Play();
     
             OnOpeningMovieFinished += () =>
             {
-                Debug.Log($"Opening movie finished: {GameSettings.OpeningMovie}");
+                this.Log($"Opening movie finished: {GameSettings.OpeningMovie}");
 #if UNITY_IOS
                 UnityEngine.iOS.Device.hideHomeButton = false;
 #endif
