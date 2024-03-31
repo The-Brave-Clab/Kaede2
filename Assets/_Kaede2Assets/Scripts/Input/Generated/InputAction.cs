@@ -175,6 +175,288 @@ namespace Kaede2.Input
             ]
         },
         {
+            ""name"": ""GeneralUI"",
+            ""id"": ""757a061a-a9db-49e7-812b-cac383ea2dda"",
+            ""actions"": [
+                {
+                    ""name"": ""NavigateUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""d574be61-cd29-4927-a1b8-ca7c438d25de"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NavigateDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""4c3ef1e5-a3ee-45c6-808d-b037f9ec8290"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NavigateLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""60b7943a-988f-42f2-9582-ebcf45af1fd7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NavigateRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""292f15fd-ff06-4200-af03-53a1c8ae8702"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Confirm"",
+                    ""type"": ""Button"",
+                    ""id"": ""e296a17c-41a0-4c7a-abe3-a806e3967cd8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""49bcbecc-967b-47b6-a187-5c6a57fc11f1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""4df8162f-88c4-4f30-9dc5-410e516d771f"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""NavigateUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""af590ee5-7cd0-43f0-bd82-4d15054b3ed5"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad;GamepadNintendoStyle"",
+                    ""action"": ""NavigateUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""94d97ab8-9d13-44b2-bf24-4f80613cfc34"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad;GamepadNintendoStyle"",
+                    ""action"": ""NavigateUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e86d4344-6ff1-4a98-948b-68e3f7fe2aa2"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""NavigateDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""43cdbcb4-107f-4eb9-90e2-490b9d2938d9"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad;GamepadNintendoStyle"",
+                    ""action"": ""NavigateDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6d735edd-9936-41e8-8f65-cfe4ad1fa40b"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad;GamepadNintendoStyle"",
+                    ""action"": ""NavigateDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3851b3f8-678c-4a2d-b169-164db1f69d7b"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""NavigateLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d35d3f0e-158c-46f4-974a-7463304e6fde"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad;GamepadNintendoStyle"",
+                    ""action"": ""NavigateLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ab23764c-376d-451a-86b9-3b498d26d087"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad;GamepadNintendoStyle"",
+                    ""action"": ""NavigateLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9e41ec8d-85ff-456a-a581-96825567f8bb"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""NavigateRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dbd9b852-9de4-4f61-af7d-1c9f7660ea59"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad;GamepadNintendoStyle"",
+                    ""action"": ""NavigateRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""80f805b7-207e-4491-b95c-0917697b0cb4"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad;GamepadNintendoStyle"",
+                    ""action"": ""NavigateRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6f64bcc8-6b5b-43f7-95a9-ef86201a7634"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1164e79c-d01a-4dd4-9436-72854abcd404"",
+                    ""path"": ""<Keyboard>/numpadEnter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5ef27a72-2320-4ed2-b5a5-c4840f772cd3"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e533ef1d-4c1f-4d42-8c56-10106668f4ec"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""84169045-b94c-42a8-9963-62bd25930a5c"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""GamepadNintendoStyle"",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""433ad2c7-07a1-4179-8780-cf8a90c03376"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""04ab9c4d-e98c-4245-bb4c-26721b8cd467"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""de4dfc06-b86a-4a4f-9f86-13e488955770"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""GamepadNintendoStyle"",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
             ""name"": ""Scenario"",
             ""id"": ""97c77478-dddc-4d96-981e-5926d9799a3f"",
             ""actions"": [
@@ -473,6 +755,14 @@ namespace Kaede2.Input
             // SplashScreen
             m_SplashScreen = asset.FindActionMap("SplashScreen", throwIfNotFound: true);
             m_SplashScreen_Skip = m_SplashScreen.FindAction("Skip", throwIfNotFound: true);
+            // GeneralUI
+            m_GeneralUI = asset.FindActionMap("GeneralUI", throwIfNotFound: true);
+            m_GeneralUI_NavigateUp = m_GeneralUI.FindAction("NavigateUp", throwIfNotFound: true);
+            m_GeneralUI_NavigateDown = m_GeneralUI.FindAction("NavigateDown", throwIfNotFound: true);
+            m_GeneralUI_NavigateLeft = m_GeneralUI.FindAction("NavigateLeft", throwIfNotFound: true);
+            m_GeneralUI_NavigateRight = m_GeneralUI.FindAction("NavigateRight", throwIfNotFound: true);
+            m_GeneralUI_Confirm = m_GeneralUI.FindAction("Confirm", throwIfNotFound: true);
+            m_GeneralUI_Cancel = m_GeneralUI.FindAction("Cancel", throwIfNotFound: true);
             // Scenario
             m_Scenario = asset.FindActionMap("Scenario", throwIfNotFound: true);
             m_Scenario_Next = m_Scenario.FindAction("Next", throwIfNotFound: true);
@@ -589,6 +879,92 @@ namespace Kaede2.Input
             }
         }
         public SplashScreenActions @SplashScreen => new SplashScreenActions(this);
+
+        // GeneralUI
+        private readonly InputActionMap m_GeneralUI;
+        private List<IGeneralUIActions> m_GeneralUIActionsCallbackInterfaces = new List<IGeneralUIActions>();
+        private readonly InputAction m_GeneralUI_NavigateUp;
+        private readonly InputAction m_GeneralUI_NavigateDown;
+        private readonly InputAction m_GeneralUI_NavigateLeft;
+        private readonly InputAction m_GeneralUI_NavigateRight;
+        private readonly InputAction m_GeneralUI_Confirm;
+        private readonly InputAction m_GeneralUI_Cancel;
+        public struct GeneralUIActions
+        {
+            private @Kaede2InputAction m_Wrapper;
+            public GeneralUIActions(@Kaede2InputAction wrapper) { m_Wrapper = wrapper; }
+            public InputAction @NavigateUp => m_Wrapper.m_GeneralUI_NavigateUp;
+            public InputAction @NavigateDown => m_Wrapper.m_GeneralUI_NavigateDown;
+            public InputAction @NavigateLeft => m_Wrapper.m_GeneralUI_NavigateLeft;
+            public InputAction @NavigateRight => m_Wrapper.m_GeneralUI_NavigateRight;
+            public InputAction @Confirm => m_Wrapper.m_GeneralUI_Confirm;
+            public InputAction @Cancel => m_Wrapper.m_GeneralUI_Cancel;
+            public InputActionMap Get() { return m_Wrapper.m_GeneralUI; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(GeneralUIActions set) { return set.Get(); }
+            public void AddCallbacks(IGeneralUIActions instance)
+            {
+                if (instance == null || m_Wrapper.m_GeneralUIActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_GeneralUIActionsCallbackInterfaces.Add(instance);
+                @NavigateUp.started += instance.OnNavigateUp;
+                @NavigateUp.performed += instance.OnNavigateUp;
+                @NavigateUp.canceled += instance.OnNavigateUp;
+                @NavigateDown.started += instance.OnNavigateDown;
+                @NavigateDown.performed += instance.OnNavigateDown;
+                @NavigateDown.canceled += instance.OnNavigateDown;
+                @NavigateLeft.started += instance.OnNavigateLeft;
+                @NavigateLeft.performed += instance.OnNavigateLeft;
+                @NavigateLeft.canceled += instance.OnNavigateLeft;
+                @NavigateRight.started += instance.OnNavigateRight;
+                @NavigateRight.performed += instance.OnNavigateRight;
+                @NavigateRight.canceled += instance.OnNavigateRight;
+                @Confirm.started += instance.OnConfirm;
+                @Confirm.performed += instance.OnConfirm;
+                @Confirm.canceled += instance.OnConfirm;
+                @Cancel.started += instance.OnCancel;
+                @Cancel.performed += instance.OnCancel;
+                @Cancel.canceled += instance.OnCancel;
+            }
+
+            private void UnregisterCallbacks(IGeneralUIActions instance)
+            {
+                @NavigateUp.started -= instance.OnNavigateUp;
+                @NavigateUp.performed -= instance.OnNavigateUp;
+                @NavigateUp.canceled -= instance.OnNavigateUp;
+                @NavigateDown.started -= instance.OnNavigateDown;
+                @NavigateDown.performed -= instance.OnNavigateDown;
+                @NavigateDown.canceled -= instance.OnNavigateDown;
+                @NavigateLeft.started -= instance.OnNavigateLeft;
+                @NavigateLeft.performed -= instance.OnNavigateLeft;
+                @NavigateLeft.canceled -= instance.OnNavigateLeft;
+                @NavigateRight.started -= instance.OnNavigateRight;
+                @NavigateRight.performed -= instance.OnNavigateRight;
+                @NavigateRight.canceled -= instance.OnNavigateRight;
+                @Confirm.started -= instance.OnConfirm;
+                @Confirm.performed -= instance.OnConfirm;
+                @Confirm.canceled -= instance.OnConfirm;
+                @Cancel.started -= instance.OnCancel;
+                @Cancel.performed -= instance.OnCancel;
+                @Cancel.canceled -= instance.OnCancel;
+            }
+
+            public void RemoveCallbacks(IGeneralUIActions instance)
+            {
+                if (m_Wrapper.m_GeneralUIActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IGeneralUIActions instance)
+            {
+                foreach (var item in m_Wrapper.m_GeneralUIActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_GeneralUIActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public GeneralUIActions @GeneralUI => new GeneralUIActions(this);
 
         // Scenario
         private readonly InputActionMap m_Scenario;
@@ -754,6 +1130,15 @@ namespace Kaede2.Input
         public interface ISplashScreenActions
         {
             void OnSkip(InputAction.CallbackContext context);
+        }
+        public interface IGeneralUIActions
+        {
+            void OnNavigateUp(InputAction.CallbackContext context);
+            void OnNavigateDown(InputAction.CallbackContext context);
+            void OnNavigateLeft(InputAction.CallbackContext context);
+            void OnNavigateRight(InputAction.CallbackContext context);
+            void OnConfirm(InputAction.CallbackContext context);
+            void OnCancel(InputAction.CallbackContext context);
         }
         public interface IScenarioActions
         {
