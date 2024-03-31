@@ -202,11 +202,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1961036c2164e089d698d1765b3ec9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selected: 0
+  onSelectedChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onConfirmed:
+    m_PersistentCalls:
+      m_Calls: []
   backgroundTop: {fileID: 4073516706331855636}
   backgroundBottom: {fileID: 8286009264819026964}
   overlay: {fileID: 6012599262862011720}
   text: {fileID: 6554394825067329232}
-  Selected: 0
 --- !u!1 &8036161242791439892
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,7 +278,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u30D8\u30EB\u30D7"
+  m_text: Text
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
   m_sharedMaterial: {fileID: -1136654258838480791, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}

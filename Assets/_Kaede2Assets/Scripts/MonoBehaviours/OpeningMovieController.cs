@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 
-namespace Kaede2.UI
+namespace Kaede2
 {
     public class OpeningMovieController : MonoBehaviour
     {
@@ -39,8 +39,7 @@ namespace Kaede2.UI
                 UnityEngine.iOS.Device.hideHomeButton = false;
 #endif
 
-                PlayerScenarioModule.GlobalScenarioName = "ms006_s011_a";
-                SceneManager.LoadScene("ScenarioScene", LoadSceneMode.Single);
+                SceneManager.LoadScene("TitleScene", LoadSceneMode.Single);
             };
         }
 

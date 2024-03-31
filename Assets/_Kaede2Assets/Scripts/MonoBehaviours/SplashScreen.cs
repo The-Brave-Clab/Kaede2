@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-namespace Kaede2.UI
+namespace Kaede2
 {
     public class SplashScreen : MonoBehaviour
     {

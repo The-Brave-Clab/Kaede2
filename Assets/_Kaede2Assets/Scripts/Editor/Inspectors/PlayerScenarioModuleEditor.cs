@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Kaede2.Editor.Addressables;
 using Kaede2.Scenario;
-using Kaede2.Scenario.Framework;
 using Kaede2.Scenario.Framework.Editor.Inspectors;
 using Kaede2.ScriptableObjects;
 using UnityEditor;
