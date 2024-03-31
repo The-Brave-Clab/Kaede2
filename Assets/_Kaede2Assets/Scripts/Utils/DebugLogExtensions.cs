@@ -8,7 +8,7 @@ namespace Kaede2.Utils
     public static class DebugLogExtensions
     {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        private const string CompileCondition = "UNITY_64"; // we don't do 32-bit builds anyway
+        private const string CompileCondition = "UNITY_5_3_OR_NEWER";
 #else
         private const string CompileCondition = "ALWAYS_FALSE";
 #endif
