@@ -50,6 +50,7 @@ namespace Kaede2.Scenario.Framework.Commands
                 yield break;
             }
 
+            entity.EnsureRotateStopped();
             yield return entity.Rotate(originalAngle, targetAngle, duration, ease);
         }
     }

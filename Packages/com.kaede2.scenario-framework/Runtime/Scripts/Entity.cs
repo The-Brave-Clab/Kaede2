@@ -208,43 +208,83 @@ namespace Kaede2.Scenario.Framework
             animSequences[animName].Clear();
         }
 
+        private Sequence moveSequence = null;
+        public void EnsureMoveStopped()
+        {
+            moveSequence?.Kill();
+        }
+
         public IEnumerator Move(Vector3 originalPosition, Vector3 targetPosition, float duration, Ease ease)
         {
-            Sequence seq = GetSequence();
-            seq.Append(DOVirtual.Vector3(originalPosition, targetPosition, duration,
-                value => Position = value));
-            seq.SetEase(ease);
+            EnsureMoveStopped();
 
-            yield return seq.WaitForCompletion();
-            RemoveSequence(seq);
+            moveSequence = DOTween.Sequence();
+            moveSequence.Append(DOVirtual.Vector3(originalPosition, targetPosition, duration,
+                value => Position = value));
+            moveSequence.SetEase(ease);
+            moveSequence.onKill = () =>
+            {
+                Position = targetPosition;
+                Debug.Log("Kill moveSequence");
+                moveSequence = null;
+            };
+            moveSequence.onComplete = () => { moveSequence = null; };
+
+            yield return moveSequence.WaitForCompletion();
+        }
+
+        private Sequence rotateSequence = null;
+        public void EnsureRotateStopped()
+        {
+            rotateSequence?.Kill();
         }
 
         public IEnumerator Rotate(float originalAngle, float targetAngle, float duration, Ease ease)
         {
             var eulerAngles = transform.eulerAngles;
+            EnsureRotateStopped();
 
-            Sequence seq = GetSequence();
-            seq.Append(DOVirtual.Float(originalAngle, targetAngle, duration,
+            rotateSequence = DOTween.Sequence();
+            rotateSequence.Append(DOVirtual.Float(originalAngle, targetAngle, duration,
                 value =>
                 {
                     eulerAngles.z = value;
                     transform.eulerAngles = eulerAngles;
                 }));
-            seq.SetEase(ease);
+            rotateSequence.SetEase(ease);
+            rotateSequence.onKill = () =>
+            {
+                eulerAngles.z = targetAngle;
+                transform.eulerAngles = eulerAngles;
+                rotateSequence = null;
+            };
+            rotateSequence.onComplete = () => { rotateSequence = null; };
 
-            yield return seq.WaitForCompletion();
-            RemoveSequence(seq);
+            yield return rotateSequence.WaitForCompletion();
+        }
+
+        private Sequence scaleSequence = null;
+        public void EnsureScaleStopped()
+        {
+            scaleSequence?.Kill();
         }
 
         public IEnumerator Scale(Vector3 originalScale, Vector3 targetScale, float duration, Ease ease)
         {
-            Sequence seq = GetSequence();
-            seq.Append(DOVirtual.Vector3(originalScale, targetScale, duration,
-                value => transform.localScale = value));
-            seq.SetEase(ease);
+            EnsureScaleStopped();
 
-            yield return seq.WaitForCompletion();
-            RemoveSequence(seq);
+            scaleSequence = DOTween.Sequence();
+            scaleSequence.Append(DOVirtual.Vector3(originalScale, targetScale, duration,
+                value => transform.localScale = value));
+            scaleSequence.SetEase(ease);
+            scaleSequence.onKill = () =>
+            {
+                transform.localScale = targetScale;
+                scaleSequence = null;
+            };
+            scaleSequence.onComplete = () => { scaleSequence = null; };
+
+            yield return scaleSequence.WaitForCompletion();
         }
 
         public IEnumerator ColorAlpha(Color color, float fromAlpha, float toAlpha, float duration, bool destroy)

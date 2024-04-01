@@ -48,6 +48,7 @@ namespace Kaede2.Scenario.Framework.Commands
                 yield break;
             }
 
+            entity.EnsureScaleStopped();
             yield return entity.Scale(originalScale, targetScale, duration, ease);
         }
     }

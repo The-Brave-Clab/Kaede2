@@ -48,6 +48,7 @@ namespace Kaede2.Scenario.Framework.Commands
                 yield break;
             }
 
+            Entity.EnsureMoveStopped();
             yield return Entity.Move(Entity.Position, TargetPos, duration, ease);
         }
     }
