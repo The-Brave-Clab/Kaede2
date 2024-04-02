@@ -1,80 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Amazon;
 using Amazon.Runtime;
+using Amazon.Runtime.CredentialManagement;
 using Amazon.S3;
 using Amazon.S3.Transfer;
-using Amazon.Runtime.CredentialManagement;
 using Kaede2.Utils;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
-using UnityEngine;
 
-namespace Kaede2.Editor.Build
+namespace Kaede2.AWS.Editor
 {
-    public static class Upload
+    public static class AWSEditorUtils
     {
-        private static readonly RegionEndpoint BucketRegion = RegionEndpoint.APNortheast1;
-        private const string BucketName = "kaede2";
-        private const string ProfileName = "github_actions";
-
-        [MenuItem("Kaede2/Build/Upload Web (Full)")]
-        public static void UploadWebArtifacts()
+        public static void UploadFolder(string folderPath, string bucket, RegionEndpoint region)
         {
-            EditorCoroutineUtility.StartCoroutineOwnerless(UploadBuildArtifacts("Web", true));
+            var directoryInfo = new DirectoryInfo(folderPath);
+            var files = directoryInfo.GetFiles("*", SearchOption.AllDirectories);
+            files = files.Where(f => !f.Name.Equals(".DS_Store")).ToArray();
+            EditorCoroutineUtility.StartCoroutineOwnerless(UploadFilesCoroutine(files, bucket, region, f => f[(directoryInfo.FullName.Length + 1)..]));
         }
 
-        [MenuItem("Kaede2/Build/Upload Web (No StreamingAssets)")]
-        public static void UploadWebArtifactsNoStreamingAssets()
+        public static void UploadFiles(FileInfo[] files, string bucket, RegionEndpoint region, Func<string, string> getKeyFromFile)
         {
-            EditorCoroutineUtility.StartCoroutineOwnerless(UploadBuildArtifacts("Web", false));
+            EditorCoroutineUtility.StartCoroutineOwnerless(UploadFilesCoroutine(files, bucket, region, getKeyFromFile));
         }
 
-        [MenuItem("Kaede2/Build/Test Web (Online)")]
-        public static void TestWebOnline()
-        {
-            Application.OpenURL($"https://{BucketName}.s3.dualstack.{BucketRegion.SystemName}.amazonaws.com/Web/index.html");
-        }
-
-        [MenuItem("Kaede2/Build/Upload Web (Full)", true)]
-        [MenuItem("Kaede2/Build/Upload Web (No StreamingAssets)", true)]
-        public static bool CanUploadArtifacts()
+        public static bool ValidateProfile(string profileName)
         {
             var chain = new CredentialProfileStoreChain();
-            return chain.TryGetAWSCredentials(ProfileName, out _);
+            return chain.TryGetAWSCredentials(profileName, out _);
         }
 
-        private static IEnumerator UploadBuildArtifacts(string buildFolder, bool withStreamingAssets)
+        private static IEnumerator UploadFilesCoroutine(FileInfo[] files, string bucket, RegionEndpoint region, Func<string, string> getKeyFromFile)
         {
-            var directoryInfo = new DirectoryInfo(Application.dataPath).Parent;
-            var buildPath = new DirectoryInfo(Path.Combine(directoryInfo!.FullName, "Builds", buildFolder));
-
-            if (!buildPath.Exists)
-            {
-                typeof(Upload).LogError($"Build path {buildPath} does not exist.");
-                yield break;
-            }
-
-            // get all files in the build folder
-            // if with no streaming assets, exclude StreamingAssets folder
-            var files = buildPath.GetFiles("*", SearchOption.AllDirectories)
-                    .Where(file =>
-                    {
-                        if (withStreamingAssets) return true;
-
-                        var relativePath = file.FullName.Substring(buildPath.FullName.Length + 1);
-                        return !relativePath.StartsWith("StreamingAssets");
-                    })
-                    .ToArray();
-
             var uploadCancelled = false;
 
-            var progressDesc = withStreamingAssets ? "With StreamingAssets" : "Without StreamingAssets";
-            var parentProgressId = Progress.Start("Uploading build artifacts to AWS",
-                progressDesc,
+            var parentProgressId = Progress.Start("Uploading files to AWS",
+                $"0/{files.Length}",
                 Progress.Options.Managed);
             Progress.IsCancellable(parentProgressId);
             Progress.RegisterCancelCallback(parentProgressId, () => uploadCancelled = true);
@@ -82,15 +48,13 @@ namespace Kaede2.Editor.Build
             try
             {
                 var chain = new CredentialProfileStoreChain();
-                if (!chain.TryGetAWSCredentials(ProfileName, out var credentials)) yield break;
+                if (!chain.TryGetAWSCredentials(Config.EditorProfileName, out var credentials)) yield break;
 
                 Dictionary<string, (string key, FileInfo file)> uploadTasks = new();
 
                 foreach (var file in files)
                 {
-                    var key = file.FullName.Substring(buildPath.FullName.Length + 1)
-                        .Replace(Path.DirectorySeparatorChar, '/');
-                    key = $"{buildFolder}/{key}";
+                    var key = getKeyFromFile(file.FullName);
                     uploadTasks[key] = new() { key = key, file = file };
                 }
 
@@ -110,11 +74,11 @@ namespace Kaede2.Editor.Build
                         var task = uploadTasks.First();
                         uploadTasks.Remove(task.Key);
                         uploadCoroutines[task.Key] = EditorCoroutineUtility.StartCoroutineOwnerless(
-                            UploadSingleFile(task.Value.file, task.Value.key, credentials, parentProgressId, key =>
+                            UploadSingleFile(task.Value.file, task.Value.key, bucket, region, credentials, parentProgressId, key =>
                             {
                                 finishedFileCount++;
                                 Progress.SetDescription(parentProgressId,
-                                    $"{progressDesc} ({finishedFileCount}/{files.Length})");
+                                    $"{finishedFileCount}/{files.Length}");
                                 Progress.Report(parentProgressId, (float)finishedFileCount / files.Length);
                                 uploadCoroutines.Remove(key);
                             })
@@ -127,7 +91,7 @@ namespace Kaede2.Editor.Build
 
                     if (uploadCancelled)
                     {
-                        typeof(Upload).LogError($"Upload {buildFolder} to AWS cancelled.");
+                        typeof(AWSEditorUtils).LogError("Upload files to AWS cancelled.");
                         break;
                     }
                 }
@@ -145,12 +109,12 @@ namespace Kaede2.Editor.Build
             }
 
             if (!uploadCancelled)
-                typeof(Upload).Log($"Upload {buildFolder} to AWS completed successfully.");
+                typeof(AWSEditorUtils).Log("Upload files to AWS completed successfully.");
         }
 
-        private static IEnumerator UploadSingleFile(FileInfo file, string key, AWSCredentials credentials, int parentProgressId, Action<string> onFinished = null)
+        private static IEnumerator UploadSingleFile(FileInfo file, string key, string bucket, RegionEndpoint region, AWSCredentials credentials, int parentProgressId, Action<string> onFinished = null)
         {
-            using var client = new AmazonS3Client(credentials, BucketRegion);
+            using var client = new AmazonS3Client(credentials, region);
             var transferUtility = new TransferUtility(client);
 
             var contentType = GetContentType(file);
@@ -162,7 +126,7 @@ namespace Kaede2.Editor.Build
 
             var request = new TransferUtilityUploadRequest
             {
-                BucketName = BucketName,
+                BucketName = bucket,
                 Key = key,
                 FilePath = file.FullName,
             };

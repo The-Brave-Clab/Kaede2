@@ -15,9 +15,9 @@ MonoBehaviour:
   m_DefaultGroup: d9fab5d213f363d42817279ff9aa58de
   m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: fd706a1158ef67e00aaf4e5542930af3
   m_OptimizeCatalogSize: 0
-  m_BuildRemoteCatalog: 0
+  m_BuildRemoteCatalog: 1
   m_CatalogRequestsTimeout: 0
   m_DisableCatalogUpdateOnStart: 0
   m_InternalIdNamingMode: 0
@@ -35,7 +35,7 @@ MonoBehaviour:
   m_NonRecursiveBuilding: 1
   m_CCDEnabled: 0
   m_maxConcurrentWebRequests: 3
-  m_UseUWRForLocalBundles: 0
+  m_UseUWRForLocalBundles: 1
   m_BundleTimeout: 0
   m_BundleRetryCount: 0
   m_BundleRedirectLimit: -1
@@ -80,6 +80,20 @@ MonoBehaviour:
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
       - m_Id: cfca3cd065d66a647bee0aca81d86ff3
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+    - m_InheritedParent: 
+      m_Id: 325afec3b347c46bdb3e306507e41d42
+      m_ProfileName: AWS S3
+      m_Values:
+      - m_Id: d038d99a54e08f344882e3b78fb5cecd
+        m_Value: '[Kaede2.Editor.SimplifiedBuildTarget.currentActive]'
+      - m_Id: 316fcbc72c5641744b9f78198245ea53
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+      - m_Id: 6209078759526ea4d989241e7249ad05
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+      - m_Id: 9c2b371738918c949966a52e4c8a9bbb
+        m_Value: '[Kaede2.Editor.Addressables.UploadRemoteAddressables.RemoteBuildPath]/[BuildTarget]'
+      - m_Id: cfca3cd065d66a647bee0aca81d86ff3
+        m_Value: '[Kaede2.AWS.AWSManager.DefaultAddressableLoadUrl]/[BuildTarget]'
     m_ProfileEntryNames:
     - m_Id: d038d99a54e08f344882e3b78fb5cecd
       m_Name: BuildTarget
@@ -3756,4 +3770,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f620e7ac0b713df4ab541f10c17be090, type: 2}
   - {fileID: 11400000, guid: 11e2e68e2bd9467459001a0795767a81, type: 2}
   - {fileID: 11400000, guid: 082f7181dd3e93e44b534390c3f09447, type: 2}
-  m_ActiveProfileId: 85cb9cbaa431cc946981a993b3ebe8ec
+  m_ActiveProfileId: 325afec3b347c46bdb3e306507e41d42

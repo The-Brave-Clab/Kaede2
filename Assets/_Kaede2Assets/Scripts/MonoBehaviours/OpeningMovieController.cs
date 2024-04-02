@@ -30,13 +30,13 @@ namespace Kaede2
 
             videoPlayer.loopPointReached += _ => { OnOpeningMovieFinished?.Invoke(); };
 
-            this.Log($"Playing opening movie: {GameSettings.OpeningMovie}");
+            this.Log($"Playing opening movie: {GameSettings.OpeningMovie + 1}");
             videoPlayer.clip = openingMovies[GameSettings.OpeningMovie];
             videoPlayer.Play();
     
             OnOpeningMovieFinished += () =>
             {
-                this.Log($"Opening movie finished: {GameSettings.OpeningMovie}");
+                this.Log($"Opening movie finished: {GameSettings.OpeningMovie + 1}");
 #if UNITY_IOS
                 UnityEngine.iOS.Device.hideHomeButton = false;
 #endif

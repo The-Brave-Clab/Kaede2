@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Kaede2.AWS;
 using Kaede2.Input;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -36,6 +37,7 @@ namespace Kaede2
             // Initialize all the things here
             // yield return LocalizationSettings.InitializationOperation;
             InputManager.EnsureInstance();
+            AWSManager.Initialize();
             Application.targetFrameRate = 1800;
 
             yield return Addressables.InitializeAsync(false);
