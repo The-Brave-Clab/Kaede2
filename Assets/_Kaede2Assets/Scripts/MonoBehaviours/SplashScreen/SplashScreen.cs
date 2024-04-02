@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Kaede2.Input;
-using Kaede2.Scenario.Framework.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -22,6 +21,9 @@ namespace Kaede2
         [SerializeField]
         private float splashDuration = 2.0f;
 
+        [SerializeField]
+        private ProgressBar progressBar;
+
         private void Awake()
         {
             foreach (var image in splashSprites)
@@ -33,14 +35,16 @@ namespace Kaede2
 #if UNITY_IOS
             UnityEngine.iOS.Device.hideHomeButton = true;
 #endif
+
+            progressBar.gameObject.SetActive(false);
         }
 
         private IEnumerator Start()
         {
-            CoroutineGroup group = new CoroutineGroup();
-            group.Add(SplashColor(), this);
-            group.Add(GlobalInitializer.Initialize(), this);
-            yield return group.WaitForAll();
+            yield return GlobalInitializer.Initialize();
+            yield return DownloadAllAssets.DownloadAll(progressBar);
+
+            yield return SplashColor();
 
             yield return SceneManager.LoadSceneAsync("OpeningMovieScene", LoadSceneMode.Single);
         }

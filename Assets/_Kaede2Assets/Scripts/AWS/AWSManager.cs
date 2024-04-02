@@ -10,7 +10,8 @@ namespace Kaede2.AWS
 {
     public static class AWSManager
     { 
-        public static string DefaultAddressableLoadUrl => $"s3://{Config.AddressableBucket}";
+        // I was going to use s3:// but addressables won't treat it as remote path
+        public static string DefaultAddressableLoadUrl => $"https://{Config.AddressableBucket}";
 
         public static void Initialize()
         {

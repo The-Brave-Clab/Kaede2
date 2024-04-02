@@ -40,7 +40,7 @@ namespace Kaede2
             AWSManager.Initialize();
             Application.targetFrameRate = 1800;
 
-            yield return Addressables.InitializeAsync(false);
+            // yield return Addressables.InitializeAsync(true);
 
             CurrentStatus = Status.Done;
         }
