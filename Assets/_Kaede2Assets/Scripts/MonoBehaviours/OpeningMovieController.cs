@@ -63,7 +63,7 @@ namespace Kaede2
 
         private void OnDisable()
         {
-            InputManager.InputAction.SplashScreen.Disable();
+            InputManager.InputAction?.SplashScreen.Disable();
         }
 
         private IEnumerator LoadNextScene()

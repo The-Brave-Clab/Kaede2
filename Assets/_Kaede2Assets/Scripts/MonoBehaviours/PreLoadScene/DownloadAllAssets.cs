@@ -12,19 +12,7 @@ namespace Kaede2
         {
             // TODO: Show a dialog to warn the user that downloading all assets will consume a lot of data
 
-            var resourceLocatorHandle = Addressables.InitializeAsync(false);
-            yield return resourceLocatorHandle;
-
-            if (resourceLocatorHandle.Status == AsyncOperationStatus.Failed)
-            {
-                // TODO: Show a dialog saying that download failed
-                typeof(DownloadAllAssets).Log("Failed to initialize Addressables");
-                yield break;
-            }
-
-            var allKeys = resourceLocatorHandle.Result.Keys.ToList();
-            Addressables.Release(resourceLocatorHandle);
-
+            var allKeys = GlobalInitializer.ResourceLocator.Keys.ToList();
             var downloadHandle = Addressables.DownloadDependenciesAsync(allKeys, Addressables.MergeMode.Union);
 
             if (downloadHandle.GetDownloadStatus().TotalBytes > 0)

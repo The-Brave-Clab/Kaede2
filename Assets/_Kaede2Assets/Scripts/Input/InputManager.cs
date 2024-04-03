@@ -24,9 +24,9 @@ namespace Kaede2.Input
         private InputDeviceType currentDeviceType;
         private Kaede2InputAction inputAction;
 
-        public static InputUser User => Instance.user;
-        public static InputDeviceType CurrentDeviceType => Instance.currentDeviceType;
-        public static Kaede2InputAction InputAction => Instance.inputAction;
+        public static InputUser User => Instance == null ? default : Instance.user;
+        public static InputDeviceType CurrentDeviceType => Instance == null ? default : Instance.currentDeviceType;
+        public static Kaede2InputAction InputAction => Instance == null ? null : Instance.inputAction;
 
         public static event Action<InputDeviceType> onDeviceTypeChanged;
 

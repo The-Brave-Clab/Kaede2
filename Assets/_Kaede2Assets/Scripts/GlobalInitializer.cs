@@ -3,6 +3,8 @@ using Kaede2.AWS;
 using Kaede2.Input;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.AddressableAssets.ResourceLocators;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Kaede2
 {
@@ -15,6 +17,9 @@ namespace Kaede2
             Done,
             Failed,
         }
+
+        private static IResourceLocator resourceLocator;
+        public static IResourceLocator ResourceLocator => CurrentStatus != Status.Done ? null : resourceLocator;
 
         public static Status CurrentStatus { get; private set; } = Status.NotStarted;
 
@@ -35,12 +40,22 @@ namespace Kaede2
             CurrentStatus = Status.InProgress;
 
             // Initialize all the things here
-            // yield return LocalizationSettings.InitializationOperation;
+            Application.targetFrameRate = 1800;
             InputManager.EnsureInstance();
             AWSManager.Initialize();
-            Application.targetFrameRate = 1800;
 
-            // yield return Addressables.InitializeAsync(true);
+            var handle = Addressables.InitializeAsync(false);
+            yield return handle;
+
+            if (handle.Status == AsyncOperationStatus.Failed)
+            {
+                CurrentStatus = Status.Failed;
+                yield break;
+            }
+
+            resourceLocator = handle.Result;
+
+            // yield return LocalizationSettings.InitializationOperation;
 
             CurrentStatus = Status.Done;
         }
