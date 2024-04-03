@@ -6,7 +6,6 @@ using UnityEditor.iOS.Xcode;
 
 namespace Kaede2.Editor.Build
 {
-
     public class PostBuild : IPostprocessBuildWithReport
     {
         public int callbackOrder => 0;

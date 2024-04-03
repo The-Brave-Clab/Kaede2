@@ -7,10 +7,10 @@ using Kaede2.Scenario.Framework;
 using Kaede2.Scenario.Framework.Commands;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.UI;
-#if UNITY_WEBGL && !UNITY_EDITOR
-using Kaede2.UI.Web;
-#endif
 using Kaede2.Utils;
+#if UNITY_WEBGL && !UNITY_EDITOR
+using Kaede2.Web;
+#endif
 using UnityEngine;
 
 namespace Kaede2.Scenario
