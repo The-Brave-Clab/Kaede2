@@ -76,7 +76,48 @@ namespace Kaede2.Utils
 #elif UNITY_STANDALONE_LINUX || UNITY_EDITOR_LINUX
             throw new System.NotImplementedException();
 #elif UNITY_ANDROID
-            throw new System.NotImplementedException();
+            string filePath = Path.Combine(directory, name);
+            File.WriteAllBytes(filePath, bytes);
+
+            // currentActivity = UnityPlayer.currentActivity;
+            AndroidJavaClass unity = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+            AndroidJavaObject currentActivity = unity.GetStatic<AndroidJavaObject>("currentActivity");
+
+            // intent = new Intent();
+            AndroidJavaClass intentClass = new AndroidJavaClass("android.content.Intent");
+            AndroidJavaObject intentObject = new AndroidJavaObject("android.content.Intent");
+            intentObject.Call<AndroidJavaObject>("setAction", intentClass.GetStatic<string>("ACTION_SEND"));
+
+            // file = new File(filePath);
+            AndroidJavaObject fileObject = new AndroidJavaObject("java.io.File", filePath);
+
+            // uri = FileProvider.getUriForFile(currentActivity, "com.kaede2.unityshare.provider", file);
+            AndroidJavaClass fileProviderClass = new AndroidJavaClass("androidx.core.content.FileProvider");
+
+            object[] providerParams = new object[3];
+            providerParams[0] = currentActivity;
+            providerParams[1] = "com.kaede2.unityshare.provider";
+            providerParams[2] = fileObject;
+
+            AndroidJavaObject uriObject = fileProviderClass.CallStatic<AndroidJavaObject>("getUriForFile", providerParams);
+
+            // intent.putExtra(Intent.EXTRA_STREAM, uri);
+            intentObject.Call<AndroidJavaObject>("putExtra", intentClass.GetStatic<string>("EXTRA_STREAM"), uriObject);
+            // intent.setType("image/png");
+            intentObject.Call<AndroidJavaObject>("setType", "image/png");
+            // intent.putExtra(Intent.EXTRA_SUBJECT, name);
+            intentObject.Call<AndroidJavaObject>("putExtra", intentClass.GetStatic<string>("EXTRA_SUBJECT"), name);
+            // intent.putExtra(Intent.EXTRA_TEXT, "");
+            intentObject.Call<AndroidJavaObject>("putExtra", intentClass.GetStatic<string>("EXTRA_TEXT"), "");
+
+            // intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intentObject.Call<AndroidJavaObject>("addFlags", intentClass.GetStatic<int>("FLAG_GRANT_READ_URI_PERMISSION"));
+
+            // chooser = Intent.createChooser(intent, name);
+            AndroidJavaObject chooser = intentClass.CallStatic<AndroidJavaObject>("createChooser", intentObject, name);
+            // currentActivity.startActivity(chooser);
+            currentActivity.Call("startActivity", chooser);
+
 #elif UNITY_IOS
             string filePath = Path.Combine(directory, name);
             File.WriteAllBytes(filePath, bytes);
