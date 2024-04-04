@@ -30,7 +30,7 @@ namespace Kaede2.Scenario.Framework.Commands
             wait = Arg(8, true);
         }
 
-        public override ExecutionType Type => ExecutionTypeBasedOnWaitAndDuration(wait, duration);
+        public override ExecutionType Type => ExecutionType.Synchronous;
         public override float ExpectedExecutionTime => duration;
 
         public override IEnumerator Setup()
@@ -61,10 +61,13 @@ namespace Kaede2.Scenario.Framework.Commands
                 if (!Module.ScenarioResource.Sprites.TryGetValue(resourceName, out var sprite))
                 {
                     Debug.LogError($"Sprite {resourceName} not found");
+                    if (ScenarioRunMode.Args.TestMode)
+                        ScenarioRunMode.FailTest(ScenarioRunMode.FailReason.ResourceNotFound);
                     yield break;
                 }
 
                 entity = Module.UIController.CreateSprite(objName, resourceName, sprite);
+                yield return null; // wait for the next frame
             }
 
             entity.transform.localScale = Vector3.one * scale;

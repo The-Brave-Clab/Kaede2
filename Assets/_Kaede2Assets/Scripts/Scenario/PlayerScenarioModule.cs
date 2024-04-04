@@ -138,16 +138,19 @@ namespace Kaede2.Scenario
             WebInterop.Module = this;
             OnMesCommand += WebInterop.OnMessageCommand;
 #endif
+
+            if (ScenarioRunMode.Args.SpecifiedScenario)
+            {
+                GlobalScenarioName = ScenarioRunMode.Args.SpecifiedScenarioName;
+            }
         }
 
         private IEnumerator Start()
         {
-#if UNITY_EDITOR
             // we might want to do a global initialization here
             // since we might skip the splash screen
             if (GlobalInitializer.CurrentStatus != GlobalInitializer.Status.Done)
                 yield return GlobalInitializer.Initialize();
-#endif
 
             yield return Resources.UnloadUnusedAssets();
             yield return SceneTransition.Fade(0);
@@ -222,6 +225,12 @@ namespace Kaede2.Scenario
             WebBackground.UpdateStatus(WebBackground.Status.Finished);
             WebInterop.OnScenarioFinished();
 #endif
+            // We entered through command line args
+            if (ScenarioRunMode.Args.SpecifiedScenario)
+            {
+                Application.Quit(0);
+            }
+
             yield break;
         }
 

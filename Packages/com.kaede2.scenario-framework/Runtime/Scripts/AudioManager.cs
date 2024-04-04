@@ -102,6 +102,8 @@ namespace Kaede2.Scenario.Framework
             if (!Module.ScenarioResource.BackgroundMusics.TryGetValue(bgmName, out var clip))
             {
                 Debug.LogError($"BGM {bgmName} not found");
+                if (ScenarioRunMode.Args.TestMode)
+                    ScenarioRunMode.FailTest(ScenarioRunMode.FailReason.ResourceNotFound);
                 return;
             }
             bgmAudioInfo = Create(bgmName, AudioType.BGM, clip, volume);
@@ -146,6 +148,8 @@ namespace Kaede2.Scenario.Framework
             if (!Module.ScenarioResource.Voices.TryGetValue(voiceName, out var clip))
             {
                 Debug.LogError($"Voice {voiceName} not found");
+                if (ScenarioRunMode.Args.TestMode)
+                    ScenarioRunMode.FailTest(ScenarioRunMode.FailReason.ResourceNotFound);
                 return;
             }
 
@@ -197,6 +201,8 @@ namespace Kaede2.Scenario.Framework
             if (!Module.ScenarioResource.SoundEffects.TryGetValue(seName, out var clip))
             {
                 Debug.LogError($"SE {seName} not found");
+                if (ScenarioRunMode.Args.TestMode)
+                    ScenarioRunMode.FailTest(ScenarioRunMode.FailReason.ResourceNotFound);
                 return null;
             }
 
@@ -347,7 +353,7 @@ namespace Kaede2.Scenario.Framework
             public void UpdateVolume()
             {
                 if (Source == null) return;
-                Source.volume = GetGameSettingsMasterVolume() * GetGameSettingsVolume() * volume;
+                Source.volume = ScenarioRunMode.Args.BatchMode ? 0 : GetGameSettingsMasterVolume() * GetGameSettingsVolume() * volume;
             }
         }
 

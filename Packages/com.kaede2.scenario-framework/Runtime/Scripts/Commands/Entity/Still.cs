@@ -23,7 +23,7 @@ namespace Kaede2.Scenario.Framework.Commands
             scale = Arg(5, 1.0f);
         }
 
-        public override ExecutionType Type => ExecutionType.Instant;
+        public override ExecutionType Type => ExecutionType.Synchronous;
         public override float ExpectedExecutionTime => 0;
 
         public override IEnumerator Setup()
@@ -57,10 +57,13 @@ namespace Kaede2.Scenario.Framework.Commands
                 if (!Module.ScenarioResource.Stills.TryGetValue(resourceName, out var tex))
                 {
                     Debug.LogError($"Still texture {resourceName} not found");
+                    if (ScenarioRunMode.Args.TestMode)
+                        ScenarioRunMode.FailTest(ScenarioRunMode.FailReason.ResourceNotFound);
                     yield break;
                 }
 
                 entity = Module.UIController.CreateStill(objName, resourceName, tex);
+                yield return null; // wait for the next frame
             }
 
 

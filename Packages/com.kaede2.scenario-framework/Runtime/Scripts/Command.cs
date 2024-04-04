@@ -75,8 +75,9 @@ namespace Kaede2.Scenario.Framework
             }
             catch (Exception e)
             {
-                Debug.LogError(
-                    $"Cannot parse Arg[{index}] = {originalArgs[index]} as {typeof(T).Name}. Using default value {defaultValue}.\n{e.Message}");
+                Debug.LogError($"Cannot parse Arg[{index}] = {originalArgs[index]} as {typeof(T).Name}. Using default value {defaultValue}.\n{e.Message}");
+                if (ScenarioRunMode.Args.TestMode)
+                    ScenarioRunMode.FailTest(ScenarioRunMode.FailReason.BadParameter);
                 return defaultValue;
             }
         }
@@ -101,8 +102,7 @@ namespace Kaede2.Scenario.Framework
                 return -1;
             }
 
-            var substituteName =
-                CommonUtils.FindClosestMatch(name, entities.Select(e => e.gameObject.name), out var distance);
+            var substituteName = CommonUtils.FindClosestMatch(name, entities.Select(e => e.gameObject.name), out var distance);
             result = entities.First(e => e.gameObject.name == substituteName);
             if (distance > 5)
             {
@@ -112,8 +112,7 @@ namespace Kaede2.Scenario.Framework
             }
 
             if (distance != 0)
-                Debug.LogWarning(
-                    $"{typeof(T).Name} '{name}' doesn't exist, using '{substituteName}' instead. Distance is {distance}.");
+                Debug.LogWarning($"{typeof(T).Name} '{name}' doesn't exist, using '{substituteName}' instead. Distance is {distance}.");
             return distance;
         }
 
@@ -124,7 +123,6 @@ namespace Kaede2.Scenario.Framework
             return ExecutionType.Asynchronous;
         }
 
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
         public void Log()
         {
 #if UNITY_EDITOR
@@ -159,7 +157,6 @@ namespace Kaede2.Scenario.Framework
 
             Debug.Log(sb.ToString());
         }
-#endif
 
         public static IReadOnlyDictionary<string, Type> Types => new Dictionary<string, Type>()
         {

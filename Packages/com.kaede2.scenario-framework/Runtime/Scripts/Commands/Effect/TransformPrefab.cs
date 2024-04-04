@@ -53,6 +53,8 @@ namespace Kaede2.Scenario.Framework.Commands
             if (!Module.ScenarioResource.TransformImages.TryGetValue(id, out var transformImage))
             {
                 Debug.LogError($"Transform Image for {id:G} not found");
+                if (ScenarioRunMode.Args.TestMode)
+                    ScenarioRunMode.FailTest(ScenarioRunMode.FailReason.ResourceNotFound);
                 yield break;
             }
 

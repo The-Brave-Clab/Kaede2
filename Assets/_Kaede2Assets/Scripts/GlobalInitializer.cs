@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Kaede2.AWS;
 using Kaede2.Input;
+using Kaede2.Scenario.Framework;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.AddressableAssets.ResourceLocators;
@@ -40,7 +41,7 @@ namespace Kaede2
             CurrentStatus = Status.InProgress;
 
             // Initialize all the things here
-            Application.targetFrameRate = 1800;
+            Application.targetFrameRate = ScenarioRunMode.Args.TestMode ? 60 : 1800;
             InputManager.EnsureInstance();
             AWSManager.Initialize();
 

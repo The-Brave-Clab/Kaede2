@@ -178,7 +178,6 @@ namespace Kaede2.Scenario.Framework
             return (T) Convert.ChangeType(result, typeof(T));
         }
 
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
         public string ResolveExpression(string expression)
         {
             try
@@ -197,7 +196,6 @@ namespace Kaede2.Scenario.Framework
                 return expression;
             }
         }
-#endif
 
         #endregion
 
@@ -253,9 +251,8 @@ namespace Kaede2.Scenario.Framework
 
         protected IEnumerator ExecuteSingle(Command command)
         {
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
-            command.Log();
-#endif
+            if (ScenarioRunMode.Args.TestMode || Application.isEditor)
+                command.Log();
 
             switch (command.Type)
             {
@@ -267,11 +264,7 @@ namespace Kaede2.Scenario.Framework
                 }
                 case Command.ExecutionType.Synchronous:
                 {
-                    var execution = SyncExecution(command);
-                    while (execution.MoveNext())
-                    {
-                        yield return execution.Current;
-                    }
+                    yield return SyncExecution(command);
                     break;
                 }
                 case Command.ExecutionType.Asynchronous:
@@ -286,16 +279,8 @@ namespace Kaede2.Scenario.Framework
 
         private static IEnumerator SyncExecution(Command command)
         {
-            IEnumerator setup = command.Setup();
-            while (setup.MoveNext())
-            {
-                yield return setup.Current;
-            }
-            IEnumerator execute = command.Execute();
-            while (execute.MoveNext())
-            {
-                yield return execute.Current;
-            }
+            yield return command.Setup().WithException();
+            yield return command.Execute().WithException();
         }
 
         public ScenarioState GetState()

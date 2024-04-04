@@ -134,9 +134,6 @@ namespace Kaede2.Scenario.Framework.Entities
 
         private void Update()
         {
-            // skip live2d updating in batch mode
-            // if (BatchMode) return;
-
             if (live2DModel == null) return;
 
             live2DModel.setMatrix(Matrix4x4.identity);

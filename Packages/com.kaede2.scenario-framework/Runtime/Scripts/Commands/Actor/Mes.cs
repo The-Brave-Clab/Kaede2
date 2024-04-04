@@ -62,6 +62,8 @@ namespace Kaede2.Scenario.Framework.Commands
 
             float extraTimeAfterTextFinishDisplay = 1.0f;
 
+            float skipTimeInTestMode = 0.2f;
+
             while (true)
             {
                 if (Module.LipSync && entity != null)
@@ -80,6 +82,13 @@ namespace Kaede2.Scenario.Framework.Commands
                 lastMesClicked = currentMesClicked;
 
                 yield return null;
+
+                if (ScenarioRunMode.Args.TestMode)
+                {
+                    skipTimeInTestMode -= Time.deltaTime;
+                    if (skipTimeInTestMode <= 0)
+                        break;
+                }
 
                 // when text is finished displaying, start counting down for extra time
                 if (messageBox.IsCompleteDisplayText)

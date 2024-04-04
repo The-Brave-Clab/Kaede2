@@ -13,25 +13,46 @@ namespace Kaede2.Scenario.Framework.Utils
 
         public static void InstantExecution(this IEnumerator enumerator)
         {
-            void Run()
+            try
             {
                 while (enumerator.MoveNext())
                 {
                     object current = enumerator.Current;
                 }
             }
-#if !UNITY_EDITOR
-            try
+            catch (Exception e)
             {
-                Run();
+                Debug.LogError(e.Message);
+                if (ScenarioRunMode.Args.TestMode)
+                {
+                    ScenarioRunMode.FailTest(ScenarioRunMode.FailReason.Exception);
+                }
             }
-            catch (Exception ex)
+        }
+
+        public static IEnumerator WithException(this IEnumerator enumerator)
+        {
+            while (true)
             {
-                Debug.LogError(ex);
+                try
+                {
+                    if (!enumerator.MoveNext())
+                    {
+                        yield break;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError(e.Message);
+                    if (ScenarioRunMode.Args.TestMode)
+                    {
+                        ScenarioRunMode.FailTest(ScenarioRunMode.FailReason.Exception);
+                    }
+                    yield break;
+                }
+
+                yield return enumerator.Current;
             }
-#else
-            Run();
-#endif
         }
 
         #endregion
@@ -58,6 +79,11 @@ namespace Kaede2.Scenario.Framework.Utils
                 if (currentDistance >= distance) continue;
                 distance = currentDistance;
                 closestMatch = word;
+            }
+
+            if (ScenarioRunMode.Args.TestMode && distance > 0)
+            {
+                ScenarioRunMode.FailTest(ScenarioRunMode.FailReason.BadParameter);
             }
 
             return closestMatch;

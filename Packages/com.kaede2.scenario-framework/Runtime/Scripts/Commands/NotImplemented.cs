@@ -15,7 +15,10 @@ namespace Kaede2.Scenario.Framework.Commands
         public override IEnumerator Execute()
         {
             Debug.LogWarning($"Not Implemented Command {OriginalArg(0)}");
-            yield break;
+
+            if (!ScenarioRunMode.Args.TestMode) yield break;
+            ScenarioRunMode.FailTest(ScenarioRunMode.FailReason.NotImplemented);
+            yield return new WaitForSeconds(1.0f);
         }
     }
 }

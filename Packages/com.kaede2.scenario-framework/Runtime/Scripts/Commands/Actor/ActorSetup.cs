@@ -19,7 +19,7 @@ namespace Kaede2.Scenario.Framework.Commands
             xPos = Arg(2, 0.0f);
         }
 
-        public override ExecutionType Type => ExecutionType.Instant;
+        public override ExecutionType Type => ExecutionType.Synchronous;
         public override float ExpectedExecutionTime => 0;
 
         public override IEnumerator Setup()
@@ -49,10 +49,13 @@ namespace Kaede2.Scenario.Framework.Commands
             if (!Module.ScenarioResource.Actors.TryGetValue(modelName, out var asset))
             {
                 Debug.LogError($"Live2D model {modelName} not found");
+                if (ScenarioRunMode.Args.TestMode)
+                    ScenarioRunMode.FailTest(ScenarioRunMode.FailReason.ResourceNotFound);
                 yield break;
             }
 
             Module.UIController.CreateActor(new(xPos, 0), readableName, asset);
+            yield return null; // wait for the next frame
         }
     }
 }

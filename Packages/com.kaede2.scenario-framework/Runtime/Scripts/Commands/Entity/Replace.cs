@@ -41,6 +41,8 @@ namespace Kaede2.Scenario.Framework.Commands
             if (!Module.ScenarioResource.Backgrounds.TryGetValue(resourceName, out var tex))
             {
                 Debug.LogError($"Background texture {resourceName} not found");
+                if (ScenarioRunMode.Args.TestMode)
+                    ScenarioRunMode.FailTest(ScenarioRunMode.FailReason.ResourceNotFound);
                 yield break;
             }
 
