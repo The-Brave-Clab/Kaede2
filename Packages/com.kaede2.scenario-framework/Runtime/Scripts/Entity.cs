@@ -225,7 +225,6 @@ namespace Kaede2.Scenario.Framework
             moveSequence.onKill = () =>
             {
                 Position = targetPosition;
-                Debug.Log("Kill moveSequence");
                 moveSequence = null;
             };
             moveSequence.onComplete = () => { moveSequence = null; };

@@ -14,7 +14,7 @@ namespace Kaede2.Scenario.Framework.Commands
             objectName = OriginalArg(1);
         }
 
-        public override ExecutionType Type => ExecutionType.Instant;
+        public override ExecutionType Type => ExecutionType.Synchronous;
         public override float ExpectedExecutionTime => 0;
 
         public override IEnumerator Setup()
@@ -41,7 +41,7 @@ namespace Kaede2.Scenario.Framework.Commands
         public override IEnumerator Execute()
         {
             Object.Destroy(entity.gameObject);
-            yield break;
+            yield return null; // wait for the next frame to ensure the object is destroyed
         }
     }
 }
