@@ -2,7 +2,9 @@ using System.IO;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
+#if UNITY_EDITOR_OSX
 using UnityEditor.iOS.Xcode;
+#endif
 
 namespace Kaede2.Editor.Build
 {
@@ -12,6 +14,7 @@ namespace Kaede2.Editor.Build
 
         public void OnPostprocessBuild(BuildReport report)
         {
+#if UNITY_EDITOR_OSX
             if (report.summary.platform == BuildTarget.iOS)
             {
                 string plistPath = report.summary.outputPath + "/Info.plist";
@@ -26,6 +29,7 @@ namespace Kaede2.Editor.Build
 
                 File.WriteAllText(plistPath, plist.WriteToString());
             }
+#endif
         }
     }
 
