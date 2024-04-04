@@ -1,0 +1,14 @@
+{
+  "main": "index.js",
+  "type": "module",
+  "dependencies": {
+    "@aws-sdk/client-cognito-identity": "^3.540.0",
+    "@aws-sdk/client-s3": "^3.540.0",
+    "@aws-sdk/credential-provider-cognito-identity": "^3.540.0",
+    "@aws-sdk/s3-request-presigner": "^3.540.0"
+  },
+  "devDependencies": {
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
+  }
+}
