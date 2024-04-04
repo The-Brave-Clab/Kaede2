@@ -21,7 +21,7 @@ namespace Kaede2.AWS.Editor
             var directoryInfo = new DirectoryInfo(folderPath);
             var files = directoryInfo.GetFiles("*", SearchOption.AllDirectories);
             files = files.Where(f => !f.Name.Equals(".DS_Store")).ToArray();
-            EditorCoroutineUtility.StartCoroutineOwnerless(UploadFilesCoroutine(files, bucket, region, f => f[(directoryInfo.FullName.Length + 1)..]));
+            EditorCoroutineUtility.StartCoroutineOwnerless(UploadFilesCoroutine(files, bucket, region, f => f[(directoryInfo.FullName.Length + 1)..].Replace(Path.DirectorySeparatorChar, '/')));
         }
 
         public static void UploadFiles(FileInfo[] files, string bucket, RegionEndpoint region, Func<string, string> getKeyFromFile)

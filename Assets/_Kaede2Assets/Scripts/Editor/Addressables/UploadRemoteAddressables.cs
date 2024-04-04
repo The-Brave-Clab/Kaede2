@@ -20,7 +20,7 @@ namespace Kaede2.Editor.Addressables
         public static bool CanUpload()
         {
             if (!Directory.Exists(RemoteBuildPath)) return false;
-            if (Directory.GetFiles(RemoteBuildPath).Length == 0) return false;
+            if (Directory.GetDirectories(RemoteBuildPath).Length == 0) return false;
             if (!AWSEditorUtils.ValidateProfile(Config.EditorProfileName)) return false;
             return true;
         }
