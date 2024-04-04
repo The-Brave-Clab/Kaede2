@@ -133,7 +133,6 @@ namespace Kaede2
             // initialize runtime values
             _instance.runtimeOpeningMovie = _instance.openingMovie == -1 ? UnityEngine.Random.Range(0, 2) : _instance.openingMovie;
             _instance.Log($"Selecting opening movie: {_instance.runtimeOpeningMovie + 1}");
-            Theme.RuntimeThemeVolume = _instance.themeVolume;
         }
 
 #if !UNITY_WEBGL || UNITY_EDITOR
