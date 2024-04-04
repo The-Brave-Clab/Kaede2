@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace Kaede2
 {
-    public class TitleScreen : MonoBehaviour
+    public class TitleScreen : MonoBehaviour, IThemeChangeObserver
     {
         [SerializeField]
         private Image background;
@@ -20,7 +20,7 @@ namespace Kaede2
 
         private void Awake()
         {
-            background.sprite = Theme.Vol[GameSettings.ThemeVolume].titleBackground;
+            OnThemeChange(Theme.Current);
         }
 
         private IEnumerator Start()
@@ -48,6 +48,11 @@ namespace Kaede2
             yield return SceneTransition.Fade(1);
             PlayerScenarioModule.GlobalScenarioName = "ms006_s011_a";
             yield return SceneManager.LoadSceneAsync("ScenarioScene", LoadSceneMode.Single);
+        }
+
+        public void OnThemeChange(Theme.VolumeTheme theme)
+        {
+            background.sprite = Theme.Current.titleBackground;
         }
     }
 }

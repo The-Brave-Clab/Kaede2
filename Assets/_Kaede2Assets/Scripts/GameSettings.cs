@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Kaede2.ScriptableObjects;
 using Kaede2.Utils;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ namespace Kaede2
             get => _instance.runtimeOpeningMovie;
             set
             {
+                if (value == _instance.runtimeOpeningMovie) return;
                 _instance.openingMovie = value;
                 Save();
             }
@@ -26,14 +28,14 @@ namespace Kaede2
         [SerializeField]
         private int themeVolume = -1; // -1: random, 0: volume1, 1: volume2...
 
-        private int runtimeThemeVolume = -1;
-
         public static int ThemeVolume
         {
-            get => _instance.runtimeThemeVolume;
+            get => _instance.themeVolume;
             set
             {
+                if (value == _instance.themeVolume) return;
                 _instance.themeVolume = value;
+                Theme.RuntimeThemeVolume = value;
                 Save();
             }
         }
@@ -46,6 +48,7 @@ namespace Kaede2
             get => _instance.fixed16By9;
             set
             {
+                if (value == _instance.fixed16By9) return;
                 _instance.fixed16By9 = value;
                 Save();
             }
@@ -59,6 +62,7 @@ namespace Kaede2
             get => _instance.consoleStyle;
             set
             {
+                if (value == _instance.consoleStyle) return;
                 _instance.consoleStyle = value;
                 Save();
             }
@@ -72,6 +76,7 @@ namespace Kaede2
             get => _instance.audioMasterVolume;
             set
             {
+                if (Mathf.Abs(value - _instance.audioMasterVolume) < 0.01f) return;
                 _instance.audioMasterVolume = value;
                 Save();
             }
@@ -85,6 +90,7 @@ namespace Kaede2
             get => _instance.audioBGMVolume;
             set
             {
+                if (Mathf.Abs(value - _instance.audioBGMVolume) < 0.01f) return;
                 _instance.audioBGMVolume = value;
                 Save();
             }
@@ -98,6 +104,7 @@ namespace Kaede2
             get => _instance.audioSEVolume;
             set
             {
+                if (Mathf.Abs(value - _instance.audioSEVolume) < 0.01f) return;
                 _instance.audioSEVolume = value;
                 Save();
             }
@@ -111,6 +118,7 @@ namespace Kaede2
             get => _instance.audioVoiceVolume;
             set
             {
+                if (Mathf.Abs(value - _instance.audioVoiceVolume) < 0.01f) return;
                 _instance.audioVoiceVolume = value;
                 Save();
             }
@@ -125,8 +133,7 @@ namespace Kaede2
             // initialize runtime values
             _instance.runtimeOpeningMovie = _instance.openingMovie == -1 ? UnityEngine.Random.Range(0, 2) : _instance.openingMovie;
             _instance.Log($"Selecting opening movie: {_instance.runtimeOpeningMovie + 1}");
-            _instance.runtimeThemeVolume = _instance.themeVolume == -1 ? UnityEngine.Random.Range(0, 8) : _instance.themeVolume;
-            _instance.Log($"Selecting theme volume: {_instance.runtimeThemeVolume + 1}");
+            Theme.RuntimeThemeVolume = _instance.themeVolume;
         }
 
 #if !UNITY_WEBGL || UNITY_EDITOR
