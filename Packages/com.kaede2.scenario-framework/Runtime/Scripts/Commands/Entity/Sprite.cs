@@ -30,51 +30,29 @@ namespace Kaede2.Scenario.Framework.Commands
             wait = Arg(8, true);
         }
 
-        public override ExecutionType Type => ExecutionType.Synchronous;
+        public override ExecutionType Type => ExecutionTypeBasedOnWaitAndDuration(wait, duration);
         public override float ExpectedExecutionTime => duration;
 
-        public override IEnumerator Setup()
+        public override void Setup()
         {
-            var entities = Object.FindObjectsByType<SpriteEntity>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-            if (entities == null || entities.Length == 0)
+            if (!Module.ScenarioResource.Sprites.TryGetValue(resourceName, out var sprite))
             {
-                entity = null;
-                yield break;
+                Debug.LogError($"Sprite {resourceName} not found");
+                if (ScenarioRunMode.Args.TestMode)
+                    ScenarioRunMode.FailTest(ScenarioRunMode.FailReason.ResourceNotFound);
+                return;
             }
 
-            foreach (var e in entities)
-            {
-                if (e.name == objName)
-                {
-                    entity = e;
-                    yield break;
-                }
-            }
-
-            entity = null;
-        }
-
-        public override IEnumerator Execute()
-        {
-            if (entity == null)
-            {
-                if (!Module.ScenarioResource.Sprites.TryGetValue(resourceName, out var sprite))
-                {
-                    Debug.LogError($"Sprite {resourceName} not found");
-                    if (ScenarioRunMode.Args.TestMode)
-                        ScenarioRunMode.FailTest(ScenarioRunMode.FailReason.ResourceNotFound);
-                    yield break;
-                }
-
-                entity = Module.UIController.CreateSprite(objName, resourceName, sprite);
-                yield return null; // wait for the next frame
-            }
+            entity = Module.UIController.CreateSprite(objName, resourceName, sprite);
 
             entity.transform.localScale = Vector3.one * scale;
             entity.Position = new Vector3(position.x, position.y, layer);
 
             entity.gameObject.SetActive(true);
+        }
 
+        public override IEnumerator Execute()
+        {
             if (duration == 0)
             {
                 var originalColor = entity.GetColor();

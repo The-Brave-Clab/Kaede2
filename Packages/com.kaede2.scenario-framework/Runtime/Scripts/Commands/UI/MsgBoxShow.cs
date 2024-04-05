@@ -16,10 +16,9 @@ namespace Kaede2.Scenario.Framework.Commands
 
         protected abstract bool IsShow { get; }
 
-        public override IEnumerator Setup()
+        public override void Setup()
         {
             messageBox = Module.UIController.MessageBox;
-            yield break;
         }
 
         public override IEnumerator Execute()

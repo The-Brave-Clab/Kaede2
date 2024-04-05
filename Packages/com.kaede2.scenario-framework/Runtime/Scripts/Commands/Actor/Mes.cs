@@ -35,14 +35,11 @@ namespace Kaede2.Scenario.Framework.Commands
         public override ExecutionType Type => ExecutionType.Synchronous;
         public override float ExpectedExecutionTime => -10;
 
-        public override IEnumerator Setup()
+        public override void Setup()
         {
             entity = null;
-            if (!string.IsNullOrEmpty(entityName))
-            {
-                FindEntity(entityName, out entity);
-            }
-            yield break;
+            if (string.IsNullOrEmpty(entityName)) return;
+            FindEntity(entityName, out entity);
         }
 
         public override IEnumerator Execute()

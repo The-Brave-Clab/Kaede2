@@ -24,10 +24,9 @@ namespace Kaede2.Scenario.Framework.Commands
         public override ExecutionType Type => ExecutionTypeBasedOnWaitAndDuration(wait, duration);
         public override float ExpectedExecutionTime => duration;
 
-        public override IEnumerator Setup()
+        public override void Setup()
         {
             FindEntity(objName, out originalEntity);
-            yield break;
         }
 
         public override IEnumerator Execute()
@@ -58,14 +57,14 @@ namespace Kaede2.Scenario.Framework.Commands
             if (duration == 0)
             {
                 newEntity.SetColor(UnityEngine.Color.white);
-                Object.Destroy(originalEntity.gameObject);
+                originalEntity.Destroy();
                 yield break;
             }
 
             Sequence seq = DOTween.Sequence();
             seq.Append(DOVirtual.Color(clearWhite, UnityEngine.Color.white, duration,
                 value => newEntity.SetColor(value)));
-            seq.OnComplete(() => Object.Destroy(originalEntity.gameObject));
+            seq.OnComplete(() => originalEntity.Destroy());
 
             yield return seq.WaitForCompletion();
         }

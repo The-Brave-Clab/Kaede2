@@ -20,10 +20,9 @@ namespace Kaede2.Scenario.Framework.Commands
         public override ExecutionType Type => ExecutionTypeBasedOnWaitAndDuration(wait, duration);
         public override float ExpectedExecutionTime => duration;
 
-        public override IEnumerator Setup()
+        public override void Setup()
         {
             captionBox = Module.UIController.CaptionBox;
-            yield break;
         }
 
         public override IEnumerator Execute()

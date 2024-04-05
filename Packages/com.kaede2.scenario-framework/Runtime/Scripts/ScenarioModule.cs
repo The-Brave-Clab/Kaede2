@@ -33,6 +33,9 @@ namespace Kaede2.Scenario.Framework
         public IReadOnlyDictionary<string, Expression> Variables => variables;
         public IReadOnlyDictionary<string, string> Aliases => aliases;
 
+        private List<Entity> entities;
+        public IReadOnlyList<Entity> Entities => entities.Where(e => e != null && e.gameObject != null && !e.IsBeingDestroyed).ToList();
+
         public virtual bool ActorAutoDelete { get; set; }
         public virtual bool LipSync { get; set; }
 
@@ -262,6 +265,7 @@ namespace Kaede2.Scenario.Framework
             scenarioResource = new();
             aliases = new();
             variables = new();
+            entities = new();
 
             UIController.Module = this;
             AudioManager.Module = this;
@@ -359,6 +363,16 @@ namespace Kaede2.Scenario.Framework
 
         #endregion
 
+        public void RegisterEntity(Entity entity)
+        {
+            entities.Add(entity);
+        }
+
+        public void UnregisterEntity(Entity entity)
+        {
+            entities.Remove(entity);
+        }
+
         protected IEnumerator Execute()
         {
             while (true)
@@ -384,33 +398,22 @@ namespace Kaede2.Scenario.Framework
             if (ScenarioRunMode.Args.TestMode || Application.isEditor)
                 command.Log();
 
+            command.Setup();
+
             switch (command.Type)
             {
                 case Command.ExecutionType.Instant:
-                {
-                    command.Setup().InstantExecution();
                     command.Execute().InstantExecution();
                     break;
-                }
                 case Command.ExecutionType.Synchronous:
-                {
-                    yield return SyncExecution(command);
+                    yield return command.Execute().WithException();
                     break;
-                }
                 case Command.ExecutionType.Asynchronous:
-                {
-                    StartCoroutine(SyncExecution(command));
+                    StartCoroutine(command.Execute().WithException());
                     break;
-                }
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-        }
-
-        private static IEnumerator SyncExecution(Command command)
-        {
-            yield return command.Setup().WithException();
-            yield return command.Execute().WithException();
         }
 
         public ScenarioState GetState()
@@ -527,8 +530,7 @@ namespace Kaede2.Scenario.Framework
 
                 GameObject instantiated = Instantiate(prefab);
                 instantiated.name = animPrefabState.objectName;
-                AnimationPrefabEntity entity = instantiated.AddComponent<AnimationPrefabEntity>();
-                entity.Module = this;
+                AnimationPrefabEntity entity = UIController.CreateEntity<AnimationPrefabEntity>(instantiated);
                 entity.prefabName = animPrefabState.prefabName;
 
                 if (animPrefabState.isTransform)

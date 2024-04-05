@@ -14,34 +14,18 @@ namespace Kaede2.Scenario.Framework.Commands
             objectName = OriginalArg(1);
         }
 
-        public override ExecutionType Type => ExecutionType.Synchronous;
+        public override ExecutionType Type => ExecutionType.Instant;
         public override float ExpectedExecutionTime => 0;
 
-        public override IEnumerator Setup()
+        public override void Setup()
         {
-            var entities = Object.FindObjectsByType<Entity>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-            if (entities == null || entities.Length == 0)
-            {
-                entity = null;
-                yield break;
-            }
-
-            foreach (var e in entities)
-            {
-                if (e.name == objectName)
-                {
-                    entity = e;
-                    yield break;
-                }
-            }
-
-            entity = null;
+            FindEntity(objectName, out entity);
         }
 
         public override IEnumerator Execute()
         {
-            Object.Destroy(entity.gameObject);
-            yield return null; // wait for the next frame to ensure the object is destroyed
+            entity.Destroy();
+            yield break;
         }
     }
 }

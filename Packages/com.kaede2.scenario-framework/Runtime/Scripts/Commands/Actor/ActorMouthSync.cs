@@ -21,11 +21,10 @@ namespace Kaede2.Scenario.Framework.Commands
         public override ExecutionType Type => ExecutionType.Instant;
         public override float ExpectedExecutionTime => 0;
 
-        public override IEnumerator Setup()
+        public override void Setup()
         {
             FindEntity(slaveName, out slave);
             FindEntity(masterName, out master);
-            yield break;
         }
 
         public override IEnumerator Execute()

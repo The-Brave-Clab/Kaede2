@@ -60,8 +60,7 @@ namespace Kaede2.Scenario.Framework.Commands
 
             GameObject instantiated = Object.Instantiate(Prefab);
             instantiated.name = objName;
-            AnimationPrefabEntity entity = instantiated.AddComponent<AnimationPrefabEntity>();
-            entity.Module = Module;
+            AnimationPrefabEntity entity = Module.UIController.CreateEntity<AnimationPrefabEntity>(instantiated);
             entity.prefabName = prefabName;
             CharacterTransformController controller = instantiated.GetComponent<CharacterTransformController>();
             controller.Module = Module;

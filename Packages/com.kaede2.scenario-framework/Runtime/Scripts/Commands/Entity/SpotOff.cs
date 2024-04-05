@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 namespace Kaede2.Scenario.Framework.Commands
@@ -14,10 +15,9 @@ namespace Kaede2.Scenario.Framework.Commands
         public override ExecutionType Type => ExecutionType.Instant;
         public override float ExpectedExecutionTime => 0;
 
-        public override IEnumerator Setup()
+        public override void Setup()
         {
-            allEntities = Object.FindObjectsByType<Entity>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
-            yield break;
+            allEntities = Module.Entities.Where(e => e != null && e.gameObject.activeSelf).ToArray();
         }
 
         public override IEnumerator Execute()

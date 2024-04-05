@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using Kaede2.Scenario.Framework.Entities;
 using UnityEngine;
 
@@ -10,8 +11,6 @@ namespace Kaede2.Scenario.Framework.Commands
         private readonly string readableName;
         private readonly float xPos;
 
-        private Live2DActorEntity entity;
-
         public ActorSetup(ScenarioModule module, string[] arguments) : base(module, arguments)
         {
             modelName = Arg(1, "");
@@ -19,43 +18,25 @@ namespace Kaede2.Scenario.Framework.Commands
             xPos = Arg(2, 0.0f);
         }
 
-        public override ExecutionType Type => ExecutionType.Synchronous;
+        public override ExecutionType Type => ExecutionType.Instant;
         public override float ExpectedExecutionTime => 0;
 
-        public override IEnumerator Setup()
+        public override void Setup()
         {
-            var entities = Object.FindObjectsByType<Live2DActorEntity>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-            if (entities == null || entities.Length == 0)
-            {
-                entity = null;
-                yield break;
-            }
-
-            foreach (var e in entities)
-            {
-                if (e.Assets.name == modelName)
-                {
-                    entity = e;
-                    yield break;
-                }
-            }
-
-            entity = null;
-        }
-
-        public override IEnumerator Execute()
-        {
-            if (entity != null) yield break;
             if (!Module.ScenarioResource.Actors.TryGetValue(modelName, out var asset))
             {
                 Debug.LogError($"Live2D model {modelName} not found");
                 if (ScenarioRunMode.Args.TestMode)
                     ScenarioRunMode.FailTest(ScenarioRunMode.FailReason.ResourceNotFound);
-                yield break;
+                return;
             }
 
             Module.UIController.CreateActor(new(xPos, 0), readableName, asset);
-            yield return null; // wait for the next frame
+        }
+
+        public override IEnumerator Execute()
+        {
+            yield break;
         }
     }
 }

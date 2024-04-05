@@ -42,9 +42,8 @@ namespace Kaede2.Scenario.Framework
             originalArgs = arguments;
         }
 
-        public virtual IEnumerator Setup()
+        public virtual void Setup()
         {
-            yield break;
         }
 
         public abstract IEnumerator Execute();
@@ -92,10 +91,10 @@ namespace Kaede2.Scenario.Framework
             return originalArgs.Length;
         }
 
-        protected static int FindEntity<T>(string name, out T result) where T : Entity
+        protected int FindEntity<T>(string name, out T result) where T : Entity
         {
-            var entities = Object.FindObjectsByType<T>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-            if (entities == null || entities.Length == 0)
+            var entities = Module.Entities.OfType<T>().ToArray();
+            if (entities.Length == 0)
             {
                 Debug.LogError($"No entities with Type {typeof(T).Name} '{name}' found.");
                 result = null;
@@ -104,7 +103,7 @@ namespace Kaede2.Scenario.Framework
 
             var substituteName = CommonUtils.FindClosestMatch(name, entities.Select(e => e.gameObject.name), out var distance);
             result = entities.First(e => e.gameObject.name == substituteName);
-            if (distance > 5)
+            if (distance > (true ? 5 : 0))
             {
                 Debug.LogError($"{typeof(T).Name} '{name}' doesn't exist and no substitute found.");
                 result = null;

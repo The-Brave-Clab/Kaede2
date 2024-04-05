@@ -51,6 +51,7 @@ namespace Kaede2.Scenario.Framework.Editor.Inspectors
         private bool showResourcesBackgroundMusics;
         private bool showResourcesVoices;
         private bool showResourcesTransformImages;
+        private bool showEntities;
         private bool showVariables;
         private bool showAliases;
 
@@ -82,6 +83,17 @@ namespace Kaede2.Scenario.Framework.Editor.Inspectors
                     component.UIController, typeof(UIController), false);
                 EditorGUILayout.ObjectField(nameof(component.AudioManager),
                     component.AudioManager, typeof(UIController), false);
+                showEntities = EditorGUILayout.Foldout(showEntities, nameof(component.Entities));
+                if (showEntities)
+                {
+                    EditorGUI.indentLevel += 1;
+                    foreach (var entity in component.Entities)
+                    {
+                        EditorGUILayout.ObjectField(entity.GetType().Name, entity, entity.GetType(), false);
+                    }
+
+                    EditorGUI.indentLevel -= 1;
+                }
                 showResources = DrawScenarioResources(showResources, nameof(component.ScenarioResource),
                     component.ScenarioResource);
                 showVariables = DrawDictionary(showVariables, nameof(component.Variables), component.Variables);

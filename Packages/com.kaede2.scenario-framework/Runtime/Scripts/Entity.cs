@@ -62,6 +62,8 @@ namespace Kaede2.Scenario.Framework
         private bool isBeingDestroyed = false;
         private RectTransform rectTransform;
 
+        public bool IsBeingDestroyed => isBeingDestroyed;
+
         protected virtual void Awake()
         {
             sequences = new List<Sequence>();
@@ -71,12 +73,18 @@ namespace Kaede2.Scenario.Framework
 
         protected virtual void OnDestroy()
         {
-            isBeingDestroyed = true;
             StopAllCoroutines();
             foreach (var sequence in sequences)
             {
                 sequence.Kill();
             }
+        }
+
+        public void Destroy()
+        {
+            Module.UnregisterEntity(this);
+            isBeingDestroyed = true;
+            Destroy(gameObject);
         }
 
         protected Sequence GetSequence()

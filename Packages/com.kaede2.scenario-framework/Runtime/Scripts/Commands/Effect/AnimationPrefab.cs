@@ -82,8 +82,7 @@ namespace Kaede2.Scenario.Framework.Commands
             instantiated.name = objectName;
             Transform transform = instantiated.transform;
             transform.localScale = Vector3.one * scale;
-            AnimationPrefabEntity entity = instantiated.AddComponent<AnimationPrefabEntity>();
-            entity.Module = Module;
+            AnimationPrefabEntity entity = Module.UIController.CreateEntity<AnimationPrefabEntity>(instantiated);
             entity.prefabName = prefabName;
             entity.Position = position;
 

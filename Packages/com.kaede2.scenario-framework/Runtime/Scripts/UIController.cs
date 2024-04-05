@@ -87,6 +87,19 @@ namespace Kaede2.Scenario.Framework
             set => ContentCanvas.gameObject.SetActive(value);
         }
 
+        public T CreateEntity<T>(GameObject go) where T : Entity
+        {
+            bool activated = go.activeSelf;
+            if (activated) go.SetActive(false); // we need to disable the object to prevent Awake from being called
+
+            var entity = go.AddComponent<T>();
+            entity.Module = Module;
+            Module.RegisterEntity(entity);
+
+            if (activated) go.SetActive(true);
+            return entity;
+        }
+
         public BackgroundEntity CreateBackground(string objectName, string resourceName, Texture2D texture)
         {
             return CreateBackgroundObjectWithParent(BackgroundCanvas.transform, objectName, resourceName, texture);
@@ -102,8 +115,7 @@ namespace Kaede2.Scenario.Framework
             var newModel = CreateEmptyUIObject(Live2DCanvas.transform);
             newModel.GetComponent<RectTransform>().anchoredPosition = position;
             newModel.name = readableName;
-            var entity = newModel.AddComponent<Live2DActorEntity>();
-            entity.Module = Module;
+            var entity = CreateEntity<Live2DActorEntity>(newModel);
             entity.CreateWithAssets(asset);
             entity.Hidden = true;
             return entity;
@@ -115,8 +127,7 @@ namespace Kaede2.Scenario.Framework
             newSprite.name = objectName;
             var image = newSprite.AddComponent<Image>();
             image.sprite = sprite;
-            var entity = newSprite.AddComponent<SpriteEntity>();
-            entity.Module = Module;
+            var entity = CreateEntity<SpriteEntity>(newSprite);
             entity.resourceName = resourceName;
             entity.SetColor(new(1, 1, 1, 0));
             var rectTransform = newSprite.GetComponent<RectTransform>();
@@ -129,12 +140,15 @@ namespace Kaede2.Scenario.Framework
         private BackgroundEntity CreateBackgroundObjectWithParent(Transform parent, string objectName, string resourceName, Texture2D texture)
         {
             var newObj = Instantiate(backgroundPrefab, parent, false);
-            var entity = newObj.GetComponent<BackgroundEntity>();
-            entity.Module = Module;
+            var imgObj = newObj.transform.Find("Mask/Image").gameObject;
+            newObj.SetActive(false);
+            var entity = CreateEntity<BackgroundEntity>(newObj);
             newObj.name = objectName;
             entity.resourceName = resourceName;
+            entity.image = imgObj.GetComponent<RawImage>();
             entity.Canvas = ContentCanvas.transform as RectTransform;
             entity.SetImage(texture);
+            newObj.SetActive(true);
             return entity;
         }
 

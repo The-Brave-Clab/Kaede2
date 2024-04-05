@@ -25,10 +25,9 @@ namespace Kaede2.Scenario.Framework.Commands
         public override ExecutionType Type => ExecutionTypeBasedOnWaitAndDuration(wait, duration);
         public override float ExpectedExecutionTime => duration;
 
-        public override IEnumerator Setup()
+        public override void Setup()
         {
             messageBox = Module.UIController.MessageBox;
-            yield break;
         }
 
         public override IEnumerator Execute()

@@ -12,8 +12,6 @@ namespace Kaede2.Scenario.Framework.Commands
         private readonly float scale;
         private readonly int layer;
 
-        private BackgroundEntity entity;
-
         public BG(ScenarioModule module, string[] arguments) : base(module, arguments)
         {
             resourceName = Arg(1, "");
@@ -23,54 +21,33 @@ namespace Kaede2.Scenario.Framework.Commands
             layer = Arg(5, 0);
         }
 
-        public override ExecutionType Type => ExecutionType.Synchronous;
+        public override ExecutionType Type => ExecutionType.Instant;
         public override float ExpectedExecutionTime => 0;
 
-        public override IEnumerator Setup()
-        {
-            var entities = Object.FindObjectsByType<BackgroundEntity>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-            if (entities == null || entities.Length == 0)
-            {
-                entity = null;
-                yield break;
-            }
-
-            foreach (var e in entities)
-            {
-                if (e.name == objName)
-                {
-                    entity = e;
-                    yield break;
-                }
-            }
-
-            entity = null;
-        }
-
-        public override IEnumerator Execute()
+        public override void Setup()
         {
             var targetPosition = new Vector3(position.x, position.y, layer);
             var targetScale = scale * Vector3.one;
 
-            if (entity == null)
+            if (!Module.ScenarioResource.Backgrounds.TryGetValue(resourceName, out var tex))
             {
-                if (!Module.ScenarioResource.Backgrounds.TryGetValue(resourceName, out var tex))
-                {
-                    Debug.LogError($"Background texture {resourceName} not found");
-                    if (ScenarioRunMode.Args.TestMode)
-                        ScenarioRunMode.FailTest(ScenarioRunMode.FailReason.ResourceNotFound);
-                    yield break;
-                }
-
-                entity = Module.UIController.CreateBackground(objName, resourceName, tex);
-                yield return null; // wait for the next frame
+                Debug.LogError($"Background texture {resourceName} not found");
+                if (ScenarioRunMode.Args.TestMode)
+                    ScenarioRunMode.FailTest(ScenarioRunMode.FailReason.ResourceNotFound);
+                return;
             }
 
+            var entity = Module.UIController.CreateBackground(objName, resourceName, tex);
 
             entity.Position = targetPosition;
             var rectTransform = entity.transform as RectTransform;
             rectTransform!.localScale = targetScale;
             entity.gameObject.SetActive(true);
+        }
+
+        public override IEnumerator Execute()
+        {
+            yield break;
         }
     }
 }

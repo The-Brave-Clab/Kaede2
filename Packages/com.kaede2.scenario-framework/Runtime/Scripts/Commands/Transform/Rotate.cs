@@ -25,10 +25,9 @@ namespace Kaede2.Scenario.Framework.Commands
         public override ExecutionType Type => ExecutionTypeBasedOnWaitAndDuration(wait, ExpectedExecutionTime);
         public override float ExpectedExecutionTime => duration;
 
-        public override IEnumerator Setup()
+        public override void Setup()
         {
             FindEntity(entityName, out entity);
-            yield break;
         }
 
         public override IEnumerator Execute()
