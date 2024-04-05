@@ -175,6 +175,8 @@ namespace Kaede2.Scenario
             statements = Function.PreprocessFunctions(includePreprocessedStatements);
             yield return PreprocessAliasesAndVariables(statements);
 
+            yield return PreloadResources();
+
             commands = statements.Select(ParseStatement).ToList();
 
             StartCoroutine(Execute());

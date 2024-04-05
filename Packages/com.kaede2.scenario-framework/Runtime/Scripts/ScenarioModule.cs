@@ -95,6 +95,136 @@ namespace Kaede2.Scenario.Framework
 
         public abstract IEnumerator LoadResource(Resource.Type type, string resourceName);
 
+        protected IEnumerator PreloadResources()
+        {
+            HashSet<LoadData> allLoadData = new();
+
+            foreach (var statement in Statements)
+            {
+                string[] statementArgs = statement.Split(new[] { '\t' }, StringSplitOptions.None);
+
+                // we ignore all "_load" commands since the resources they specify are sometimes not used
+                // since we are doing a full scan, we can just find the actually used ones
+                switch (statementArgs[0])
+                {
+                    case "人物":
+                    case "actor_setup":
+                    {
+                        string argWithResource = statementArgs[1];
+                        string resourceName = ResolveAlias(argWithResource.Split(':')[0]);
+                        allLoadData.Add(new(Resource.Type.Actor, resourceName));
+                        break;
+                    }
+                    case "font":
+                    {
+                        break;
+                    }
+                    case "sprite":
+                    {
+                        string argWithResource = statementArgs[1];
+                        string resourceName = ResolveAlias(argWithResource.Split(':')[0]);
+                        allLoadData.Add(new(Resource.Type.Sprite, resourceName));
+                        break;
+                    }
+                    case "still":
+                    {
+                        string argWithResource = statementArgs[1];
+                        string still = ResolveAlias(argWithResource.Split(':')[0]);
+                        allLoadData.Add(new(Resource.Type.Still, still));
+                        break;
+                    }
+                    case "背景":
+                    case "bg":
+                    case "replace":
+                    {
+                        string bg = ResolveAlias(statementArgs[1]);
+                        allLoadData.Add(new(Resource.Type.Background, bg));
+                        break;
+                    }
+                    case "se":
+                    // case "se_load":
+                    case "se_loop":
+                    {
+                        string assetName = ResolveAlias(statementArgs[1]);
+                        allLoadData.Add(new(Resource.Type.SE, assetName));
+                        break;
+                    }
+                    case "bgm":
+                    // case "bgm_load":
+                    {
+                        string assetName = ResolveAlias(statementArgs[1]);
+                        allLoadData.Add(new(Resource.Type.BGM, assetName));
+                        break;
+                    }
+                    case "mes":
+                    case "mes_auto":
+                    {
+                        allLoadData.Add(new(Resource.Type.Voice, statementArgs[2]));
+                        break;
+                    }
+                    // case "voice_load":
+                    // {
+                    //     allLoadData.Add(new(Resource.Type.Voice, statementArgs[1]));
+                    //     break;
+                    // }
+                    case "transform_prefab":
+                    {
+                        string id = statementArgs[2];
+                        allLoadData.Add(new(Resource.Type.TransformPrefab, id));
+                        break;
+                    }
+                }
+            }
+
+            Debug.Log($"Pre-loading {allLoadData.Count} assets...");
+
+            // sort the hashset by load type
+            var loadDataList = allLoadData.ToList();
+            loadDataList.Sort((a, b) => a.Type.CompareTo(b.Type));
+
+            CoroutineGroup group = new(loadDataList.Select(d => LoadResource(d.Type, d.Name)).ToList(), this);
+            yield return group.WaitForAll();
+
+            Debug.Log("Resource Pre-loaded");
+        }
+
+        private class LoadData : IEquatable<LoadData>
+        {
+            public readonly Resource.Type Type;
+            public readonly string Name;
+
+            public LoadData(Resource.Type type, string name)
+            {
+                Type = type;
+                Name = name;
+            }
+
+            public bool Equals(LoadData other)
+            {
+                if (other == null)
+                {
+                    return false;
+                }
+
+                return Type == other.Type && Name == other.Name;
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (obj is LoadData data)
+                {
+                    return Type == data.Type && Name == data.Name;
+                }
+
+                return false;
+            }
+
+            public override int GetHashCode()
+            {
+                return (int)Type * 1234 + (Name == null ? 0 : Name.GetHashCode());
+            }
+        }
+
         public class Resource
         {
             public TextAsset AliasText = null;

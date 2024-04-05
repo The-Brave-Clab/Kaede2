@@ -191,7 +191,7 @@ namespace Kaede2.Scenario.Framework
             { "alias_text", typeof(AliasText) },
             { "set", typeof(Set) },
             { "log_message_load", typeof(NotImplemented) },
-            { "auto_load", typeof(AutoLoad) },
+            { "auto_load", typeof(IntentionallyNotImplemented) },
             { "init_end", typeof(InitEnd) },
             { "mes_speed", typeof(NotImplemented) },
             { "move_anim", typeof(MoveAnim) },
