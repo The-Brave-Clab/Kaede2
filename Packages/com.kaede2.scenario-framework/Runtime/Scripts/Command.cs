@@ -130,6 +130,12 @@ namespace Kaede2.Scenario.Framework
 #else
             const bool colorTag = false;
 #endif
+            if (ScenarioRunMode.Args.TestMode)
+            {
+                Debug.Log($"[{Time.frameCount}]\t{ToString()}");
+                return;
+            }
+
             StringBuilder sb = new();
             sb.Append(colorTag ? $"<color=#00FF00>[{Time.frameCount}]</color>\t" : $"[{Time.frameCount}]\t");
             sb.Append(colorTag ? $"<color=#FFFF00>{originalArgs[0]}</color>\n" : $"{originalArgs[0]}\n");

@@ -48,7 +48,8 @@ namespace Kaede2.Scenario.Framework.Entities
                 pose = L2DPose.load(Assets.poseFile.text);
             }
 
-            live2DModel.update();
+            if (!ScenarioRunMode.Args.BatchMode)
+                live2DModel.update();
         }
 
         public void StartMotion(string motionName, bool loop = false)
@@ -138,7 +139,7 @@ namespace Kaede2.Scenario.Framework.Entities
         public void Render()
         {
             // skip live2d rendering in batch mode
-            // if (BatchMode) return;
+            if (ScenarioRunMode.Args.BatchMode) return;
 
             RenderTexture active = RenderTexture.active;
             RenderTexture.active = targetTexture;
