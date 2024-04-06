@@ -12,6 +12,9 @@ namespace Kaede2.Scenario.Framework.Commands
 
         public CameraMove(ScenarioModule module, string[] arguments) : base(module, arguments)
         {
+            position = new Vector2(Arg(1, 0.0f), Arg(2, 0.0f));
+            duration = Arg(3, 0.0f);
+            wait = Arg(4, true);
         }
 
         public override ExecutionType Type => ExecutionTypeBasedOnWaitAndDuration(wait, duration);
