@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using Kaede2.Scenario.Framework.Entities;
 using UnityEngine;
 
@@ -46,7 +46,7 @@ namespace Kaede2.Scenario.Framework.Commands
         {
             Module.OnMesCommand?.Invoke(speakerName, voiceName, message);
             var messageBox = Module.UIController.MessageBox;
-            messageBox.gameObject.SetActive(true);
+            messageBox.Enabled = true;
             messageBox.Message = message;
             messageBox.NameTag = speakerName;
 
