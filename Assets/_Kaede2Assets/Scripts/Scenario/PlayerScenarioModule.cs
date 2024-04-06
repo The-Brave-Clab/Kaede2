@@ -124,6 +124,9 @@ namespace Kaede2.Scenario
         {
             base.Awake();
 
+            if (ScenarioRunMode.Args.TestMode)
+                Time.timeScale = 10.0f;
+
             statements = new();
             commands = new();
             currentCommandIndex = -1;
