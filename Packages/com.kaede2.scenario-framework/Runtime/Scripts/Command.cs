@@ -268,7 +268,7 @@ namespace Kaede2.Scenario.Framework
             { "voice", typeof(NotImplemented) },
             { "voice_load", typeof(IntentionallyNotImplemented) },
             { "voice_stop", typeof(NotImplemented) },
-            { "voice_play", typeof(NotImplemented) },
+            { "voice_play", typeof(VoicePlay) },
             { "asset_load", typeof(NotImplemented) },
             { "asset_unload", typeof(NotImplemented) },
             { "debug_log_show", typeof(NotImplemented) },

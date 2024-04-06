@@ -161,6 +161,7 @@ namespace Kaede2.Scenario.Framework
                     }
                     case "mes":
                     case "mes_auto":
+                    case "voice_play":
                     {
                         allLoadData.Add(new(Resource.Type.Voice, statementArgs[2]));
                         break;
