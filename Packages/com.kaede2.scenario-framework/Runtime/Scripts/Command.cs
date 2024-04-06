@@ -236,7 +236,7 @@ namespace Kaede2.Scenario.Framework
             { "msg_box_show", typeof(MsgBoxShow) },
             { "msg_box_hide", typeof(MsgBoxHide) },
             { "msg_box_change", typeof(NotImplemented) },
-            { "msg_box_name_show", typeof(NotImplemented) },
+            { "msg_box_name_show", typeof(MsgBoxNameShow) },
             { "ui_show", typeof(UIShow) },
             { "ui_hide", typeof(UIHide) },
             { "camera_all_on", typeof(CameraAllOn) },

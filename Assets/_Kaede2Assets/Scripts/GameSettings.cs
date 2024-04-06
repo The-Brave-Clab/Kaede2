@@ -55,7 +55,7 @@ namespace Kaede2
         }
 
         [SerializeField]
-        private bool consoleStyle = true;
+        private bool consoleStyle = false;
 
         public static bool ConsoleStyle
         {

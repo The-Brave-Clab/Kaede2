@@ -6,6 +6,9 @@ namespace Kaede2.Scenario.Framework.UI
     public class MessageBox : MonoBehaviour, IStateSavable<MessageBoxState>
     {
         [SerializeField]
+        private GameObject messageBoxContainer;
+
+        [SerializeField]
         private TextMeshProUGUI nameText;
 
         [SerializeField]
@@ -57,11 +60,14 @@ namespace Kaede2.Scenario.Framework.UI
 
         public bool Enabled
         {
-            set
-            {
-                messagePanel.SetActive(value);
-                namePanel.SetActive(value);
-            }
+            get => messageBoxContainer.activeSelf;
+            set => messageBoxContainer.SetActive(value);
+        }
+
+        public bool NamePanelEnabled
+        {
+            get => namePanel.activeSelf;
+            set => namePanel.SetActive(value);
         }
 
         public bool AutoMode
