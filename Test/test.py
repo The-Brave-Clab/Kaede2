@@ -71,5 +71,5 @@ with tqdm_joblib(tqdm.tqdm(test_cases)):
 
 with open(result_path, 'w') as f:
     for case, return_code in failed_test:
-        print(f"Test case {case} failed with code {return_code} ({failed_reason[return_code]})")
-        f.write(f"{case}\t{return_code}\n")
+        print(f"{case}\t{failed_reason[return_code]}")
+        f.write(f"{case}\t{failed_reason[return_code]}\n")
