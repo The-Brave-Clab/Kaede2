@@ -56,7 +56,7 @@ namespace Kaede2.Scenario.Framework
 
             static Args()
             {
-                #if !WEBGL_BUILD
+#if !UNITY_WEBGL || UNITY_EDITOR
 
                 InitializeCommandLineArguments();
 
@@ -81,7 +81,7 @@ namespace Kaede2.Scenario.Framework
                     Application.Quit(-1);
                 }
 
-                #endif
+#endif
             }
 
 

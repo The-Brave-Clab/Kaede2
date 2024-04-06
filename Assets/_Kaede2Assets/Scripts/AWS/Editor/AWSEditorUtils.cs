@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Threading.Tasks;
 using Amazon;
 using Amazon.Runtime;
 using Amazon.Runtime.CredentialManagement;
@@ -11,16 +13,34 @@ using Amazon.S3.Transfer;
 using Kaede2.Utils;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
+using UnityEngine;
 
 namespace Kaede2.AWS.Editor
 {
     public static class AWSEditorUtils
     {
+        private static string UploadHistoryPath => Path.Combine(Path.GetDirectoryName(Application.dataPath)!, "AWSUploadHistory.json");
+        private static readonly UploadHistoryJson UploadHistory;
+
+        static AWSEditorUtils()
+        {
+            UploadHistory = File.Exists(UploadHistoryPath) ?
+                JsonUtility.FromJson<UploadHistoryJson>(File.ReadAllText(UploadHistoryPath)) :
+                new UploadHistoryJson { history = new List<UploadFileInfo>() };
+        }
+
+        private static void SaveHistory()
+        {
+            File.WriteAllText(UploadHistoryPath, JsonUtility.ToJson(UploadHistory, true));
+        }
+
         public static void UploadFolder(string folderPath, string bucket, RegionEndpoint region)
         {
             var directoryInfo = new DirectoryInfo(folderPath);
             var files = directoryInfo.GetFiles("*", SearchOption.AllDirectories);
-            files = files.Where(f => !f.Name.Equals(".DS_Store")).ToArray();
+            // order by descending so that the largest files are uploaded first
+            // this will save some time
+            files = files.Where(f => !f.Name.Equals(".DS_Store")).OrderByDescending(f => f.Length).ToArray();
             EditorCoroutineUtility.StartCoroutineOwnerless(UploadFilesCoroutine(files, bucket, region, f => f[(directoryInfo.FullName.Length + 1)..].Replace(Path.DirectorySeparatorChar, '/')));
         }
 
@@ -37,6 +57,7 @@ namespace Kaede2.AWS.Editor
 
         private static IEnumerator UploadFilesCoroutine(FileInfo[] files, string bucket, RegionEndpoint region, Func<string, string> getKeyFromFile)
         {
+            int filesActuallyUploaded = 0;
             var uploadCancelled = false;
 
             var parentProgressId = Progress.Start("Uploading files to AWS",
@@ -74,13 +95,14 @@ namespace Kaede2.AWS.Editor
                         var task = uploadTasks.First();
                         uploadTasks.Remove(task.Key);
                         uploadCoroutines[task.Key] = EditorCoroutineUtility.StartCoroutineOwnerless(
-                            UploadSingleFile(task.Value.file, task.Value.key, bucket, region, credentials, parentProgressId, key =>
+                            UploadSingleFile(task.Value.file, task.Value.key, bucket, region, credentials, parentProgressId, (key, uploaded) =>
                             {
                                 finishedFileCount++;
                                 Progress.SetDescription(parentProgressId,
                                     $"{finishedFileCount}/{files.Length}");
                                 Progress.Report(parentProgressId, (float)finishedFileCount / files.Length);
                                 uploadCoroutines.Remove(key);
+                                if (uploaded) filesActuallyUploaded++;
                             })
                         );
                     }
@@ -91,7 +113,7 @@ namespace Kaede2.AWS.Editor
 
                     if (uploadCancelled)
                     {
-                        typeof(AWSEditorUtils).LogError("Upload files to AWS cancelled.");
+                        typeof(AWSEditorUtils).LogError($"Upload files to AWS cancelled. {filesActuallyUploaded} files uploaded.");
                         break;
                     }
                 }
@@ -109,11 +131,34 @@ namespace Kaede2.AWS.Editor
             }
 
             if (!uploadCancelled)
-                typeof(AWSEditorUtils).Log("Upload files to AWS completed successfully.");
+                typeof(AWSEditorUtils).Log($"Upload files to AWS completed successfully. {filesActuallyUploaded} files uploaded.");
         }
 
-        private static IEnumerator UploadSingleFile(FileInfo file, string key, string bucket, RegionEndpoint region, AWSCredentials credentials, int parentProgressId, Action<string> onFinished = null)
+        private static IEnumerator UploadSingleFile(FileInfo file, string key, string bucket, RegionEndpoint region, AWSCredentials credentials, int parentProgressId, Action<string, bool> onFinished = null)
         {
+            bool needUpload = true;
+            int historyEntryIndex = -1;
+            // UploadFileInfo currentFile = UploadFileInfo.GetFromFile(file, bucket, key);
+            // launch UploadFileInfo.GetFromFile in a Task since it will take a while
+            // wait inside the coroutine
+            Task<UploadFileInfo> task = Task.Run(() => UploadFileInfo.GetFromFile(file, bucket, key));
+            yield return new WaitUntil(() => task.IsCompleted);
+            UploadFileInfo currentFile = task.Result;
+            
+            for (int i = 0; i < UploadHistory.history.Count; i++)
+            {
+                UploadFileInfo historyEntry = UploadHistory.history[i];
+                if (historyEntry.key != currentFile.key || historyEntry.bucket != currentFile.bucket) continue;
+                needUpload = historyEntry.md5 != currentFile.md5 || historyEntry.sha256 != currentFile.sha256;
+                historyEntryIndex = i;
+                break;
+            }
+            if (!needUpload)
+            {
+                onFinished?.Invoke(key, false);
+                yield break;
+            }
+
             using var client = new AmazonS3Client(credentials, region);
             var transferUtility = new TransferUtility(client);
 
@@ -148,7 +193,14 @@ namespace Kaede2.AWS.Editor
 
             Progress.Remove(progressId);
 
-            onFinished?.Invoke(key);
+            if (historyEntryIndex < 0)
+                UploadHistory.history.Add(currentFile);
+            else
+                UploadHistory.history[historyEntryIndex] = currentFile;
+
+            SaveHistory();
+
+            onFinished?.Invoke(key, true);
         }
 
         private static readonly Dictionary<string, string> ContentTypes = new()
@@ -187,6 +239,58 @@ namespace Kaede2.AWS.Editor
         {
             var extension = file.Extension.ToLower();
             return ContentEncodings.GetValueOrDefault(extension);
+        }
+
+        [Serializable]
+        private struct UploadHistoryJson
+        {
+            public List<UploadFileInfo> history;
+        }
+
+        [Serializable]
+        private struct UploadFileInfo : IEquatable<UploadFileInfo>
+        {
+            public string bucket;
+            public string key;
+            public string md5;
+            public string sha256;
+
+            public static UploadFileInfo GetFromFile(FileInfo file, string bucket, string key)
+            {
+                FileStream stream = file.OpenRead();
+                byte[] md5;
+                byte[] sha256;
+                using (SHA256 mySHA256 = SHA256.Create())
+                using (MD5 myMD5 = MD5.Create())
+                {
+                    stream.Position = 0;
+                    md5 = myMD5.ComputeHash(stream);
+                    stream.Position = 0;
+                    sha256 = mySHA256.ComputeHash(stream);
+                }
+                return new UploadFileInfo
+                {
+                    bucket = bucket,
+                    key = key,
+                    md5 = Convert.ToBase64String(md5),
+                    sha256 = Convert.ToBase64String(sha256),
+                };
+            }
+
+            public bool Equals(UploadFileInfo other)
+            {
+                return bucket == other.bucket && key == other.key && md5 == other.md5 && sha256 == other.sha256;
+            }
+
+            public override bool Equals(object obj)
+            {
+                return obj is UploadFileInfo other && Equals(other);
+            }
+
+            public override int GetHashCode()
+            {
+                return HashCode.Combine(bucket, key, md5, sha256);
+            }
         }
     }
 }
