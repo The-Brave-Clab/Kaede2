@@ -12,10 +12,11 @@ namespace Kaede2.UI
         private Shader adjustHSVShader;
 
         [SerializeField]
-        private Vector3 hsvAdjustment;
-
-        [SerializeField]
-        private Color referenceColor = Color.red;
+        private Adjustment adjustment = new()
+        {
+            hsvAdjustment = Vector3.zero,
+            referenceColor = Color.red
+        };
 
         // private CanvasRenderer canvasRenderer;
         private Material material;
@@ -23,6 +24,15 @@ namespace Kaede2.UI
 
         private static readonly int ReferenceColor = Shader.PropertyToID("_ReferenceColor");
         private static readonly int TargetColor = Shader.PropertyToID("_TargetColor");
+
+        [Serializable]
+        public struct Adjustment
+        {
+            [ColorUsage(false, false)]
+            public Color referenceColor;
+
+            public Vector3 hsvAdjustment;
+        }
 
         private void Awake()
         {
@@ -39,8 +49,8 @@ namespace Kaede2.UI
 #endif
 
             material = new Material(adjustHSVShader);
-            material.SetColor(ReferenceColor, referenceColor);
-            material.SetColor(TargetColor, CalculateTargetColor(referenceColor, hsvAdjustment));
+            material.SetColor(ReferenceColor, adjustment.referenceColor);
+            material.SetColor(TargetColor, CalculateTargetColor(adjustment.referenceColor, adjustment.hsvAdjustment));
 
             if (TryGetComponent(out Graphic graphic)) // this covers many components
             {
@@ -59,11 +69,11 @@ namespace Kaede2.UI
             // if (canvasRenderer.materialCount > 0 && canvasRenderer.GetMaterial() != material)
             //     canvasRenderer.SetMaterial(material, 0);
 
-            if (hsvAdjustment == lastHSVAdjustment) return;
+            if (adjustment.hsvAdjustment == lastHSVAdjustment) return;
 
-            material.SetColor(ReferenceColor, referenceColor);
-            material.SetColor(TargetColor, CalculateTargetColor(referenceColor, hsvAdjustment));
-            lastHSVAdjustment = hsvAdjustment;
+            material.SetColor(ReferenceColor, adjustment.referenceColor);
+            material.SetColor(TargetColor, CalculateTargetColor(adjustment.referenceColor, adjustment.hsvAdjustment));
+            lastHSVAdjustment = adjustment.hsvAdjustment;
         }
 
         public static Color CalculateTargetColor(Color referenceColor, Vector3 hsvAdjustment)

@@ -91,8 +91,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   adjustHSVShader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
-  hsvAdjustment: {x: 0.91520464, y: 0.020329759, z: 0.062745035}
-  referenceColor: {r: 0.93725497, g: 0.75294125, b: 0.7137255, a: 1}
+  adjustment:
+    referenceColor: {r: 0.93725497, g: 0.75294125, b: 0.7137255, a: 1}
+    hsvAdjustment: {x: 0.91520464, y: 0.020329759, z: 0.062745035}
 --- !u!1 &2365679503015421072
 GameObject:
   m_ObjectHideFlags: 0
@@ -470,8 +471,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   adjustHSVShader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
-  hsvAdjustment: {x: 0.5023694, y: 0.004184097, z: 0}
-  referenceColor: {r: 0.93725497, g: 0.75294125, b: 0.7137255, a: 1}
+  adjustment:
+    referenceColor: {r: 0.93725497, g: 0.75294125, b: 0.7137255, a: 1}
+    hsvAdjustment: {x: 0.5023694, y: 0.004184097, z: 0}
 --- !u!1 &6661865622734239401
 GameObject:
   m_ObjectHideFlags: 0
