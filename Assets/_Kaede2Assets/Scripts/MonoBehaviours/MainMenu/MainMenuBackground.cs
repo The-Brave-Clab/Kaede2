@@ -17,7 +17,7 @@ namespace Kaede2
 
         private void Awake()
         {
-            var illustInfo = MasterAlbumInfo.Instance.albumInfo.First(i => i.OriginId == GameSettings.MainMenuBackground);
+            var illustInfo = MasterAlbumInfo.Instance.albumInfo.First(i => i.OriginId == SaveData.MainMenuBackground);
             handle = ResourceLoader.LoadIllustration(illustInfo.AlbumName);
         }
 

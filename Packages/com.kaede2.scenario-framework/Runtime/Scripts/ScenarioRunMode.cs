@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Framework
 {
-    public class ScenarioRunMode : Singleton<ScenarioRunMode>
+    public class ScenarioRunMode : SingletonMonoBehaviour<ScenarioRunMode>
     {
         public enum FailReason
         {

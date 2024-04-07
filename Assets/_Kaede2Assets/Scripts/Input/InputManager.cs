@@ -18,7 +18,7 @@ using UnityEngine.InputSystem.XInput;
 
 namespace Kaede2.Input
 {
-    public class InputManager : Singleton<InputManager>
+    public class InputManager : SingletonMonoBehaviour<InputManager>
     {
         private InputUser user;
         private InputDeviceType currentDeviceType;

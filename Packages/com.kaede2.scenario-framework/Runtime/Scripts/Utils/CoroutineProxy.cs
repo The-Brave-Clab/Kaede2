@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Kaede2.Scenario.Framework.Utils
 {
-    public class CoroutineProxy : Singleton<CoroutineProxy>
+    public class CoroutineProxy : SingletonMonoBehaviour<CoroutineProxy>
     {
         protected override void Awake()
         {

@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace Kaede2.Web
 {
-    public class WebBackground : Singleton<WebBackground>
+    public class WebBackground : SingletonMonoBehaviour<WebBackground>
     {
         [SerializeField]
         private Button playButton;

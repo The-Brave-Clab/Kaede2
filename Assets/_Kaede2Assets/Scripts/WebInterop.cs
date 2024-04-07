@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 
 namespace Kaede2
 {
-    public class WebInterop : Singleton<WebInterop>
+    public class WebInterop : SingletonMonoBehaviour<WebInterop>
     {
         private const string DllName = "__Internal";
 

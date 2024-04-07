@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Kaede2
 {
     [Serializable]
-    public class GameSettings
+    public class GameSettings : SavableSingleton<GameSettings>
     {
         [SerializeField]
         private int openingMovie = -1; // -2: disabled, -1: random, 0: op1, 1: op2
@@ -16,11 +16,11 @@ namespace Kaede2
 
         public static int OpeningMovie
         {
-            get => _instance.runtimeOpeningMovie;
+            get => Instance.runtimeOpeningMovie;
             set
             {
-                if (value == _instance.runtimeOpeningMovie) return;
-                _instance.openingMovie = value;
+                if (value == Instance.runtimeOpeningMovie) return;
+                Instance.openingMovie = value;
                 Save();
             }
         }
@@ -30,26 +30,12 @@ namespace Kaede2
 
         public static int ThemeVolume
         {
-            get => _instance.themeVolume;
+            get => Instance.themeVolume;
             set
             {
-                if (value == _instance.themeVolume) return;
-                _instance.themeVolume = value;
+                if (value == Instance.themeVolume) return;
+                Instance.themeVolume = value;
                 Theme.RuntimeThemeVolume = value;
-                Save();
-            }
-        }
-
-        [SerializeField]
-        private int mainMenuBackground = 950040;
-
-        public static int MainMenuBackground
-        {
-            get => _instance.mainMenuBackground;
-            set
-            {
-                if (value == _instance.mainMenuBackground) return;
-                _instance.mainMenuBackground = value;
                 Save();
             }
         }
@@ -59,11 +45,11 @@ namespace Kaede2
 
         public static bool Fixed16By9
         {
-            get => _instance.fixed16By9;
+            get => Instance.fixed16By9;
             set
             {
-                if (value == _instance.fixed16By9) return;
-                _instance.fixed16By9 = value;
+                if (value == Instance.fixed16By9) return;
+                Instance.fixed16By9 = value;
                 Save();
             }
         }
@@ -73,11 +59,11 @@ namespace Kaede2
 
         public static bool ConsoleStyle
         {
-            get => _instance.consoleStyle;
+            get => Instance.consoleStyle;
             set
             {
-                if (value == _instance.consoleStyle) return;
-                _instance.consoleStyle = value;
+                if (value == Instance.consoleStyle) return;
+                Instance.consoleStyle = value;
                 Save();
             }
         }
@@ -87,11 +73,11 @@ namespace Kaede2
 
         public static float AudioMasterVolume
         {
-            get => _instance.audioMasterVolume;
+            get => Instance.audioMasterVolume;
             set
             {
-                if (Mathf.Abs(value - _instance.audioMasterVolume) < 0.01f) return;
-                _instance.audioMasterVolume = value;
+                if (Mathf.Abs(value - Instance.audioMasterVolume) < 0.01f) return;
+                Instance.audioMasterVolume = value;
                 Save();
             }
         }
@@ -101,11 +87,11 @@ namespace Kaede2
 
         public static float AudioBGMVolume
         {
-            get => _instance.audioBGMVolume;
+            get => Instance.audioBGMVolume;
             set
             {
-                if (Mathf.Abs(value - _instance.audioBGMVolume) < 0.01f) return;
-                _instance.audioBGMVolume = value;
+                if (Mathf.Abs(value - Instance.audioBGMVolume) < 0.01f) return;
+                Instance.audioBGMVolume = value;
                 Save();
             }
         }
@@ -115,11 +101,11 @@ namespace Kaede2
 
         public static float AudioSEVolume
         {
-            get => _instance.audioSEVolume;
+            get => Instance.audioSEVolume;
             set
             {
-                if (Mathf.Abs(value - _instance.audioSEVolume) < 0.01f) return;
-                _instance.audioSEVolume = value;
+                if (Mathf.Abs(value - Instance.audioSEVolume) < 0.01f) return;
+                Instance.audioSEVolume = value;
                 Save();
             }
         }
@@ -129,50 +115,20 @@ namespace Kaede2
 
         public static float AudioVoiceVolume
         {
-            get => _instance.audioVoiceVolume;
+            get => Instance.audioVoiceVolume;
             set
             {
-                if (Mathf.Abs(value - _instance.audioVoiceVolume) < 0.01f) return;
-                _instance.audioVoiceVolume = value;
+                if (Mathf.Abs(value - Instance.audioVoiceVolume) < 0.01f) return;
+                Instance.audioVoiceVolume = value;
                 Save();
             }
         }
 
-        private static GameSettings _instance;
-
         static GameSettings()
         {
-            _instance = Load();
-
             // initialize runtime values
-            _instance.runtimeOpeningMovie = _instance.openingMovie == -1 ? UnityEngine.Random.Range(0, 2) : _instance.openingMovie;
-            _instance.Log($"Selecting opening movie: {_instance.runtimeOpeningMovie + 1}");
-        }
-
-#if !UNITY_WEBGL || UNITY_EDITOR
-        private static string FileName => Path.Combine(Application.persistentDataPath, "settings.json");
-#endif
-
-        public static GameSettings Load()
-        {
-#if !UNITY_WEBGL || UNITY_EDITOR
-            if (!File.Exists(FileName)) return new GameSettings();
-
-            var json = File.ReadAllText(FileName);
-            var result = JsonUtility.FromJson<GameSettings>(json);
-            result.Log($"Loaded game settings from: {FileName}");
-            return result;
-#else
-            return new();
-#endif
-        }
-
-        public static void Save()
-        {
-#if !UNITY_WEBGL || UNITY_EDITOR
-            var json = JsonUtility.ToJson(_instance, false);
-            File.WriteAllText(FileName, json);
-#endif
+            Instance.runtimeOpeningMovie = Instance.openingMovie == -1 ? UnityEngine.Random.Range(0, 2) : Instance.openingMovie;
+            Instance.Log($"Selecting opening movie: {Instance.runtimeOpeningMovie + 1}");
         }
     }
 }

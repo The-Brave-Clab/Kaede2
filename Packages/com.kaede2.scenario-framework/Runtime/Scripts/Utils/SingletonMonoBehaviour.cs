@@ -2,7 +2,7 @@
 
 namespace Kaede2.Scenario.Framework.Utils
 {
-    public class Singleton<T> : MonoBehaviour where T : Singleton<T>
+    public class SingletonMonoBehaviour<T> : MonoBehaviour where T : SingletonMonoBehaviour<T>
     {
         private static bool shuttingDown = false;
         private static T instance;
