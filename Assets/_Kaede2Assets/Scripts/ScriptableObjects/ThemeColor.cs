@@ -13,14 +13,16 @@ namespace Kaede2.ScriptableObjects
         [Serializable]
         public struct VolumeTheme
         {
+            [Header("Common")]
+            [ColorUsage(false, false)]
+            [SerializeField]
+            private Color mainThemeColor;
+            public Color MainThemeColor => NonTransparent(mainThemeColor);
+
             [Header("Title")]
             public Sprite titleBackground;
 
             [Header("Menu")]
-            [ColorUsage(false, false)]
-            [SerializeField]
-            private Color menuButtonHighlightTop;
-            public Color MenuButtonHighlightTop => NonTransparent(menuButtonHighlightTop);
             [ColorUsage(false, false)]
             [SerializeField]
             private Color menuButtonHighlightBottom;
@@ -29,6 +31,11 @@ namespace Kaede2.ScriptableObjects
             [SerializeField]
             private Color menuButtonTextRim;
             public Color MenuButtonTextRim => NonTransparent(menuButtonTextRim);
+
+            [Header("Interface Common")]
+            [SerializeField]
+            private AdjustHSV.Adjustment interfaceTitleBackground;
+            public AdjustHSV.Adjustment InterfaceTitleBackground => interfaceTitleBackground;
         }
 
         [SerializeField]

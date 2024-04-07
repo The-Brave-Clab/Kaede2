@@ -48,7 +48,7 @@ namespace Kaede2
 
         public void OnThemeChange(Theme.VolumeTheme theme)
         {
-            highlightTop = theme.MenuButtonHighlightTop;
+            highlightTop = theme.MainThemeColor;
             highlightBottom = theme.MenuButtonHighlightBottom;
             textRim = theme.MenuButtonTextRim;
 

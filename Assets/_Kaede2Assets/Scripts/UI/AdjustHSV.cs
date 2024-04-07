@@ -11,8 +11,7 @@ namespace Kaede2.UI
         [SerializeField, HideInInspector]
         private Shader adjustHSVShader;
 
-        [SerializeField]
-        private Adjustment adjustment = new()
+        public Adjustment adjustment = new()
         {
             hsvAdjustment = Vector3.zero,
             referenceColor = Color.red

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Kaede2.UI;
 using UnityEditor;
 using UnityEngine;
@@ -11,12 +12,24 @@ namespace Kaede2.Editor.Inspectors
         private SerializedProperty hsvAdjustment;
         private SerializedProperty referenceColor;
 
-        private bool foldout = false;
+        private Dictionary<string, bool> foldouts = new();
+
+        private bool GetFoldout(SerializedProperty property)
+        {
+            foldouts.TryAdd(property.propertyPath, false);
+            return foldouts[property.propertyPath];
+        }
+
+        private void SetFoldout(SerializedProperty property, bool value)
+        {
+            foldouts[property.propertyPath] = value;
+        }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             // we are drawing 3 fields and a foldout
-            return EditorGUIUtility.singleLineHeight * (foldout ? 4 : 1);
+            // when foldout is closed, we still draw the target color field
+            return EditorGUIUtility.singleLineHeight * (GetFoldout(property) ? 4 : 2);
         }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -28,15 +41,11 @@ namespace Kaede2.Editor.Inspectors
             position.height = EditorGUIUtility.singleLineHeight;
             
             EditorGUIUtility.hierarchyMode = true;
-            foldout = EditorGUI.Foldout(position, foldout, label, true);
+            SetFoldout(property, EditorGUI.Foldout(position, GetFoldout(property), label, true));
             EditorGUIUtility.hierarchyMode = false;
-            if (foldout)
-            {
-                position.y += EditorGUIUtility.singleLineHeight;
-                EditorGUI.indentLevel += 1;
-                DrawHSVAdjustment(position);
-                EditorGUI.indentLevel -= 1;
-            }
+            EditorGUI.indentLevel += 1;
+            DrawHSVAdjustment(position, GetFoldout(property));
+            EditorGUI.indentLevel -= 1;
 
             EditorGUI.EndProperty();
         }
@@ -55,27 +64,33 @@ namespace Kaede2.Editor.Inspectors
             return new Vector3(h, s, v);
         }
 
-        private void DrawHSVAdjustment(Rect position)
+        private void DrawHSVAdjustment(Rect position, bool foldout)
         {
             Color currentReferenceColor = referenceColor.colorValue;
             Vector3 currentHSVAdjustment = hsvAdjustment.vector3Value;
             Color currentTargetColor = AdjustHSV.CalculateTargetColor(currentReferenceColor, currentHSVAdjustment);
 
             // reference color
-            EditorGUI.BeginChangeCheck();
-            currentReferenceColor = EditorGUI.ColorField(position, "Reference Color", currentReferenceColor);
-            if (EditorGUI.EndChangeCheck())
+            if (foldout)
             {
-                currentHSVAdjustment = CalculateHSVAdjustment(currentReferenceColor, currentTargetColor);
-                referenceColor.colorValue = currentReferenceColor;
-                hsvAdjustment.vector3Value = currentHSVAdjustment;
+                position.y += EditorGUIUtility.singleLineHeight;
+                EditorGUI.BeginChangeCheck();
+                currentReferenceColor = EditorGUI.ColorField(position, new("Reference Color"), currentReferenceColor, true, false, false);
+                currentReferenceColor.a = 1;
+                if (EditorGUI.EndChangeCheck())
+                {
+                    currentHSVAdjustment = CalculateHSVAdjustment(currentReferenceColor, currentTargetColor);
+                    referenceColor.colorValue = currentReferenceColor;
+                    hsvAdjustment.vector3Value = currentHSVAdjustment;
+                }
             }
 
             // target color
             // this is not a serialized property, so we need to draw it manually
             position.y += EditorGUIUtility.singleLineHeight;
             EditorGUI.BeginChangeCheck();
-            currentTargetColor = EditorGUI.ColorField(position, "Target Color", currentTargetColor);
+            currentTargetColor = EditorGUI.ColorField(position, new("Target Color"), currentTargetColor, true, false, false);
+            currentTargetColor.a = 1;
             if (EditorGUI.EndChangeCheck())
             {
                 currentHSVAdjustment = CalculateHSVAdjustment(currentReferenceColor, currentTargetColor);
@@ -84,15 +99,18 @@ namespace Kaede2.Editor.Inspectors
 
             // hsv adjustment
             // if modified, change the target color
-            position.y += EditorGUIUtility.singleLineHeight;
-            EditorGUI.BeginChangeCheck();
-            currentHSVAdjustment = EditorGUI.Vector3Field(position, "HSV Adjustment", currentHSVAdjustment);
-            if (EditorGUI.EndChangeCheck())
+            if (foldout)
             {
-                // limit h value
-                currentHSVAdjustment.x = Mathf.Repeat(currentHSVAdjustment.x, 1);
-                // target color will be calculated next frame
-                hsvAdjustment.vector3Value = currentHSVAdjustment;
+                position.y += EditorGUIUtility.singleLineHeight;
+                EditorGUI.BeginChangeCheck();
+                currentHSVAdjustment = EditorGUI.Vector3Field(position, "HSV Adjustment", currentHSVAdjustment);
+                if (EditorGUI.EndChangeCheck())
+                {
+                    // limit h value
+                    currentHSVAdjustment.x = Mathf.Repeat(currentHSVAdjustment.x, 1);
+                    // target color will be calculated next frame
+                    hsvAdjustment.vector3Value = currentHSVAdjustment;
+                }
             }
         }
     }
