@@ -46,8 +46,10 @@ namespace Kaede2
         private IEnumerator LoadNextScene()
         {
             yield return SceneTransition.Fade(1);
-            PlayerScenarioModule.GlobalScenarioName = "ms006_s011_a";
-            yield return SceneManager.LoadSceneAsync("ScenarioScene", LoadSceneMode.Single);
+            // PlayerScenarioModule.GlobalScenarioName = "ms006_s011_a";
+            // yield return SceneManager.LoadSceneAsync("ScenarioScene", LoadSceneMode.Single);
+
+            yield return SceneManager.LoadSceneAsync("MainMenuScene", LoadSceneMode.Single);
         }
 
         public void OnThemeChange(Theme.VolumeTheme theme)

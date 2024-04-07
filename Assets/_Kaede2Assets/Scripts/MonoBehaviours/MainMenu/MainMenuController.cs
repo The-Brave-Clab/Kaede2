@@ -2,16 +2,18 @@ using System;
 using System.Collections;
 using System.Linq;
 using Kaede2.ScriptableObjects;
+using Kaede2.UI;
 using Kaede2.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Kaede2
 {
-    public class MainMenuBackground : MonoBehaviour
+    public class MainMenuController : MonoBehaviour
     {
         [SerializeField]
-        private Image image;
+        private Image backgroundImage;
 
         private ResourceLoader.LoadAddressableHandle<Sprite> handle;
 
@@ -25,7 +27,9 @@ namespace Kaede2
         {
             yield return handle.Send();
 
-            image.sprite = handle.Result;
+            backgroundImage.sprite = handle.Result;
+
+            yield return SceneTransition.Fade(0);
         }
 
         private void OnDestroy()
