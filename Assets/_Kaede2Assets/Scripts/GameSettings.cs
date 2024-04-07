@@ -41,6 +41,20 @@ namespace Kaede2
         }
 
         [SerializeField]
+        private int mainMenuBackground = 950040;
+
+        public static int MainMenuBackground
+        {
+            get => _instance.mainMenuBackground;
+            set
+            {
+                if (value == _instance.mainMenuBackground) return;
+                _instance.mainMenuBackground = value;
+                Save();
+            }
+        }
+
+        [SerializeField]
         private bool fixed16By9 = true;
 
         public static bool Fixed16By9
