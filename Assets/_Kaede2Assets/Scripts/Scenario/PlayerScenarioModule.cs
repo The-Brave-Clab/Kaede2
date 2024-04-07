@@ -6,6 +6,7 @@ using Kaede2.Input;
 using Kaede2.Scenario.Framework;
 using Kaede2.Scenario.Framework.Commands;
 using Kaede2.Scenario.Framework.Utils;
+using Kaede2.Scenario.UI;
 using Kaede2.UI;
 using Kaede2.Utils;
 #if UNITY_WEBGL && !UNITY_EDITOR
@@ -30,7 +31,7 @@ namespace Kaede2.Scenario
         private List<ResourceLoader.HandleBase> resourceHandles;
 
         [SerializeField]
-        private UIController uiController;
+        private PlayerUIController uiController;
 
         [SerializeField]
         private AudioManager audioManager;
@@ -115,7 +116,7 @@ namespace Kaede2.Scenario
             protected set => currentCommandIndex = value;
         }
 
-        public override bool MesClicked => InputManager.InputAction.Scenario.Next.triggered;
+        public override bool MesClicked => InputManager.InputAction.Scenario.Next.triggered || uiController.MesButton.Pressed;
 
         public override UIController UIController => uiController;
         public override AudioManager AudioManager => audioManager;

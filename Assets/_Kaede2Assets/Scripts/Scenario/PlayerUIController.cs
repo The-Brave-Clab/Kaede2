@@ -2,6 +2,7 @@ using System;
 using Kaede2.Scenario.Framework;
 using Kaede2.Scenario.Framework.UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Kaede2.Scenario.UI
 {
@@ -21,6 +22,8 @@ namespace Kaede2.Scenario.UI
         public override MessageBox MessageBox => instantiatedMessageBox;
 
         public override FadeTransition Fade => fade;
+
+        public MesButtonForPointer MesButton => mesButton;
 
         [SerializeField]
         private Canvas uiCanvas;
@@ -51,6 +54,9 @@ namespace Kaede2.Scenario.UI
 
         [SerializeField]
         private Canvas gameUICanvas;
+
+        [SerializeField]
+        private MesButtonForPointer mesButton;
 
         private CaptionBox instantiatedCaptionBox;
         private MessageBox instantiatedMessageBox;
