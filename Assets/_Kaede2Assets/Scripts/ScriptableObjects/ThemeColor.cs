@@ -4,6 +4,7 @@ using System.Linq;
 using Kaede2.UI;
 using Kaede2.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Kaede2.ScriptableObjects
@@ -18,6 +19,15 @@ namespace Kaede2.ScriptableObjects
             [SerializeField]
             private Color mainThemeColor;
             public Color MainThemeColor => NonTransparent(mainThemeColor);
+            [ColorUsage(false, true)]
+            [SerializeField]
+            private Color mainTextRim;
+            public Color MainTextRim => NonTransparent(mainTextRim);
+
+            [Header("Interface Common")]
+            [SerializeField]
+            private AdjustHSV.Adjustment interfaceTitleBackground;
+            public AdjustHSV.Adjustment InterfaceTitleBackground => interfaceTitleBackground;
 
             [Header("Title")]
             public Sprite titleBackground;
@@ -27,15 +37,16 @@ namespace Kaede2.ScriptableObjects
             [SerializeField]
             private Color menuButtonHighlightBottom;
             public Color MenuButtonHighlightBottom => NonTransparent(menuButtonHighlightBottom);
-            [ColorUsage(false, true)]
-            [SerializeField]
-            private Color menuButtonTextRim;
-            public Color MenuButtonTextRim => NonTransparent(menuButtonTextRim);
 
-            [Header("Interface Common")]
+            [Header("MainMenu")]
+            [ColorUsage(false, false)]
             [SerializeField]
-            private AdjustHSV.Adjustment interfaceTitleBackground;
-            public AdjustHSV.Adjustment InterfaceTitleBackground => interfaceTitleBackground;
+            private Color mainMenuGradientColor;
+            public Color MainMenuGradientColor => NonTransparent(mainMenuGradientColor);
+            [ColorUsage(true, false)]
+            [SerializeField]
+            private Color mainMenuLeftDecorColor;
+            public Color MainMenuLeftDecorColor => mainMenuLeftDecorColor;
         }
 
         [SerializeField]

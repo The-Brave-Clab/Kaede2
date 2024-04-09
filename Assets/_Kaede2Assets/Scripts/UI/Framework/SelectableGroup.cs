@@ -14,7 +14,7 @@ namespace Kaede2.UI.Framework
         public IReadOnlyList<SelectableItem> Items => items;
         public SelectableItem SelectedItem => selectedIndex < 0 ? null : items[selectedIndex];
 
-        private void Awake()
+        protected virtual void Awake()
         {
             if (selectedIndex >= 0)
                 selectedIndex = NextAvailable(1, true);

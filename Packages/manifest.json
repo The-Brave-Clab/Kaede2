@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.coffee.softmask-for-ugui": "1.0.2",
     "com.kaede.thirdparty": "file:com.kaede.thirdparty",
     "com.kaede2.scenario-framework": "file:com.kaede2.scenario-framework",
     "com.unity.addressables": "2.0.8",
@@ -28,5 +29,14 @@
     "com.unity.modules.unitywebrequesttexture": "1.0.0",
     "com.unity.modules.unitywebrequestwww": "1.0.0",
     "com.unity.modules.video": "1.0.0"
-  }
+  },
+  "scopedRegistries": [
+    {
+      "name": "package.openupm.com",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.coffee.softmask-for-ugui"
+      ]
+    }
+  ]
 }

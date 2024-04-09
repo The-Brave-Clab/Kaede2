@@ -50,7 +50,7 @@ namespace Kaede2
         {
             highlightTop = theme.MainThemeColor;
             highlightBottom = theme.MenuButtonHighlightBottom;
-            textRim = theme.MenuButtonTextRim;
+            textRim = theme.MainTextRim;
 
             UpdateButtonAppearance();
         }
