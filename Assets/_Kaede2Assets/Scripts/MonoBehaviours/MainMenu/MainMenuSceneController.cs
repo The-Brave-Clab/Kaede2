@@ -5,6 +5,7 @@ using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using Kaede2.Utils;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Kaede2
@@ -35,6 +36,17 @@ namespace Kaede2
         private void OnDestroy()
         {
             handle?.Dispose();
+        }
+
+        public void GoToNextScene(string sceneName)
+        {
+            StartCoroutine(GoToNextSceneCoroutine(sceneName));
+        }
+
+        private IEnumerator GoToNextSceneCoroutine(string sceneName)
+        {
+            yield return SceneTransition.Fade(1);
+            yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         }
     }
 }

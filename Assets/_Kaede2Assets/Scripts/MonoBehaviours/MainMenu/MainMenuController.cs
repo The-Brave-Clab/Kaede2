@@ -4,11 +4,12 @@ using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using Kaede2.UI.Framework;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Kaede2
 {
-    public class MainMenuController : SelectableGroup, IThemeChangeObserver
+    public class MainMenuController : SelectableGroup, IThemeChangeObserver, IPointerClickHandler
     {
         [SerializeField]
         private Image backgroundGradient;
@@ -76,6 +77,11 @@ namespace Kaede2
 
             yield return cursorMoveSequence.WaitForCompletion();
             cursorMoveSequence = null;
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            SelectedItem.Confirm();
         }
     }
 }
