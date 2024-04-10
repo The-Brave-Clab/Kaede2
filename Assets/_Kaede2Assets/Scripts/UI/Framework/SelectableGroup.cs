@@ -24,13 +24,14 @@ namespace Kaede2.UI.Framework
                 var sel = i;
                 var item = items[sel];
                 item.selected = sel == selectedIndex;
-                item.onSelectedChanged.AddListener(selected =>
+                item.onSelected.AddListener(() =>
                 {
-                    if (!selected) return;
-
                     selectedIndex = sel;
                     for (var j = 0; j < items.Length; j++)
+                    {
                         items[j].selected = sel == j;
+                        if (!items[j].selected) items[j].onDeselected?.Invoke();
+                    }
                 });
             }
         }

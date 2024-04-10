@@ -31,7 +31,8 @@ namespace Kaede2
 
             OnThemeChange(Theme.Current);
 
-            onSelectedChanged.AddListener(s => { UpdateButtonAppearance(); });
+            onSelected.AddListener(UpdateButtonAppearance);
+            onDeselected.AddListener(UpdateButtonAppearance);
         }
 
         private void UpdateButtonAppearance()

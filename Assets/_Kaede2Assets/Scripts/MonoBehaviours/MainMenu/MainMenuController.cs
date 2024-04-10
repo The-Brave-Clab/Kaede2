@@ -22,6 +22,9 @@ namespace Kaede2
         [SerializeField]
         private float menuYStep;
 
+        [SerializeField]
+        private MainMenuMessageWindow messageWindow;
+
         private RectTransform rt;
 
         private Coroutine cursorMoveCoroutine;
@@ -37,7 +40,8 @@ namespace Kaede2
             for (int i = 0; i < Items.Count; ++i)
             {
                 var index = i;
-                Items[i].onSelectedChanged.AddListener(selected => SelectionChanged(index, selected));
+                Items[i].onSelected.AddListener(() => OnSelected(index));
+                Items[i].onSelected.AddListener(() => messageWindow.ChangeText(index, (Items[index] as MainMenuSelectableItem)!.MessageWindowText));
             }
         }
 
@@ -47,10 +51,8 @@ namespace Kaede2
             leftDecor.color = theme.MainMenuLeftDecorColor;
         }
 
-        private void SelectionChanged(int index, bool selected)
+        private void OnSelected(int index)
         {
-            if (!selected) return;
-
             if (cursorMoveCoroutine != null)
                 StopCoroutine(cursorMoveCoroutine);
 

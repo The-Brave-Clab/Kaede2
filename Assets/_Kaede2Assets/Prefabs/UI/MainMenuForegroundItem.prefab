@@ -60,7 +60,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0.17254901, b: 0.17254901, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -124,6 +124,10 @@ PrefabInstance:
     - target: {fileID: 951720801099415007, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
       propertyPath: m_Color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 951720801099415007, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4081447347365553071, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
       propertyPath: m_Name
@@ -298,6 +302,10 @@ PrefabInstance:
       value: 37
       objectReference: {fileID: 0}
     - target: {fileID: 8556219957636687917, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8556219957636687917, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -1136654258838480791, guid: f971211b053a446c4a80ae332bcf9df0, type: 2}
@@ -333,7 +341,8 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1326056257134537694, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
     m_RemovedGameObjects:
     - {fileID: 7506388879192321798, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
     m_AddedGameObjects:

@@ -9,7 +9,8 @@ namespace Kaede2.UI.Framework
         public bool selected;
         private bool lastSelected;
 
-        public UnityEvent<bool> onSelectedChanged;
+        public UnityEvent onSelected;
+        public UnityEvent onDeselected;
         public UnityEvent onConfirmed;
 
         protected virtual void Awake()
@@ -22,7 +23,10 @@ namespace Kaede2.UI.Framework
             if (selected == lastSelected) return;
             lastSelected = selected;
 
-            onSelectedChanged?.Invoke(selected);
+            if (selected)
+                onSelected?.Invoke();
+            else
+                onDeselected?.Invoke();
         }
 
         public void Confirm()
@@ -33,7 +37,7 @@ namespace Kaede2.UI.Framework
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            onSelectedChanged?.Invoke(true);
+            onSelected?.Invoke();
         }
 
         public void OnPointerClick(PointerEventData eventData)
