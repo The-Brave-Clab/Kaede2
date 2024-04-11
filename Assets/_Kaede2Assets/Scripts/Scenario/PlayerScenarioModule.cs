@@ -193,8 +193,7 @@ namespace Kaede2.Scenario
                 handle.Dispose();
             }
 
-            if (InputManager.Instance != null)
-                InputManager.InputAction.Scenario.Disable();
+            InputManager.InputAction?.Scenario.Disable();
 
 #if UNITY_IOS
             UnityEngine.iOS.Device.hideHomeButton = false;

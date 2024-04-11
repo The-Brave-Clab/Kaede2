@@ -43,7 +43,7 @@ namespace Kaede2
 
         private void OnDestroy()
         {
-            InputManager.InputAction.SplashScreen.Disable();
+            InputManager.InputAction?.SplashScreen.Disable();
 #if UNITY_IOS
             UnityEngine.iOS.Device.hideHomeButton = false;
 #endif
