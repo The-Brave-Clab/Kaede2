@@ -42,7 +42,7 @@ namespace Kaede2
             {
                 var index = i;
                 Items[i].onSelected.AddListener(() => OnSelected(index));
-                Items[i].onSelected.AddListener(() => messageWindow.ChangeText(index, (Items[index] as MainMenuSelectableItem)!.MessageWindowText));
+                Items[i].onSelected.AddListener(() => messageWindow.ChangeText((Items[index] as MainMenuSelectableItem)!.MessageWindowText));
             }
         }
 
