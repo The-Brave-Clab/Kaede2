@@ -16,10 +16,12 @@ namespace Kaede2
 
         [SerializeField]
         private TextMeshProUGUI restOfText;
-    
+
         [SerializeField]
         [TextArea(3, 10)]
         private string text;
+
+        public string Text { set => text = value; }
 
         private void Awake()
         {

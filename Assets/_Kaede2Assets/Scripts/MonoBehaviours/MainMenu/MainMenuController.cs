@@ -31,6 +31,8 @@ namespace Kaede2
         private Coroutine cursorMoveCoroutine;
         private Sequence cursorMoveSequence;
 
+        public MainMenuMessageWindow MessageWindow => messageWindow;
+
         protected override void Awake()
         {
             base.Awake();
@@ -40,10 +42,14 @@ namespace Kaede2
 
             for (int i = 0; i < Items.Count; ++i)
             {
+                var item = Items[i] as MainMenuSelectableItem;
+                if (item == null) continue;
                 var index = i;
-                Items[i].onSelected.AddListener(() => OnSelected(index));
-                Items[i].onSelected.AddListener(() => messageWindow.ChangeText((Items[index] as MainMenuSelectableItem)!.MessageWindowText));
+                item.Controller = this;
+                item.onSelected.AddListener(() => OnSelected(index));
             }
+
+            (SelectedItem as MainMenuSelectableItem)!.SetText();
         }
 
         public void OnThemeChange(Theme.VolumeTheme theme)

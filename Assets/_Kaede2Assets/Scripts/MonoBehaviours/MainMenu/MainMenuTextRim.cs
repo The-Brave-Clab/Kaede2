@@ -12,12 +12,17 @@ namespace Kaede2
 
         private void Awake()
         {
+            ChangeTheme();
+        }
+
+        public void ChangeTheme()
+        {
             OnThemeChange(Theme.Current);
         }
 
         public void OnThemeChange(Theme.VolumeTheme theme)
         {
-            text.outlineColor = theme.MainTextRim;
+            text.fontMaterial.SetColor(ShaderUtilities.ID_OutlineColor, theme.MainTextRim);
             text.UpdateFontAsset();
         }
     }
