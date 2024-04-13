@@ -35,14 +35,16 @@ namespace Kaede2
             onDeselected.AddListener(UpdateButtonAppearance);
         }
 
-        private void UpdateButtonAppearance()
+        public void UpdateButtonAppearance()
         {
             overlay.enabled = selected;
             backgroundTop.color = selected ? highlightTop : new Color(1, 1, 1, 0.902f);
             backgroundBottom.color = selected ? highlightBottom : new Color(0.808f, 0.812f, 0.808f, 0.988f);
             text.color = selected ? Color.white : Color.black;
-            text.outlineColor = selected ? textRim : Color.black;
-            text.outlineWidth = selected ? 1 : 0;
+            // text.outlineColor = selected ? textRim : Color.black;
+            // text.outlineWidth = selected ? 1 : 0;
+            text.fontMaterial.SetColor(ShaderUtilities.ID_OutlineColor, selected ? textRim : Color.black);
+            text.fontMaterial.SetFloat(ShaderUtilities.ID_OutlineWidth, selected ? 1 : 0);
             text.fontMaterial.SetFloat(ShaderUtilities.ID_FaceDilate, selected ? 1 : 0);
             text.UpdateFontAsset();
         }

@@ -5,6 +5,7 @@ using Kaede2.Scenario.Framework;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.AddressableAssets.ResourceLocators;
+using UnityEngine.Localization.Settings;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Kaede2
@@ -56,7 +57,7 @@ namespace Kaede2
 
             resourceLocator = handle.Result;
 
-            // yield return LocalizationSettings.InitializationOperation;
+            yield return LocalizationSettings.InitializationOperation;
 
             CurrentStatus = Status.Done;
         }

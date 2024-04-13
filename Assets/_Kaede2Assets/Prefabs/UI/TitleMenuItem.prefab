@@ -160,6 +160,8 @@ GameObject:
   m_Component:
   - component: {fileID: 453491413553768657}
   - component: {fileID: 6741160739445414957}
+  - component: {fileID: 1527491713885105007}
+  - component: {fileID: 5823449604601864083}
   m_Layer: 5
   m_Name: TitleMenuItem
   m_TagString: Untagged
@@ -203,7 +205,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selected: 0
-  onSelectedChanged:
+  onSelected:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeselected:
     m_PersistentCalls:
       m_Calls: []
   onConfirmed:
@@ -213,6 +218,93 @@ MonoBehaviour:
   backgroundBottom: {fileID: 8286009264819026964}
   overlay: {fileID: 6012599262862011720}
   text: {fileID: 6554394825067329232}
+--- !u!114 &1527491713885105007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4757311817901298255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 1
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6554394825067329232}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &5823449604601864083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4757311817901298255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d7cbeda40964100ade85e423b9f5039, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LocalizedAssetReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:bb4ca73677ef14fc290e3e83e2fa39cd
+    m_TableEntryReference:
+      m_KeyId: 17052983296
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 1
+  m_UpdateAsset:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6554394825067329232}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_font
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6741160739445414957}
+        m_TargetAssemblyTypeName: Kaede2.TitleMenuItem, Assembly-CSharp
+        m_MethodName: UpdateButtonAppearance
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8036161242791439892
 GameObject:
   m_ObjectHideFlags: 0

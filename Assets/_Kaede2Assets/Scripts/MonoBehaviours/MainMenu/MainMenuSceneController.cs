@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using Kaede2.Scenario;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using Kaede2.Utils;
@@ -46,6 +47,7 @@ namespace Kaede2
         private IEnumerator GoToNextSceneCoroutine(string sceneName)
         {
             yield return SceneTransition.Fade(1);
+            PlayerScenarioModule.GlobalScenarioName = "ms006_s011_a";
             yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         }
     }
