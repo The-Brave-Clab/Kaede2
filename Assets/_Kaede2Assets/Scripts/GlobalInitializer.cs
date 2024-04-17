@@ -58,6 +58,7 @@ namespace Kaede2
             resourceLocator = handle.Result;
 
             yield return LocalizationSettings.InitializationOperation;
+            LocalizationSettings.Instance.SetSelectedLocale(GameSettings.Locale);
 
             CurrentStatus = Status.Done;
         }

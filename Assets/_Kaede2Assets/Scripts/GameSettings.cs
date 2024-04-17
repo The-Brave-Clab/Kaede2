@@ -1,8 +1,11 @@
 ﻿using System;
-using System.IO;
+using System.Globalization;
+using System.Linq;
 using Kaede2.ScriptableObjects;
 using Kaede2.Utils;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 namespace Kaede2
 {
@@ -120,6 +123,34 @@ namespace Kaede2
             {
                 if (Mathf.Abs(value - Instance.audioVoiceVolume) < 0.01f) return;
                 Instance.audioVoiceVolume = value;
+                Save();
+            }
+        }
+
+        [SerializeField]
+        private string locale;
+
+        public static Locale Locale
+        {
+            get
+            {
+                if (Instance.locale != null)
+                    return LocalizationSettings.AvailableLocales.Locales
+                        .FirstOrDefault(locale => string.Equals(locale.Identifier.CultureInfo.TwoLetterISOLanguageName, Instance.locale));
+
+                Locale l = CommonUtils.GetSystemLocaleOrDefault();
+                Instance.locale = l.Identifier.CultureInfo.TwoLetterISOLanguageName;
+                Save();
+                Instance.Log($"Selected locale: {l.Identifier.CultureInfo.EnglishName}");
+                return l;
+
+            }
+            set
+            {
+                if (value == Locale) return;
+                var locale = LocalizationSettings.AvailableLocales.Locales.Contains(value) ? value : CommonUtils.GetSystemLocaleOrDefault();
+                Instance.locale = locale.Identifier.CultureInfo.TwoLetterISOLanguageName;
+                LocalizationSettings.Instance.SetSelectedLocale(locale);
                 Save();
             }
         }
