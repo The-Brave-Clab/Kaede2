@@ -7,7 +7,8 @@ using Kaede2.ScriptableObjects;
 using Kaede2.Web;
 using Kaede2.Utils;
 using UnityEngine;
-// using UnityEngine.Localization.Settings;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 using UnityEngine.SceneManagement;
 
 namespace Kaede2
@@ -72,11 +73,9 @@ namespace Kaede2
 
             if (scenarioName == "") return;
             WebBackground.UpdateStatus(WebBackground.Status.ReadyToPlay);
-            PlayerScenarioModule.GlobalScenarioName = scenarioName;
-            // LocalizationSettings.Instance.SetSelectedLocale(LocalizationSettings.AvailableLocales.Locales
-            //     .Find(l => l.Identifier.CultureInfo.TwoLetterISOLanguageName == languageCode));
-            // GameManager.ResetPlay();
-            SceneManager.LoadScene("ScenarioScene", LoadSceneMode.Single);
+            Locale locale = LocalizationSettings.AvailableLocales.Locales
+                .Find(l => l.Identifier.CultureInfo.TwoLetterISOLanguageName == languageCode);
+            CoroutineProxy.Start(PlayerScenarioModule.Start(scenarioName, locale, LoadSceneMode.Single, null, null));
         }
 
         public void SetMasterVolume(float volume)

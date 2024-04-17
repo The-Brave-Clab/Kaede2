@@ -6,6 +6,7 @@ using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using Kaede2.Utils;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -39,16 +40,13 @@ namespace Kaede2
             handle?.Dispose();
         }
 
-        public void GoToNextScene(string sceneName)
+        public void StartScenario(string scenarioName)
         {
-            StartCoroutine(GoToNextSceneCoroutine(sceneName));
-        }
-
-        private IEnumerator GoToNextSceneCoroutine(string sceneName)
-        {
-            yield return SceneTransition.Fade(1);
-            PlayerScenarioModule.GlobalScenarioName = "ms006_s011_a";
-            yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+            StartCoroutine(PlayerScenarioModule.Start(scenarioName, LocalizationSettings.SelectedLocale, LoadSceneMode.Single, null,
+                () =>
+                {
+                    this.Log("Scenario finished.");
+                }));
         }
     }
 }

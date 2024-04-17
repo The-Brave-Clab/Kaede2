@@ -49,14 +49,20 @@ namespace Kaede2.Web
             replayButton.onClick.AddListener(() =>
             {
                 UpdateStatusInternal(Status.Hidden);
-                SceneManager.LoadScene("ScenarioScene", LoadSceneMode.Single);
+                CoroutineProxy.Start(PlayerScenarioModule.Start(
+                    PlayerScenarioModule.CurrentScenario,
+                    PlayerScenarioModule.CurrentLanguage,
+                    LoadSceneMode.Single, null, null));
             });
             nextButton.onClick.AddListener(() =>
             {
                 UpdateStatusInternal(Status.Hidden);
-                PlayerScenarioModule.GlobalScenarioName = MasterScenarioInfo.GetNextScenarioInfo(PlayerScenarioModule.GlobalScenarioName).ScenarioName;
-                WebInterop.OnScenarioChanged(PlayerScenarioModule.GlobalScenarioName);
-                SceneManager.LoadScene("ScenarioScene", LoadSceneMode.Single);
+                string nextScenarioName = MasterScenarioInfo.GetNextScenarioInfo(PlayerScenarioModule.CurrentScenario).ScenarioName;
+                WebInterop.OnScenarioChanged(nextScenarioName);
+                CoroutineProxy.Start(PlayerScenarioModule.Start(
+                    nextScenarioName,
+                    PlayerScenarioModule.CurrentLanguage,
+                    LoadSceneMode.Single, null, null));
             });
 
             UpdateStatusInternal(Status.Initial);
@@ -95,7 +101,7 @@ namespace Kaede2.Web
                     gameObject.SetActive(true);
                     playButton.gameObject.SetActive(false);
                     replayButton.gameObject.SetActive(true);
-                    nextButton.gameObject.SetActive(MasterScenarioInfo.GetNextScenarioInfo(PlayerScenarioModule.GlobalScenarioName) != null);
+                    nextButton.gameObject.SetActive(MasterScenarioInfo.GetNextScenarioInfo(PlayerScenarioModule.CurrentScenario) != null);
                     break;
             }
         }

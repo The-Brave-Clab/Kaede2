@@ -13,14 +13,14 @@ using Kaede2.Utils;
 using Kaede2.Web;
 #endif
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
+using UnityEngine.SceneManagement;
 
 namespace Kaede2.Scenario
 {
     public class PlayerScenarioModule : ScenarioModule
     {
-        public static string GlobalScenarioName;
-        public static ScenarioState StateToBeRestored;
-
         private static bool? lastAutoMode = null;
         private static bool? lastContinuousMode = null;
 
@@ -29,6 +29,8 @@ namespace Kaede2.Scenario
         private int currentCommandIndex;
 
         private List<ResourceLoader.HandleBase> resourceHandles;
+
+        private Locale backupLocale;
 
         [SerializeField]
         private PlayerUIController uiController;
@@ -46,14 +48,14 @@ namespace Kaede2.Scenario
             get
             {
 #if UNITY_EDITOR
-                if (string.IsNullOrEmpty(GlobalScenarioName))
+                if (string.IsNullOrEmpty(scenarioName))
                 {
                     // in editor we might directly run the scenario scene
                     // in this case, we set a default scenario name
-                    return defaultScenarioName;
+                    scenarioName = defaultScenarioName;
                 }
 #endif
-                return GlobalScenarioName;
+                return scenarioName;
             }
         }
 
@@ -121,8 +123,34 @@ namespace Kaede2.Scenario
         public override UIController UIController => uiController;
         public override AudioManager AudioManager => audioManager;
 
+        
+        private static string scenarioName;
+        private static Locale scenarioLanguage;
+        private static ScenarioState scenarioStateToBeRestored;
+        private static Action scenarioEndCallback;
+
+        public static string CurrentScenario => scenarioName;
+        public static Locale CurrentLanguage => scenarioLanguage;
+
+        public static IEnumerator Start(string scenario, Locale language, LoadSceneMode loadSceneMode, ScenarioState stateToBeRestored, Action endCallback)
+        {
+            scenarioName = scenario;
+            scenarioLanguage = language;
+            scenarioStateToBeRestored = stateToBeRestored;
+            scenarioEndCallback = endCallback;
+
+            yield return SceneTransition.Fade(1);
+            yield return SceneManager.LoadSceneAsync("ScenarioScene", loadSceneMode);
+        }
+
         protected override void Awake()
         {
+            if (scenarioLanguage != null)
+            {
+                backupLocale = LocalizationSettings.SelectedLocale;
+                LocalizationSettings.Instance.SetSelectedLocale(scenarioLanguage);
+            }
+
             base.Awake();
 
             if (ScenarioRunMode.Args.TestMode)
@@ -145,7 +173,7 @@ namespace Kaede2.Scenario
 
             if (ScenarioRunMode.Args.SpecifiedScenario)
             {
-                GlobalScenarioName = ScenarioRunMode.Args.SpecifiedScenarioName;
+                scenarioName = ScenarioRunMode.Args.SpecifiedScenarioName;
             }
         }
 
@@ -207,11 +235,11 @@ namespace Kaede2.Scenario
         {
             UIController.LoadingCanvas.gameObject.SetActive(false);
             this.Log("Scenario initialized");
-            if (StateToBeRestored != null)
+            if (scenarioStateToBeRestored != null)
             {
                 this.Log("Restoring sync point");
-                RestoreState(StateToBeRestored);
-                StateToBeRestored = null;
+                RestoreState(scenarioStateToBeRestored);
+                scenarioStateToBeRestored = null;
             }
 
 #if UNITY_WEBGL && !UNITY_EDITOR
@@ -229,14 +257,18 @@ namespace Kaede2.Scenario
 #if UNITY_WEBGL && !UNITY_EDITOR
             WebBackground.UpdateStatus(WebBackground.Status.Finished);
             WebInterop.OnScenarioFinished();
-#endif
+#else
             // We entered through command line args
             if (ScenarioRunMode.Args.SpecifiedScenario)
             {
                 Application.Quit(0);
             }
 
+            if (scenarioLanguage != null)
+                LocalizationSettings.Instance.SetSelectedLocale(backupLocale);
+            scenarioEndCallback?.Invoke();
             yield break;
+#endif
         }
 
         private IEnumerator SendHandleWithFinishCallback<T>(ResourceLoader.LoadAddressableHandle<T> handle, Action<T> callback) where T : UnityEngine.Object
