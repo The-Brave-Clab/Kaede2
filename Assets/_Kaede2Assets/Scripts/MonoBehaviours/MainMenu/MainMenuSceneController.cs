@@ -6,6 +6,7 @@ using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using Kaede2.Utils;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -42,7 +43,11 @@ namespace Kaede2
 
         public void StartScenario(string scenarioName)
         {
-            StartCoroutine(PlayerScenarioModule.Start(scenarioName, LocalizationSettings.SelectedLocale, LoadSceneMode.Single, null,
+            StartCoroutine(PlayerScenarioModule.Start(scenarioName,
+                LocalizationSettings.SelectedLocale,
+                // LocalizationSettings.AvailableLocales.GetLocale(new("ja")),
+                LoadSceneMode.Single,
+                null,
                 () =>
                 {
                     this.Log("Scenario finished.");
