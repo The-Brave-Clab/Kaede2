@@ -257,11 +257,11 @@ namespace Kaede2.AWS.Editor
 
             public static UploadFileInfo GetFromFile(FileInfo file, string bucket, string key)
             {
-                FileStream stream = file.OpenRead();
                 byte[] md5;
                 byte[] sha256;
-                using (SHA256 mySHA256 = SHA256.Create())
-                using (MD5 myMD5 = MD5.Create())
+                using (var stream = file.OpenRead())
+                using (var mySHA256 = SHA256.Create())
+                using (var myMD5 = MD5.Create())
                 {
                     stream.Position = 0;
                     md5 = myMD5.ComputeHash(stream);
