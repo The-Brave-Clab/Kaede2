@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: CorpSansRd-BoldCnd SDF Fallback
+  m_Name: CorpSansRd-MediumCnd SDF Fallback
   m_EditorClassIdentifier: 
   m_Version: 1.1.0
   m_FaceInfo:
     m_FaceIndex: 0
     m_FamilyName: CorpSansRd
-    m_StyleName: Bold Cnd
+    m_StyleName: Medium Cnd
     m_PointSize: 64
     m_Scale: 1
     m_UnitsPerEM: 1000
@@ -35,11 +35,11 @@ MonoBehaviour:
     m_StrikethroughOffset: 15.6
     m_StrikethroughThickness: 3.2
     m_TabWidth: 21
-  m_Material: {fileID: 2633488627987791073}
-  m_SourceFontFileGUID: d3c12595c1f3a4da9bc6cc7ffc686dea
+  m_Material: {fileID: 3121120289833707608}
+  m_SourceFontFileGUID: 89c0315918b67483b943597e457476b7
   m_CreationSettings:
     sourceFontFileName: 
-    sourceFontFileGUID: d3c12595c1f3a4da9bc6cc7ffc686dea
+    sourceFontFileGUID: 89c0315918b67483b943597e457476b7
     faceIndex: 0
     pointSizeSamplingMode: 0
     pointSize: 64
@@ -56,14 +56,14 @@ MonoBehaviour:
     fontStyleModifier: 0
     renderMode: 4165
     includeFontFeatures: 0
-  m_SourceFontFile: {fileID: 12800000, guid: d3c12595c1f3a4da9bc6cc7ffc686dea, type: 3}
+  m_SourceFontFile: {fileID: 12800000, guid: 89c0315918b67483b943597e457476b7, type: 3}
   m_SourceFontFilePath: 
   m_AtlasPopulationMode: 1
   InternalDynamicOS: 0
   m_GlyphTable: []
   m_CharacterTable: []
   m_AtlasTextures:
-  - {fileID: 3162205752166049157}
+  - {fileID: 4406419192523623646}
   m_AtlasTextureIndex: 0
   m_IsMultiAtlasTexturesEnabled: 1
   m_GetFontFeatures: 1
@@ -142,14 +142,14 @@ MonoBehaviour:
     kerningPairs: []
   fallbackFontAssets: []
   atlas: {fileID: 0}
---- !u!21 &2633488627987791073
+--- !u!21 &3121120289833707608
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CorpSansRd-BoldCnd Atlas Material
+  m_Name: CorpSansRd-MediumCnd Atlas Material
   m_Shader: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -178,7 +178,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 3162205752166049157}
+        m_Texture: {fileID: 4406419192523623646}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OutlineTex:
@@ -251,13 +251,13 @@ Material:
     - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!28 &3162205752166049157
+--- !u!28 &4406419192523623646
 Texture2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CorpSansRd-BoldCnd Atlas
+  m_Name: CorpSansRd-MediumCnd Atlas
   m_ImageContentsHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
