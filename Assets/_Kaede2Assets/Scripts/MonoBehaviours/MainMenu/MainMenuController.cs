@@ -77,6 +77,7 @@ namespace Kaede2
             cursorMoveSequence.SetEase(Ease.OutQuad);
             cursorMoveSequence.Append(DOVirtual.Float(anchoredPos.y, targetY, 0.2f, value =>
             {
+                if (rt == null) return; // in case the object is destroyed
                 anchoredPos.y = value;
                 rt.anchoredPosition = anchoredPos;
             }));
