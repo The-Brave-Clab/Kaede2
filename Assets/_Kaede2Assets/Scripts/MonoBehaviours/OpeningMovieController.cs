@@ -19,24 +19,34 @@ namespace Kaede2
 
         public Action OnOpeningMovieFinished;
 
+        private static GameSettings.OpeningMovieOptions? openingMovie = null;
+
         private void Awake()
         {
-            if (GameSettings.OpeningMovie < 0)
+            if (openingMovies.Length != (int) GameSettings.OpeningMovieOptions.Count)
             {
-                // opening movie is disabled
+                this.LogWarning("Opening movie count in code does not match the serialized item count!");
+            }
+
+            openingMovie ??= GameSettings.OpeningMovie == GameSettings.OpeningMovieOptions.Random
+                ? (GameSettings.OpeningMovieOptions)UnityEngine.Random.Range(0, openingMovies.Length)
+                : GameSettings.OpeningMovie;
+
+            if (openingMovie == GameSettings.OpeningMovieOptions.Disabled)
+            {
                 OnOpeningMovieFinished?.Invoke();
                 return;
             }
 
             videoPlayer.loopPointReached += _ => { OnOpeningMovieFinished?.Invoke(); };
 
-            this.Log($"Playing opening movie: {GameSettings.OpeningMovie + 1}");
-            videoPlayer.clip = openingMovies[GameSettings.OpeningMovie];
+            this.Log($"Playing opening movie: {openingMovie:G}");
+            videoPlayer.clip = openingMovies[(int)openingMovie];
             videoPlayer.Play();
     
             OnOpeningMovieFinished += () =>
             {
-                this.Log($"Opening movie finished: {GameSettings.OpeningMovie + 1}");
+                this.Log($"Opening movie finished: {openingMovie:G}");
 #if UNITY_IOS
                 UnityEngine.iOS.Device.hideHomeButton = false;
 #endif

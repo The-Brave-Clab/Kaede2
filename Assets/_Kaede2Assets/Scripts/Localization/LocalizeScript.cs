@@ -1,12 +1,35 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Kaede2.AWS;
+using Kaede2.Utils;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Kaede2.Localization
 {
     public static class LocalizeScript
     {
+        public static IEnumerator DownloadTranslation(string scenarioName, string language, Action<string> onDownloaded)
+        {
+            string key = $"{language}/{scenarioName}/{scenarioName}.json";
+            var url = AWSManager.GetPreSignedURL(Config.TranslationBucket, key, 120);
+            Uri uri = new Uri(url);
+            var request = UnityWebRequest.Get(uri);
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                onDownloaded?.Invoke(request.downloadHandler.text);
+            }
+            else
+            {
+                typeof(LocalizeScript).LogWarning($"Failed to download translation: {request.error}");
+                onDownloaded?.Invoke(null);
+            }
+        }
+
         public static string ApplyTranslation(string script, string translationJson)
         {
             TranslationJson translation = JsonUtility.FromJson<TranslationJson>(translationJson);

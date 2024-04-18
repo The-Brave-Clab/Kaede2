@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using UnityEngine;
 using Debug = UnityEngine.Debug;
 using Object = UnityEngine.Object;
 
@@ -14,48 +15,54 @@ namespace Kaede2.Utils
 #endif
 
         [Conditional(CompileCondition)]
-        public static void Log(this object obj, string message)
+        private static void Log(LogType logType, object obj, object message)
         {
-            if (obj is Object unityObj)
-                Debug.Log($"[{unityObj.GetType().Name}] {message}", unityObj);
-            else
-                Debug.Log($"[{obj.GetType().Name}] {message}");
+           if (obj is Object unityObj)
+                Debug.unityLogger.Log(logType, (object) $"[{unityObj.GetType().Name}] {message}", unityObj);
+           else
+                Debug.unityLogger.Log(logType, $"[{obj.GetType().Name}] {message}");
         }
 
         [Conditional(CompileCondition)]
-        public static void Log(this Type type, string message)
+        private static void Log(LogType logType, Type type, object message)
         {
-            Debug.Log($"[{type.Name}] {message}");
+            Debug.unityLogger.Log(logType, $"[{type.Name}] {message}");
+        }
+
+        [Conditional(CompileCondition)]
+        public static void Log(this object obj, object message)
+        {
+            Log(LogType.Log, obj, message);
+        }
+
+        [Conditional(CompileCondition)]
+        public static void Log(this Type type, object message)
+        {
+            Log(LogType.Log, type, message);
         }
 
         [Conditional(CompileCondition)]
         public static void LogWarning(this object obj, string message)
         {
-            if (obj is Object unityObj)
-                Debug.LogWarning($"[{unityObj.GetType().Name}] {message}", unityObj);
-            else
-                Debug.LogWarning($"[{obj.GetType().Name}] {message}");
+            Log(LogType.Warning, obj, message);
         }
 
         [Conditional(CompileCondition)]
         public static void LogWarning(this Type type, string message)
         {
-            Debug.LogWarning($"[{type.Name}] {message}");
+            Log(LogType.Warning, type, message);
         }
 
         [Conditional(CompileCondition)]
         public static void LogError(this object obj, string message)
         {
-            if (obj is Object unityObj)
-                Debug.LogError($"[{unityObj.GetType().Name}] {message}", unityObj);
-            else
-                Debug.LogError($"[{obj.GetType().Name}] {message}");
+            Log(LogType.Error, obj, message);
         }
 
         [Conditional(CompileCondition)]
         public static void LogError(this Type type, string message)
         {
-            Debug.LogError($"[{type.Name}] {message}");
+            Log(LogType.Error, type, message);
         }
     }
 }

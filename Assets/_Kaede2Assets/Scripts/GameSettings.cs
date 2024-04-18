@@ -12,17 +12,25 @@ namespace Kaede2
     [Serializable]
     public class GameSettings : SavableSingleton<GameSettings>
     {
-        [SerializeField]
-        private int openingMovie = -1; // -2: disabled, -1: random, 0: op1, 1: op2
-
-        private int runtimeOpeningMovie = -1;
-
-        public static int OpeningMovie
+        public enum OpeningMovieOptions
         {
-            get => Instance.runtimeOpeningMovie;
+            Disabled = -2,
+            Random = -1,
+
+            YuukiNoBaton = 0,
+            Hanayui,
+            Count
+        }
+
+        [SerializeField]
+        private OpeningMovieOptions openingMovie = OpeningMovieOptions.Disabled;
+
+        public static OpeningMovieOptions OpeningMovie
+        {
+            get => Instance.openingMovie;
             set
             {
-                if (value == Instance.runtimeOpeningMovie) return;
+                if (value == Instance.openingMovie) return;
                 Instance.openingMovie = value;
                 Save();
             }
@@ -141,9 +149,8 @@ namespace Kaede2
                 Locale l = CommonUtils.GetSystemLocaleOrDefault();
                 Instance.locale = l.Identifier.CultureInfo.TwoLetterISOLanguageName;
                 Save();
-                Instance.Log($"Selected locale: {l.Identifier.CultureInfo.EnglishName}");
+                Instance.Log($"Selected locale: {l}");
                 return l;
-
             }
             set
             {
@@ -153,13 +160,6 @@ namespace Kaede2
                 LocalizationSettings.Instance.SetSelectedLocale(locale);
                 Save();
             }
-        }
-
-        static GameSettings()
-        {
-            // initialize runtime values
-            Instance.runtimeOpeningMovie = Instance.openingMovie == -1 ? UnityEngine.Random.Range(0, 2) : Instance.openingMovie;
-            Instance.Log($"Selecting opening movie: {Instance.runtimeOpeningMovie + 1}");
         }
     }
 }

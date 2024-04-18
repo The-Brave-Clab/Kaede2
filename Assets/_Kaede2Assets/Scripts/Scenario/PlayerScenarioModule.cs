@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Kaede2.Input;
+using Kaede2.Localization;
 using Kaede2.Scenario.Framework;
 using Kaede2.Scenario.Framework.Commands;
 using Kaede2.Scenario.Framework.Utils;
@@ -145,12 +146,6 @@ namespace Kaede2.Scenario
 
         protected override void Awake()
         {
-            if (scenarioLanguage != null)
-            {
-                backupLocale = LocalizationSettings.SelectedLocale;
-                LocalizationSettings.Instance.SetSelectedLocale(scenarioLanguage);
-            }
-
             base.Awake();
 
             if (ScenarioRunMode.Args.TestMode)
@@ -161,6 +156,8 @@ namespace Kaede2.Scenario
             currentCommandIndex = -1;
 
             resourceHandles = new();
+
+            backupLocale = null;
 
             InputManager.InputAction.Scenario.Enable();
 #if UNITY_IOS
@@ -194,11 +191,41 @@ namespace Kaede2.Scenario
             resourceHandles.Add(scriptHandle);
             yield return scriptHandle.Send();
 
-            var scriptAsset = scriptHandle.Result;
+            // TODO: error handling
+            var scriptText = scriptHandle.Result.text;
+
+            // download translation if needed
+            Locale targetLocale = LocalizationSettings.AvailableLocales.Locales
+                .FirstOrDefault(l => l.Identifier.CultureInfo.TwoLetterISOLanguageName == "ja")!;
+            if (scenarioLanguage != null && scenarioLanguage.Identifier.CultureInfo.TwoLetterISOLanguageName != "ja")
+            {
+                string translation = "";
+                yield return LocalizeScript.DownloadTranslation(ScenarioName, scenarioLanguage.Identifier.CultureInfo.TwoLetterISOLanguageName, t => translation = t);
+
+                if (string.IsNullOrEmpty(translation))
+                {
+                    this.LogWarning($"Failed to download translation for {scenarioLanguage}. Defaulting to {targetLocale}. This should not happen if entered from scenario selection menu.");
+                }
+                else
+                {
+                    scriptText = LocalizeScript.ApplyTranslation(scriptText, translation);
+                    targetLocale = scenarioLanguage;
+                    this.Log($"Applied translation for {scenarioLanguage}");
+                }
+            }
+
+            // change locale if needed
+            if (targetLocale != LocalizationSettings.SelectedLocale)
+            {
+                backupLocale = LocalizationSettings.SelectedLocale;
+                LocalizationSettings.Instance.SetSelectedLocale(scenarioLanguage);
+                this.Log($"Locale changed to {scenarioLanguage}");
+            }
+
 #if UNITY_WEBGL && !UNITY_EDITOR
-            WebInterop.OnScriptLoaded(scriptAsset.text);
+            WebInterop.OnScriptLoaded(scriptText);
 #endif
-            var originalStatements = GetStatementsFromScript(scriptAsset.text);
+            var originalStatements = GetStatementsFromScript(scriptText);
 
             Dictionary<string, List<string>> includeFiles = new();
             yield return PreloadIncludeFiles(originalStatements, includeFiles);
@@ -264,8 +291,11 @@ namespace Kaede2.Scenario
                 Application.Quit(0);
             }
 
-            if (scenarioLanguage != null)
+            if (backupLocale != null)
+            {
                 LocalizationSettings.Instance.SetSelectedLocale(backupLocale);
+                this.Log($"Restored locale to {backupLocale}");
+            }
             scenarioEndCallback?.Invoke();
             yield break;
 #endif

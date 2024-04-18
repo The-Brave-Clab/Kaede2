@@ -40,7 +40,7 @@ namespace Kaede2.AWS
             };
             s3Client = new AmazonS3Client(credentials, config);
         }
-        private static string GetPreSignedURL(string bucketName, string key, int expireInMinutes)
+        public static string GetPreSignedURL(string bucketName, string key, int expireInMinutes)
         {
             var request = new GetPreSignedUrlRequest
             {
@@ -54,7 +54,7 @@ namespace Kaede2.AWS
         }
 #else
         [DllImport("__Internal")]
-        private static extern string GetPreSignedURL(string bucketName, string key, int expireInMinutes);
+        public static extern string GetPreSignedURL(string bucketName, string key, int expireInMinutes);
 
         [DllImport("__Internal")]
         private static extern void InitializeAWS(string cognitoIdentityPoolId, string regionSystemName);

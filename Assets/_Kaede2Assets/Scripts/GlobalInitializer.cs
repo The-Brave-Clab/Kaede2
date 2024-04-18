@@ -2,6 +2,7 @@
 using Kaede2.AWS;
 using Kaede2.Input;
 using Kaede2.Scenario.Framework;
+using Kaede2.Utils;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.AddressableAssets.ResourceLocators;
@@ -59,6 +60,7 @@ namespace Kaede2
 
             yield return LocalizationSettings.InitializationOperation;
             LocalizationSettings.Instance.SetSelectedLocale(GameSettings.Locale);
+            typeof(GlobalInitializer).Log($"Changed language to {GameSettings.Locale}");
 
             CurrentStatus = Status.Done;
         }
