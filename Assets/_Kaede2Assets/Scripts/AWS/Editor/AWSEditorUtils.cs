@@ -20,18 +20,18 @@ namespace Kaede2.AWS.Editor
     public static class AWSEditorUtils
     {
         private static string UploadHistoryPath => Path.Combine(Path.GetDirectoryName(Application.dataPath)!, "AWSUploadHistory.json");
-        private static readonly UploadHistoryJson UploadHistory;
+        private static UploadHistoryJson uploadHistory;
 
-        static AWSEditorUtils()
+        static void ResetUploadHistory()
         {
-            UploadHistory = File.Exists(UploadHistoryPath) ?
+            uploadHistory = File.Exists(UploadHistoryPath) ?
                 JsonUtility.FromJson<UploadHistoryJson>(File.ReadAllText(UploadHistoryPath)) :
                 new UploadHistoryJson { history = new List<UploadFileInfo>() };
         }
 
         private static void SaveHistory()
         {
-            File.WriteAllText(UploadHistoryPath, JsonUtility.ToJson(UploadHistory, true));
+            File.WriteAllText(UploadHistoryPath, JsonUtility.ToJson(uploadHistory, true));
         }
 
         public static void UploadFolder(string folderPath, string bucket, RegionEndpoint region)
@@ -65,6 +65,8 @@ namespace Kaede2.AWS.Editor
                 Progress.Options.Managed);
             Progress.IsCancellable(parentProgressId);
             Progress.RegisterCancelCallback(parentProgressId, () => uploadCancelled = true);
+
+            ResetUploadHistory();
 
             try
             {
@@ -145,9 +147,9 @@ namespace Kaede2.AWS.Editor
             yield return new WaitUntil(() => task.IsCompleted);
             UploadFileInfo currentFile = task.Result;
             
-            for (int i = 0; i < UploadHistory.history.Count; i++)
+            for (int i = 0; i < uploadHistory.history.Count; i++)
             {
-                UploadFileInfo historyEntry = UploadHistory.history[i];
+                UploadFileInfo historyEntry = uploadHistory.history[i];
                 if (historyEntry.key != currentFile.key || historyEntry.bucket != currentFile.bucket) continue;
                 needUpload = historyEntry.md5 != currentFile.md5 || historyEntry.sha256 != currentFile.sha256;
                 historyEntryIndex = i;
@@ -159,7 +161,13 @@ namespace Kaede2.AWS.Editor
                 yield break;
             }
 
-            using var client = new AmazonS3Client(credentials, region);
+            AmazonS3Config config = new AmazonS3Config
+            {
+                UseDualstackEndpoint = true,
+                UseAccelerateEndpoint = true,
+                RegionEndpoint = Config.DefaultRegion,
+            };
+            using var client = new AmazonS3Client(credentials, config);
             var transferUtility = new TransferUtility(client);
 
             var contentType = GetContentType(file);
@@ -194,9 +202,9 @@ namespace Kaede2.AWS.Editor
             Progress.Remove(progressId);
 
             if (historyEntryIndex < 0)
-                UploadHistory.history.Add(currentFile);
+                uploadHistory.history.Add(currentFile);
             else
-                UploadHistory.history[historyEntryIndex] = currentFile;
+                uploadHistory.history[historyEntryIndex] = currentFile;
 
             SaveHistory();
 
