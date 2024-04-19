@@ -47,17 +47,21 @@ namespace Kaede2
             InputManager.EnsureInstance();
             AWSManager.Initialize();
 
+            typeof(GlobalInitializer).Log("Initializing Addressables");
             var handle = Addressables.InitializeAsync(false);
             yield return handle;
 
             if (handle.Status == AsyncOperationStatus.Failed)
             {
                 CurrentStatus = Status.Failed;
+                typeof(GlobalInitializer).LogError("Failed to initialize Addressables");
                 yield break;
             }
+            typeof(GlobalInitializer).Log("Addressables initialized");
 
             resourceLocator = handle.Result;
 
+            typeof(GlobalInitializer).Log("Initializing localization");
             yield return LocalizationSettings.InitializationOperation;
             LocalizationSettings.Instance.SetSelectedLocale(GameSettings.Locale);
             typeof(GlobalInitializer).Log($"Changed language to {GameSettings.Locale}");
