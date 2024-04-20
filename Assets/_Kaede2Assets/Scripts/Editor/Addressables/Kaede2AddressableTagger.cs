@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Kaede2.ScriptableObjects;
 using Kaede2.Utils;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
+using UnityEditor.AddressableAssets.Settings.GroupSchemas;
 using UnityEngine;
 
 namespace Kaede2.Editor.Addressables
@@ -37,6 +39,12 @@ namespace Kaede2.Editor.Addressables
             }
             EditorUtility.DisplayProgressBar(ProgressBarTitle, "Creating New Asset Groups...", 0);
             assetGroup = settings.CreateGroup(addressableGroupName, false, false, false, settings.DefaultGroup.Schemas);
+            // change build & load path to remote, keeping other settings default
+            var bundledAssetGroupSchema = assetGroup.GetSchema<BundledAssetGroupSchema>();
+            var idInfo = settings.profileSettings.GetProfileDataByName("Remote.BuildPath");
+            bundledAssetGroupSchema.BuildPath.SetVariableById(settings, idInfo.Id);
+            idInfo = settings.profileSettings.GetProfileDataByName("Remote.LoadPath");
+            bundledAssetGroupSchema.LoadPath.SetVariableById(settings, idInfo.Id);
 
             List<string> currentLabels = settings.GetLabels().Where(l => l.StartsWith("kaede2")).ToList();
             List<string> unusedLabels = currentLabels.ToList();
@@ -44,27 +52,34 @@ namespace Kaede2.Editor.Addressables
             EditorUtility.DisplayProgressBar(ProgressBarTitle, "Tagging Assets...", 0);
 
             int processedCount = 0;
-            string[] folders = Directory.GetDirectories(baseFolder, "*", SearchOption.AllDirectories);
-            foreach (var folder in folders)
-            {
-                var progressStr = $"{processedCount}/{folders.Length}";
-                var progress = (float)processedCount / folders.Length;
-                ++processedCount;
-                EditorUtility.DisplayProgressBar(ProgressBarTitle, $"Tagging Assets ({progressStr})...", progress);
+            List<string> allAssets = new();
+            allAssets.AddRange(Directory.GetDirectories(baseFolder, "*", SearchOption.AllDirectories));
 
-                if (!Filter(baseFolder, folder, out var bundleName)) continue;
+            // special case for illust folder since the files under it will not be packed into one single bundle
+            var illustFolder = Path.Combine(baseFolder, "illust");
+            if (Directory.Exists(illustFolder))
+            {
+                // find all png files in illust folder
+                allAssets.AddRange(Directory.GetFiles(illustFolder, "*.png", SearchOption.AllDirectories));
+            }
+
+            foreach (var asset in allAssets)
+            {
+                var progressStr = $"{processedCount}/{allAssets.Count}";
+                var progress = (float)processedCount / allAssets.Count;
+                ++processedCount;
+                if (!Filter(baseFolder, asset, out var bundleName, out var address)) continue;
 
                 EditorUtility.DisplayProgressBar(ProgressBarTitle, $"Tagging {bundleName} ({progressStr})...", progress);
 
                 var label = $"kaede2/{bundleName}";
-                var address = bundleName;
 
                 if (!currentLabels.Contains(label))
                     settings.AddLabel(label);
                 else if (unusedLabels.Contains(label))
                     unusedLabels.Remove(label);
 
-                var guid = AssetDatabase.AssetPathToGUID(folder);
+                var guid = AssetDatabase.AssetPathToGUID(asset);
 
                 var entry = settings.CreateOrMoveEntry(guid, assetGroup);
                 entry.labels.Add(label);
@@ -83,23 +98,26 @@ namespace Kaede2.Editor.Addressables
             EditorUtility.ClearProgressBar();
         }
 
-        public bool Filter(string baseFolder, string assetPath, out string bundleName)
+        public bool Filter(string baseFolder, string assetPath, out string bundleName, out string address)
         {
             bundleName = "";
+            address = "";
             if (string.IsNullOrEmpty(baseFolder) || string.IsNullOrEmpty(assetPath))
-                return false;
-
-            if (Path.HasExtension(assetPath))
                 return false;
 
             bundleName = Path.GetRelativePath(baseFolder, assetPath);
             bundleName = bundleName.Replace('\\', '/');
             bundleName = bundleName.Trim('/');
+            address = bundleName;
 
             if (bundleName.StartsWith(".."))
                 return false;
 
             var segments = bundleName.Split('/');
+
+            // we only deal with illust files
+            if (Path.HasExtension(segments[^1]) && segments[0] != "illust")
+                return false;
 
             if (segments[0] == "audio")
                 return segments.Length == 2;
@@ -124,6 +142,17 @@ namespace Kaede2.Editor.Addressables
                     return segments.Length == 3;
 
                 return segments.Length == 2;
+            }
+
+            if (segments[0] == "illust")
+            {
+                if (segments.Length != 2) return false;
+
+                string illustName = Path.GetFileNameWithoutExtension(segments[1]);
+                var bundleIndex = MasterAlbumInfo.GetBundleIndex(illustName);
+                // override bundle name, with address remains the same
+                bundleName = $"illust/{bundleIndex:00}";
+                return true;
             }
 
             return segments.Length == 1;

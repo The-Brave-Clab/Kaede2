@@ -25,7 +25,7 @@ namespace Kaede2.Editor.Addressables
         static bool NeedApply(Kaede2AddressableTagger tagger, string[] assets)
         {
             var baseFolder = tagger.AddressableBaseFolder;
-            return assets.Any(a => tagger.Filter(baseFolder, a, out _));
+            return assets.Any(a => tagger.Filter(baseFolder, a, out _, out _));
         }
     }
 }
