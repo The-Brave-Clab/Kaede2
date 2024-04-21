@@ -297,8 +297,8 @@ namespace Kaede2.Scenario
                 this.Log($"Restored locale to {backupLocale}");
             }
             scenarioEndCallback?.Invoke();
-            yield break;
 #endif
+            yield break;
         }
 
         private IEnumerator SendHandleWithFinishCallback<T>(ResourceLoader.LoadAddressableHandle<T> handle, Action<T> callback) where T : UnityEngine.Object
