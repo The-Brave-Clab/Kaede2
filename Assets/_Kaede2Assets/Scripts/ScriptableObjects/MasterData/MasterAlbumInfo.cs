@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Kaede2.Scenario.Framework;
 using Kaede2.Utils;
 using UnityEngine;
@@ -25,13 +26,16 @@ namespace Kaede2.ScriptableObjects
         // we have 1999 illustrations, with 40 bundles, each bundle will contain 50 items
         // the split here is caused by main menu scene using one of the illustrations and has a very long loading time
         private const int BundleCount = 40;
+        private AlbumInfo[] sortedAlbumInfo = null;
         public static int GetBundleIndex(string albumName)
         {
             // find the index inside master data
             int illustIndex = -1;
-            for (int i = 0; i < Instance.albumInfo.Length; i++)
+            // we are going to display the illust in order of name, so sorting the bundle helps reducing the loading time and memory usage
+            Instance.sortedAlbumInfo ??= Instance.albumInfo.OrderBy(i => i.AlbumName).ToArray();
+            for (int i = 0; i < Instance.sortedAlbumInfo.Length; i++)
             {
-                if (!string.Equals(Instance.albumInfo[i].AlbumName, albumName)) continue;
+                if (!string.Equals(Instance.sortedAlbumInfo[i].AlbumName, albumName)) continue;
                 illustIndex = i;
                 break;
             }
@@ -42,7 +46,7 @@ namespace Kaede2.ScriptableObjects
                 return -1;
             }
 
-            var bundleIndex = illustIndex / Mathf.RoundToInt((float)Instance.albumInfo.Length / BundleCount);
+            var bundleIndex = illustIndex / Mathf.RoundToInt((float)Instance.sortedAlbumInfo.Length / BundleCount);
             return bundleIndex;
         }
     }
