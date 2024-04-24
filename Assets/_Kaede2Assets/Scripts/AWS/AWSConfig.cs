@@ -3,7 +3,7 @@ using Amazon;
 
 namespace Kaede2.AWS
 {
-    public static class Config
+    public static class AWSConfig
     {
         public static RegionEndpoint DefaultRegion => RegionEndpoint.APNortheast1;
         public static string AddressableBucket => "kaede2-addressables";

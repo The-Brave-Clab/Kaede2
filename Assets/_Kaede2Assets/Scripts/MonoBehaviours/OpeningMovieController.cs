@@ -4,6 +4,7 @@ using Kaede2.Input;
 using Kaede2.UI;
 using Kaede2.Utils;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 
@@ -31,6 +32,12 @@ namespace Kaede2
             openingMovie ??= GameSettings.OpeningMovie == GameSettings.OpeningMovieOptions.Random
                 ? (GameSettings.OpeningMovieOptions)UnityEngine.Random.Range(0, openingMovies.Length)
                 : GameSettings.OpeningMovie;
+    
+            OnOpeningMovieFinished += () =>
+            {
+                this.Log($"Opening movie finished: {openingMovie:G}");
+                StartCoroutine(LoadNextScene());
+            };
 
             if (openingMovie == GameSettings.OpeningMovieOptions.Disabled)
             {
@@ -43,29 +50,12 @@ namespace Kaede2
             this.Log($"Playing opening movie: {openingMovie:G}");
             videoPlayer.clip = openingMovies[(int)openingMovie];
             videoPlayer.Play();
-    
-            OnOpeningMovieFinished += () =>
-            {
-                this.Log($"Opening movie finished: {openingMovie:G}");
-#if UNITY_IOS
-                UnityEngine.iOS.Device.hideHomeButton = false;
-#endif
-                StartCoroutine(LoadNextScene());
-            };
         }
 
         private void OnEnable()
         {
             InputManager.InputAction.SplashScreen.Enable();
-            InputManager.InputAction.SplashScreen.Skip.performed += _ =>
-            {
-                if (videoPlayer.isPlaying)
-                {
-                    videoPlayer.Pause();
-                }
-
-                OnOpeningMovieFinished?.Invoke();
-            };
+            InputManager.InputAction.SplashScreen.Skip.performed += OnSkipPerformed;
 #if UNITY_IOS
             UnityEngine.iOS.Device.hideHomeButton = true;
 #endif
@@ -73,6 +63,10 @@ namespace Kaede2
 
         private void OnDisable()
         {
+#if UNITY_IOS
+            UnityEngine.iOS.Device.hideHomeButton = false;
+#endif
+            InputManager.InputAction.SplashScreen.Skip.performed -= OnSkipPerformed;
             InputManager.InputAction?.SplashScreen.Disable();
         }
 
@@ -80,6 +74,14 @@ namespace Kaede2
         {
             yield return SceneTransition.Fade(1);
             yield return SceneManager.LoadSceneAsync("TitleScene", LoadSceneMode.Single);
+        }
+
+        private void OnSkipPerformed(InputAction.CallbackContext ctx)
+        {
+            if (videoPlayer.isPlaying)
+                videoPlayer.Pause();
+
+            OnOpeningMovieFinished?.Invoke();
         }
     }
 }

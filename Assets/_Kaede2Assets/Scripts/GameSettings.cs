@@ -23,7 +23,7 @@ namespace Kaede2
         }
 
         [SerializeField]
-        private OpeningMovieOptions openingMovie = OpeningMovieOptions.Disabled;
+        private OpeningMovieOptions openingMovie = OpeningMovieOptions.Random;
 
         public static OpeningMovieOptions OpeningMovie
         {

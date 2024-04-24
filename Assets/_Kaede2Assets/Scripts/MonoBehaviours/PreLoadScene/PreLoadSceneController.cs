@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Kaede2.Utils;
 #if UNITY_EDITOR
@@ -56,7 +57,11 @@ namespace Kaede2
 #endif
             // TODO: Show a dialog to warn the user that downloading all assets will consume a lot of data
 
-            var allKeys = GlobalInitializer.ResourceLocator.Keys.ToList();
+            List<object> allKeys = new();
+            foreach (var locator in Addressables.ResourceLocators)
+            {
+                allKeys.AddRange(locator.Keys);
+            }
             var downloadHandle = Addressables.DownloadDependenciesAsync(allKeys, Addressables.MergeMode.Union);
 
             if (downloadHandle.GetDownloadStatus().TotalBytes > 0)

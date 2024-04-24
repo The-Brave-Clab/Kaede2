@@ -219,6 +219,8 @@ namespace Kaede2.Scenario
             {
                 backupLocale = LocalizationSettings.SelectedLocale;
                 LocalizationSettings.Instance.SetSelectedLocale(scenarioLanguage);
+                // wait for the locale to be changed
+                yield return LocalizationSettings.SelectedLocaleAsync;
                 this.Log($"Locale changed to {scenarioLanguage}");
             }
 

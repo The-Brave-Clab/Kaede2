@@ -15,12 +15,12 @@ namespace Kaede2.AWS
 {
     public static class AWSManager
     { 
-        // I was going to use s3:// but addressables won't treat it as remote path
-        public static string DefaultAddressableLoadUrl => $"https://{Config.AddressableBucket}";
+        // use dualstack accelerated endpoint
+        public static string DefaultAddressableLoadUrl => $"https://{AWSConfig.AddressableBucket}.s3-accelerate.dualstack.amazonaws.com";
 
         public static void Initialize()
         {
-            InitializeAWS(Config.CognitoIdentityPoolId, Config.DefaultRegion.SystemName);
+            InitializeAWS(AWSConfig.CognitoIdentityPoolId, AWSConfig.DefaultRegion.SystemName);
             typeof(AWSManager).Log("Initialized");
 
             Addressables.WebRequestOverride = EditWebRequestURL;
@@ -68,7 +68,7 @@ namespace Kaede2.AWS
             if (!request.url.StartsWith(DefaultAddressableLoadUrl)) return;
 
             var key = request.url.Replace($"{DefaultAddressableLoadUrl}/", "");
-            var preSignedUrl = GetPreSignedURL(Config.AddressableBucket, key, 120);
+            var preSignedUrl = GetPreSignedURL(AWSConfig.AddressableBucket, key, 120);
 
             request.url = preSignedUrl;
         }
