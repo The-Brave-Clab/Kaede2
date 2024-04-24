@@ -14,7 +14,7 @@ namespace Kaede2.UI
     public class RandomizeScatterImages : MonoBehaviour
     {
         [SerializeField]
-        private Illust16By9List availableImages;
+        private AlbumExtraInfo availableImages;
 
         [SerializeField]
         private RectTransform scatterArea;
