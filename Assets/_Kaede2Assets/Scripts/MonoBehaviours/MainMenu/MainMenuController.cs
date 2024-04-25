@@ -1,11 +1,9 @@
-using System;
 using System.Collections;
 using Coffee.UISoftMask;
 using DG.Tweening;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using Kaede2.UI.Framework;
-using Kaede2.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
