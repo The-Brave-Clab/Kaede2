@@ -68,6 +68,8 @@ namespace Kaede2.Scenario.UI
 
             var messageBoxObj = messageBoxPrefabs.Instantiate(GameSettings.ConsoleStyle, gameUICanvas.transform);
             instantiatedMessageBox = messageBoxObj.GetComponent<MessageBox>();
+            instantiatedMessageBox.DisableAutoModeAction = () => Module.AutoMode = false;
+            instantiatedMessageBox.DisableContinuousModeAction = () => Module.ContinuousMode = false;
 
             base.Awake();
         }

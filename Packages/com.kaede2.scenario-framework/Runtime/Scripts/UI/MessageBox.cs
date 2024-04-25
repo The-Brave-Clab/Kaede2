@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -98,6 +99,9 @@ namespace Kaede2.Scenario.Framework.UI
             set => rt.anchoredPosition = value * -1;
         }
 
+        public Action DisableAutoModeAction;
+        public Action DisableContinuousModeAction;
+
         private float timeStarted = 1f;
         private float displayTime;
         private int lastCharacterIndex = -1;
@@ -127,6 +131,9 @@ namespace Kaede2.Scenario.Framework.UI
 
             if (autoModeIndicator != null) autoModeIndicator.SetActive(false);
             if (continuousModeIndicator != null) continuousModeIndicator.SetActive(false);
+
+            DisableAutoModeAction = null;
+            DisableContinuousModeAction = null;
         }
 
         private void Update()
@@ -179,6 +186,16 @@ namespace Kaede2.Scenario.Framework.UI
             nameText.text = state.speaker;
             Message = state.message;
             SkipDisplay();
+        }
+
+        public void DisableAutoMode()
+        {
+            DisableAutoModeAction?.Invoke();
+        }
+
+        public void DisableContinuousMode()
+        {
+            DisableContinuousModeAction?.Invoke();
         }
     }
 }
