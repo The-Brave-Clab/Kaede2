@@ -73,8 +73,6 @@ namespace Kaede2
                 yield break;
             }
             typeof(GlobalInitializer).Log("Addressables initialized");
-
-            resourceLocator = handle.Result;
 #endif
 
             typeof(GlobalInitializer).Log("Initializing localization");
