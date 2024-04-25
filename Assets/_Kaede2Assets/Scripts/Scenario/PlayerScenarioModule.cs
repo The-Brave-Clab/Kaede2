@@ -41,24 +41,11 @@ namespace Kaede2.Scenario
 
 #if UNITY_EDITOR
         [Header("For editor only")]
+        public Locale defaultLanguage;
         public string defaultScenarioName;
 #endif
 
-        public override string ScenarioName
-        {
-            get
-            {
-#if UNITY_EDITOR
-                if (string.IsNullOrEmpty(scenarioName))
-                {
-                    // in editor we might directly run the scenario scene
-                    // in this case, we set a default scenario name
-                    scenarioName = defaultScenarioName;
-                }
-#endif
-                return scenarioName;
-            }
-        }
+        public override string ScenarioName => scenarioName;
 
         public override IReadOnlyList<string> Statements => statements.AsReadOnly();
         public override IReadOnlyList<Command> Commands => commands.AsReadOnly();
@@ -184,9 +171,25 @@ namespace Kaede2.Scenario
             yield return Resources.UnloadUnusedAssets();
             yield return SceneTransition.Fade(0);
 
+#if UNITY_EDITOR
+            // in editor, we might directly run the scenario scene
+            // in this case, we set a default scenario name and language
+            if (string.IsNullOrEmpty(scenarioName))
+            {
+                scenarioName = defaultScenarioName;
+                this.Log("Using default scenario name in editor");
+            }
+
+            if (scenarioLanguage == null)
+            {
+                scenarioLanguage = defaultLanguage;
+                this.Log("Using default scenario language in editor");
+            }
+#endif
+
             var scriptHandle = ResourceLoader.LoadScenarioScriptText(ScenarioName);
             // we could just release this right after getting the text string instead of releasing with other handles,
-            // but it will usually unload the scenario bundle too which we are still going to use right after this
+            // but it will usually unload the scenario bundle too which we are still going to use right after this,
             // so we will release it with other handles
             resourceHandles.Add(scriptHandle);
             yield return scriptHandle.Send();
@@ -218,10 +221,10 @@ namespace Kaede2.Scenario
             if (targetLocale != LocalizationSettings.SelectedLocale)
             {
                 backupLocale = LocalizationSettings.SelectedLocale;
-                LocalizationSettings.Instance.SetSelectedLocale(scenarioLanguage);
+                LocalizationSettings.Instance.SetSelectedLocale(targetLocale);
                 // wait for the locale to be changed
                 yield return LocalizationSettings.SelectedLocaleAsync;
-                this.Log($"Locale changed to {scenarioLanguage}");
+                this.Log($"Locale changed to {targetLocale}");
             }
 
 #if UNITY_WEBGL && !UNITY_EDITOR
