@@ -1,16 +1,24 @@
+using System;
 using System.Collections;
+using Coffee.UISoftMask;
 using DG.Tweening;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using Kaede2.UI.Framework;
+using Kaede2.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Kaede2
 {
+    [RequireComponent(typeof(RectTransform))]
+    [ExecuteAlways]
     public class MainMenuController : SelectableGroup, IThemeChangeObserver, IPointerClickHandler
     {
+        [SerializeField]
+        private Vector2 size;
+
         [SerializeField]
         private Image backgroundGradient;
 
@@ -26,7 +34,12 @@ namespace Kaede2
         [SerializeField]
         private MainMenuMessageWindow messageWindow;
 
+        [SerializeField]
+        private SoftMask mask;
+
         private RectTransform rt;
+
+        private bool driving;
 
         private Coroutine cursorMoveCoroutine;
         private Sequence cursorMoveSequence;
@@ -36,7 +49,18 @@ namespace Kaede2
         protected override void Awake()
         {
             base.Awake();
+            driving = false;
             rt = GetComponent<RectTransform>();
+
+            if (rt != null && rt.drivenByObject == null)
+            {
+                DrivenRectTransformTracker tracker = new();
+                tracker.Clear();
+                tracker.Add(this, rt, DrivenTransformProperties.SizeDelta);
+                driving = true;
+            }
+
+            if (!Application.isPlaying) return;
 
             OnThemeChange(Theme.Current);
 
@@ -52,14 +76,42 @@ namespace Kaede2
             (SelectedItem as MainMenuSelectableItem)!.SetText();
         }
 
+        private void Update()
+        {
+            if (!driving) return;
+
+            float additionalWidth = Screen.orientation == ScreenOrientation.LandscapeLeft
+                ? Screen.safeArea.x / rt.lossyScale.x
+                : 0; // i'll be damned if any device have safe area on the bottom side of the screen
+            var oldSizeDelta = rt.sizeDelta;
+            var newSizeDelta = new Vector2(size.x + additionalWidth, size.y);
+            if (Vector2.Distance(oldSizeDelta, newSizeDelta) > 0.001f)
+            {
+                rt.sizeDelta = newSizeDelta;
+                StartCoroutine(RefreshMask());
+            }
+        }
+
+        private IEnumerator RefreshMask()
+        {
+            mask.enabled = false;
+            mask.gameObject.SetActive(false);
+            yield return null;
+            mask.gameObject.SetActive(true);
+            mask.enabled = true;
+        }
+
         public void OnThemeChange(Theme.VolumeTheme theme)
         {
+            if (!Application.isPlaying) return;
             backgroundGradient.color = theme.MainMenuGradientColor;
             leftDecor.color = theme.MainMenuLeftDecorColor;
         }
 
         private void OnSelected(int index)
         {
+            if (!Application.isPlaying) return;
+
             if (cursorMoveCoroutine != null)
                 StopCoroutine(cursorMoveCoroutine);
 
@@ -68,6 +120,8 @@ namespace Kaede2
 
         private IEnumerator MoveCursor(int index)
         {
+            if (!Application.isPlaying) yield break;
+
             var anchoredPos = rt.anchoredPosition;
             var targetY = menuYStart + index * menuYStep;
 
@@ -88,6 +142,7 @@ namespace Kaede2
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            if (!Application.isPlaying) return;
             SelectedItem.Confirm();
         }
     }

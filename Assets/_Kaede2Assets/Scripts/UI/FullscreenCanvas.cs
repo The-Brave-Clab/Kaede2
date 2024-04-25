@@ -17,6 +17,9 @@ namespace Kaede2.UI
         [SerializeField]
         private bool safeArea = false;
 
+        [SerializeField]
+        private bool ignoreSafeAreaBottom = false;
+
         private void Awake()
         {
             driving = false;
@@ -59,7 +62,7 @@ namespace Kaede2.UI
             rectTransform.position = rootCanvasRT.position;
             if (safeArea)
             {
-                var safeAreaRect = Screen.safeArea;
+                var safeAreaRect = TransformedSafeArea();
                 Vector2 resolution = new Vector2(Screen.width, Screen.height);
                 var offset = safeAreaRect.center - resolution / 2.0f;
                 var rootScale = rootCanvasRT.localScale;
@@ -73,6 +76,29 @@ namespace Kaede2.UI
                 rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, rootRect.width);
                 rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, rootRect.height);
             }
+        }
+
+        private Rect TransformedSafeArea()
+        {
+            var safeAreaRect = Screen.safeArea;
+
+            if (ignoreSafeAreaBottom)
+            {
+                var fullRect = new Rect(0, 0, Screen.width, Screen.height);
+
+                if (Screen.orientation == ScreenOrientation.LandscapeLeft)
+                {
+                    // bottom on the right side
+                    safeAreaRect.xMax = fullRect.xMax;
+                }
+                else if (Screen.orientation == ScreenOrientation.LandscapeRight)
+                {
+                    // bottom on the left side
+                    safeAreaRect.xMin = fullRect.xMin;
+                }
+            }
+
+            return safeAreaRect;
         }
     }
 }
