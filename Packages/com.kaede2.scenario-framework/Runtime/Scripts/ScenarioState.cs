@@ -253,6 +253,7 @@ namespace Kaede2.Scenario.Framework
     public class MessageBoxState : State<MessageBoxState>
     {
         public bool enabled = false;
+        public bool namePanelEnabled = true;
         public string speaker = "";
         public string message = "";
 
@@ -261,6 +262,7 @@ namespace Kaede2.Scenario.Framework
             return new()
             {
                 enabled = enabled,
+                namePanelEnabled = namePanelEnabled,
                 speaker = string.Copy(speaker),
                 message = string.Copy(message)
             };
@@ -271,6 +273,7 @@ namespace Kaede2.Scenario.Framework
             if (other is null) return false;
 
             return enabled == other.enabled &&
+                   namePanelEnabled == other.namePanelEnabled &&
                    string.Equals(speaker, other.speaker) &&
                    string.Equals(message, other.message);
         }

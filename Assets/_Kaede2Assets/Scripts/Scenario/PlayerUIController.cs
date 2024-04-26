@@ -1,7 +1,10 @@
 using System;
+using Kaede2.Input;
 using Kaede2.Scenario.Framework;
 using Kaede2.Scenario.Framework.UI;
+using Kaede2.UI;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Kaede2.Scenario
 {
@@ -22,7 +25,7 @@ namespace Kaede2.Scenario
 
         public override FadeTransition Fade => fade;
 
-        public MesButtonForPointer MesButton => mesButton;
+        public ButtonForPointer MesButton => mesButton;
 
         [SerializeField]
         private Canvas uiCanvas;
@@ -55,7 +58,7 @@ namespace Kaede2.Scenario
         private Canvas gameUICanvas;
 
         [SerializeField]
-        private MesButtonForPointer mesButton;
+        private ButtonForPointer mesButton;
 
         [SerializeField]
         private GameObject mobileStyleMenu;
@@ -64,6 +67,8 @@ namespace Kaede2.Scenario
 
         private CaptionBox instantiatedCaptionBox;
         private MessageBox instantiatedMessageBox;
+
+        private bool uiHidden;
 
         protected override void Awake()
         {
@@ -75,7 +80,22 @@ namespace Kaede2.Scenario
             instantiatedMessageBox.DisableAutoModeAction = () => Module.AutoMode = false;
             instantiatedMessageBox.DisableContinuousModeAction = () => Module.ContinuousMode = false;
 
+            uiHidden = false;
+
             base.Awake();
+        }
+
+        private void OnEnable()
+        {
+            InputManager.onDeviceTypeChanged += OnDeviceTypeChanged;
+            InputManager.InputAction.Scenario.ToggleUI.performed += OnToggleUI;
+        }
+
+        private void OnDisable()
+        {
+            InputManager.onDeviceTypeChanged -= OnDeviceTypeChanged;
+            if (InputManager.InputAction != null)
+                InputManager.InputAction.Scenario.ToggleUI.performed -= OnToggleUI;
         }
 
         [Serializable]
@@ -88,6 +108,29 @@ namespace Kaede2.Scenario
             {
                 return UnityEngine.Object.Instantiate(console ? consoleStyle : mobileStyle, parent);
             }
+        }
+
+        public void ToggleUI()
+        {
+            uiHidden = !uiHidden;
+            UpdateUIVisibility();
+        }
+
+        private void OnDeviceTypeChanged(InputDeviceType type)
+        {
+            UpdateUIVisibility();
+        }
+
+        private void OnToggleUI(InputAction.CallbackContext ctx)
+        {
+            ToggleUI();
+        }
+
+        private void UpdateUIVisibility()
+        {
+            instantiatedMessageBox.Hidden = uiHidden;
+            // always show mobile style menu when input type is touchscreen
+            mobileStyleMenu.SetActive(!uiHidden || InputManager.CurrentDeviceType == InputDeviceType.Touchscreen);
         }
     }
 }

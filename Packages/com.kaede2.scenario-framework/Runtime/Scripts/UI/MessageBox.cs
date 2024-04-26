@@ -10,6 +10,9 @@ namespace Kaede2.Scenario.Framework.UI
         private GameObject messageBoxContainer;
 
         [SerializeField]
+        private GameObject modeContainer;
+
+        [SerializeField]
         private TextMeshProUGUI nameText;
 
         [SerializeField]
@@ -44,6 +47,8 @@ namespace Kaede2.Scenario.Framework.UI
                 displayTime =
                     (currentText.Length + 1) *
                     0.05f; //SingletonMonoBehaviour<ScenarioConfig>.Instance.intervalForCharacterDisplay;
+                // when in UI hidden mode, display immediately so that the user can skip the line with a single click
+                if (hidden) displayTime = 0;
                 timeStarted = Time.time;
                 lastCharacterIndex = -1;
                 currentCharacterIndex = 0;
@@ -59,16 +64,40 @@ namespace Kaede2.Scenario.Framework.UI
             set => nameText.text = value;
         }
 
+        private bool messageBoxEnabled;
+        private bool namePanelEnabled;
+        private bool hidden;
+
         public bool Enabled
         {
-            get => messageBoxContainer.activeSelf;
-            set => messageBoxContainer.SetActive(value);
+            get => messageBoxEnabled;
+            set
+            {
+                messageBoxEnabled = value;
+                UpdateVisibility();
+            }
         }
 
         public bool NamePanelEnabled
         {
-            get => namePanel.activeSelf;
-            set => namePanel.SetActive(value);
+            get => namePanelEnabled;
+            set
+            {
+                namePanelEnabled = value;
+                UpdateVisibility();
+            }
+        }
+
+        public bool Hidden
+        {
+            get => hidden;
+            set
+            {
+                hidden = value;
+                // when in UI hidden mode, display immediately so that the user can skip the line with a single click
+                displayTime = 0;
+                UpdateVisibility();
+            }
         }
 
         public bool AutoMode
@@ -134,21 +163,19 @@ namespace Kaede2.Scenario.Framework.UI
 
             DisableAutoModeAction = null;
             DisableContinuousModeAction = null;
+
+            messageBoxEnabled = false;
+            namePanelEnabled = true;
+            hidden = false;
+            UpdateVisibility();
         }
 
         private void Update()
         {
             if (UIController.Module.AutoMode)
-            {
                 nextMessageIndicator.gameObject.SetActive(false);
-            }
-            else
-            {
-                if (IsCompleteDisplayText)
-                {
-                    nextMessageIndicator.gameObject.SetActive(true);
-                }
-            }
+            else if (IsCompleteDisplayText)
+                nextMessageIndicator.gameObject.SetActive(true);
 
             if (IsCompleteDisplayText)
                 return;
@@ -170,11 +197,19 @@ namespace Kaede2.Scenario.Framework.UI
 
         public bool IsCompleteDisplayText => currentCharacterIndex == (currentText?.Length ?? 0);
 
+        private void UpdateVisibility()
+        {
+            messageBoxContainer.SetActive(!hidden && messageBoxEnabled);
+            modeContainer.SetActive(!hidden);
+            namePanel.SetActive(!hidden && namePanelEnabled);
+        }
+
         public MessageBoxState GetState()
         {
             return new()
             {
-                enabled = gameObject.activeSelf,
+                enabled = messageBoxEnabled,
+                namePanelEnabled = namePanelEnabled,
                 speaker = nameText.text,
                 message = currentText.MacroText
             };
@@ -182,7 +217,9 @@ namespace Kaede2.Scenario.Framework.UI
 
         public void RestoreState(MessageBoxState state)
         {
-            gameObject.SetActive(state.enabled);
+            messageBoxEnabled = state.enabled;
+            namePanelEnabled = state.namePanelEnabled;
+            UpdateVisibility();
             nameText.text = state.speaker;
             Message = state.message;
             SkipDisplay();

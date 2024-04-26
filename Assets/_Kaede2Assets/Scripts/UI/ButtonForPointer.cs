@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Kaede2.Scenario
+namespace Kaede2.UI
 {
-    public class MesButtonForPointer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
+    public class ButtonForPointer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
     {
         private bool lastPressed;
         private bool pressed;
