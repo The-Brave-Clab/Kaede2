@@ -196,6 +196,10 @@ namespace Kaede2.Scenario
             // TODO: error handling
             var scriptText = scriptHandle.Result.text;
 
+            // though we did initialize the localization settings in GlobalInitializer,
+            // in web build users might not wait for the initialization to finish before entering the scenario,
+            // so we need to wait for the initialization to finish here
+            yield return LocalizationSettings.InitializationOperation;
             // download translation if needed
             Locale targetLocale = LocalizationSettings.AvailableLocales.Locales
                 .FirstOrDefault(l => l.Identifier.CultureInfo.TwoLetterISOLanguageName == "ja")!;
