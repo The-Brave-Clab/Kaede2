@@ -68,6 +68,7 @@ namespace Kaede2.Scenario.Framework.UI
         private bool namePanelEnabled;
         private bool hidden;
 
+        // controlled by commands msg_box_show and msg_box_hide
         public bool Enabled
         {
             get => messageBoxEnabled;
@@ -78,6 +79,7 @@ namespace Kaede2.Scenario.Framework.UI
             }
         }
 
+        // controlled by command msg_box_name_show
         public bool NamePanelEnabled
         {
             get => namePanelEnabled;
@@ -88,6 +90,7 @@ namespace Kaede2.Scenario.Framework.UI
             }
         }
 
+        // controlled by user input
         public bool Hidden
         {
             get => hidden;

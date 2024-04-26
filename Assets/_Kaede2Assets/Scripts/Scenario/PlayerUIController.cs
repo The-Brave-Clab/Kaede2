@@ -61,7 +61,7 @@ namespace Kaede2.Scenario
         private ButtonForPointer mesButton;
 
         [SerializeField]
-        private GameObject mobileStyleMenu;
+        private MobileStyleMenu mobileStyleMenu;
         [SerializeField]
         private GameObject exitFullscreenButton;
 
@@ -129,8 +129,6 @@ namespace Kaede2.Scenario
         private void UpdateUIVisibility()
         {
             instantiatedMessageBox.Hidden = uiHidden;
-            // always show mobile style menu when input type is touchscreen
-            mobileStyleMenu.SetActive(!uiHidden || InputManager.CurrentDeviceType == InputDeviceType.Touchscreen);
         }
     }
 }
