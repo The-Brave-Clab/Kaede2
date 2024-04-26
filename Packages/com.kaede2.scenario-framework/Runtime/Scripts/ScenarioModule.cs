@@ -52,6 +52,11 @@ namespace Kaede2.Scenario.Framework
             }
         }
 
+        public void ToggleAutoMode()
+        {
+            AutoMode = !AutoMode;
+        }
+
         private bool continuousMode;
         public virtual bool ContinuousMode
         {
@@ -63,6 +68,11 @@ namespace Kaede2.Scenario.Framework
                 if (UIController.MessageBox == null) return;
                 UIController.MessageBox.ContinuousMode = value;
             }
+        }
+
+        public void ToggleContinuousMode()
+        {
+            ContinuousMode = !ContinuousMode;
         }
 
         public abstract bool Fixed16By9 { get; set; }

@@ -7,7 +7,6 @@ using Kaede2.Localization;
 using Kaede2.Scenario.Framework;
 using Kaede2.Scenario.Framework.Commands;
 using Kaede2.Scenario.Framework.Utils;
-using Kaede2.Scenario.UI;
 using Kaede2.UI;
 using Kaede2.Utils;
 #if UNITY_WEBGL && !UNITY_EDITOR

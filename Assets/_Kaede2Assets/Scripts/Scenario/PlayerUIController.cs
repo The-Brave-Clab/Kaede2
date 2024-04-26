@@ -1,11 +1,9 @@
 using System;
-using Kaede2.Input;
 using Kaede2.Scenario.Framework;
 using Kaede2.Scenario.Framework.UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Kaede2.Scenario.UI
+namespace Kaede2.Scenario
 {
     public class PlayerUIController : UIController
     {
@@ -61,6 +59,8 @@ namespace Kaede2.Scenario.UI
 
         [SerializeField]
         private GameObject mobileStyleMenu;
+        [SerializeField]
+        private GameObject exitFullscreenButton;
 
         private CaptionBox instantiatedCaptionBox;
         private MessageBox instantiatedMessageBox;
@@ -75,15 +75,7 @@ namespace Kaede2.Scenario.UI
             instantiatedMessageBox.DisableAutoModeAction = () => Module.AutoMode = false;
             instantiatedMessageBox.DisableContinuousModeAction = () => Module.ContinuousMode = false;
 
-            InputManager.onDeviceTypeChanged += OnDeviceTypeChanged;
-            OnDeviceTypeChanged(InputManager.CurrentDeviceType);
-
             base.Awake();
-        }
-
-        private void OnDestroy()
-        {
-            InputManager.onDeviceTypeChanged -= OnDeviceTypeChanged;
         }
 
         [Serializable]
@@ -96,11 +88,6 @@ namespace Kaede2.Scenario.UI
             {
                 return UnityEngine.Object.Instantiate(console ? consoleStyle : mobileStyle, parent);
             }
-        }
-
-        private void OnDeviceTypeChanged(InputDeviceType type)
-        {
-            mobileStyleMenu.SetActive(type == InputDeviceType.Touchscreen);
         }
     }
 }
