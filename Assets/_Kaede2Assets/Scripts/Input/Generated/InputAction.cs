@@ -674,10 +674,21 @@ namespace Kaede2.Input
                 {
                     ""name"": """",
                     ""id"": ""ea66b695-18ea-42e9-95b0-f8238db72e9d"",
-                    ""path"": """",
+                    ""path"": ""<Gamepad>/dpad/up"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad;GamepadNintendoStyle"",
+                    ""action"": ""ShowLog"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2cef400c-f36b-44fd-9120-d06fe21786b9"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""ShowLog"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -738,6 +749,56 @@ namespace Kaede2.Input
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""ScenarioLog"",
+            ""id"": ""fd223dde-1e52-4917-8b1e-b7bebafed869"",
+            ""actions"": [
+                {
+                    ""name"": ""GoBack"",
+                    ""type"": ""Button"",
+                    ""id"": ""11985fc7-9072-4239-83ed-530a225735c7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""23b310ee-7ae0-444b-b4af-036d7a4a36b3"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""GamepadNintendoStyle"",
+                    ""action"": ""GoBack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7ff5713f-cc59-4b65-af9e-71ebe7149df4"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""GoBack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""73566763-63c3-4436-9270-6c1953af1146"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""GoBack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -787,6 +848,9 @@ namespace Kaede2.Input
             m_Scenario_Menu = m_Scenario.FindAction("Menu", throwIfNotFound: true);
             m_Scenario_ShowMapping = m_Scenario.FindAction("ShowMapping", throwIfNotFound: true);
             m_Scenario_GoBack = m_Scenario.FindAction("GoBack", throwIfNotFound: true);
+            // ScenarioLog
+            m_ScenarioLog = asset.FindActionMap("ScenarioLog", throwIfNotFound: true);
+            m_ScenarioLog_GoBack = m_ScenarioLog.FindAction("GoBack", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -1102,6 +1166,52 @@ namespace Kaede2.Input
             }
         }
         public ScenarioActions @Scenario => new ScenarioActions(this);
+
+        // ScenarioLog
+        private readonly InputActionMap m_ScenarioLog;
+        private List<IScenarioLogActions> m_ScenarioLogActionsCallbackInterfaces = new List<IScenarioLogActions>();
+        private readonly InputAction m_ScenarioLog_GoBack;
+        public struct ScenarioLogActions
+        {
+            private @Kaede2InputAction m_Wrapper;
+            public ScenarioLogActions(@Kaede2InputAction wrapper) { m_Wrapper = wrapper; }
+            public InputAction @GoBack => m_Wrapper.m_ScenarioLog_GoBack;
+            public InputActionMap Get() { return m_Wrapper.m_ScenarioLog; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(ScenarioLogActions set) { return set.Get(); }
+            public void AddCallbacks(IScenarioLogActions instance)
+            {
+                if (instance == null || m_Wrapper.m_ScenarioLogActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_ScenarioLogActionsCallbackInterfaces.Add(instance);
+                @GoBack.started += instance.OnGoBack;
+                @GoBack.performed += instance.OnGoBack;
+                @GoBack.canceled += instance.OnGoBack;
+            }
+
+            private void UnregisterCallbacks(IScenarioLogActions instance)
+            {
+                @GoBack.started -= instance.OnGoBack;
+                @GoBack.performed -= instance.OnGoBack;
+                @GoBack.canceled -= instance.OnGoBack;
+            }
+
+            public void RemoveCallbacks(IScenarioLogActions instance)
+            {
+                if (m_Wrapper.m_ScenarioLogActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IScenarioLogActions instance)
+            {
+                foreach (var item in m_Wrapper.m_ScenarioLogActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_ScenarioLogActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public ScenarioLogActions @ScenarioLog => new ScenarioLogActions(this);
         private int m_GamepadSchemeIndex = -1;
         public InputControlScheme GamepadScheme
         {
@@ -1163,6 +1273,10 @@ namespace Kaede2.Input
             void OnToggleUI(InputAction.CallbackContext context);
             void OnMenu(InputAction.CallbackContext context);
             void OnShowMapping(InputAction.CallbackContext context);
+            void OnGoBack(InputAction.CallbackContext context);
+        }
+        public interface IScenarioLogActions
+        {
             void OnGoBack(InputAction.CallbackContext context);
         }
     }

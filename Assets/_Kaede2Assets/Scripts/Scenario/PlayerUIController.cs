@@ -26,6 +26,7 @@ namespace Kaede2.Scenario
         public override FadeTransition Fade => fade;
 
         public ButtonForPointer MesButton => mesButton;
+        public MobileStyleMenu MobileStyleMenu => mobileStyleMenu;
 
         [SerializeField]
         private Canvas uiCanvas;
@@ -65,10 +66,23 @@ namespace Kaede2.Scenario
         [SerializeField]
         private GameObject exitFullscreenButton;
 
+        [SerializeField]
+        private LogPanel logPanel;
+
         private CaptionBox instantiatedCaptionBox;
         private MessageBox instantiatedMessageBox;
 
         private bool uiHidden;
+
+        public bool UIHidden
+        {
+            get => uiHidden;
+            set
+            {
+                uiHidden = value;
+                UpdateUIVisibility();
+            }
+        }
 
         protected override void Awake()
         {
@@ -89,13 +103,17 @@ namespace Kaede2.Scenario
         {
             InputManager.onDeviceTypeChanged += OnDeviceTypeChanged;
             InputManager.InputAction.Scenario.ToggleUI.performed += OnToggleUI;
+            InputManager.InputAction.Scenario.ShowLog.performed += ShowLogPanel;
         }
 
         private void OnDisable()
         {
             InputManager.onDeviceTypeChanged -= OnDeviceTypeChanged;
             if (InputManager.InputAction != null)
+            {
                 InputManager.InputAction.Scenario.ToggleUI.performed -= OnToggleUI;
+                InputManager.InputAction.Scenario.ShowLog.performed -= ShowLogPanel;
+            }
         }
 
         [Serializable]
@@ -129,6 +147,11 @@ namespace Kaede2.Scenario
         private void UpdateUIVisibility()
         {
             instantiatedMessageBox.Hidden = uiHidden;
+        }
+
+        private void ShowLogPanel(InputAction.CallbackContext ctx)
+        {
+            logPanel.Enable(true);
         }
     }
 }

@@ -71,14 +71,11 @@ namespace Kaede2.Scenario
             expanded = false;
 
             UpdateMobileStyleMenuVisibility();
-        }
 
-        private void OnEnable()
-        {
             InputManager.onDeviceTypeChanged += OnDeviceTypeChanged;
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             InputManager.onDeviceTypeChanged -= OnDeviceTypeChanged;
         }

@@ -138,8 +138,15 @@ namespace Kaede2.Editor.Addressables
 
             if (segments[0] == "scenario_common")
             {
-                if (segments.Length > 1 && segments[1] == "live2d")
-                    return segments.Length == 3;
+                if (segments.Length > 1)
+                {
+                    if (segments[1] == "live2d")
+                        return segments.Length == 3;
+
+                    // charaicon is used as common assets
+                    if (segments[1] == "charaicon")
+                        return false;
+                }
 
                 return segments.Length == 2;
             }

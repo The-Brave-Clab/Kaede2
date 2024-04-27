@@ -81,6 +81,8 @@ namespace Kaede2.Scenario.Framework
         public abstract float AudioSEVolume { get; set; }
         public abstract float AudioVoiceVolume { get; set; }
 
+        public virtual bool Paused { get; set; }
+
         public abstract bool MesClicked { get; }
 
         public abstract IEnumerator InitEnd();
@@ -388,6 +390,7 @@ namespace Kaede2.Scenario.Framework
         {
             while (true)
             {
+                yield return new WaitUntil(() => !Paused);
                 ++CurrentCommandIndex;
                 if (CurrentCommandIndex >= Commands.Count)
                 {
@@ -400,6 +403,7 @@ namespace Kaede2.Scenario.Framework
                 while (execution.MoveNext())
                 {
                     yield return execution.Current;
+                    yield return new WaitUntil(() => !Paused);
                 }
             }
         }

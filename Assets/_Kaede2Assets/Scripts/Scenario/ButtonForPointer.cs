@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Kaede2.UI
+namespace Kaede2.Scenario
 {
     public class ButtonForPointer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
     {

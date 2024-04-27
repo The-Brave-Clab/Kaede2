@@ -13,9 +13,12 @@ using Kaede2.Utils;
 using Kaede2.Web;
 #endif
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
+using Sprite = UnityEngine.Sprite;
 
 namespace Kaede2.Scenario
 {
@@ -110,6 +113,8 @@ namespace Kaede2.Scenario
         public override UIController UIController => uiController;
         public override AudioManager AudioManager => audioManager;
 
+        public PlayerUIController PlayerUIController => uiController;
+
         
         private static string scenarioName;
         private static Locale scenarioLanguage;
@@ -119,7 +124,7 @@ namespace Kaede2.Scenario
         public static string CurrentScenario => scenarioName;
         public static Locale CurrentLanguage => scenarioLanguage;
 
-        public static IEnumerator Start(string scenario, Locale language, LoadSceneMode loadSceneMode, ScenarioState stateToBeRestored, Action endCallback)
+        public static IEnumerator Play(string scenario, Locale language, LoadSceneMode loadSceneMode, ScenarioState stateToBeRestored, Action endCallback)
         {
             scenarioName = scenario;
             scenarioLanguage = language;
@@ -145,7 +150,6 @@ namespace Kaede2.Scenario
 
             backupLocale = null;
 
-            InputManager.InputAction.Scenario.Enable();
 #if UNITY_IOS
             UnityEngine.iOS.Device.hideHomeButton = true;
 #endif
@@ -153,6 +157,10 @@ namespace Kaede2.Scenario
             WebInterop.Module = this;
             OnMesCommand += WebInterop.OnMessageCommand;
 #endif
+
+            InputManager.InputAction.Scenario.Enable();
+            // show log action will be enabled after init_end
+            InputManager.InputAction.Scenario.ShowLog.Disable();
 
             if (ScenarioRunMode.Args.SpecifiedScenario)
             {
@@ -276,6 +284,8 @@ namespace Kaede2.Scenario
                 RestoreState(scenarioStateToBeRestored);
                 scenarioStateToBeRestored = null;
             }
+
+            InputManager.InputAction.Scenario.ShowLog.Enable();
 
 #if UNITY_WEBGL && !UNITY_EDITOR
             while (WebBackground.CurrentStatus == WebBackground.Status.ReadyToPlay)

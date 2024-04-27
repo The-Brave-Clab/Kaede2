@@ -43,7 +43,7 @@ namespace Kaede2
 
         public void StartScenario(string scenarioName)
         {
-            StartCoroutine(PlayerScenarioModule.Start(scenarioName,
+            StartCoroutine(PlayerScenarioModule.Play(scenarioName,
                 LocalizationSettings.SelectedLocale,
                 // LocalizationSettings.AvailableLocales.GetLocale(new("ja")),
                 LoadSceneMode.Single,
