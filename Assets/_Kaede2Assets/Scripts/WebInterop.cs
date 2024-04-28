@@ -51,7 +51,7 @@ namespace Kaede2
         public static extern void OnToggleContinuousMode(int on);
 
         [DllImport(DllName)]
-        public static extern void OnToggleDramaMode(int on);
+        public static extern void OnToggleHideUI(int on);
 
         public static PlayerScenarioModule Module { get; set; }
 
@@ -111,12 +111,6 @@ namespace Kaede2
             fullscreen = status > 0;
         }
 
-        public void HideMenu()
-        {
-            this.Log("hiding menu");
-            // TODO
-        }
-
         public void ToggleAutoMode(int on)
         {
             this.Log($"toggling auto mode to {on > 0}");
@@ -129,10 +123,10 @@ namespace Kaede2
             Module.ContinuousMode = on > 0;
         }
 
-        public void ToggleDramaMode(int on)
+        public void ToggleHideUI(int on)
         {
-            this.Log($"toggling drama mode to {on > 0}");
-            // TODO
+            this.Log($"toggling UI show to {on > 0}");
+            Module.PlayerUIController.UIHidden = on > 0;
         }
 
         public void ToggleWebInput(int on)

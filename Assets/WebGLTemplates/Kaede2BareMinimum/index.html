@@ -100,8 +100,8 @@
     <input type="checkbox" id="auto-mode"><br>
     <label for="continuous-mode">Continuous Mode:</label>
     <input type="checkbox" id="continuous-mode"><br>
-    <label for="drama-mode">Drama Mode:</label>
-    <input type="checkbox" id="drama-mode">
+    <label for="hide-ui">Hide UI:</label>
+    <input type="checkbox" id="hide-ui">
   </div>
   <script>
     var container = document.querySelector("#unity-container");
@@ -119,7 +119,7 @@
     function ExitFullscreen() { }
     function ToggleAutoMode(on) { }
     function ToggleContinuousMode(on) { }
-    function ToggleDramaMode(on) { }
+    function ToggleHideUI(on) { }
     function ToggleInputInterception(on) { }
 
     // Example callbacks
@@ -171,16 +171,16 @@
         console.warn("Continuous mode is OFF!");
     }
 
-    function myOnToggleDramaMode(on) {
+    function myOnToggleHideUI(on) {
       if (on)
-        console.warn("Drama mode is ON!");
+        console.warn("Hide UI is ON!");
       else
-        console.warn("Drama mode is OFF!");
+        console.warn("Hide UI is OFF!");
     }
 
     // this will automatically called by Unity instance when it finishes loading
     // all these functionalities will not be available until this is called
-    // auto mode, drama mode should not be available to the user before reset is called!
+    // auto mode, continuous mode, and hide UI should not be available to the user before reset is called!
     // b352a51964f6fc4813af8f08d403ec0d: MD5 hash of "GlobalRegisterCallbacks"
     function b352a51964f6fc4813af8f08d403ec0d(callbacks,
                                               resetPlayerMethod,
@@ -189,7 +189,7 @@
                                               exitFullscreenMethod,
                                               toggleAutoModeMethod, 
                                               toggleContinuousMethod,
-                                              toggleDramaModeMethod,
+                                              toggleHideUIMethod,
                                               toggleInputInterception) {
       // will be called when Unity loads the scenario list
       // parameter is a parsed JSON object (not string)
@@ -214,7 +214,7 @@
       // unlike exit fullscreen, this WILL be called no matter how continuous mode is triggered, either through browser or Unity
       callbacks.OnToggleContinuousMode = myOnToggleContinuousMode;
       // unlike exit fullscreen, this WILL be called no matter how drama mode is triggered, either through browser or Unity
-      callbacks.OnToggleDramaMode = myOnToggleDramaMode;
+      callbacks.OnToggleHideUI = myOnToggleHideUI;
 
       // load/reset player with a specified scenario id (string) and language code (string)
       // currently supports "jp", "zh", and "en" (ISO 639-1)
@@ -238,7 +238,7 @@
       // call this when entering/exiting drama mode, this WILL trigger onToggleDramaMode callback
       // Note this should disable auto mode toggle
       // parameter is boolean
-      ToggleDramaMode = toggleDramaModeMethod;
+      ToggleHideUI = toggleHideUIMethod;
       // call this when input on webpage is required or not required so Unity can decide to intercept or not
       ToggleInputInterception = toggleInputInterception;
 
@@ -348,8 +348,8 @@
       ToggleContinuousMode(e.target.checked);
     });
 
-    document.getElementById('drama-mode').addEventListener('change', (e) => {
-      ToggleDramaMode(e.target.checked);
+    document.getElementById('hide-ui').addEventListener('change', (e) => {
+      ToggleHideUI(e.target.checked);
     });
   </script>
 </body>

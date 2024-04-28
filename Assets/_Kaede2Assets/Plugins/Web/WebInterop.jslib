@@ -12,7 +12,7 @@ var WebInterop = {
         OnExitFullscreen: function() { },
         OnToggleAutoMode: function(on) { },
         OnToggleContinuousMode: function(on) { },
-        OnToggleDramaMode: function(on) { }
+        OnToggleHideUI: function(on) { }
     },
 
     $InteropFunctions: {
@@ -34,7 +34,6 @@ var WebInterop = {
 
         ExitFullscreen: function() {
             SendMessage(InteropGameObject, "ChangeFullscreen", 0);
-            SendMessage(InteropGameObject, "HideMenu");
         },
 
         ToggleAutoMode: function(on) {
@@ -51,11 +50,11 @@ var WebInterop = {
                 SendMessage(InteropGameObject, "ToggleContinuousMode", 0);
         },
 
-        ToggleDramaMode: function(on) {
+        ToggleHideUI: function(on) {
             if (on)
-                SendMessage(InteropGameObject, "ToggleDramaMode", 1);
+                SendMessage(InteropGameObject, "ToggleHideUI", 1);
             else
-                SendMessage(InteropGameObject, "ToggleDramaMode", 0);
+                SendMessage(InteropGameObject, "ToggleHideUI", 0);
         },
 
         ToggleInputInterception: function(on) {
@@ -97,7 +96,7 @@ var WebInterop = {
             InteropFunctions.ExitFullscreen,
             InteropFunctions.ToggleAutoMode,
             InteropFunctions.ToggleContinuousMode,
-            InteropFunctions.ToggleDramaMode,
+            InteropFunctions.ToggleHideUI,
             InteropFunctions.ToggleInputInterception);
     },
 
@@ -137,8 +136,8 @@ var WebInterop = {
         InteropCallbacks.OnToggleContinuousMode(on > 0);
     },
 
-    OnToggleDramaMode: function (on) {
-        InteropCallbacks.OnToggleDramaMode(on > 0);
+    OnToggleHideUI: function (on) {
+        InteropCallbacks.OnToggleHideUI(on > 0);
     }
 
 };
