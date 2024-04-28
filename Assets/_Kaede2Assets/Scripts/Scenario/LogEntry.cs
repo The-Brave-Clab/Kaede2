@@ -15,6 +15,9 @@ namespace Kaede2.Scenario
         [SerializeField]
         private TextMeshProUGUI messageText;
 
+        public TextMeshProUGUI SpeakerText => speakerText;
+        public TextMeshProUGUI MessageText => messageText;
+
         public void SetContent(Sprite icon, string speaker, string message)
         {
             iconImage.sprite = icon;

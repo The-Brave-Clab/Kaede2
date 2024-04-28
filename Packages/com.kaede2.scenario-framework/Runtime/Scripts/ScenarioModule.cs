@@ -390,7 +390,7 @@ namespace Kaede2.Scenario.Framework
         {
             while (true)
             {
-                yield return new WaitUntil(() => !Paused);
+                if (Paused) yield return new WaitUntil(() => !Paused);
                 ++CurrentCommandIndex;
                 if (CurrentCommandIndex >= Commands.Count)
                 {
@@ -403,7 +403,7 @@ namespace Kaede2.Scenario.Framework
                 while (execution.MoveNext())
                 {
                     yield return execution.Current;
-                    yield return new WaitUntil(() => !Paused);
+                    if (Paused) yield return new WaitUntil(() => !Paused);
                 }
             }
         }

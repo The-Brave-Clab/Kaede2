@@ -10,9 +10,9 @@ using Kaede2.Input;
 namespace Kaede2.UI
 {
     [ExecuteAlways]
-    [RequireComponent(typeof(TextMeshProUGUI))]
     public class TextWithInputButton : MonoBehaviour
     {
+        [SerializeField]
         private TextMeshProUGUI textComponent;
 
         [SerializeField]
@@ -23,6 +23,16 @@ namespace Kaede2.UI
         private string lastText;
         private Color lastColor;
         private Action<InputDeviceType> onDeviceTypeChanged;
+
+        public string Text
+        {
+            get => text;
+            set
+            {
+                text = value;
+                RefreshText();
+            }
+        }
 
         private void Awake()
         {
@@ -37,7 +47,6 @@ namespace Kaede2.UI
         {
             if (textComponent == null)
             {
-                textComponent = GetComponent<TextMeshProUGUI>();
                 return;
             }
 
@@ -57,6 +66,11 @@ namespace Kaede2.UI
 
         private void RefreshText()
         {
+            if (textComponent == null)
+            {
+                return;
+            }
+
             Color color = textComponent.color;
             var targetText = text;
             // we use this pattern for a input button icon:
@@ -84,9 +98,9 @@ namespace Kaede2.UI
                 }
                 else
                 {
-                    // when not playing we can't access InputManager
-                    // so load the action asset from AssetDatabase directly
-                    var actionAsset = UnityEditor.AssetDatabase.LoadAssetAtPath<InputActionAsset>("Assets/Settings/Resources/Kaede2InputAction.inputactions");
+                    // when not playing we shouldn't access InputManager as it will create a new GameObject
+                    var inputAction = new Kaede2InputAction();
+                    var actionAsset = inputAction.asset;
                     actionMap = actionAsset.FindActionMap(actionMapName);
                 }
 #else

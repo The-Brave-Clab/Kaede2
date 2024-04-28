@@ -370,7 +370,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 35
   m_Viewport: {fileID: 1710286591}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 458301074}
@@ -1729,6 +1729,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1488541819}
   - component: {fileID: 1488541820}
+  - component: {fileID: 1488541822}
+  - component: {fileID: 1488541821}
+  - component: {fileID: 1488541824}
+  - component: {fileID: 1488541823}
   m_Layer: 5
   m_Name: LogPanel
   m_TagString: Untagged
@@ -1822,6 +1826,151 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 4a2fdabaff7cee9489cfda8150c2a61f, type: 3}
   - {fileID: 21300000, guid: 9f3e0841f8a50bb47826142253b8fc26, type: 3}
   - {fileID: 21300000, guid: 7bfb6ba61b5b1014ebcd66d0afa891af, type: 3}
+--- !u!114 &1488541821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488541818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d7cbeda40964100ade85e423b9f5039, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LocalizedAssetReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:bb4ca73677ef14fc290e3e83e2fa39cd
+    m_TableEntryReference:
+      m_KeyId: 17052983296
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+  m_UpdateAsset:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2018206805}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_font
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1488541822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488541818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:7e0c459e3aa314b3bb20908c28fcca59
+    m_TableEntryReference:
+      m_KeyId: 13886283776
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2018206807}
+        m_TargetAssemblyTypeName: Kaede2.UI.TextWithInputButton, Assembly-CSharp
+        m_MethodName: set_Text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1488541823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488541818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d7cbeda40964100ade85e423b9f5039, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LocalizedAssetReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:df6a8cbeb59264133aa754471bd0e7ea
+    m_TableEntryReference:
+      m_KeyId: 456028839936
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+  m_UpdateAsset:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1488541820}
+        m_TargetAssemblyTypeName: Kaede2.Scenario.LogPanel, Assembly-CSharp
+        m_MethodName: set_LogEntryMessageFont
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1488541824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488541818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d7cbeda40964100ade85e423b9f5039, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LocalizedAssetReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:df6a8cbeb59264133aa754471bd0e7ea
+    m_TableEntryReference:
+      m_KeyId: 398189387776
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+  m_UpdateAsset:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1488541820}
+        m_TargetAssemblyTypeName: Kaede2.Scenario.LogPanel, Assembly-CSharp
+        m_MethodName: set_LogEntryNameFont
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1502977532
 GameObject:
   m_ObjectHideFlags: 0
@@ -2295,6 +2444,7 @@ GameObject:
   - component: {fileID: 2018206804}
   - component: {fileID: 2018206806}
   - component: {fileID: 2018206805}
+  - component: {fileID: 2018206807}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -2341,7 +2491,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "B \u9589\u3058\u308B"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f9ffa6edc7eca1f45b179c9633c90682, type: 2}
   m_sharedMaterial: {fileID: -5714796232611216552, guid: f9ffa6edc7eca1f45b179c9633c90682, type: 2}
@@ -2420,6 +2570,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2018206803}
   m_CullTransparentMesh: 1
+--- !u!114 &2018206807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2018206803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81a763f5d52d20c4386f3ae2dfe2dd77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textComponent: {fileID: 2018206805}
+  text: '
+
+'
 --- !u!1 &2037039026
 GameObject:
   m_ObjectHideFlags: 0

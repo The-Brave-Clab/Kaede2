@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
 using Kaede2.Input;
-using Kaede2.Scenario.Framework;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -24,6 +23,10 @@ namespace Kaede2.Scenario
 
         [SerializeField]
         private List<Sprite> characterIcons;
+
+        // these will be set by LocalizeFontEvent
+        public TMP_FontAsset LogEntryNameFont { get; set; }
+        public TMP_FontAsset LogEntryMessageFont { get; set; }
 
         private bool? uiHiddenState;
 
@@ -69,13 +72,18 @@ namespace Kaede2.Scenario
         private void OnDestroy()
         {
             scenarioModule.OnMesCommand -= OnMesCommand;
-            InputManager.InputAction.ScenarioLog.GoBack.performed -= ExitLogPanel;
+            if (InputManager.InputAction != null)
+            {
+                InputManager.InputAction.ScenarioLog.GoBack.performed -= ExitLogPanel;
+            }
         }
 
         private void OnMesCommand(string speaker, string voiceId, string message)
         {
             var entry = Instantiate(logEntryPrefab, scroll.content).GetComponent<LogEntry>();
             entry.gameObject.name = voiceId;
+            entry.SpeakerText.font = LogEntryNameFont;
+            entry.MessageText.font = LogEntryMessageFont;
             entry.SetContent(GetIconFromVoice(voiceId), speaker, message);
         }
 
