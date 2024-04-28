@@ -64,9 +64,16 @@ namespace Kaede2.Scenario
                 WebInterop.OnExitFullscreen();
                 WebInterop.Instance.ChangeFullscreen(0);
             });
+
+            logButton.gameObject.SetActive(false);
 #else
             webExitFullscreenButton.gameObject.SetActive(false);
+            logButton.gameObject.SetActive(true);
 #endif
+
+            hideUIButton.gameObject.SetActive(true);
+            autoButton.gameObject.SetActive(true);
+            continuousButton.gameObject.SetActive(true);
 
             expanded = false;
 

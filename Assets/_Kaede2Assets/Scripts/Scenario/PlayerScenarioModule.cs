@@ -285,12 +285,14 @@ namespace Kaede2.Scenario
                 scenarioStateToBeRestored = null;
             }
 
-            InputManager.InputAction.Scenario.ShowLog.Enable();
 
 #if UNITY_WEBGL && !UNITY_EDITOR
             while (WebBackground.CurrentStatus == WebBackground.Status.ReadyToPlay)
                 yield return null;
             WebInterop.OnScenarioStarted();
+#else
+            // don't enable show log in web build
+            InputManager.InputAction.Scenario.ShowLog.Enable();
 #endif
 
             yield break;

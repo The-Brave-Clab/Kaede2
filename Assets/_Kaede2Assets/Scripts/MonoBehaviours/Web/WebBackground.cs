@@ -49,7 +49,7 @@ namespace Kaede2.Web
             replayButton.onClick.AddListener(() =>
             {
                 UpdateStatusInternal(Status.Hidden);
-                CoroutineProxy.Start(PlayerScenarioModule.Start(
+                CoroutineProxy.Start(PlayerScenarioModule.Play(
                     PlayerScenarioModule.CurrentScenario,
                     PlayerScenarioModule.CurrentLanguage,
                     LoadSceneMode.Single, null, null));
@@ -59,7 +59,7 @@ namespace Kaede2.Web
                 UpdateStatusInternal(Status.Hidden);
                 string nextScenarioName = MasterScenarioInfo.GetNextScenarioInfo(PlayerScenarioModule.CurrentScenario).ScenarioName;
                 WebInterop.OnScenarioChanged(nextScenarioName);
-                CoroutineProxy.Start(PlayerScenarioModule.Start(
+                CoroutineProxy.Start(PlayerScenarioModule.Play(
                     nextScenarioName,
                     PlayerScenarioModule.CurrentLanguage,
                     LoadSceneMode.Single, null, null));

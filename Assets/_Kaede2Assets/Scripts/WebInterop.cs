@@ -75,7 +75,7 @@ namespace Kaede2
             WebBackground.UpdateStatus(WebBackground.Status.ReadyToPlay);
             Locale locale = LocalizationSettings.AvailableLocales.Locales
                 .Find(l => l.Identifier.CultureInfo.TwoLetterISOLanguageName == languageCode);
-            CoroutineProxy.Start(PlayerScenarioModule.Start(scenarioName, locale, LoadSceneMode.Single, null, null));
+            CoroutineProxy.Start(PlayerScenarioModule.Play(scenarioName, locale, LoadSceneMode.Single, null, null));
         }
 
         public void SetMasterVolume(float volume)

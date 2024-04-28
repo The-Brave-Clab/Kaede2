@@ -103,7 +103,10 @@ namespace Kaede2.Scenario
         {
             InputManager.onDeviceTypeChanged += OnDeviceTypeChanged;
             InputManager.InputAction.Scenario.ToggleUI.performed += OnToggleUI;
+#if !UNITY_WEBGL || UNITY_EDITOR
+            // don't allow log panel in web build
             InputManager.InputAction.Scenario.ShowLog.performed += ShowLogPanel;
+#endif
         }
 
         private void OnDisable()
@@ -112,7 +115,9 @@ namespace Kaede2.Scenario
             if (InputManager.InputAction != null)
             {
                 InputManager.InputAction.Scenario.ToggleUI.performed -= OnToggleUI;
+#if !UNITY_WEBGL || UNITY_EDITOR
                 InputManager.InputAction.Scenario.ShowLog.performed -= ShowLogPanel;
+#endif
             }
         }
 
