@@ -42,7 +42,14 @@ namespace Kaede2
             CurrentStatus = Status.InProgress;
 
             // Initialize all the things here
-            Application.targetFrameRate = ScenarioRunMode.Args.TestMode ? 60 : 1800;
+#if UNITY_STANDALONE || UNITY_EDITOR
+            Application.targetFrameRate = ScenarioRunMode.Args.TestMode ? 60 : -1;
+            QualitySettings.vSyncCount = 0;
+#else
+            Application.targetFrameRate = 120;
+            QualitySettings.vSyncCount = 1;
+#endif
+
             InputManager.EnsureInstance();
             AWSManager.Initialize();
 
