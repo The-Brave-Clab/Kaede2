@@ -32,6 +32,9 @@ namespace Kaede2.Scenario
         [SerializeField]
         private Button continuousButton;
 
+        [SerializeField]
+        private Button goBackButton;
+
         private bool hidden;
         private bool expanded;
 
@@ -56,19 +59,22 @@ namespace Kaede2.Scenario
             logButton.onClick.AddListener(Shrink);
             autoButton.onClick.AddListener(Shrink);
             continuousButton.onClick.AddListener(Shrink);
+            goBackButton.onClick.AddListener(Shrink);
 
 #if UNITY_WEBGL && !UNITY_EDITOR
             webExitFullscreenButton.gameObject.SetActive(true);
+            logButton.gameObject.SetActive(false);
+            goBackButton.gameObject.SetActive(false);
+
             webExitFullscreenButton.onClick.AddListener(() =>
             {
                 WebInterop.OnExitFullscreen();
                 WebInterop.Instance.ChangeFullscreen(0);
             });
-
-            logButton.gameObject.SetActive(false);
 #else
             webExitFullscreenButton.gameObject.SetActive(false);
             logButton.gameObject.SetActive(true);
+            goBackButton.gameObject.SetActive(true);
 #endif
 
             hideUIButton.gameObject.SetActive(true);

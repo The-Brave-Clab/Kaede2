@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +14,7 @@ using Kaede2.Web;
 #endif
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.InputSystem;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -135,6 +136,16 @@ namespace Kaede2.Scenario
             yield return SceneManager.LoadSceneAsync("ScenarioScene", loadSceneMode);
         }
 
+        public void GoBackToPreviousSceneBeforeEnd()
+        {
+            CoroutineProxy.Start(GoBackToPreviousScene(true));
+        }
+
+        private void GoBackToPreviousSceneBeforeEnd(InputAction.CallbackContext context)
+        {
+            GoBackToPreviousSceneBeforeEnd();
+        }
+
         #region EventFunctions
 
         protected override void Awake()
@@ -161,8 +172,9 @@ namespace Kaede2.Scenario
 #endif
 
             InputManager.InputAction.Scenario.Enable();
-            // show log action will be enabled after init_end
+            // show log action and go back action will be enabled after init_end
             InputManager.InputAction.Scenario.ShowLog.Disable();
+            InputManager.InputAction.Scenario.GoBack.Disable();
 
             if (ScenarioRunMode.Args.SpecifiedScenario)
             {
@@ -276,6 +288,16 @@ namespace Kaede2.Scenario
 #endif
         }
 
+        private void OnEnable()
+        {
+            InputManager.InputAction.Scenario.GoBack.performed += GoBackToPreviousSceneBeforeEnd;
+        }
+
+        private void OnDisable()
+        {
+            InputManager.InputAction.Scenario.GoBack.performed -= GoBackToPreviousSceneBeforeEnd;
+        }
+
         #endregion
 
         #region CommandCallOverrides
@@ -297,8 +319,9 @@ namespace Kaede2.Scenario
                 yield return null;
             WebInterop.OnScenarioStarted();
 #else
-            // don't enable show log in web build
+            // these actions will not be enabled in web build
             InputManager.InputAction.Scenario.ShowLog.Enable();
+            InputManager.InputAction.Scenario.GoBack.Enable();
 #endif
 
             yield break;
@@ -310,6 +333,7 @@ namespace Kaede2.Scenario
 #if UNITY_WEBGL && !UNITY_EDITOR
             WebBackground.UpdateStatus(WebBackground.Status.Finished);
             WebInterop.OnScenarioFinished();
+            yield break;
 #else
             // We entered through command line args
             if (ScenarioRunMode.Args.SpecifiedScenario)
@@ -317,14 +341,31 @@ namespace Kaede2.Scenario
                 Application.Quit(0);
             }
 
+            scenarioEndCallback?.Invoke();
+
+            yield return GoBackToPreviousScene(false);
+#endif
+        }
+
+        private IEnumerator GoBackToPreviousScene(bool saveState)
+        {
+            Paused = true;
+
+            if (saveState)
+            {
+                // TODO: implement save state
+                this.Log("Unfinished state saved");
+            }
+
             if (backupLocale != null)
             {
                 LocalizationSettings.Instance.SetSelectedLocale(backupLocale);
+                yield return LocalizationSettings.SelectedLocaleAsync;
                 this.Log($"Restored locale to {backupLocale}");
             }
-            scenarioEndCallback?.Invoke();
-#endif
-            yield break;
+
+            // TODO: implement go back to previous scene
+            this.Log("Going back to previous scene");
         }
 
         #endregion
