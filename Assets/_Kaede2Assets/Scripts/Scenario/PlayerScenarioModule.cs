@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -134,6 +134,8 @@ namespace Kaede2.Scenario
             yield return SceneTransition.Fade(1);
             yield return SceneManager.LoadSceneAsync("ScenarioScene", loadSceneMode);
         }
+
+        #region EventFunctions
 
         protected override void Awake()
         {
@@ -274,6 +276,10 @@ namespace Kaede2.Scenario
 #endif
         }
 
+        #endregion
+
+        #region CommandCallOverrides
+
         public override IEnumerator InitEnd()
         {
             UIController.LoadingCanvas.gameObject.SetActive(false);
@@ -320,6 +326,10 @@ namespace Kaede2.Scenario
 #endif
             yield break;
         }
+
+        #endregion
+
+        #region ResourceLoading
 
         private IEnumerator SendHandleWithFinishCallback<T>(ResourceLoader.LoadAddressableHandle<T> handle, Action<T> callback) where T : UnityEngine.Object
         {
@@ -407,6 +417,10 @@ namespace Kaede2.Scenario
 
             return null;
         }
+
+        #endregion
+
+        #region ScriptProcessing
 
         private static List<string> GetStatementsFromScript(string script)
         {
@@ -501,5 +515,7 @@ namespace Kaede2.Scenario
                 }
             }
         }
+
+        #endregion
     }
 }

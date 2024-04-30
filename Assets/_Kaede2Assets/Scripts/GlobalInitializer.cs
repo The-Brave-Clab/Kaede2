@@ -91,6 +91,8 @@ namespace Kaede2
             typeof(GlobalInitializer).Log($"Changed language to {GameSettings.Locale}");
 #endif
 
+            typeof(GlobalInitializer).Log("Initialization complete");
+
             CurrentStatus = Status.Done;
         }
     }
