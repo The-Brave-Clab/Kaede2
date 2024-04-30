@@ -43,14 +43,15 @@ namespace Kaede2.UI
             if (!driving) return;
 
             // get accumulated scale and negate it
-            Vector3 scale = Vector3.one;
+            Vector3 accumulatedScale = Vector3.one;
             Transform parent = transform.parent;
             while (parent != rootCanvasRT)
             {
-                scale = Vector3.Scale(scale, parent.localScale);
+                accumulatedScale = Vector3.Scale(accumulatedScale, parent.localScale);
                 parent = parent.parent;
             }
-            var newScale = new Vector3(1 / scale.x, 1 / scale.y, 1 / scale.z);
+
+            var newScale = new Vector3(1 / accumulatedScale.x, 1 / accumulatedScale.y, 1 / accumulatedScale.z);
             if (float.IsFinite(newScale.x) && float.IsFinite(newScale.y) && float.IsFinite(newScale.z))
             {
                 rectTransform.localScale = newScale;
@@ -60,26 +61,25 @@ namespace Kaede2.UI
 
             rectTransform.pivot = rootCanvasRT.pivot;
             rectTransform.position = rootCanvasRT.position;
-            if (safeArea)
-            {
-                var safeAreaRect = TransformedSafeArea();
-                Vector2 resolution = new Vector2(Screen.width, Screen.height);
-                var offset = safeAreaRect.center - resolution / 2.0f;
-                var rootScale = rootCanvasRT.localScale;
-                rectTransform.position += new Vector3(offset.x, offset.y);
-                rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, safeAreaRect.width / rootScale.x);
-                rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, safeAreaRect.height / rootScale.y);
-            }
-            else
-            {
-                var rootRect = rootCanvasRT.rect;
-                rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, rootRect.width);
-                rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, rootRect.height);
-            }
+            var rootRect = rootCanvasRT.rect;
+            Vector2 resolution = new Vector2(Screen.width, Screen.height);
+            var rootCanvasScale = new Vector2(rootRect.width / resolution.x, rootRect.height / resolution.y);
+            var safeAreaRect = TransformedSafeArea();
+            var offset = safeAreaRect.center - resolution / 2.0f;
+            var rootScale = rootCanvasRT.localScale;
+            rectTransform.position += new Vector3(
+                offset.x * rootCanvasScale.x * rootScale.x * accumulatedScale.x,
+                offset.y * rootCanvasScale.y * rootScale.y * accumulatedScale.y,
+                0);
+            rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, safeAreaRect.width * rootCanvasScale.x);
+            rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, safeAreaRect.height * rootCanvasScale.y);
         }
 
         private Rect TransformedSafeArea()
         {
+            if (!safeArea)
+                return new Rect(0, 0, Screen.width, Screen.height);
+
             var safeAreaRect = Screen.safeArea;
 
             if (ignoreSafeAreaBottom)

@@ -1982,6 +1982,7 @@ GameObject:
   - component: {fileID: 1502977535}
   - component: {fileID: 1502977533}
   - component: {fileID: 1502977534}
+  - component: {fileID: 1502977536}
   m_Layer: 5
   m_Name: UICanvas
   m_TagString: Untagged
@@ -2038,7 +2039,7 @@ RectTransform:
   m_GameObject: {fileID: 1502977532}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5209239322735906029}
@@ -2046,10 +2047,24 @@ RectTransform:
   m_Father: {fileID: 712115855}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0}
+--- !u!114 &1502977536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1502977532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd88ecef5ec954f1198230cc5178aaa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  safeArea: 1
+  ignoreSafeAreaBottom: 0
 --- !u!1 &1529758613
 GameObject:
   m_ObjectHideFlags: 0
@@ -2491,7 +2506,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: '
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f9ffa6edc7eca1f45b179c9633c90682, type: 2}
   m_sharedMaterial: {fileID: -5714796232611216552, guid: f9ffa6edc7eca1f45b179c9633c90682, type: 2}
@@ -3084,6 +3101,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 5588037892040034177, guid: 933047d96bbef914fbad7319906422cb, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5903744706083990633, guid: 933047d96bbef914fbad7319906422cb, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3489,6 +3510,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 5588037892040034177, guid: 933047d96bbef914fbad7319906422cb, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5903744706083990633, guid: 933047d96bbef914fbad7319906422cb, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3754,6 +3779,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 5588037892040034177, guid: 933047d96bbef914fbad7319906422cb, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5903744706083990633, guid: 933047d96bbef914fbad7319906422cb, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3898,6 +3927,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 04130b95bf73c3940affade7b379d3d3, type: 3}
+    - target: {fileID: 5588037892040034177, guid: 933047d96bbef914fbad7319906422cb, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5903744706083990633, guid: 933047d96bbef914fbad7319906422cb, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4793,6 +4826,10 @@ PrefabInstance:
     - target: {fileID: 4569781155810450260, guid: 933047d96bbef914fbad7319906422cb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588037892040034177, guid: 933047d96bbef914fbad7319906422cb, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5903744706083990633, guid: 933047d96bbef914fbad7319906422cb, type: 3}
       propertyPath: m_Pivot.x
