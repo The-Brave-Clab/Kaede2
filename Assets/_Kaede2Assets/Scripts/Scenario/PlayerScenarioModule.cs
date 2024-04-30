@@ -288,6 +288,7 @@ namespace Kaede2.Scenario
 #endif
         }
 
+#if !UNITY_WEBGL || UNITY_EDITOR
         private void OnEnable()
         {
             InputManager.InputAction.Scenario.GoBack.performed += GoBackToPreviousSceneBeforeEnd;
@@ -297,6 +298,7 @@ namespace Kaede2.Scenario
         {
             InputManager.InputAction.Scenario.GoBack.performed -= GoBackToPreviousSceneBeforeEnd;
         }
+#endif
 
         #endregion
 
