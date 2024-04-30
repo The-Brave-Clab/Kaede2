@@ -7,6 +7,7 @@ using Kaede2.Localization;
 using Kaede2.Scenario.Framework;
 using Kaede2.Scenario.Framework.Commands;
 using Kaede2.Scenario.Framework.Utils;
+using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using Kaede2.Utils;
 #if UNITY_WEBGL && !UNITY_EDITOR
@@ -132,7 +133,6 @@ namespace Kaede2.Scenario
             scenarioStateToBeRestored = stateToBeRestored;
             scenarioEndCallback = endCallback;
 
-            yield return SceneTransition.Fade(1);
             yield return SceneManager.LoadSceneAsync("ScenarioScene", loadSceneMode);
         }
 
@@ -296,7 +296,10 @@ namespace Kaede2.Scenario
 
         private void OnDisable()
         {
-            InputManager.InputAction.Scenario.GoBack.performed -= GoBackToPreviousSceneBeforeEnd;
+            if (InputManager.InputAction != null)
+            {
+                InputManager.InputAction.Scenario.GoBack.performed -= GoBackToPreviousSceneBeforeEnd;
+            }
         }
 #endif
 
@@ -332,6 +335,22 @@ namespace Kaede2.Scenario
         public override IEnumerator End()
         {
             this.Log("Scenario ended");
+
+            if (ContinuousMode)
+            {
+                var nextScenarioInfo = MasterScenarioInfo.GetNextScenarioInfo(scenarioName);
+                if (nextScenarioInfo != null)
+                {
+                    scenarioName = nextScenarioInfo.ScenarioName;
+                    // preserve scenario language
+                    scenarioStateToBeRestored = null; // there will be no sync point to restore when enter the next scenario
+                    // preserve scenario finished callback
+
+                    CoroutineProxy.Start(Reload());
+                    yield break;
+                }
+            }
+
 #if UNITY_WEBGL && !UNITY_EDITOR
             WebBackground.UpdateStatus(WebBackground.Status.Finished);
             WebInterop.OnScenarioFinished();
@@ -368,6 +387,20 @@ namespace Kaede2.Scenario
 
             // TODO: implement go back to previous scene
             this.Log("Going back to previous scene");
+        }
+
+        private IEnumerator Reload()
+        {
+            // no fade in/out
+#if UNITY_WEBGL && !UNITY_EDITOR
+            WebInterop.OnScenarioChanged(scenarioName);
+            // on web build the scene is loaded with single mode so just load it again with single mode
+            yield return Play(scenarioName, scenarioLanguage, LoadSceneMode.Single, scenarioStateToBeRestored, scenarioEndCallback);
+#else
+            // on other platforms the scene is loaded additively, so we need to unload the old one
+            yield return Play(scenarioName, scenarioLanguage, LoadSceneMode.Additive, scenarioStateToBeRestored, scenarioEndCallback);
+            yield return SceneManager.UnloadSceneAsync(gameObject.scene);
+#endif
         }
 
         #endregion

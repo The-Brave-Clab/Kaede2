@@ -43,7 +43,13 @@ namespace Kaede2
 
         public void StartScenario(string scenarioName)
         {
-            StartCoroutine(PlayerScenarioModule.Play(scenarioName,
+            StartCoroutine(StartScenarioCoroutine(scenarioName));
+        }
+
+        private IEnumerator StartScenarioCoroutine(string scenarioName)
+        {
+            yield return SceneTransition.Fade(1);
+            yield return PlayerScenarioModule.Play(scenarioName,
                 LocalizationSettings.SelectedLocale,
                 // LocalizationSettings.AvailableLocales.GetLocale(new("ja")),
                 LoadSceneMode.Single,
@@ -51,7 +57,7 @@ namespace Kaede2
                 () =>
                 {
                     this.Log("Scenario finished.");
-                }));
+                });
         }
     }
 }

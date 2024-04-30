@@ -99,6 +99,13 @@ namespace Kaede2.Scenario
             base.Awake();
         }
 
+        private void Start()
+        {
+            // initialize message box indicators
+            instantiatedMessageBox.AutoMode = Module.AutoMode;
+            instantiatedMessageBox.ContinuousMode = Module.ContinuousMode;
+        }
+
         private void OnEnable()
         {
             InputManager.onDeviceTypeChanged += OnDeviceTypeChanged;
