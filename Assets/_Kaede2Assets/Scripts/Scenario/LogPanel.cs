@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Kaede2.Input;
+using Kaede2.Scenario.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -23,6 +24,9 @@ namespace Kaede2.Scenario
 
         [SerializeField]
         private List<Sprite> characterIcons;
+
+        [SerializeField]
+        private AudioSource voicePlayer;
 
         // these will be set by LocalizeFontEvent
         public TMP_FontAsset LogEntryNameFont { get; set; }
@@ -55,6 +59,8 @@ namespace Kaede2.Scenario
                     scenarioModule.PlayerUIController.UIHidden = uiHiddenState.Value;
                     uiHiddenState = null;
                 }
+
+                voicePlayer.Stop();
             }
 
             // scroll to bottom
@@ -81,10 +87,15 @@ namespace Kaede2.Scenario
         private void OnMesCommand(string speaker, string voiceId, string message)
         {
             var entry = Instantiate(logEntryPrefab, scroll.content).GetComponent<LogEntry>();
+            entry.Panel = this;
             entry.gameObject.name = voiceId;
             entry.SpeakerText.font = LogEntryNameFont;
             entry.MessageText.font = LogEntryMessageFont;
-            entry.SetContent(GetIconFromVoice(voiceId), speaker, message);
+
+            if (AudioManager.IsInvalidVoice(voiceId) || !scenarioModule.ScenarioResource.Voices.TryGetValue(voiceId, out var voice))
+                voice = null;
+
+            entry.SetContent(GetIconFromVoice(voiceId), voice, speaker, message);
         }
 
         private Sprite GetIconFromVoice(string voiceId)
@@ -110,6 +121,13 @@ namespace Kaede2.Scenario
         private void ExitLogPanel(InputAction.CallbackContext ctx)
         {
             Enable(false);
+        }
+
+        public void PlayVoice(AudioClip voice)
+        {
+            voicePlayer.Stop();
+            voicePlayer.clip = voice;
+            voicePlayer.Play();
         }
     }
 }

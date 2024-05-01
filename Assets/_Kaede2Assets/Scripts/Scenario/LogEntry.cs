@@ -15,10 +15,15 @@ namespace Kaede2.Scenario
         [SerializeField]
         private TextMeshProUGUI messageText;
 
+        [SerializeField]
+        private Button playVoiceButton;
+
         public TextMeshProUGUI SpeakerText => speakerText;
         public TextMeshProUGUI MessageText => messageText;
 
-        public void SetContent(Sprite icon, string speaker, string message)
+        public LogPanel Panel { get; set; }
+
+        public void SetContent(Sprite icon, AudioClip voice, string speaker, string message)
         {
             iconImage.sprite = icon;
             speakerText.text = speaker;
@@ -26,6 +31,15 @@ namespace Kaede2.Scenario
             // if the message has only one line, add a new line
             if (message.Split("\\n").Length == 1)
                 message += "\\n ";
+
+            if (voice != null)
+            {
+                playVoiceButton.gameObject.SetActive(true);
+                playVoiceButton.onClick.AddListener(() =>
+                {
+                    Panel.PlayVoice(voice);
+                });
+            }
 
             messageText.text = message;
         }
