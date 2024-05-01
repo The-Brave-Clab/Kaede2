@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 
@@ -74,7 +75,9 @@ namespace Kaede2.Scenario.Framework
         protected virtual void OnDestroy()
         {
             StopAllCoroutines();
-            foreach (var sequence in sequences)
+            // when we kill a sequence, its OnKill callback is called, which may call RemoveSequence, changing the list
+            // so we need to copy the list before iterating
+            foreach (var sequence in sequences.ToList())
             {
                 sequence.Kill();
             }
@@ -108,7 +111,11 @@ namespace Kaede2.Scenario.Framework
             }
 
             Sequence s = GetSequence();
-            s.Append(DOVirtual.Color(originalColor, targetColor, duration, SetColor));
+            s.Append(DOVirtual.Color(originalColor, targetColor, duration, value =>
+            {
+                if (this == null) return;
+                SetColor(value);
+            }));
             s.SetEase(ease);
 
             yield return s.WaitForCompletion();
@@ -127,11 +134,19 @@ namespace Kaede2.Scenario.Framework
 
             animSequences["move"].Add(seq);
             seq.Append(DOVirtual.Vector3(originalPosition, targetPosition, duration,
-                value => Position = value));
+                value =>
+                {
+                    if (this == null) return;
+                    Position = value;
+                }));
             if (rebound)
             {
                 seq.Append(DOVirtual.Vector3(targetPosition, originalPosition, duration,
-                    value => Position = value));
+                    value =>
+                    {
+                        if (this == null) return;
+                        Position = value;
+                    }));
             }
 
             int loops = (loop < 0) ? loop : (loop + 1);
@@ -144,7 +159,11 @@ namespace Kaede2.Scenario.Framework
 
                 Sequence s = GetSequence();
                 s.Append(DOVirtual.Vector3(Position, originalPosition, duration,
-                    value => Position = value));
+                    value =>
+                    {
+                        if (this == null) return;
+                        Position = value;
+                    }));
                 s.OnComplete(() => { RemoveSequence(s); });
             });
 
@@ -166,6 +185,7 @@ namespace Kaede2.Scenario.Framework
             seq.Append(DOVirtual.Float(originalAngle, targetAngle, duration,
                 value =>
                 {
+                    if (this == null) return;
                     eulerAngles.z = value;
                     transform.eulerAngles = eulerAngles;
                 }));
@@ -174,6 +194,7 @@ namespace Kaede2.Scenario.Framework
                 seq.Append(DOVirtual.Float(targetAngle, originalAngle, duration,
                     value =>
                     {
+                        if (this == null) return;
                         eulerAngles.z = value;
                         transform.eulerAngles = eulerAngles;
                     }));
@@ -191,6 +212,7 @@ namespace Kaede2.Scenario.Framework
                 s.Append(DOVirtual.Float(targetAngle, originalAngle, duration,
                     value =>
                     {
+                        if (this == null) return;
                         eulerAngles.z = value;
                         transform.eulerAngles = eulerAngles;
                     }));
@@ -228,7 +250,11 @@ namespace Kaede2.Scenario.Framework
 
             moveSequence = DOTween.Sequence();
             moveSequence.Append(DOVirtual.Vector3(originalPosition, targetPosition, duration,
-                value => Position = value));
+                value =>
+                {
+                    if (this == null) return;
+                    Position = value;
+                }));
             moveSequence.SetEase(ease);
             moveSequence.onKill = () =>
             {
@@ -255,6 +281,7 @@ namespace Kaede2.Scenario.Framework
             rotateSequence.Append(DOVirtual.Float(originalAngle, targetAngle, duration,
                 value =>
                 {
+                    if (this == null) return;
                     eulerAngles.z = value;
                     transform.eulerAngles = eulerAngles;
                 }));
@@ -282,7 +309,11 @@ namespace Kaede2.Scenario.Framework
 
             scaleSequence = DOTween.Sequence();
             scaleSequence.Append(DOVirtual.Vector3(originalScale, targetScale, duration,
-                value => transform.localScale = value));
+                value =>
+                {
+                    if (this == null) return;
+                    transform.localScale = value;
+                }));
             scaleSequence.SetEase(ease);
             scaleSequence.onKill = () =>
             {
@@ -311,6 +342,7 @@ namespace Kaede2.Scenario.Framework
             seq.Append(DOVirtual.Float(fromAlpha, toAlpha, duration,
                 value =>
                 {
+                    if (this == null) return;
                     color.a = value;
                     SetColor(color);
                 }));
