@@ -175,7 +175,9 @@ namespace Kaede2.Scenario.Framework
                     case "mes_auto":
                     case "voice_play":
                     {
-                        allLoadData.Add(new(Resource.Type.Voice, statementArgs[2]));
+                        var voiceId = statementArgs[2];
+                        if (AudioManager.IsInvalidVoice(voiceId)) break;
+                        allLoadData.Add(new(Resource.Type.Voice, voiceId));
                         break;
                     }
                     // case "voice_load":

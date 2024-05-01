@@ -40,6 +40,10 @@ namespace Kaede2.Scenario
                     Panel.PlayVoice(voice);
                 });
             }
+            else
+            {
+                playVoiceButton.gameObject.SetActive(false);
+            }
 
             messageText.text = message;
         }
