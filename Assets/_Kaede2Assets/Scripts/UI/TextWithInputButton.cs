@@ -36,7 +36,6 @@ namespace Kaede2.UI
 
         private void Awake()
         {
-            textComponent = GetComponent<TextMeshProUGUI>();
             lastText = "";
             lastColor = Color.clear;
             onDeviceTypeChanged = type => RefreshText();
@@ -89,6 +88,19 @@ namespace Kaede2.UI
                 string actionMapName = match.Groups[1].Value;
                 string actionName = match.Groups[2].Value;
 
+                // <sprite="Xbox" name="button_1" color=#FF0000>
+#if UNITY_EDITOR
+                InputDeviceType deviceType = InputDeviceType.DualSenseController;
+                if (Application.isPlaying)
+                {
+                    deviceType = InputManager.CurrentDeviceType;
+                }
+#else
+                InputDeviceType deviceType = InputManager.CurrentDeviceType;
+#endif
+
+                string bindingGroup = "Keyboard&Mouse";
+
                 // find the action map
 #if UNITY_EDITOR
                 InputActionMap actionMap;
@@ -102,15 +114,23 @@ namespace Kaede2.UI
                     var inputAction = new Kaede2InputAction();
                     var actionAsset = inputAction.asset;
                     actionMap = actionAsset.FindActionMap(actionMapName);
+                    // get binding group name from editor newed input action
+                    bindingGroup = InputManager.GetControlSchemeFromDeviceType(inputAction, deviceType).bindingGroup;
                 }
 #else
                 var actionMap = InputManager.InputAction.asset.FindActionMap(actionMapName);
 #endif
+
                 if (actionMap == null)
                 {
                     // wrong action map name, replace with Error_ActionMapName
                     targetText = targetText.Replace(match.Value, "<color=red><b>Error_ActionMapName</b></color>");
                     continue;
+                }
+
+                if (Application.isPlaying)
+                {
+                    bindingGroup = InputManager.User.controlScheme.GetValueOrDefault().bindingGroup;
                 }
 
                 // find the action
@@ -122,12 +142,6 @@ namespace Kaede2.UI
                     continue;
                 }
 
-                var bindingGroup = "Keyboard&Mouse";
-                if (Application.isPlaying)
-                {
-                    bindingGroup = InputManager.User.controlScheme.GetValueOrDefault().bindingGroup;
-                }
-
                 var mask = InputBinding.MaskByGroup(bindingGroup);
 
                 HashSet<SpriteId> spriteIds = new();
@@ -136,16 +150,6 @@ namespace Kaede2.UI
                     if (!mask.Matches(binding))
                         continue;
 
-                    // <sprite="Xbox" name="button_1" color=#FF0000>
-#if UNITY_EDITOR
-                    InputDeviceType deviceType = InputDeviceType.KeyboardAndMouse;
-                    if (Application.isPlaying)
-                    {
-                        deviceType = InputManager.CurrentDeviceType;
-                    }
-#else
-                    InputDeviceType deviceType = InputManager.CurrentDeviceType;
-#endif
                     SpriteId spriteId = new()
                     {
                         SpriteSheetName = GetSpriteSheetNameFromDeviceType(deviceType, binding),

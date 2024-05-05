@@ -101,15 +101,20 @@ namespace Kaede2.Input
 
         private static void ChangeControlScheme(InputDeviceType type)
         {
-            var controlScheme = type switch
-            {
-                InputDeviceType.KeyboardAndMouse => InputAction.KeyboardMouseScheme,
-                InputDeviceType.Touchscreen => InputAction.TouchscreenScheme,
-                InputDeviceType.SwitchProController => InputAction.GamepadNintendoStyleScheme,
-                _ => InputAction.GamepadScheme
-            };
+            var controlScheme = GetControlSchemeFromDeviceType(InputAction, type);
             User.ActivateControlScheme(controlScheme);
             InputAction.bindingMask = InputBinding.MaskByGroup(controlScheme.bindingGroup);
+        }
+
+        public static InputControlScheme GetControlSchemeFromDeviceType(Kaede2InputAction inputAction, InputDeviceType type)
+        {
+            return type switch
+            {
+                InputDeviceType.KeyboardAndMouse => inputAction.KeyboardMouseScheme,
+                InputDeviceType.Touchscreen => inputAction.TouchscreenScheme,
+                InputDeviceType.SwitchProController => inputAction.GamepadNintendoStyleScheme,
+                _ => inputAction.GamepadScheme
+            };
         }
     }
 

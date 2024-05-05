@@ -35,12 +35,12 @@ namespace Kaede2.UI.Framework
                 onConfirmed?.Invoke();
         }
 
-        public void OnPointerEnter(PointerEventData eventData)
+        public virtual void OnPointerEnter(PointerEventData eventData)
         {
             onSelected?.Invoke();
         }
 
-        public void OnPointerClick(PointerEventData eventData)
+        public virtual void OnPointerClick(PointerEventData eventData)
         {
             Confirm();
         }

@@ -6,10 +6,10 @@ namespace Kaede2.UI.Framework
     public class SelectableGroup : MonoBehaviour
     {
         [SerializeField]
-        private SelectableItem[] items;
+        protected List<SelectableItem> items;
 
         [SerializeField]
-        private int selectedIndex = -1;
+        protected int selectedIndex = -1;
 
         public IReadOnlyList<SelectableItem> Items => items;
         public SelectableItem SelectedItem => selectedIndex < 0 ? null : items[selectedIndex];
@@ -19,7 +19,7 @@ namespace Kaede2.UI.Framework
             if (selectedIndex >= 0)
                 selectedIndex = NextAvailable(1, true);
 
-            for (var i = 0; i < items.Length; i++)
+            for (var i = 0; i < items.Count; i++)
             {
                 var sel = i;
                 var item = items[sel];
@@ -27,7 +27,7 @@ namespace Kaede2.UI.Framework
                 item.onSelected.AddListener(() =>
                 {
                     selectedIndex = sel;
-                    for (var j = 0; j < items.Length; j++)
+                    for (var j = 0; j < items.Count; j++)
                     {
                         items[j].selected = sel == j;
                         if (!items[j].selected) items[j].onDeselected?.Invoke();
@@ -38,9 +38,9 @@ namespace Kaede2.UI.Framework
 
         public void Select(int index)
         {
-            selectedIndex = Mod(index, items.Length);
+            selectedIndex = Mod(index, items.Count);
             selectedIndex = NextAvailable(1, true);
-            for (var i = 0; i < items.Length; i++)
+            for (var i = 0; i < items.Count; i++)
             {
                 items[i].selected = i == selectedIndex;
             }
@@ -67,9 +67,9 @@ namespace Kaede2.UI.Framework
 
         private int NextAvailable(int step, bool includeCurrent = false)
         {
-            for (var i = includeCurrent ? 0 : 1; i < items.Length; i++)
+            for (var i = includeCurrent ? 0 : 1; i < items.Count; i++)
             {
-                var index = Mod(selectedIndex + i * step, items.Length);
+                var index = Mod(selectedIndex + i * step, items.Count);
                 if (!items[index].gameObject.activeSelf) continue;
                 return index;
             }
@@ -80,6 +80,7 @@ namespace Kaede2.UI.Framework
         // Mod(-1, 3) == 2; Mod(1, 3) == 1
         private static int Mod(int x, int m)
         {
+            if (m == 0) return x;
             return (x % m + m) % m;
         }
     }

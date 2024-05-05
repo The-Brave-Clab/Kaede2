@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Kaede2.Input;
 using Kaede2.Scenario.Framework;
+using Kaede2.UI.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,7 +11,7 @@ using UnityEngine.UI;
 
 namespace Kaede2.Scenario
 {
-    public class LogPanel : MonoBehaviour
+    public class LogPanel : SelectableGroup
     {
         [SerializeField]
         private PlayerScenarioModule scenarioModule;
@@ -46,14 +49,22 @@ namespace Kaede2.Scenario
                 InputManager.InputAction.Scenario.Disable();
                 InputManager.InputAction.ScenarioLog.Enable();
 
+                // backup current ui hidden state
                 uiHiddenState = scenarioModule.PlayerUIController.UIHidden;
                 scenarioModule.PlayerUIController.UIHidden = true;
+
+                // scroll to bottom
+                scroll.verticalNormalizedPosition = 0;
+
+                // select the last entry
+                Select(items.Count - 1);
             }
             else
             {
                 InputManager.InputAction.Scenario.Enable();
                 InputManager.InputAction.ScenarioLog.Disable();
 
+                // restore the ui hidden state
                 if (uiHiddenState != null)
                 {
                     scenarioModule.PlayerUIController.UIHidden = uiHiddenState.Value;
@@ -62,25 +73,33 @@ namespace Kaede2.Scenario
 
                 voicePlayer.Stop();
             }
-
-            // scroll to bottom
-            scroll.verticalNormalizedPosition = 0;
         }
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             Enable(false);
 
             scenarioModule.OnMesCommand += OnMesCommand;
+            InputManager.onDeviceTypeChanged += OnInputDeviceChanged;
             InputManager.InputAction.ScenarioLog.GoBack.performed += ExitLogPanel;
+            InputManager.InputAction.ScenarioLog.PlayVoice.performed += PlayCurrentSelectedVoice;
+            InputManager.InputAction.ScenarioLog.Up.performed += SelectPrevious;
+            InputManager.InputAction.ScenarioLog.Down.performed += SelectNext;
+
+            OnInputDeviceChanged(InputManager.CurrentDeviceType);
         }
 
         private void OnDestroy()
         {
             scenarioModule.OnMesCommand -= OnMesCommand;
+            InputManager.onDeviceTypeChanged -= OnInputDeviceChanged;
             if (InputManager.InputAction != null)
             {
                 InputManager.InputAction.ScenarioLog.GoBack.performed -= ExitLogPanel;
+                InputManager.InputAction.ScenarioLog.PlayVoice.performed -= PlayCurrentSelectedVoice;
+                InputManager.InputAction.ScenarioLog.Up.performed -= SelectPrevious;
+                InputManager.InputAction.ScenarioLog.Down.performed -= SelectNext;
             }
         }
 
@@ -96,6 +115,8 @@ namespace Kaede2.Scenario
                 voice = null;
 
             entry.SetContent(GetIconFromVoice(voiceId), voice, speaker, message);
+
+            items.Add(entry);
         }
 
         private Sprite GetIconFromVoice(string voiceId)
@@ -125,9 +146,75 @@ namespace Kaede2.Scenario
 
         public void PlayVoice(AudioClip voice)
         {
+            if (voice == null) return;
+
             voicePlayer.Stop();
             voicePlayer.clip = voice;
             voicePlayer.Play();
+        }
+
+        private void PlayCurrentSelectedVoice(InputAction.CallbackContext ctx)
+        {
+            if (SelectedItem == null) return;
+
+            var entry = SelectedItem as LogEntry;
+            if (entry == null) return;
+    
+            entry.PlayVoice();
+        }
+
+        private void SelectPrevious(InputAction.CallbackContext ctx)
+        {
+            Previous();
+            UpdateScrollPositionBasedOnSelection();
+        }
+
+        private void SelectNext(InputAction.CallbackContext ctx)
+        {
+            Next();
+            UpdateScrollPositionBasedOnSelection();
+        }
+
+        private void UpdateScrollPositionBasedOnSelection()
+        {
+            if (SelectedItem == null) return;
+
+            var entry = SelectedItem as LogEntry;
+            if (entry == null) return;
+
+            var entryTransform = entry.transform as RectTransform;
+            var viewport = scroll.viewport;
+            var content = scroll.content;
+
+            var entryRect = entryTransform!.rect;
+            var viewportRect = viewport.rect;
+            var contentRect = content.rect;
+
+            var entryPosition = entryTransform.anchoredPosition;
+            var contentPosition = content.anchoredPosition;
+
+            var entryYTopInViewport = entryPosition.y + contentPosition.y;
+            var entryYBottomInViewport = entryPosition.y - entryRect.height + contentPosition.y + viewportRect.height;
+
+            float posDiff = 0;
+            if (entryYTopInViewport > 0)
+                posDiff = entryYTopInViewport;
+            else if (entryYBottomInViewport < 0)
+                posDiff = entryYBottomInViewport;
+
+            var scrollDiff = posDiff / (contentRect.height - viewportRect.height);
+            scroll.verticalNormalizedPosition = Mathf.Clamp01(scroll.verticalNormalizedPosition + scrollDiff);
+        }
+
+        private void OnInputDeviceChanged(InputDeviceType type)
+        {
+            scroll.verticalScrollbar.interactable = type is InputDeviceType.Touchscreen or InputDeviceType.KeyboardAndMouse;
+            scroll.movementType = type switch
+            {
+                InputDeviceType.Touchscreen => ScrollRect.MovementType.Elastic,
+                _ => ScrollRect.MovementType.Clamped,
+            };
+            scroll.inertia = type is InputDeviceType.Touchscreen;
         }
     }
 }

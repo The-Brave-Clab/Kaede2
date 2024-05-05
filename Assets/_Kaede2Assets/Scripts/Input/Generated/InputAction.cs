@@ -784,6 +784,33 @@ namespace Kaede2.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Up"",
+                    ""type"": ""Button"",
+                    ""id"": ""563e8965-4ad9-45df-a8c0-43ed2c3dd2c9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Down"",
+                    ""type"": ""Button"",
+                    ""id"": ""cfc75f96-745b-40df-9f81-12204db89628"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PlayVoice"",
+                    ""type"": ""Button"",
+                    ""id"": ""69a73234-aba4-476b-ba36-f8250d144843"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -817,6 +844,94 @@ namespace Kaede2.Input
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""GoBack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""38f6b920-7af5-43a6-bad7-7e1d4d6cbc5f"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad;GamepadNintendoStyle"",
+                    ""action"": ""Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""30ae037a-9b6e-436a-a2ed-759b525bf690"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad;GamepadNintendoStyle"",
+                    ""action"": ""Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0e96cc79-315e-45c2-a126-31b29e31172d"",
+                    ""path"": ""<Gamepad>/rightStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad;GamepadNintendoStyle"",
+                    ""action"": ""Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3109c01b-407a-4300-9ca1-7003ad843395"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad;GamepadNintendoStyle"",
+                    ""action"": ""Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""63b32c54-ab0a-40f0-9ee7-903a71cedbed"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad;GamepadNintendoStyle"",
+                    ""action"": ""Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f1d38d74-dff1-4506-864b-d424c64689b6"",
+                    ""path"": ""<Gamepad>/rightStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad;GamepadNintendoStyle"",
+                    ""action"": ""Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""01cf4b34-9a74-4114-9d27-fa432172eb82"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""PlayVoice"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2ecf5aea-9df0-491f-8ee3-147daddc239f"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""GamepadNintendoStyle"",
+                    ""action"": ""PlayVoice"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -873,6 +988,9 @@ namespace Kaede2.Input
             // ScenarioLog
             m_ScenarioLog = asset.FindActionMap("ScenarioLog", throwIfNotFound: true);
             m_ScenarioLog_GoBack = m_ScenarioLog.FindAction("GoBack", throwIfNotFound: true);
+            m_ScenarioLog_Up = m_ScenarioLog.FindAction("Up", throwIfNotFound: true);
+            m_ScenarioLog_Down = m_ScenarioLog.FindAction("Down", throwIfNotFound: true);
+            m_ScenarioLog_PlayVoice = m_ScenarioLog.FindAction("PlayVoice", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -1193,11 +1311,17 @@ namespace Kaede2.Input
         private readonly InputActionMap m_ScenarioLog;
         private List<IScenarioLogActions> m_ScenarioLogActionsCallbackInterfaces = new List<IScenarioLogActions>();
         private readonly InputAction m_ScenarioLog_GoBack;
+        private readonly InputAction m_ScenarioLog_Up;
+        private readonly InputAction m_ScenarioLog_Down;
+        private readonly InputAction m_ScenarioLog_PlayVoice;
         public struct ScenarioLogActions
         {
             private @Kaede2InputAction m_Wrapper;
             public ScenarioLogActions(@Kaede2InputAction wrapper) { m_Wrapper = wrapper; }
             public InputAction @GoBack => m_Wrapper.m_ScenarioLog_GoBack;
+            public InputAction @Up => m_Wrapper.m_ScenarioLog_Up;
+            public InputAction @Down => m_Wrapper.m_ScenarioLog_Down;
+            public InputAction @PlayVoice => m_Wrapper.m_ScenarioLog_PlayVoice;
             public InputActionMap Get() { return m_Wrapper.m_ScenarioLog; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1210,6 +1334,15 @@ namespace Kaede2.Input
                 @GoBack.started += instance.OnGoBack;
                 @GoBack.performed += instance.OnGoBack;
                 @GoBack.canceled += instance.OnGoBack;
+                @Up.started += instance.OnUp;
+                @Up.performed += instance.OnUp;
+                @Up.canceled += instance.OnUp;
+                @Down.started += instance.OnDown;
+                @Down.performed += instance.OnDown;
+                @Down.canceled += instance.OnDown;
+                @PlayVoice.started += instance.OnPlayVoice;
+                @PlayVoice.performed += instance.OnPlayVoice;
+                @PlayVoice.canceled += instance.OnPlayVoice;
             }
 
             private void UnregisterCallbacks(IScenarioLogActions instance)
@@ -1217,6 +1350,15 @@ namespace Kaede2.Input
                 @GoBack.started -= instance.OnGoBack;
                 @GoBack.performed -= instance.OnGoBack;
                 @GoBack.canceled -= instance.OnGoBack;
+                @Up.started -= instance.OnUp;
+                @Up.performed -= instance.OnUp;
+                @Up.canceled -= instance.OnUp;
+                @Down.started -= instance.OnDown;
+                @Down.performed -= instance.OnDown;
+                @Down.canceled -= instance.OnDown;
+                @PlayVoice.started -= instance.OnPlayVoice;
+                @PlayVoice.performed -= instance.OnPlayVoice;
+                @PlayVoice.canceled -= instance.OnPlayVoice;
             }
 
             public void RemoveCallbacks(IScenarioLogActions instance)
@@ -1300,6 +1442,9 @@ namespace Kaede2.Input
         public interface IScenarioLogActions
         {
             void OnGoBack(InputAction.CallbackContext context);
+            void OnUp(InputAction.CallbackContext context);
+            void OnDown(InputAction.CallbackContext context);
+            void OnPlayVoice(InputAction.CallbackContext context);
         }
     }
 }
