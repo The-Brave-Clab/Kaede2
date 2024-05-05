@@ -208,6 +208,13 @@ namespace Kaede2.Scenario
             }
 #endif
 
+            if (ScenarioRunMode.Args.SpecifiedScenario)
+            {
+                // if we entered through command line args, we force the scenario language to be the specified one
+                // the logic of choosing specific locale is inside GameSettings
+                scenarioLanguage = GameSettings.Locale;
+            }
+
             var scriptHandle = ResourceLoader.LoadScenarioScriptText(ScenarioName);
             // we could just release this right after getting the text string instead of releasing with other handles,
             // but it will usually unload the scenario bundle too which we are still going to use right after this,

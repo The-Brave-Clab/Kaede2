@@ -84,12 +84,6 @@ namespace Kaede2
 
             typeof(GlobalInitializer).Log("Initializing localization");
             yield return LocalizationSettings.InitializationOperation;
-            // on web build we don't set the locale here
-#if !UNITY_WEBGL || UNITY_EDITOR
-            LocalizationSettings.Instance.SetSelectedLocale(GameSettings.Locale);
-            yield return LocalizationSettings.SelectedLocaleAsync;
-            typeof(GlobalInitializer).Log($"Changed language to {GameSettings.Locale}");
-#endif
 
             typeof(GlobalInitializer).Log("Initialization complete");
 

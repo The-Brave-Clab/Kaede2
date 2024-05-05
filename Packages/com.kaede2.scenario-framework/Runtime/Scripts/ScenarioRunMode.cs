@@ -38,6 +38,11 @@ namespace Kaede2.Scenario.Framework
             private static readonly string specifiedScenarioName = null;
             public static string SpecifiedScenarioName => specifiedScenarioName;
 
+            public static bool SpecifiedLanguage => specifiedLanguageCode != null;
+
+            private static readonly string specifiedLanguageCode = null;
+            public static string SpecifiedLanguageCode => specifiedLanguageCode;
+
             // public static bool OverrideTranslation => overrideTranslationFile != null;
             //
             // private static readonly string overrideTranslationFile = null;
@@ -50,6 +55,7 @@ namespace Kaede2.Scenario.Framework
             public static bool BatchMode => batchMode;
             
             private const string SCENARIO_ARG = "scenario";
+            private const string LANGUAGE_ARG = "language";
             // private const string OVERRIDE_TRANSLATION_ARG = "override-translation";
             private const string TEST_MODE_ARG = "test-mode";
             private const string BATCH_MODE_ARG = "batchmode";
@@ -62,6 +68,9 @@ namespace Kaede2.Scenario.Framework
 
                 if (HasArg(SCENARIO_ARG))
                     specifiedScenarioName = GetArgParam(SCENARIO_ARG);
+
+                if (HasArg(LANGUAGE_ARG))
+                    specifiedLanguageCode = GetArgParam(LANGUAGE_ARG);
 
                 // if (HasArg(OVERRIDE_TRANSLATION_ARG))
                 //     overrideTranslationFile = GetArgParam(OVERRIDE_TRANSLATION_ARG);

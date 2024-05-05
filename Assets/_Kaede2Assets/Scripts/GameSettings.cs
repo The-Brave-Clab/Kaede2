@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using Kaede2.Scenario.Framework;
 using Kaede2.ScriptableObjects;
 using Kaede2.Utils;
 using UnityEngine;
@@ -142,6 +143,17 @@ namespace Kaede2
         {
             get
             {
+                if (ScenarioRunMode.Args.SpecifiedLanguage)
+                {
+                    var specified = LocalizationSettings.AvailableLocales.Locales
+                        .FirstOrDefault(locale => string.Equals(locale.Identifier.CultureInfo.TwoLetterISOLanguageName, ScenarioRunMode.Args.SpecifiedLanguageCode));
+                    if (specified != null)
+                    {
+                        Instance.Log($"Override locale with args: {specified}");
+                        return specified;
+                    }
+                }
+
                 if (Instance.locale != null)
                     return LocalizationSettings.AvailableLocales.Locales
                         .FirstOrDefault(locale => string.Equals(locale.Identifier.CultureInfo.TwoLetterISOLanguageName, Instance.locale));

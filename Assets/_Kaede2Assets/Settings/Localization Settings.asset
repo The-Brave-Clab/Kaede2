@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: Localization Settings
   m_EditorClassIdentifier: 
   m_StartupSelectors:
-  - rid: 1012040280001367858
-  - rid: 1012040280001367856
-  - rid: 1012040280001367857
+  - rid: 7921334887291813950
   m_AvailableLocales:
     rid: 1012040280001367859
   m_AssetDatabase:
@@ -33,18 +31,6 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1012040280001367856
-      type: {class: CommandLineLocaleSelector, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
-      data:
-        m_CommandLineArgument: -language=
-    - rid: 1012040280001367857
-      type: {class: SystemLocaleSelector, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
-      data: 
-    - rid: 1012040280001367858
-      type: {class: SpecificLocaleSelector, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
-      data:
-        m_LocaleId:
-          m_Code: ja
     - rid: 1012040280001367859
       type: {class: LocalesProvider, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
       data: 
@@ -205,3 +191,6 @@ MonoBehaviour:
         - default
         - d
         - 
+    - rid: 7921334887291813950
+      type: {class: LocaleSelector, ns: Kaede2.Localization, asm: Assembly-CSharp}
+      data: 
