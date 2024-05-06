@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BuildTarget: 20
   m_Subtarget: 0
-  m_ModuleName: WebGL
+  m_PlatformId: 84a3bb9e7420477f885e98145999eb20
   m_PlatformBuildProfile:
     rid: 4419959044475715589
   m_Scenes:
@@ -22,6 +22,9 @@ MonoBehaviour:
     m_path: Assets/_Kaede2Assets/Scenes/WebInitialScene.unity
   - m_enabled: 1
     m_path: Assets/_Kaede2Assets/Scenes/ScenarioScene.unity
+  m_ScriptingDefines: []
+  m_PlayerSettingsYaml:
+    m_Settings: []
   references:
     version: 2
     RefIds:
@@ -29,8 +32,8 @@ MonoBehaviour:
       type: {class: WebGLPlatformSettings, ns: UnityEditor.WebGL, asm: UnityEditor.WebGL.Extensions}
       data:
         m_Development: 0
-        m_ConnectProfiler: 1
-        m_BuildWithDeepProfilingSupport: 1
+        m_ConnectProfiler: 0
+        m_BuildWithDeepProfilingSupport: 0
         m_AllowDebugging: 0
         m_WaitForManagedDebugger: 0
         m_ManagedDebuggerFixedPort: 0
