@@ -21,8 +21,17 @@ namespace Kaede2.Editor.Addressables
 
         private const string ProgressBarTitle = "Tagging Kaede2 Addressable Assets";
 
+        public bool Enabled { get; set; } = true;
+
+        private void Awake()
+        {
+            Enabled = true;
+        }
+
         public void Apply()
         {
+            if (!Enabled) return;
+
             if (addressableBaseFolder == null) this.LogError("AddressableBaseFolder is not set.");
             if (addressableBaseFolder is not DefaultAsset) this.LogError("AddressableBaseFolder is not a folder.");
             string baseFolder = AddressableBaseFolder;
@@ -32,22 +41,23 @@ namespace Kaede2.Editor.Addressables
 
             EditorUtility.DisplayProgressBar(ProgressBarTitle, "Preparing...", 0);
             AddressableAssetGroup assetGroup = settings.FindGroup(addressableGroupName);
-            if (assetGroup != null)
+            if (assetGroup == null)
             {
-                EditorUtility.DisplayProgressBar(ProgressBarTitle, "Removing Existing Asset Groups...", 0);
-                settings.RemoveGroup(assetGroup);
+                EditorUtility.DisplayProgressBar(ProgressBarTitle, "Creating New Asset Groups...", 0);
+                assetGroup = settings.CreateGroup(addressableGroupName, false, false, false, settings.DefaultGroup.Schemas);
+                // change build & load path to remote, keeping other settings default
+                var bundledAssetGroupSchema = assetGroup.GetSchema<BundledAssetGroupSchema>();
+                var idInfo = settings.profileSettings.GetProfileDataByName("Remote.BuildPath");
+                bundledAssetGroupSchema.BuildPath.SetVariableById(settings, idInfo.Id);
+                idInfo = settings.profileSettings.GetProfileDataByName("Remote.LoadPath");
+                bundledAssetGroupSchema.LoadPath.SetVariableById(settings, idInfo.Id);
             }
-            EditorUtility.DisplayProgressBar(ProgressBarTitle, "Creating New Asset Groups...", 0);
-            assetGroup = settings.CreateGroup(addressableGroupName, false, false, false, settings.DefaultGroup.Schemas);
-            // change build & load path to remote, keeping other settings default
-            var bundledAssetGroupSchema = assetGroup.GetSchema<BundledAssetGroupSchema>();
-            var idInfo = settings.profileSettings.GetProfileDataByName("Remote.BuildPath");
-            bundledAssetGroupSchema.BuildPath.SetVariableById(settings, idInfo.Id);
-            idInfo = settings.profileSettings.GetProfileDataByName("Remote.LoadPath");
-            bundledAssetGroupSchema.LoadPath.SetVariableById(settings, idInfo.Id);
 
             List<string> currentLabels = settings.GetLabels().Where(l => l.StartsWith("kaede2")).ToList();
             List<string> unusedLabels = currentLabels.ToList();
+
+            List<AddressableAssetEntry> currentEntries = assetGroup.entries.ToList();
+            List<AddressableAssetEntry> unusedEntries = currentEntries.ToList();
 
             EditorUtility.DisplayProgressBar(ProgressBarTitle, "Tagging Assets...", 0);
 
@@ -70,7 +80,8 @@ namespace Kaede2.Editor.Addressables
                 ++processedCount;
                 if (!Filter(baseFolder, asset, out var bundleName, out var address)) continue;
 
-                EditorUtility.DisplayProgressBar(ProgressBarTitle, $"Tagging {bundleName} ({progressStr})...", progress);
+                if (processedCount % 10 == 0)
+                    EditorUtility.DisplayProgressBar(ProgressBarTitle, $"Tagging {bundleName} ({progressStr})...", progress);
 
                 var label = $"kaede2/{bundleName}";
 
@@ -81,16 +92,30 @@ namespace Kaede2.Editor.Addressables
 
                 var guid = AssetDatabase.AssetPathToGUID(asset);
 
-                var entry = settings.CreateOrMoveEntry(guid, assetGroup);
-                entry.labels.Add(label);
-                entry.address = address;
+                unusedEntries.RemoveAll(e => e.guid == guid);
 
-                settings.SetDirty(AddressableAssetSettings.ModificationEvent.EntryMoved, entry, true);
+                bool needModify = currentEntries.All(e => e.guid != guid) || // new entry
+                                  currentEntries.Where(e => e.guid == guid) // existing entry that
+                                      .Any(e => !e.labels.Contains(label) || e.address != address); // doesn't match
+
+                if (needModify)
+                {
+                    var entry = settings.CreateOrMoveEntry(guid, assetGroup);
+                    entry.labels.Add(label);
+                    entry.address = address;
+
+                    settings.SetDirty(AddressableAssetSettings.ModificationEvent.EntryMoved, entry, true);
+                }
             }
 
             foreach (var label in unusedLabels)
             {
                 settings.RemoveLabel(label);
+            }
+
+            foreach (var entry in unusedEntries)
+            {
+                settings.RemoveAssetEntry(entry.guid);
             }
 
             AssetDatabase.SaveAssets();

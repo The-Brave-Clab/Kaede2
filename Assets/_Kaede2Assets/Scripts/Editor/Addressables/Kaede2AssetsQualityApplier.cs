@@ -24,10 +24,15 @@ namespace Kaede2.Editor.Addressables
             var baseFolder = tagger.AddressableBaseFolder;
 
             var guids = AssetDatabase.FindAssets($"t:{nameof(Texture)}", new[] { baseFolder });
+
+            // temporarily disable the tagger to avoid unnecessary tagging
+            tagger.Enabled = false;
             for (var i = 0; i < guids.Length; i++)
             {
                 var guid = guids[i];
                 var path = AssetDatabase.GUIDToAssetPath(guid);
+                // reimport progress info doesn't contain "Assets/" prefix so we do the same to make it look better
+                path = path["Assets/".Length..];
 
                 EditorUtility.DisplayProgressBar($"Applying Quality ({i + 1} / {guids.Length})", path, (float) i / guids.Length);
 
@@ -62,15 +67,18 @@ namespace Kaede2.Editor.Addressables
 
                 var webSettings = importer.GetPlatformTextureSettings("Web");
                 webSettings.overridden = true;
-                webSettings.format = TextureImporterFormat.Automatic;
+                webSettings.format = TextureImporterFormat.ASTC_6x6;
                 webSettings.textureCompression = TextureImporterCompression.Compressed;
                 webSettings.resizeAlgorithm = TextureResizeAlgorithm.Mitchell;
                 webSettings.crunchedCompression = true;
                 webSettings.compressionQuality = 100;
                 importer.SetPlatformTextureSettings(webSettings);
-                
+
                 importer.SaveAndReimport();
             }
+            tagger.Enabled = true;
+            // apply quality should not change the addressables, so we don't need to tag again
+            // tagger.Apply();
 
             EditorUtility.ClearProgressBar();
         }
