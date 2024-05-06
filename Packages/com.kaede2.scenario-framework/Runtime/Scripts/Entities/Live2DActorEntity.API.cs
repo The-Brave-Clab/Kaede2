@@ -155,13 +155,13 @@ namespace Kaede2.Scenario.Framework.Entities
                     GL.LoadIdentity();
                     GL.LoadProjectionMatrix(live2DCanvasPos);
 
-                    // this will generate one and only one error but it is absolutely okay
-                    // the cause is that in the draw() call, live2d SDK checks if the stacktrace string
-                    // contains "OnPostRender()" while in the extracted stacktrace the function string
-                    // is actually "OnPostRender ()" instead
-                    // other than an error log, the SDK does absolutely nothing so it's benign
-                    // on iOS platform it doesn't generate the error message
-                    live2DModel.draw();
+                    // we define a function here to work around a live2d log error (even if it's benign)
+                    void OnPostRender()
+                    {
+                        live2DModel.draw();
+                    }
+
+                    OnPostRender();
 
                     GL.PopMatrix();
                 }
