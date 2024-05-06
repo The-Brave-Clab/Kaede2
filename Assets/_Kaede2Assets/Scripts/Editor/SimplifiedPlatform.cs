@@ -1,4 +1,7 @@
-﻿using UnityEditor;
+﻿using System;
+using System.IO;
+using UnityEditor;
+using UnityEngine;
 
 namespace Kaede2.Editor
 {
@@ -37,6 +40,21 @@ namespace Kaede2.Editor
                         return SimplifiedPlatform.Windows;
                 }
             }
+        }
+
+        private static string PlatformSaveFileName => Path.Combine(Path.GetDirectoryName(Application.dataPath)!, "Library", "Kaede2BuildTarget.txt");
+        public static void Save()
+        {
+            File.WriteAllText(PlatformSaveFileName, $"{currentActive:G}");
+        }
+
+        public static SimplifiedPlatform Load()
+        {
+            if (File.Exists(PlatformSaveFileName) && Enum.TryParse<SimplifiedPlatform>(File.ReadAllText(PlatformSaveFileName), out var platform))
+                return platform;
+
+            Save();
+            return currentActive;
         }
     }
 }

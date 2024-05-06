@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Kaede2.Utils;
 using UnityEditor;
 
 namespace Kaede2.Editor.Addressables
@@ -7,6 +8,14 @@ namespace Kaede2.Editor.Addressables
     {
         static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
         {
+            if (SimplifiedBuildTarget.Load() != SimplifiedBuildTarget.currentActive)
+            {
+                // this postprocess is triggered by build target change, ignore it
+                SimplifiedBuildTarget.Save();
+                typeof(Kaede2AddressableAutoApplier).Log("Ignoring postprocess triggered by build target change.");
+                return;
+            }
+
             var taggerGUIDs = AssetDatabase.FindAssets($"t:{nameof(Kaede2AddressableTagger)}");
             if (taggerGUIDs.Length == 0)
                 return;
