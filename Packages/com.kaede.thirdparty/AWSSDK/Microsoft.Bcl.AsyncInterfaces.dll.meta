@@ -14,6 +14,8 @@ PluginImporter:
     Android:
       enabled: 1
       settings:
+        AndroidLibraryDependee: UnityLibrary
+        AndroidSharedLibraryType: Executable
         CPU: ARMv7
     Any:
       enabled: 1
@@ -22,7 +24,7 @@ PluginImporter:
         Exclude Editor: 0
         Exclude Linux64: 0
         Exclude OSXUniversal: 0
-        Exclude WebGL: 1
+        Exclude WebGL: 0
         Exclude Win: 0
         Exclude Win64: 0
         Exclude iOS: 0
@@ -35,22 +37,22 @@ PluginImporter:
     Linux64:
       enabled: 1
       settings:
-        CPU: AnyCPU
+        CPU: None
     OSXUniversal:
       enabled: 1
       settings:
-        CPU: AnyCPU
+        CPU: None
     WebGL:
-      enabled: 0
+      enabled: 1
       settings: {}
     Win:
       enabled: 1
       settings:
-        CPU: AnyCPU
+        CPU: None
     Win64:
       enabled: 1
       settings:
-        CPU: AnyCPU
+        CPU: None
     WindowsStoreApps:
       enabled: 0
       settings:

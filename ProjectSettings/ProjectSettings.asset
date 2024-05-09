@@ -797,7 +797,7 @@ PlayerSettings:
   webGLShowDiagnostics: 0
   webGLDataCaching: 1
   webGLDebugSymbols: 0
-  webGLEmscriptenArgs: -sASYNCIFY=1
+  webGLEmscriptenArgs: 
   webGLModulesDirectory: 
   webGLTemplate: PROJECT:Kaede2BareMinimum
   webGLAnalyzeBuildSize: 0
@@ -830,7 +830,9 @@ PlayerSettings:
   il2cppCodeGeneration:
     Standalone: 1
     WebGL: 1
-  il2cppStacktraceInformation: {}
+  il2cppStacktraceInformation:
+    Standalone: 1
+    WebGL: 0
   managedStrippingLevel:
     Android: 1
     Bratwurst: 1

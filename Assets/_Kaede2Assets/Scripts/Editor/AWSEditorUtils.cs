@@ -10,7 +10,6 @@ using Amazon.Runtime;
 using Amazon.Runtime.CredentialManagement;
 using Amazon.S3;
 using Amazon.S3.Transfer;
-using Kaede2.AWS;
 using Kaede2.Utils;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
@@ -72,7 +71,7 @@ namespace Kaede2.Editor
             try
             {
                 var chain = new CredentialProfileStoreChain();
-                if (!chain.TryGetAWSCredentials(AWSConfig.EditorProfileName, out var credentials)) yield break;
+                if (!chain.TryGetAWSCredentials(AWS.EditorProfileName, out var credentials)) yield break;
 
                 Dictionary<string, (string key, FileInfo file)> uploadTasks = new();
 
@@ -166,7 +165,7 @@ namespace Kaede2.Editor
             {
                 UseDualstackEndpoint = true,
                 UseAccelerateEndpoint = true,
-                RegionEndpoint = AWSConfig.DefaultRegion,
+                RegionEndpoint = AWS.DefaultRegion,
             };
             using var client = new AmazonS3Client(credentials, config);
             var transferUtility = new TransferUtility(client);

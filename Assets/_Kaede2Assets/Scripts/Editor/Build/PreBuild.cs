@@ -1,6 +1,7 @@
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
+using UnityEngine;
 
 namespace Kaede2.Editor.Build
 {
@@ -10,18 +11,8 @@ namespace Kaede2.Editor.Build
 
         public void OnPreprocessBuild(BuildReport report)
         {
-            if (report.summary.platform == BuildTarget.WebGL)
-            {
-                const string ASYNCIFY_ARG = "-sASYNCIFY=1";
-                if (string.IsNullOrEmpty(PlayerSettings.WebGL.emscriptenArgs))
-                {
-                    PlayerSettings.WebGL.emscriptenArgs = ASYNCIFY_ARG;
-                }
-                else if (!PlayerSettings.WebGL.emscriptenArgs.Contains(ASYNCIFY_ARG))
-                {
-                    PlayerSettings.WebGL.emscriptenArgs += " " + ASYNCIFY_ARG;
-                }
-            }
+            PlayerSettings.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
+            PlayerSettings.SetIl2CppStacktraceInformation(NamedBuildTarget.FromBuildTargetGroup(report.summary.platformGroup), Il2CppStacktraceInformation.MethodFileLineNumber);
         }
     }
 }

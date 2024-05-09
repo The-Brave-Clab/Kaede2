@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Linq;
-using Kaede2.AWS;
 using Kaede2.Input;
 using Kaede2.Scenario.Framework;
 using Kaede2.Utils;
@@ -51,7 +50,6 @@ namespace Kaede2
 #endif
 
             InputManager.EnsureInstance();
-            AWSManager.Initialize();
 
             SceneManager.sceneLoaded += (scene, mode) =>
             {
