@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Kaede2.Input;
 using Kaede2.Localization;
@@ -225,28 +226,31 @@ namespace Kaede2.Scenario
             // TODO: error handling
             var scriptText = scriptHandle.Result.text;
 
-            // though we did initialize the localization settings in GlobalInitializer,
-            // in web build users might not wait for the initialization to finish before entering the scenario,
-            // so we need to wait for the initialization to finish here
-            yield return LocalizationSettings.InitializationOperation;
             // download translation if needed
             Locale targetLocale = LocalizationSettings.AvailableLocales.Locales
                 .FirstOrDefault(l => l.Identifier.CultureInfo.TwoLetterISOLanguageName == "ja")!;
-            if (scenarioLanguage != null && scenarioLanguage.Identifier.CultureInfo.TwoLetterISOLanguageName != "ja")
+            string translation = "";
+
+            if (ScenarioRunMode.Args.OverrideTranslation)
             {
-                string translation = "";
+                if (File.Exists(ScenarioRunMode.Args.OverrideTranslationFile))
+                    translation = File.ReadAllText(ScenarioRunMode.Args.OverrideTranslationFile);
+                else
+                    this.LogWarning($"Failed to load override translation file: {ScenarioRunMode.Args.OverrideTranslationFile}");
+            }
+            else if (scenarioLanguage != null && scenarioLanguage.Identifier.CultureInfo.TwoLetterISOLanguageName != "ja")
+            {
                 yield return LocalizeScript.DownloadTranslation(ScenarioName, scenarioLanguage.Identifier.CultureInfo.TwoLetterISOLanguageName, t => translation = t);
 
                 if (string.IsNullOrEmpty(translation))
-                {
                     this.LogWarning($"Failed to download translation for {scenarioLanguage}. Defaulting to {targetLocale}. This should not happen if entered from scenario selection menu.");
-                }
-                else
-                {
-                    scriptText = LocalizeScript.ApplyTranslation(scriptText, translation);
-                    targetLocale = scenarioLanguage;
-                    this.Log($"Applied translation for {scenarioLanguage}");
-                }
+            }
+
+            if (!string.IsNullOrEmpty(translation))
+            {
+                targetLocale = scenarioLanguage;
+                scriptText = LocalizeScript.ApplyTranslation(scriptText, translation);
+                this.Log($"Applied translation for {scenarioLanguage}");
             }
 
             // change locale if needed

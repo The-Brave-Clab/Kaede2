@@ -43,10 +43,10 @@ namespace Kaede2.Scenario.Framework
             private static readonly string specifiedLanguageCode = null;
             public static string SpecifiedLanguageCode => specifiedLanguageCode;
 
-            // public static bool OverrideTranslation => overrideTranslationFile != null;
-            //
-            // private static readonly string overrideTranslationFile = null;
-            // public static string OverrideTranslationFile => overrideTranslationFile;
+            public static bool OverrideTranslation => overrideTranslationFile != null;
+            
+            private static readonly string overrideTranslationFile = null;
+            public static string OverrideTranslationFile => overrideTranslationFile;
 
             private static readonly bool testMode = false;
             public static bool TestMode => testMode;
@@ -56,7 +56,7 @@ namespace Kaede2.Scenario.Framework
             
             private const string SCENARIO_ARG = "scenario";
             private const string LANGUAGE_ARG = "language";
-            // private const string OVERRIDE_TRANSLATION_ARG = "override-translation";
+            private const string OVERRIDE_TRANSLATION_ARG = "override-translation";
             private const string TEST_MODE_ARG = "test-mode";
             private const string BATCH_MODE_ARG = "batchmode";
 
@@ -72,8 +72,8 @@ namespace Kaede2.Scenario.Framework
                 if (HasArg(LANGUAGE_ARG))
                     specifiedLanguageCode = GetArgParam(LANGUAGE_ARG);
 
-                // if (HasArg(OVERRIDE_TRANSLATION_ARG))
-                //     overrideTranslationFile = GetArgParam(OVERRIDE_TRANSLATION_ARG);
+                if (HasArg(OVERRIDE_TRANSLATION_ARG))
+                    overrideTranslationFile = GetArgParam(OVERRIDE_TRANSLATION_ARG);
 
                 testMode = HasArg(TEST_MODE_ARG);
                 batchMode = HasArg(BATCH_MODE_ARG);
@@ -100,7 +100,7 @@ namespace Kaede2.Scenario.Framework
 
             private static string[] args;
             private static Dictionary<string, List<string>> argMap;
-            private static readonly char[] prefixes = {'-', '+', '/'};
+            private static readonly char[] prefixes = {'-'};
 
             static bool IsArg(string arg)
             {
