@@ -34,19 +34,19 @@ namespace Kaede2.Editor
             File.WriteAllText(UploadHistoryPath, JsonUtility.ToJson(uploadHistory, true));
         }
 
-        public static void UploadFolder(string folderPath, string bucket, RegionEndpoint region)
+        public static void UploadFolder(string folderPath, string bucket, RegionEndpoint region, string additionalPrefix = "")
         {
             var directoryInfo = new DirectoryInfo(folderPath);
             var files = directoryInfo.GetFiles("*", SearchOption.AllDirectories);
             // order by descending so that the largest files are uploaded first
             // this will save some time
             files = files.Where(f => !f.Name.Equals(".DS_Store")).OrderByDescending(f => f.Length).ToArray();
-            EditorCoroutineUtility.StartCoroutineOwnerless(UploadFilesCoroutine(files, bucket, region, f => f[(directoryInfo.FullName.Length + 1)..].Replace(Path.DirectorySeparatorChar, '/')));
+            EditorCoroutineUtility.StartCoroutineOwnerless(UploadFilesCoroutine(files, bucket, region, additionalPrefix, f => f[(directoryInfo.FullName.Length + 1)..].Replace(Path.DirectorySeparatorChar, '/')));
         }
 
-        public static void UploadFiles(FileInfo[] files, string bucket, RegionEndpoint region, Func<string, string> getKeyFromFile)
+        public static void UploadFiles(FileInfo[] files, string bucket, RegionEndpoint region, Func<string, string> getKeyFromFile, string additionalPrefix = "")
         {
-            EditorCoroutineUtility.StartCoroutineOwnerless(UploadFilesCoroutine(files, bucket, region, getKeyFromFile));
+            EditorCoroutineUtility.StartCoroutineOwnerless(UploadFilesCoroutine(files, bucket, region, additionalPrefix, getKeyFromFile));
         }
 
         public static bool ValidateProfile(string profileName)
@@ -55,12 +55,12 @@ namespace Kaede2.Editor
             return chain.TryGetAWSCredentials(profileName, out _);
         }
 
-        private static IEnumerator UploadFilesCoroutine(FileInfo[] files, string bucket, RegionEndpoint region, Func<string, string> getKeyFromFile)
+        private static IEnumerator UploadFilesCoroutine(FileInfo[] files, string bucket, RegionEndpoint region, string additionalPrefix, Func<string, string> getKeyFromFile)
         {
             int filesActuallyUploaded = 0;
             var uploadCancelled = false;
 
-            var parentProgressId = Progress.Start("Uploading files to AWS",
+            var parentProgressId = Progress.Start($"Uploading files to AWS S3 ({bucket})",
                 $"0/{files.Length}",
                 Progress.Options.Managed);
             Progress.IsCancellable(parentProgressId);
@@ -78,6 +78,11 @@ namespace Kaede2.Editor
                 foreach (var file in files)
                 {
                     var key = getKeyFromFile(file.FullName);
+                    if (!string.IsNullOrEmpty(additionalPrefix))
+                    {
+                        var prefix = additionalPrefix.Trim('/');
+                        key = $"{prefix}/{key}";
+                    }
                     uploadTasks[key] = new() { key = key, file = file };
                 }
 
@@ -200,6 +205,13 @@ namespace Kaede2.Editor
                 yield return null;
 
             Progress.Remove(progressId);
+
+            if (uploadTask.Exception != null)
+            {
+                typeof(AWSEditorUtils).LogError($"Failed to upload {file.FullName} to {bucket}/{key}: {uploadTask.Exception}");
+                onFinished?.Invoke(key, false);
+                yield break;
+            }
 
             if (historyEntryIndex < 0)
                 uploadHistory.history.Add(currentFile);

@@ -44,7 +44,7 @@ namespace Kaede2.Scenario.Framework
             public static string SpecifiedLanguageCode => specifiedLanguageCode;
 
             public static bool OverrideTranslation => overrideTranslationFile != null;
-            
+
             private static readonly string overrideTranslationFile = null;
             public static string OverrideTranslationFile => overrideTranslationFile;
 
@@ -53,7 +53,7 @@ namespace Kaede2.Scenario.Framework
 
             private static readonly bool batchMode = false;
             public static bool BatchMode => batchMode;
-            
+
             private const string SCENARIO_ARG = "scenario";
             private const string LANGUAGE_ARG = "language";
             private const string OVERRIDE_TRANSLATION_ARG = "override-translation";
@@ -95,8 +95,8 @@ namespace Kaede2.Scenario.Framework
 
 
             #region CommandLineArguments
-            
-            #if !UNITY_WEBGL || UNITY_EDITOR
+
+#if !UNITY_WEBGL || UNITY_EDITOR
 
             private static string[] args;
             private static Dictionary<string, List<string>> argMap;
@@ -114,7 +114,7 @@ namespace Kaede2.Scenario.Framework
                 argMap = new Dictionary<string, List<string>>();
 
                 int i = 0;
-                
+
                 while (i < args.Length)
                 {
                     if (IsArg(args[i]))
@@ -167,11 +167,11 @@ namespace Kaede2.Scenario.Framework
                         output += $"\t{param}\n";
                     }
                 }
-                
+
                 Debug.Log(output);
             }
-            
-            #endif
+
+#endif
 
             #endregion
         }

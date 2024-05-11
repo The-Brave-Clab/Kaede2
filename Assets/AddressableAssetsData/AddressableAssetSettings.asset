@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: d9fab5d213f363d42817279ff9aa58de
   m_currentHash:
     serializedVersion: 2
-    Hash: feb707a5a5eb87afd2932b21bd95605f
+    Hash: 00000000000000000000000000000000
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
   m_CatalogRequestsTimeout: 0
@@ -91,6 +91,8 @@ MonoBehaviour:
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
       - m_Id: cfca3cd065d66a647bee0aca81d86ff3
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+      - m_Id: 5b430b3467ad84270a41157b7f8b3476
+        m_Value: 
     - m_InheritedParent: 
       m_Id: 325afec3b347c46bdb3e306507e41d42
       m_ProfileName: AWS S3
@@ -104,7 +106,25 @@ MonoBehaviour:
       - m_Id: 9c2b371738918c949966a52e4c8a9bbb
         m_Value: '[Kaede2.Editor.Addressables.UploadRemoteAddressables.RemoteBuildPath]/[BuildTarget]'
       - m_Id: cfca3cd065d66a647bee0aca81d86ff3
-        m_Value: '[Kaede2.AWS.AWSManager.DefaultAddressableLoadUrl]/[BuildTarget]'
+        m_Value: '[Kaede2.AWS.DefaultAddressableLoadUrl][AdditionalPrefix]/[BuildTarget]'
+      - m_Id: 5b430b3467ad84270a41157b7f8b3476
+        m_Value: /release
+    - m_InheritedParent: 
+      m_Id: ba243404de71b4bdfa4163615e0dad45
+      m_ProfileName: AWS S3 (Test)
+      m_Values:
+      - m_Id: d038d99a54e08f344882e3b78fb5cecd
+        m_Value: '[Kaede2.Editor.SimplifiedBuildTarget.currentActive]'
+      - m_Id: 316fcbc72c5641744b9f78198245ea53
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+      - m_Id: 6209078759526ea4d989241e7249ad05
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+      - m_Id: 9c2b371738918c949966a52e4c8a9bbb
+        m_Value: '[Kaede2.Editor.Addressables.UploadRemoteAddressables.RemoteBuildPath]/[BuildTarget]'
+      - m_Id: cfca3cd065d66a647bee0aca81d86ff3
+        m_Value: '[Kaede2.AWS.DefaultAddressableLoadUrl][AdditionalPrefix]/[BuildTarget]'
+      - m_Id: 5b430b3467ad84270a41157b7f8b3476
+        m_Value: /test
     m_ProfileEntryNames:
     - m_Id: d038d99a54e08f344882e3b78fb5cecd
       m_Name: BuildTarget
@@ -120,6 +140,9 @@ MonoBehaviour:
       m_InlineUsage: 0
     - m_Id: cfca3cd065d66a647bee0aca81d86ff3
       m_Name: Remote.LoadPath
+      m_InlineUsage: 0
+    - m_Id: 5b430b3467ad84270a41157b7f8b3476
+      m_Name: AdditionalPrefix
       m_InlineUsage: 0
     m_ProfileVersion: 1
   m_LabelTable:

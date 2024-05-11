@@ -118,7 +118,7 @@ namespace Kaede2.Scenario
 
         public PlayerUIController PlayerUIController => uiController;
 
-        
+
         private static string scenarioName;
         private static Locale scenarioLanguage;
         private static ScenarioState scenarioStateToBeRestored;

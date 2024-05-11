@@ -6,7 +6,11 @@ namespace Kaede2
     public static class AWS
     {
         public static RegionEndpoint DefaultRegion => RegionEndpoint.APNortheast1;
+#if SCENARIO_ONLY
+        public static string AddressableBucket => "kaede2-addressables-scenario-only";
+#else
         public static string AddressableBucket => "kaede2-addressables";
+#endif
         public static string PublishBucket => "kaede2-publish";
         public static string TranslationBucket => "yuyuyui-scenario-translation";
         public static string EditorProfileName => "github_actions";
