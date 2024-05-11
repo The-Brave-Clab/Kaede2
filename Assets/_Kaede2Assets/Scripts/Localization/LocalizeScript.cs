@@ -13,7 +13,7 @@ namespace Kaede2.Localization
         public static IEnumerator DownloadTranslation(string scenarioName, string language, Action<string> onDownloaded)
         {
             string key = $"{language}/{scenarioName}/{scenarioName}.json";
-            var url = AWS.GetUrl(AWS.TranslationBucket, key, AWS.DefaultRegion, true, true);
+            var url = AWS.GetUrl(AWS.TranslationBucket, key, AWS.DefaultRegion, true, true, true);
             Uri uri = new Uri(url);
             var request = UnityWebRequest.Get(uri);
             yield return request.SendWebRequest();
