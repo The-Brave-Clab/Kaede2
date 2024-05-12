@@ -2,15 +2,18 @@ using System.IO;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace Kaede2.Editor.Addressables
 {
     public static class UploadRemoteAddressables
     {
+        [Preserve]
+        public static string RemoteBuildPath => 
 #if SCENARIO_ONLY
-        private static string RemoteBuildPath => Path.Combine(Path.GetDirectoryName(Application.dataPath)!, "Builds", "ServerData", "ScenarioOnly");
+            Path.Combine(Path.GetDirectoryName(Application.dataPath)!, "Builds", "ServerData", "ScenarioOnly");
 #else
-        private static string RemoteBuildPath => Path.Combine(Path.GetDirectoryName(Application.dataPath)!, "Builds", "ServerData", "Main");
+            Path.Combine(Path.GetDirectoryName(Application.dataPath)!, "Builds", "ServerData", "Main");
 #endif
 
         [MenuItem("Kaede2/Addressables/Upload/All", false, 0)]
