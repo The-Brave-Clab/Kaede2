@@ -261,6 +261,21 @@ namespace Kaede2.Editor
             return ContentEncodings.GetValueOrDefault(extension);
         }
 
+        public static void UploadSubFolder(string baseFolder, string subFolder, string additionalPrefix, string bucket)
+        {
+            var folder = Path.Combine(baseFolder, subFolder);
+            UploadFolder(folder, bucket, AWS.DefaultRegion, additionalPrefix);
+        }
+
+        public static bool CanUploadSubFolder(string baseFolder, string subFolder)
+        {
+            var folder = Path.Combine(baseFolder, subFolder);
+            if (!Directory.Exists(folder)) return false;
+            if (Directory.GetDirectories(folder).Length == 0) return false;
+            if (!ValidateProfile(AWS.EditorProfileName)) return false;
+            return true;
+        }
+
         [Serializable]
         private struct UploadHistoryJson
         {

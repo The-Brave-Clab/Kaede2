@@ -7,10 +7,12 @@ namespace Kaede2
     public static class AWS
     {
         public static RegionEndpoint DefaultRegion => RegionEndpoint.APNortheast1;
+        private static string MainAddressableBucket => "kaede2-addressables";
+        private static string ScenarioOnlyAddressableBucket => "kaede2-addressables-scenario-only";
 #if SCENARIO_ONLY
-        public static string AddressableBucket => "kaede2-addressables-scenario-only";
+        public static string AddressableBucket => ScenarioOnlyAddressableBucket;
 #else
-        public static string AddressableBucket => "kaede2-addressables";
+        public static string AddressableBucket => MainAddressableBucket;
 #endif
         public static string PublishBucket => "kaede2-publish";
         public static string TranslationBucket => "yuyuyui-scenario-translation";
@@ -22,9 +24,10 @@ namespace Kaede2
 
         private static Dictionary<string, string> CdnMap = new()
         {
-            { "kaede2-addressables", "d3b1h60nzo7az4" },
-            { "kaede2-addressables-scenario-only", "d278luw8xyi1q" },
-            { "yuyuyui-scenario-translation", "d1igmkcvf9ttyi" },
+            { MainAddressableBucket, "d3b1h60nzo7az4" },
+            { ScenarioOnlyAddressableBucket, "d278luw8xyi1q" },
+            { TranslationBucket, "d1igmkcvf9ttyi" },
+            { PublishBucket, "d3w0m29iaipqyp" },
         };
 
         public static string GetUrl(string bucket, string key, RegionEndpoint region, bool useTransferAcceleration = false, bool useDualstackEndpoint = false, bool useCdn = false)
