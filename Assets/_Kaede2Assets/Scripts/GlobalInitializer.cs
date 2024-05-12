@@ -83,6 +83,10 @@ namespace Kaede2
             typeof(GlobalInitializer).Log("Initializing localization");
             yield return LocalizationSettings.InitializationOperation;
 
+#if UNITY_WEBGL && !UNITY_EDITOR
+            WebInterop.RegisterInterops();
+#endif
+
             typeof(GlobalInitializer).Log("Initialization complete");
 
             CurrentStatus = Status.Done;

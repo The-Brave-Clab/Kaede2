@@ -21,7 +21,7 @@ namespace Kaede2
         private static extern void RegisterWebInteropGameObject(string gameObjectName);
 
         [DllImport(DllName)]
-        private static extern void RegisterInterops();
+        public static extern void RegisterInterops();
 
         [DllImport(DllName)]
         public static extern void OnScenarioListLoaded(string scenarioListJson);
@@ -60,7 +60,6 @@ namespace Kaede2
             RegisterWebInteropGameObject(gameObject.name);
             DontDestroyOnLoad(gameObject);
 
-            RegisterInterops();
             OnScenarioListLoaded(JsonUtility.ToJson(MasterScenarioInfo.Instance));
         }
 
