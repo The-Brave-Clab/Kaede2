@@ -7,20 +7,18 @@
       "dependencies": {},
       "url": "https://package.openupm.com"
     },
-    "com.kaede.thirdparty": {
-      "version": "file:com.kaede.thirdparty",
+    "com.github-glitchenzo.nugetforunity": {
+      "version": "4.1.0",
       "depth": 0,
-      "source": "embedded",
-      "dependencies": {
-        "com.unity.nuget.newtonsoft-json": "3.2.1"
-      }
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
     },
     "com.kaede2.scenario-framework": {
       "version": "file:com.kaede2.scenario-framework",
       "depth": 0,
       "source": "embedded",
       "dependencies": {
-        "com.kaede.thirdparty": "1.0.0",
         "com.unity.nuget.newtonsoft-json": "3.2.1"
       }
     },

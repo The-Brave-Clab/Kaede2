@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
-using Amazon;
 
 namespace Kaede2
 {
     public static class AWS
     {
-        public static RegionEndpoint DefaultRegion => RegionEndpoint.APNortheast1;
+        public static string DefaultRegion => "ap-northeast-1"; // Asia Pacific (Tokyo)
         private static string MainAddressableBucket => "kaede2-addressables";
         private static string ScenarioOnlyAddressableBucket => "kaede2-addressables-scenario-only";
 #if SCENARIO_ONLY
@@ -18,7 +17,7 @@ namespace Kaede2
         public static string TranslationBucket => "yuyuyui-scenario-translation";
         public static string EditorProfileName => "github_actions";
         private static Guid CognitoIdentityPoolGuid => new Guid(0x1b74aaab, 0x7cb6, 0x4073, 0x80, 0x8b, 0x90, 0x7b, 0x16, 0x40, 0x17, 0x8c);
-        public static string CognitoIdentityPoolId => $"{DefaultRegion.SystemName}:{CognitoIdentityPoolGuid}";
+        public static string CognitoIdentityPoolId => $"{DefaultRegion}:{CognitoIdentityPoolGuid}";
         // use dualstack accelerated endpoint
         public static string DefaultAddressableLoadUrl => GetUrl(AddressableBucket, null, DefaultRegion, true, true, true);
 
@@ -30,7 +29,7 @@ namespace Kaede2
             { PublishBucket, "d3w0m29iaipqyp" },
         };
 
-        public static string GetUrl(string bucket, string key, RegionEndpoint region, bool useTransferAcceleration = false, bool useDualstackEndpoint = false, bool useCdn = false)
+        public static string GetUrl(string bucket, string key, string region, bool useTransferAcceleration = false, bool useDualstackEndpoint = false, bool useCdn = false)
         {
             string GetBaseUrl()
             {
@@ -51,10 +50,10 @@ namespace Kaede2
 
                 if (useDualstackEndpoint)
                 {
-                    return $"https://{bucket}.s3.dualstack.{region.SystemName}.amazonaws.com";
+                    return $"https://{bucket}.s3.dualstack.{region}.amazonaws.com";
                 }
 
-                return $"https://{bucket}.s3.{region.SystemName}.amazonaws.com";
+                return $"https://{bucket}.s3.{region}.amazonaws.com";
             }
 
             return string.IsNullOrEmpty(key) ? GetBaseUrl() : $"{GetBaseUrl()}/{key}";

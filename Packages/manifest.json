@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.coffee.softmask-for-ugui": "1.0.2",
-    "com.kaede.thirdparty": "file:com.kaede.thirdparty",
+    "com.github-glitchenzo.nugetforunity": "4.1.0",
     "com.kaede2.scenario-framework": "file:com.kaede2.scenario-framework",
     "com.unity.addressables": "2.0.8",
     "com.unity.device-simulator.devices": "1.0.0",
@@ -35,10 +35,11 @@
   },
   "scopedRegistries": [
     {
-      "name": "package.openupm.com",
+      "name": "OpenUPM",
       "url": "https://package.openupm.com",
       "scopes": [
-        "com.coffee.softmask-for-ugui"
+        "com.coffee.softmask-for-ugui",
+        "com.github-glitchenzo.nugetforunity"
       ]
     }
   ]

@@ -170,7 +170,7 @@ namespace Kaede2.Editor
             {
                 UseDualstackEndpoint = true,
                 UseAccelerateEndpoint = true,
-                RegionEndpoint = AWS.DefaultRegion,
+                RegionEndpoint = region,
             };
             using var client = new AmazonS3Client(credentials, config);
             var transferUtility = new TransferUtility(client);
@@ -264,7 +264,7 @@ namespace Kaede2.Editor
         public static void UploadSubFolder(string baseFolder, string subFolder, string additionalPrefix, string bucket)
         {
             var folder = Path.Combine(baseFolder, subFolder);
-            UploadFolder(folder, bucket, AWS.DefaultRegion, additionalPrefix);
+            UploadFolder(folder, bucket, RegionEndpoint.GetBySystemName(AWS.DefaultRegion), additionalPrefix);
         }
 
         public static bool CanUploadSubFolder(string baseFolder, string subFolder)
