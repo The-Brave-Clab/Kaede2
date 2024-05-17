@@ -155,7 +155,9 @@ namespace Kaede2.UI
                         SpriteSheetName = GetSpriteSheetNameFromDeviceType(deviceType, binding),
                         SpriteName = GetSpriteNameFromBindingPath(binding)
                     };
-                    spriteIds.Add(spriteId);
+
+                    if (spriteId.SpriteName != "UNKNOWN")
+                        spriteIds.Add(spriteId);
                 }
 
                 var spriteSheetNames = spriteIds.Select(id => $"<sprite=\"{id.SpriteSheetName}\" name=\"{id.SpriteName}\" color=#{ColorUtility.ToHtmlStringRGB(color)}>");
