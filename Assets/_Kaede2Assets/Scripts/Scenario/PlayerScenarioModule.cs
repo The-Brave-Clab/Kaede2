@@ -386,7 +386,8 @@ namespace Kaede2.Scenario
             if (saveState)
             {
                 // TODO: implement save state
-                this.Log("Unfinished state saved");
+                this.LogWarning("Save state not implemented");
+                // this.Log("Unfinished state saved");
             }
 
             if (backupLocale != null)
@@ -397,7 +398,8 @@ namespace Kaede2.Scenario
             }
 
             // TODO: implement go back to previous scene
-            this.Log("Going back to previous scene");
+            this.LogWarning("Go back to previous scene not implemented");
+            // this.Log("Going back to previous scene");
         }
 
         private IEnumerator Reload()

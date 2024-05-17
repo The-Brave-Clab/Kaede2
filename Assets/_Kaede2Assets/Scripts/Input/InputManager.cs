@@ -26,7 +26,7 @@ namespace Kaede2.Input
 
         public static InputUser User => Instance == null ? default : Instance.user;
         public static InputDeviceType CurrentDeviceType => Instance == null ? default : Instance.currentDeviceType;
-        public static Kaede2InputAction InputAction => Instance == null ? null : Instance.inputAction;
+        public static Kaede2InputAction InputAction => Instance == null ? null : Instance.inputAction ?? (Instance.inputAction = new());
 
         public static event Action<InputDeviceType> onDeviceTypeChanged;
 
@@ -39,7 +39,7 @@ namespace Kaede2.Input
             var defaultDevice = InputSystem.devices.First(d => d != null);
             user = InputUser.PerformPairingWithDevice(defaultDevice);
             currentDeviceType = defaultDevice.GetDeviceType();
-            inputAction = new();
+            inputAction ??= new();
             ChangeInputDevice(defaultDevice);
 
             inputAction.GeneralUI.Enable();

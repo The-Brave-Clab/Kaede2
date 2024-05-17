@@ -9,6 +9,7 @@ using Kaede2.UI.Framework;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Kaede2
@@ -79,22 +80,23 @@ namespace Kaede2
 
         private void OnEnable()
         {
-            InputManager.InputAction.GeneralUI.Enable();
+            if (!Application.isPlaying) return;
 
             InputManager.InputAction.GeneralUI.NavigateUp.performed += Previous;
             InputManager.InputAction.GeneralUI.NavigateDown.performed += Next;
             InputManager.InputAction.GeneralUI.Confirm.performed += Confirm;
+            InputManager.InputAction.GeneralUI.Cancel.performed += GoBack;
         }
 
         private void OnDisable()
         {
+            if (!Application.isPlaying) return;
             if (InputManager.InputAction != null)
             {
                 InputManager.InputAction.GeneralUI.NavigateUp.performed -= Previous;
                 InputManager.InputAction.GeneralUI.NavigateDown.performed -= Next;
                 InputManager.InputAction.GeneralUI.Confirm.performed -= Confirm;
-                
-                InputManager.InputAction.GeneralUI.Disable();
+                InputManager.InputAction.GeneralUI.Cancel.performed -= GoBack;
             }
         }
 
@@ -181,6 +183,17 @@ namespace Kaede2
         private void Confirm(InputAction.CallbackContext ctx)
         {
             Confirm();
+        }
+
+        private void GoBack(InputAction.CallbackContext ctx)
+        {
+            IEnumerator LoadPreviousScene()
+            {
+                yield return SceneTransition.Fade(1);
+                yield return SceneManager.LoadSceneAsync("TitleScene", LoadSceneMode.Single);
+            }
+
+            StartCoroutine(LoadPreviousScene());
         }
     }
 }
