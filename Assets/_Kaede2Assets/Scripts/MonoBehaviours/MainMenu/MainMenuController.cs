@@ -1,11 +1,14 @@
+using System;
 using System.Collections;
 using Coffee.UISoftMask;
 using DG.Tweening;
+using Kaede2.Input;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using Kaede2.UI.Framework;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Kaede2
@@ -72,6 +75,27 @@ namespace Kaede2
             }
 
             (SelectedItem as MainMenuSelectableItem)!.SetText();
+        }
+
+        private void OnEnable()
+        {
+            InputManager.InputAction.GeneralUI.Enable();
+
+            InputManager.InputAction.GeneralUI.NavigateUp.performed += Previous;
+            InputManager.InputAction.GeneralUI.NavigateDown.performed += Next;
+            InputManager.InputAction.GeneralUI.Confirm.performed += Confirm;
+        }
+
+        private void OnDisable()
+        {
+            if (InputManager.InputAction != null)
+            {
+                InputManager.InputAction.GeneralUI.NavigateUp.performed -= Previous;
+                InputManager.InputAction.GeneralUI.NavigateDown.performed -= Next;
+                InputManager.InputAction.GeneralUI.Confirm.performed -= Confirm;
+                
+                InputManager.InputAction.GeneralUI.Disable();
+            }
         }
 
         private void Update()
@@ -141,7 +165,22 @@ namespace Kaede2
         public void OnPointerClick(PointerEventData eventData)
         {
             if (!Application.isPlaying) return;
-            SelectedItem.Confirm();
+            Confirm();
+        }
+
+        private void Previous(InputAction.CallbackContext ctx)
+        {
+            Previous();
+        }
+
+        private void Next(InputAction.CallbackContext ctx)
+        {
+            Next();
+        }
+
+        private void Confirm(InputAction.CallbackContext ctx)
+        {
+            Confirm();
         }
     }
 }
