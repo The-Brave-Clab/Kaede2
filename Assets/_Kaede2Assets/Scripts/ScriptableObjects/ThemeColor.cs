@@ -23,6 +23,22 @@ namespace Kaede2.ScriptableObjects
             [SerializeField]
             private Color mainTextRim;
             public Color MainTextRim => NonTransparent(mainTextRim);
+            [ColorUsage(true, false)]
+            [SerializeField]
+            private Color buttonGuideColor;
+            public Color ButtonGuideColor => buttonGuideColor;
+            [ColorUsage(false, false)]
+            [SerializeField]
+            private Color hoverHighlight;
+            public Color HoverHighlight => NonTransparent(hoverHighlight);
+            [ColorUsage(false, false)]
+            [SerializeField]
+            private Color hoverColor;
+            public Color HoverColor => NonTransparent(hoverColor);
+            [ColorUsage(false, false)]
+            [SerializeField]
+            private Color selectedColor;
+            public Color SelectedColor => NonTransparent(selectedColor);
 
             [Header("Interface Common")]
             [SerializeField]
