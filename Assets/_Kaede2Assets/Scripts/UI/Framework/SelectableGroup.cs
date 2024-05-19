@@ -11,6 +11,9 @@ namespace Kaede2.UI.Framework
         [SerializeField]
         protected int selectedIndex = -1;
 
+        [SerializeField]
+        private bool loop = true;
+
         public IReadOnlyList<SelectableItem> Items => items;
         public SelectableItem SelectedItem => selectedIndex < 0 ? null : items[selectedIndex];
 
@@ -38,7 +41,7 @@ namespace Kaede2.UI.Framework
 
         public void Select(int index)
         {
-            selectedIndex = Mod(index, items.Count);
+            selectedIndex = loop ? Mod(index, items.Count) : Mathf.Clamp(index, 0, items.Count - 1);
             selectedIndex = NextAvailable(1, true);
             for (var i = 0; i < items.Count; i++)
             {
@@ -69,7 +72,8 @@ namespace Kaede2.UI.Framework
         {
             for (var i = includeCurrent ? 0 : 1; i < items.Count; i++)
             {
-                var index = Mod(selectedIndex + i * step, items.Count);
+                var index = loop ? Mod(selectedIndex + i * step, items.Count) : selectedIndex + i * step;
+                if (index < 0 || index >= items.Count) continue;
                 if (!items[index].gameObject.activeSelf) continue;
                 return index;
             }
