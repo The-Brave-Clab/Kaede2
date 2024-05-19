@@ -177,6 +177,7 @@ namespace Kaede2.UI
 
         public void OnPointerExit(PointerEventData eventData)
         {
+            selected = false;
             onDeselected?.Invoke();
         }
     }

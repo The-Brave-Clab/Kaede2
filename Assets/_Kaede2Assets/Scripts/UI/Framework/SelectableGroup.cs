@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Kaede2.Utils;
 using UnityEngine;
 
 namespace Kaede2.UI.Framework
@@ -41,7 +42,7 @@ namespace Kaede2.UI.Framework
 
         public void Select(int index)
         {
-            selectedIndex = loop ? Mod(index, items.Count) : Mathf.Clamp(index, 0, items.Count - 1);
+            selectedIndex = loop ? CommonUtils.Mod(index, items.Count) : Mathf.Clamp(index, 0, items.Count - 1);
             selectedIndex = NextAvailable(1, true);
             for (var i = 0; i < items.Count; i++)
             {
@@ -72,20 +73,12 @@ namespace Kaede2.UI.Framework
         {
             for (var i = includeCurrent ? 0 : 1; i < items.Count; i++)
             {
-                var index = loop ? Mod(selectedIndex + i * step, items.Count) : selectedIndex + i * step;
+                var index = loop ? CommonUtils.Mod(selectedIndex + i * step, items.Count) : selectedIndex + i * step;
                 if (index < 0 || index >= items.Count) continue;
                 if (!items[index].gameObject.activeSelf) continue;
                 return index;
             }
             return -1;
-        }
-
-        // a mod function that works with negative numbers
-        // Mod(-1, 3) == 2; Mod(1, 3) == 1
-        private static int Mod(int x, int m)
-        {
-            if (m == 0) return x;
-            return (x % m + m) % m;
         }
     }
 }

@@ -101,10 +101,14 @@ namespace Kaede2.ScriptableObjects
             get => Instance.runtimeThemeVolume;
             set
             {
-                var newVal = value < 0 || value >= Instance.vol.Length ? Random.Range(0, Instance.vol.Length) : value;
+                bool random = value < 0 || value >= Instance.vol.Length;
+                var newVal = random ? Random.Range(0, Instance.vol.Length) : value;
                 if (newVal == Instance.runtimeThemeVolume) return;
                 Instance.runtimeThemeVolume = newVal;
-                Instance.Log($"Changing theme to volume {Instance.runtimeThemeVolume + 1}");
+                var logStr = $"Changing theme to volume {Instance.runtimeThemeVolume + 1}";
+                if (random)
+                    logStr += " (random)";
+                Instance.Log(logStr);
 
                 var observers = FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None)
                     .OfType<IThemeChangeObserver>();

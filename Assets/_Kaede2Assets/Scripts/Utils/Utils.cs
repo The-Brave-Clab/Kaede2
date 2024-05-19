@@ -40,5 +40,13 @@ namespace Kaede2.Utils
             return locales.FirstOrDefault(l => CultureInfo.CurrentCulture.BelongsTo(l.Identifier.CultureInfo)) ??
                    locales[0];
         }
+
+        // a mod function that works with negative numbers
+        // Mod(-1, 3) == 2; Mod(1, 3) == 1
+        public static int Mod(int x, int m)
+        {
+            if (m == 0) return x;
+            return (x % m + m) % m;
+        }
     }
 }

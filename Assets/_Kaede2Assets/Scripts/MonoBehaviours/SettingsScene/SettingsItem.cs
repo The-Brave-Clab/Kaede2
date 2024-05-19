@@ -1,12 +1,12 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using Kaede2.ScriptableObjects;
+using Kaede2.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
 
-namespace Kaede2.UI
+namespace Kaede2
 {
     public class SettingsItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IThemeChangeObserver
     {
@@ -28,7 +28,12 @@ namespace Kaede2.UI
             OnThemeChange(Theme.Current);
 
             // this does not only set the color, but also instantiates the material so that we can safely set properties for materialForRendering
-            text.fontMaterial.SetColor(ShaderUtilities.ID_UnderlayColor, Color.black);
+            var underlayKeyword = new LocalKeyword(text.fontMaterial.shader, ShaderUtilities.Keyword_Underlay);
+            text.fontMaterial.SetKeyword(underlayKeyword, true);
+            text.fontMaterial.SetColor(ShaderUtilities.ID_UnderlayColor, Color.clear);
+            text.fontMaterial.SetFloat(ShaderUtilities.ID_UnderlayOffsetY, -0.25f);
+            text.fontMaterial.SetFloat(ShaderUtilities.ID_UnderlayDilate, 1f);
+            text.UpdateFontAsset();
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -80,20 +85,11 @@ namespace Kaede2.UI
             };
             CommonButtonColor endColor = active ? activeColor : CommonButtonColor.Deactivated;
 
-            var underlayKeyword = new LocalKeyword(text.fontMaterial.shader, ShaderUtilities.Keyword_Underlay);
-            text.fontMaterial.SetKeyword(underlayKeyword, true);
-            text.materialForRendering.SetKeyword(underlayKeyword, true);
-            text.fontMaterial.SetColor(ShaderUtilities.ID_UnderlayColor, Color.black);
-            text.materialForRendering.SetColor(ShaderUtilities.ID_UnderlayColor, Color.black);
-
-            float startUnderlayOffsetY = text.fontMaterial.GetFloat(ShaderUtilities.ID_UnderlayOffsetY);
-            float endUnderlayOffsetY = active ? -0.25f : 0f;
-
-            float startDilate = text.fontMaterial.GetFloat(ShaderUtilities.ID_UnderlayDilate);
-            float endDilate = active ? 1f : 0f;
-
             Color startTextColor = text.color;
             Color endTextColor = active ? Color.white : Color.black;
+
+            Color startUnderlayColor = text.fontMaterial.GetColor(ShaderUtilities.ID_UnderlayColor);
+            Color endUnderlayColor = active ? Color.black : Color.clear;
 
             changeColorSequence = DOTween.Sequence();
             changeColorSequence.Append(DOVirtual.Float(0, 1, 0.1f, t =>
@@ -103,10 +99,8 @@ namespace Kaede2.UI
                 colorComponent.targetColorGreen = color.outline;
                 colorComponent.targetColorBlue = color.shadow;
 
-                text.fontMaterial.SetFloat(ShaderUtilities.ID_UnderlayOffsetY, Mathf.Lerp(startUnderlayOffsetY, endUnderlayOffsetY, t));
-                text.materialForRendering.SetFloat(ShaderUtilities.ID_UnderlayOffsetY, Mathf.Lerp(startUnderlayOffsetY, endUnderlayOffsetY, t));
-                text.fontMaterial.SetFloat(ShaderUtilities.ID_UnderlayDilate, Mathf.Lerp(startDilate, endDilate, t));
-                text.materialForRendering.SetFloat(ShaderUtilities.ID_UnderlayDilate, Mathf.Lerp(startDilate, endDilate, t));
+                text.fontMaterial.SetColor(ShaderUtilities.ID_UnderlayColor, Color.Lerp(startUnderlayColor, endUnderlayColor, t));
+                text.materialForRendering.SetColor(ShaderUtilities.ID_UnderlayColor, Color.Lerp(startUnderlayColor, endUnderlayColor, t));
                 text.color = Color.Lerp(startTextColor, endTextColor, t);
 
                 text.UpdateFontAsset();
@@ -118,13 +112,9 @@ namespace Kaede2.UI
             colorComponent.targetColorGreen = endColor.outline;
             colorComponent.targetColorBlue = endColor.shadow;
 
-            text.fontMaterial.SetFloat(ShaderUtilities.ID_UnderlayOffsetY, endUnderlayOffsetY);
-            text.materialForRendering.SetFloat(ShaderUtilities.ID_UnderlayOffsetY, endUnderlayOffsetY);
-            text.fontMaterial.SetFloat(ShaderUtilities.ID_UnderlayDilate, endDilate);
-            text.materialForRendering.SetFloat(ShaderUtilities.ID_UnderlayDilate, endDilate);
+            text.fontMaterial.SetColor(ShaderUtilities.ID_UnderlayColor, endUnderlayColor);
+            text.materialForRendering.SetColor(ShaderUtilities.ID_UnderlayColor, endUnderlayColor);
             text.color = endTextColor;
-
-            text.fontMaterial.SetKeyword(underlayKeyword, active);
 
             text.UpdateFontAsset();
 
