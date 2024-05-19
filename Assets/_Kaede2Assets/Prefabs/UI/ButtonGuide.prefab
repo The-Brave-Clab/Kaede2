@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8147454645256582918}
   - component: {fileID: 5408470767068789548}
   - component: {fileID: 2036360289077229997}
+  - component: {fileID: 2739041560645439542}
   m_Layer: 5
   m_Name: ButtonGuide
   m_TagString: Untagged
@@ -91,6 +92,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textComponent: {fileID: 8798067953145962828}
   text: 
+--- !u!114 &2739041560645439542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5139007129159179991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f8f7fbf906376b40bd62794fc294ea3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 5408470767068789548}
+  text: {fileID: 8798067953145962828}
+  alpha: 0.5
+  textColor: {r: 1, g: 1, b: 1, a: 1}
+  onClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8062752571349336373
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,19 +176,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '
-
-'
+  m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7cb447fcd19bf7c458d269923c670e99, type: 2}
-  m_sharedMaterial: {fileID: -5907888814440873046, guid: 7cb447fcd19bf7c458d269923c670e99, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
+  m_sharedMaterial: {fileID: -1136654258838480791, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
