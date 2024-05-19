@@ -135,7 +135,19 @@ MonoBehaviour:
       m_Calls: []
   onConfirmed:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Kaede2.UI.TabView, Assembly-CSharp
+        m_MethodName: ActivateView
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   outline: {fileID: 271222431173245187}
   foreground: {fileID: 6532063584437050583}
   text: {fileID: 4131920146396194010}

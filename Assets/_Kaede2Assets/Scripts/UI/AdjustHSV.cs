@@ -1,24 +1,19 @@
 ﻿using System;
+using Kaede2.UI.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Kaede2.UI
 {
     [ExecuteAlways]
-    public class AdjustHSV : MonoBehaviour
+    public class AdjustHSV : CustomUIMaterial
     {
-        // this is set from the editor by default reference to the shader
-        [SerializeField, HideInInspector]
-        private Shader adjustHSVShader;
-
         public Adjustment adjustment = new()
         {
             hsvAdjustment = Vector3.zero,
             referenceColor = Color.red
         };
 
-        // private CanvasRenderer canvasRenderer;
-        private Material material;
         private Vector3 lastHSVAdjustment;
 
         private static readonly int ReferenceColor = Shader.PropertyToID("_ReferenceColor");
@@ -33,45 +28,27 @@ namespace Kaede2.UI
             public Vector3 hsvAdjustment;
         }
 
-        private void Awake()
+        protected override string shaderName => "UI/HSV Adjustable";
+
+        protected override void Awake()
         {
-#if UNITY_EDITOR
-            if (adjustHSVShader == null)
-            {
-                // in editor, when we add this component to an object freshly, the default reference may not be set
-                // in this case, we try to find the shader by name
-                // this will only happen on the first time the component is added to an object
-                adjustHSVShader = Shader.Find("UI/HSV Adjustable");
+            base.Awake();
 
-                // in player we don't need to worry about this, because the reference is guaranteed to be set
-            }
-#endif
-
-            material = new Material(adjustHSVShader);
             material.SetColor(ReferenceColor, adjustment.referenceColor);
             material.SetColor(TargetColor, CalculateTargetColor(adjustment.referenceColor, adjustment.hsvAdjustment));
-
-            if (TryGetComponent(out Graphic graphic)) // this covers many components
-            {
-                graphic.material = material;
-            }
-            else
-            {
-                // add other supported UI components
-            }
 
             lastHSVAdjustment = new Vector3(Single.NaN, Single.NaN, Single.NaN);
         }
 
-        private void Update()
+        protected override void UpdateMaterial(Material material, Material materialForRendering)
         {
-            // if (canvasRenderer.materialCount > 0 && canvasRenderer.GetMaterial() != material)
-            //     canvasRenderer.SetMaterial(material, 0);
-
             if (adjustment.hsvAdjustment == lastHSVAdjustment) return;
 
+            var targetColor = CalculateTargetColor(adjustment.referenceColor, adjustment.hsvAdjustment);
             material.SetColor(ReferenceColor, adjustment.referenceColor);
-            material.SetColor(TargetColor, CalculateTargetColor(adjustment.referenceColor, adjustment.hsvAdjustment));
+            material.SetColor(TargetColor, targetColor);
+            materialForRendering.SetColor(ReferenceColor, adjustment.referenceColor);
+            materialForRendering.SetColor(TargetColor, targetColor);
             lastHSVAdjustment = adjustment.hsvAdjustment;
         }
 

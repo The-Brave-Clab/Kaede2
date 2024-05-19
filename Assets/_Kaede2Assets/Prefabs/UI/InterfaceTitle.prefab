@@ -63,7 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93e6e0e4a26e486cb6753fe3bd8b9414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adjustHSV: {fileID: 7594836840513208940}
+  adjustHSV: {fileID: 1631024996373035387}
   firstCharacterText: {fileID: 1338843464377325540}
   restOfText: {fileID: 8687281365856830651}
   text: "\u30BF\u30A4\u30C8\u30EB\u30C6\u30AD\u30B9\u30C8"
@@ -512,7 +512,7 @@ GameObject:
   - component: {fileID: 3687243343624340776}
   - component: {fileID: 873153149302852875}
   - component: {fileID: 3184833168629142031}
-  - component: {fileID: 7594836840513208940}
+  - component: {fileID: 1631024996373035387}
   m_Layer: 5
   m_Name: TitleBackground
   m_TagString: Untagged
@@ -577,7 +577,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7594836840513208940
+--- !u!114 &1631024996373035387
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -589,7 +589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82705025a4d44d608e49c9d5919a712f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adjustHSVShader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
+  customShader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
   adjustment:
     referenceColor: {r: 0.98039216, g: 0.59607846, b: 0.59607846, a: 1}
     hsvAdjustment: {x: 0, y: 0.60800004, z: 0.019607842}

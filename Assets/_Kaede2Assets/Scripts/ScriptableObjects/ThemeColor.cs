@@ -39,6 +39,9 @@ namespace Kaede2.ScriptableObjects
             [SerializeField]
             private Color selectedColor;
             public Color SelectedColor => NonTransparent(selectedColor);
+            [SerializeField]
+            private CommonButtonColor commonButtonColor;
+            public CommonButtonColor CommonButtonColor => commonButtonColor.NonTransparent();
 
             [Header("Interface Common")]
             [SerializeField]
