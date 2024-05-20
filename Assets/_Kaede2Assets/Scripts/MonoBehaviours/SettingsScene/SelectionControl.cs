@@ -119,6 +119,14 @@ namespace Kaede2
             return item;
         }
 
+        public void Clear()
+        {
+            foreach (var item in items)
+                Destroy(item.gameObject);
+
+            items.Clear();
+        }
+
         private float CalculateTargetPosition(int index)
         {
             return -index * itemViewport.rect.width;
