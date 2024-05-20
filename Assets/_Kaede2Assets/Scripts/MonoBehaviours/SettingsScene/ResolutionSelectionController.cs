@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using Kaede2.UI.Framework;
 using Kaede2.Utils;
 using UnityEngine;
 
@@ -13,6 +13,9 @@ namespace Kaede2
 
         [SerializeField]
         private SelectionControl fullscreenControl;
+
+        [SerializeField]
+        private CommonButton applyButton;
 
         // only contains 16:9 and 21:9 resolutions
         private static readonly List<Vector2Int> commonWindowModeResolutions = new()
@@ -38,6 +41,9 @@ namespace Kaede2
         private List<Vector2Int> fullScreenResolutions;
         private List<Vector2Int> windowModeResolutions;
 
+        Vector2Int currentResolution;
+        bool currentFullscreen;
+
         private void Awake()
         {
             fullScreenResolutions = new();
@@ -60,10 +66,16 @@ namespace Kaede2
                 windowModeResolutions.Add(resolution);
             }
 
-            var bestResolutionIndex = RefreshItems(windowModeResolutions, Screen.fullScreen, new Vector2Int(Screen.width, Screen.height));
+            List<Vector2Int> resolutions = Screen.fullScreen ? fullScreenResolutions : windowModeResolutions;
+            var bestResolutionIndex = RefreshItems(resolutions, Screen.fullScreen, new Vector2Int(Screen.width, Screen.height));
             selectionControl.SelectImmediate(bestResolutionIndex, false);
 
+            currentResolution = resolutions[bestResolutionIndex];
+            currentFullscreen = Screen.fullScreen;
+
             fullscreenControl.SelectImmediate(Screen.fullScreen ? 1 : 0, false);
+
+            applyButton.Interactable = false;
         }
 
         private int RefreshItems(List<Vector2Int> resolutions, bool fullscreen, Vector2Int preferredResolution)
@@ -85,8 +97,7 @@ namespace Kaede2
 
                 selectionControl.Add($"{resolution.x}x{resolution.y}", () =>
                 {
-                    // Screen.SetResolution(resolution.x, resolution.y, fullscreen);
-                    this.Log($"Fake change resolution to {resolution.x}x{resolution.y}, fullscreen: {fullscreen}");
+                    RegisterApplyButton(resolution, fullscreen);
                 });
             }
 
@@ -97,15 +108,39 @@ namespace Kaede2
         {
             List<Vector2Int> resolutions = fullscreen ? fullScreenResolutions : windowModeResolutions;
             Vector2Int preferredResolution = fullscreen ?
-                // we have not entered fullscreen yet, so Screen.currentResolution should be the native resolution
-                new(Screen.currentResolution.width, Screen.currentResolution.height) :
+                new(fullScreenResolutions[^1].x, fullScreenResolutions[^1].y) :
                 new(1920, 1080);
 
             var bestResolutionIndex = RefreshItems(resolutions, fullscreen, preferredResolution);
 
-            // Screen.SetResolution(resolutions[bestResolutionIndex].x, resolutions[bestResolutionIndex].y, fullscreen);
-            this.Log($"Fake change resolution to {resolutions[bestResolutionIndex].x}x{resolutions[bestResolutionIndex].y}, fullscreen: {fullscreen}");
+            RegisterApplyButton(resolutions[bestResolutionIndex], fullscreen);
             selectionControl.SelectImmediate(bestResolutionIndex, false);
+        }
+
+        private void RegisterApplyButton(Vector2Int resolution, bool fullscreen)
+        {
+            if (resolution == currentResolution && fullscreen == currentFullscreen)
+            {
+                applyButton.Interactable = false;
+                return;
+            }
+
+            applyButton.onClick.RemoveAllListeners();
+            applyButton.onClick.AddListener(() =>
+            {
+                // TODO: add a confirmation dialog
+#if UNITY_EDITOR
+                this.Log($"Fake change resolution to {resolution.x}x{resolution.y}, fullscreen: {fullscreen}");
+#else
+                Screen.SetResolution(resolution.x, resolution.y, fullscreen);
+#endif
+
+                currentResolution = resolution;
+                currentFullscreen = fullscreen;
+
+                applyButton.Interactable = false;
+            });
+            applyButton.Interactable = true;
         }
     }
 }

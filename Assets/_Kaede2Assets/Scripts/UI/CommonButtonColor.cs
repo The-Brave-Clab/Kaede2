@@ -27,9 +27,16 @@ namespace Kaede2.UI
 
         public static CommonButtonColor Deactivated => new CommonButtonColor
         {
-            surface = new Color(0.9294118f, 0.9294118f, 0.9294118f, 1.0f),
+            surface = new Color(0.9294118f, 0.9294118f, 0.9294118f),
             outline = new Color(0.7411765f, 0.7568628f, 0.7803922f),
             shadow = new Color(0.01176471f, 0.01176471f, 0.01176471f)
+        };
+
+        public static CommonButtonColor Disabled => new CommonButtonColor
+        {
+            surface = new Color(0.627451f, 0.627451f, 0.627451f),
+            outline = new Color(0.5686275f, 0.572549f, 0.5803922f),
+            shadow = new Color(0.003921569f, 0.003921569f, 0.003921569f)
         };
 
         public CommonButtonColor NonTransparent()
