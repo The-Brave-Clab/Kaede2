@@ -27,6 +27,8 @@ namespace Kaede2
             }
         }
 
+        public UnityEvent OnSelected => onSelected;
+
         public Color Color
         {
             get => text.color;
@@ -37,6 +39,12 @@ namespace Kaede2
         {
             get => text.text;
             set => text.text = value;
+        }
+
+        public TMP_FontAsset Font
+        {
+            get => text.font;
+            set => text.font = value;
         }
 
         public void Select()

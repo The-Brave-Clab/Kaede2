@@ -104,6 +104,21 @@ namespace Kaede2
             selectCoroutine = StartCoroutine(SelectCoroutine(nextIndex));
         }
 
+        public SelectionItem Add(string text, UnityAction action)
+        {
+            GameObject itemObject = Instantiate(itemPrefab, itemContainer);
+            SelectionItem item = itemObject.GetComponent<SelectionItem>();
+
+            item.Text = text;
+            item.OnSelected.AddListener(action);
+
+            items.Add(item);
+
+            UpdateAppearance();
+
+            return item;
+        }
+
         private float CalculateTargetPosition(int index)
         {
             return -index * itemViewport.rect.width;
