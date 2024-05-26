@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UIBlur
+  m_Name: BoxOverlayUIBlur
   m_Shader: {fileID: 4800000, guid: 07aad692a1d7a45368209491eb0dc1be, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -33,7 +33,7 @@ Material:
     - _ColorMask: 15
     - _IsAlphaMasked: 1
     - _IsSpriteVisible: 0
-    - _Radius: 10
+    - _Radius: 20
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
@@ -41,6 +41,6 @@ Material:
     - _StencilWriteMask: 255
     - _UseUIAlphaClip: 0
     m_Colors:
-    - _OverlayColor: {r: 0.31, g: 0.31, b: 0.31, a: 1}
+    - _OverlayColor: {r: 0.1882353, g: 0.1882353, b: 0.1882353, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

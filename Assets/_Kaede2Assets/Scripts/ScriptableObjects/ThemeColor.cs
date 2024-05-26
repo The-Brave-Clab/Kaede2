@@ -42,6 +42,10 @@ namespace Kaede2.ScriptableObjects
             [SerializeField]
             private CommonButtonColor commonButtonColor;
             public CommonButtonColor CommonButtonColor => commonButtonColor.NonTransparent();
+            [SerializeField]
+            [ColorUsage(false, false)]
+            private Color windowOutline;
+            public Color WindowOutline => NonTransparent(windowOutline);
 
             [Header("Interface Common")]
             [SerializeField]
@@ -66,6 +70,11 @@ namespace Kaede2.ScriptableObjects
             [SerializeField]
             private Color mainMenuLeftDecorColor;
             public Color MainMenuLeftDecorColor => mainMenuLeftDecorColor;
+
+            [Header("Settings")]
+            [SerializeField]
+            private CommonButtonColor settingsItemColor;
+            public CommonButtonColor SettingsItemColor => settingsItemColor.NonTransparent();
         }
 
         [SerializeField]

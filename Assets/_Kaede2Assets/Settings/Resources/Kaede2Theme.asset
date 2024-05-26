@@ -20,9 +20,10 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.3803922, b: 0.6117647, a: 0}
     selectedColor: {r: 1, g: 0.86666673, b: 0.91372555, a: 0}
     commonButtonColor:
-      surface: {r: 1, g: 0.80392164, b: 0.8745099, a: 0}
-      outline: {r: 1, g: 0.3372549, b: 0.5764706, a: 0}
-      shadow: {r: 0.5882353, g: 0.20000002, b: 0.34117648, a: 0}
+      surface: {r: 1, g: 0.33333334, b: 0.5803922, a: 0}
+      outline: {r: 0.9411765, g: 0.17254902, b: 0.43137255, a: 0}
+      shadow: {r: 0.59607846, g: 0, b: 0.2627451, a: 0}
+    windowOutline: {r: 1, g: 0.7137255, b: 0.7764706, a: 0}
     interfaceTitleBackground:
       referenceColor: {r: 0.98039216, g: 0.5921569, b: 0.5921569, a: 1}
       hsvAdjustment: {x: 0.9372937, y: 0.0063904524, z: 0.0039215684}
@@ -30,6 +31,10 @@ MonoBehaviour:
     menuButtonHighlightBottom: {r: 0.99607843, g: 0.24705882, b: 0.52156866, a: 1}
     mainMenuGradientColor: {r: 0.96862745, g: 0.37254903, b: 0.59607846, a: 1}
     mainMenuLeftDecorColor: {r: 0.7647059, g: 0, b: 0.16470589, a: 0.5529412}
+    settingsItemColor:
+      surface: {r: 1, g: 0.8039216, b: 0.8745098, a: 0}
+      outline: {r: 1, g: 0.33333334, b: 0.5803922, a: 0}
+      shadow: {r: 0.5882353, g: 0.2, b: 0.34117648, a: 0}
   - mainThemeColor: {r: 0.9960785, g: 0.49411768, b: 0.45098042, a: 1}
     mainTextRim: {r: 1, g: 0.20392159, b: 0.19215688, a: 0}
     buttonGuideColor: {r: 0.7254902, g: 0.5019608, b: 0.9490196, a: 0.49803922}
@@ -37,9 +42,10 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.49411768, b: 0.45098042, a: 0}
     selectedColor: {r: 0.9725491, g: 0.7294118, b: 0.70980394, a: 0}
     commonButtonColor:
-      surface: {r: 0.97647065, g: 0.73333335, b: 0.70980394, a: 0}
-      outline: {r: 1, g: 0.29411766, b: 0.27450982, a: 0}
+      surface: {r: 1, g: 0.49411765, b: 0.4509804, a: 0}
+      outline: {r: 1, g: 0.29803923, b: 0.27450982, a: 0}
       shadow: {r: 0.7058824, g: 0.17254902, b: 0.12941177, a: 0}
+    windowOutline: {r: 0.96862745, g: 0.73333335, b: 0.7058824, a: 0}
     interfaceTitleBackground:
       referenceColor: {r: 0.98039216, g: 0.5921569, b: 0.5921569, a: 1}
       hsvAdjustment: {x: 0.013189447, y: 0.1490981, z: 0.019607842}
@@ -47,6 +53,10 @@ MonoBehaviour:
     menuButtonHighlightBottom: {r: 0.9960785, g: 0.31764707, b: 0.28627452, a: 0}
     mainMenuGradientColor: {r: 0.93333334, g: 0.4627451, b: 0.41960785, a: 1}
     mainMenuLeftDecorColor: {r: 0.8509804, g: 0.039215688, b: 0, a: 0.6392157}
+    settingsItemColor:
+      surface: {r: 0.9764706, g: 0.73333335, b: 0.70980394, a: 0}
+      outline: {r: 1, g: 0.29803923, b: 0.27450982, a: 0}
+      shadow: {r: 0.7058824, g: 0.17254902, b: 0.12941177, a: 0}
   - mainThemeColor: {r: 0.9450981, g: 0.6117647, b: 0.9960785, a: 1}
     mainTextRim: {r: 0.77647066, g: 0.2901961, b: 0.8352942, a: 0}
     buttonGuideColor: {r: 1, g: 0.7176471, b: 0.59607846, a: 0.49803922}
@@ -54,9 +64,10 @@ MonoBehaviour:
     hoverColor: {r: 0.9490197, g: 0.6117647, b: 1, a: 0}
     selectedColor: {r: 0.9725491, g: 0.8000001, b: 1, a: 0}
     commonButtonColor:
-      surface: {r: 0.9490197, g: 0.6117647, b: 1, a: 0}
-      outline: {r: 0.75294125, g: 0.25882354, b: 0.82745105, a: 0}
-      shadow: {r: 0.4901961, g: 0.121568635, b: 0.54509807, a: 0}
+      surface: {r: 0.9490196, g: 0.6117647, b: 1, a: 0}
+      outline: {r: 0.7529412, g: 0.25882354, b: 0.827451, a: 0}
+      shadow: {r: 0.49019608, g: 0.12156863, b: 0.54509807, a: 0}
+    windowOutline: {r: 0.9372549, g: 0.62352943, b: 0.99607843, a: 0}
     interfaceTitleBackground:
       referenceColor: {r: 0.98039216, g: 0.5921569, b: 0.5921569, a: 1}
       hsvAdjustment: {x: 0.8114478, y: -0.007764697, z: 0.019607842}
@@ -64,6 +75,10 @@ MonoBehaviour:
     menuButtonHighlightBottom: {r: 0.77647066, g: 0.3019608, b: 0.83921576, a: 0}
     mainMenuGradientColor: {r: 0.91764706, g: 0.5921569, b: 0.9647059, a: 1}
     mainMenuLeftDecorColor: {r: 0.48235294, g: 0, b: 0.56078434, a: 0.7176471}
+    settingsItemColor:
+      surface: {r: 0.9490196, g: 0.6117647, b: 1, a: 0}
+      outline: {r: 0.7529412, g: 0.25882354, b: 0.827451, a: 0}
+      shadow: {r: 0.49019608, g: 0.12156863, b: 0.54509807, a: 0}
   - mainThemeColor: {r: 0.43921572, g: 0.9058824, b: 0.77647066, a: 1}
     mainTextRim: {r: 0.14117648, g: 0.6392157, b: 0.4901961, a: 0}
     buttonGuideColor: {r: 0.6666667, g: 0.69803923, b: 0.49019608, a: 0.49803922}
@@ -71,9 +86,10 @@ MonoBehaviour:
     hoverColor: {r: 0.43921572, g: 0.9058824, b: 0.77647066, a: 0}
     selectedColor: {r: 0.83921576, g: 1, b: 0.9568628, a: 0}
     commonButtonColor:
-      surface: {r: 0.4431373, g: 0.90196085, b: 0.7803922, a: 0}
-      outline: {r: 0.10980393, g: 0.6039216, b: 0.47058827, a: 0}
-      shadow: {r: 0.04705883, g: 0.39607847, b: 0.3019608, a: 0}
+      surface: {r: 0.4392157, g: 0.9019608, b: 0.78039217, a: 0}
+      outline: {r: 0.105882354, g: 0.6039216, b: 0.47058824, a: 0}
+      shadow: {r: 0.050980393, g: 0.39607844, b: 0.3019608, a: 0}
+    windowOutline: {r: 0.45882353, g: 0.90588236, b: 0.7764706, a: 0}
     interfaceTitleBackground:
       referenceColor: {r: 0.98039216, g: 0.5921569, b: 0.5921569, a: 1}
       hsvAdjustment: {x: 0.4562147, y: 0.117043495, z: -0.07843137}
@@ -81,6 +97,10 @@ MonoBehaviour:
     menuButtonHighlightBottom: {r: 0.14509805, g: 0.63529414, b: 0.52156866, a: 0}
     mainMenuGradientColor: {r: 0.43529412, g: 0.9019608, b: 0.77254903, a: 1}
     mainMenuLeftDecorColor: {r: 0, g: 0.41960785, b: 0.30588236, a: 1}
+    settingsItemColor:
+      surface: {r: 0.4392157, g: 0.8901961, b: 0.77254903, a: 0}
+      outline: {r: 0.105882354, g: 0.6039216, b: 0.47058824, a: 0}
+      shadow: {r: 0.050980393, g: 0.39607844, b: 0.3019608, a: 0}
   - mainThemeColor: {r: 0.85098046, g: 0.6392157, b: 0.75294125, a: 1}
     mainTextRim: {r: 0.5803922, g: 0.3019608, b: 0.45098042, a: 0}
     buttonGuideColor: {r: 0.9843137, g: 0.827451, b: 0.36078432, a: 0.49803922}
@@ -88,9 +108,10 @@ MonoBehaviour:
     hoverColor: {r: 0.85098046, g: 0.6392157, b: 0.75294125, a: 0}
     selectedColor: {r: 0.92549026, g: 0.8078432, b: 0.8705883, a: 0}
     commonButtonColor:
-      surface: {r: 0.85098046, g: 0.6392157, b: 0.7490196, a: 0}
-      outline: {r: 0.7372549, g: 0.43137258, b: 0.5921569, a: 0}
-      shadow: {r: 0.3372549, g: 0.11764707, b: 0.23137257, a: 0}
+      surface: {r: 0.8509804, g: 0.6392157, b: 0.7490196, a: 0}
+      outline: {r: 0.5568628, g: 0.27058825, b: 0.41960785, a: 0}
+      shadow: {r: 0.3372549, g: 0.12156863, b: 0.23137255, a: 0}
+    windowOutline: {r: 0.87058824, g: 0.69803923, b: 0.80784315, a: 0}
     interfaceTitleBackground:
       referenceColor: {r: 0.98039216, g: 0.5921569, b: 0.5921569, a: 1}
       hsvAdjustment: {x: 0.91358024, y: -0.14715207, z: -0.12941176}
@@ -98,6 +119,10 @@ MonoBehaviour:
     menuButtonHighlightBottom: {r: 0.5764706, g: 0.3019608, b: 0.45098042, a: 0}
     mainMenuGradientColor: {r: 0.84705883, g: 0.63529414, b: 0.7490196, a: 1}
     mainMenuLeftDecorColor: {r: 0.38431373, g: 0.07058824, b: 0.24705882, a: 0.53333336}
+    settingsItemColor:
+      surface: {r: 0.8509804, g: 0.6392157, b: 0.7490196, a: 0}
+      outline: {r: 0.7372549, g: 0.43137255, b: 0.5921569, a: 0}
+      shadow: {r: 0.3372549, g: 0.12156863, b: 0.23137255, a: 0}
   - mainThemeColor: {r: 0.5882353, g: 0.8941177, b: 0.5882353, a: 1}
     mainTextRim: {r: 0.22352943, g: 0.57254905, b: 0.22352943, a: 0}
     buttonGuideColor: {r: 1, g: 0.9098039, b: 0.38431373, a: 0.49803922}
@@ -105,9 +130,10 @@ MonoBehaviour:
     hoverColor: {r: 0.5882353, g: 0.8941177, b: 0.5882353, a: 0}
     selectedColor: {r: 0.76470596, g: 0.9294118, b: 0.76470596, a: 0}
     commonButtonColor:
-      surface: {r: 0.5921569, g: 0.8941177, b: 0.5921569, a: 0}
-      outline: {r: 0.28235295, g: 0.69411767, b: 0.28235295, a: 0}
-      shadow: {r: 0.0627451, g: 0.3372549, b: 0.0627451, a: 0}
+      surface: {r: 0.5921569, g: 0.89411765, b: 0.5921569, a: 0}
+      outline: {r: 0.18039216, g: 0.54509807, b: 0.18431373, a: 0}
+      shadow: {r: 0.06666667, g: 0.3372549, b: 0.0627451, a: 0}
+    windowOutline: {r: 0.6784314, g: 0.92156863, b: 0.6784314, a: 0}
     interfaceTitleBackground:
       referenceColor: {r: 0.98039216, g: 0.5921569, b: 0.5921569, a: 1}
       hsvAdjustment: {x: 0.33333334, y: -0.058280706, z: -0.086274505}
@@ -115,6 +141,10 @@ MonoBehaviour:
     menuButtonHighlightBottom: {r: 0.23529413, g: 0.5882353, b: 0.23529413, a: 0}
     mainMenuGradientColor: {r: 0.5882353, g: 0.8901961, b: 0.5882353, a: 1}
     mainMenuLeftDecorColor: {r: 0.003921569, g: 0.40392157, b: 0, a: 0.5058824}
+    settingsItemColor:
+      surface: {r: 0.5921569, g: 0.89411765, b: 0.5921569, a: 0}
+      outline: {r: 0.18039216, g: 0.54509807, b: 0.18431373, a: 0}
+      shadow: {r: 0.06666667, g: 0.3372549, b: 0.0627451, a: 0}
   - mainThemeColor: {r: 0.9058824, g: 0.36862746, b: 0.64705884, a: 1}
     mainTextRim: {r: 0.64705884, g: 0.16078432, b: 0.41960788, a: 0}
     buttonGuideColor: {r: 0.8039216, g: 0.64705884, b: 0.87058824, a: 0.49803922}
@@ -122,9 +152,10 @@ MonoBehaviour:
     hoverColor: {r: 0.9058824, g: 0.36862746, b: 0.64705884, a: 0}
     selectedColor: {r: 0.92549026, g: 0.67058825, b: 0.8000001, a: 0}
     commonButtonColor:
-      surface: {r: 0.9294118, g: 0.5058824, b: 0.7254902, a: 0}
-      outline: {r: 0.7960785, g: 0.21960786, b: 0.52156866, a: 0}
-      shadow: {r: 0.39607847, g: 0.07450981, b: 0.24313727, a: 0}
+      surface: {r: 0.90588236, g: 0.36862746, b: 0.64705884, a: 0}
+      outline: {r: 0.61960787, g: 0.14509805, b: 0.39215687, a: 0}
+      shadow: {r: 0.39215687, g: 0.07058824, b: 0.24313726, a: 0}
+    windowOutline: {r: 0.87058824, g: 0.57254905, b: 0.7176471, a: 0}
     interfaceTitleBackground:
       referenceColor: {r: 0.98039216, g: 0.5921569, b: 0.5921569, a: 1}
       hsvAdjustment: {x: 0.91481483, y: 0.18841565, z: -0.0745098}
@@ -132,6 +163,10 @@ MonoBehaviour:
     menuButtonHighlightBottom: {r: 0.64705884, g: 0.17254902, b: 0.41960788, a: 0}
     mainMenuGradientColor: {r: 0.8980392, g: 0.3647059, b: 0.6431373, a: 1}
     mainMenuLeftDecorColor: {r: 0.49019608, g: 0, b: 0.16470589, a: 0.5058824}
+    settingsItemColor:
+      surface: {r: 0.8980392, g: 0.3647059, b: 0.6392157, a: 0}
+      outline: {r: 0.61960787, g: 0.14509805, b: 0.39215687, a: 0}
+      shadow: {r: 0.39215687, g: 0.07058824, b: 0.24313726, a: 0}
   - mainThemeColor: {r: 0.9960785, g: 0.68235296, b: 0.3647059, a: 1}
     mainTextRim: {r: 0.9058824, g: 0.34901962, b: 0.03137255, a: 0}
     buttonGuideColor: {r: 0.85490197, g: 0.59607846, b: 0.6117647, a: 0.49803922}
@@ -139,9 +174,10 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.6862745, b: 0.3647059, a: 0}
     selectedColor: {r: 1, g: 0.8745099, b: 0.7411765, a: 0}
     commonButtonColor:
-      surface: {r: 1, g: 0.6862745, b: 0.36078432, a: 0}
-      outline: {r: 0.9450981, g: 0.5254902, b: 0.09411766, a: 0}
-      shadow: {r: 0.56078434, g: 0.20000002, b: 0, a: 0}
+      surface: {r: 1, g: 0.6862745, b: 0.3647059, a: 0}
+      outline: {r: 0.8862745, g: 0.32156864, b: 0.003921569, a: 0}
+      shadow: {r: 0.56078434, g: 0.2, b: 0, a: 0}
+    windowOutline: {r: 0.99607843, g: 0.74509805, b: 0.5803922, a: 0}
     interfaceTitleBackground:
       referenceColor: {r: 0.98039216, g: 0.5921569, b: 0.5921569, a: 1}
       hsvAdjustment: {x: 0.08436215, y: 0.23929411, z: 0.019607842}
@@ -149,3 +185,7 @@ MonoBehaviour:
     menuButtonHighlightBottom: {r: 0.9058824, g: 0.34901962, b: 0.03137255, a: 0}
     mainMenuGradientColor: {r: 0.99607843, g: 0.68235296, b: 0.36078432, a: 1}
     mainMenuLeftDecorColor: {r: 0.9372549, g: 0.2509804, b: 0, a: 0.8156863}
+    settingsItemColor:
+      surface: {r: 1, g: 0.6862745, b: 0.3647059, a: 0}
+      outline: {r: 0.8862745, g: 0.32156864, b: 0.003921569, a: 0}
+      shadow: {r: 0.56078434, g: 0.2, b: 0, a: 0}

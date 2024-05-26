@@ -11,6 +11,8 @@ namespace Kaede2.UI.Framework
         [SerializeField, HideInInspector]
         private Shader customShader;
 
+        protected Shader Shader => customShader;
+
         protected abstract string shaderName { get; }
 
         protected Material material;

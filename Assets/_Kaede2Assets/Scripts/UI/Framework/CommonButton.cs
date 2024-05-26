@@ -11,11 +11,20 @@ namespace Kaede2.UI.Framework
 {
     public class CommonButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IThemeChangeObserver
     {
+        public enum ButtonColorType
+        {
+            Color_3,
+            Color_2
+        }
+
         [SerializeField]
         private RemapRGB colorComponent;
 
         [SerializeField]
         private TextMeshProUGUI text;
+
+        [SerializeField]
+        private ButtonColorType colorType = ButtonColorType.Color_3;
 
         [SerializeField]
         private bool interactable = true;
@@ -98,9 +107,21 @@ namespace Kaede2.UI.Framework
         private void SetColor(Color textColor, CommonButtonColor buttonColor)
         {
             text.color = textColor;
-            colorComponent.targetColorRed = buttonColor.surface;
-            colorComponent.targetColorGreen = buttonColor.outline;
-            colorComponent.targetColorBlue = buttonColor.shadow;
+            switch (colorType)
+            {
+                case ButtonColorType.Color_3:
+                    colorComponent.targetColorRed = buttonColor.surface;
+                    colorComponent.targetColorGreen = buttonColor.outline;
+                    colorComponent.targetColorBlue = buttonColor.shadow;
+                    break;
+                case ButtonColorType.Color_2:
+                    colorComponent.targetColorRed = buttonColor.surface;
+                    colorComponent.targetColorGreen = buttonColor.shadow;
+                    colorComponent.targetColorBlue = buttonColor.outline;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         private void StopCurrentCoroutine()
@@ -119,11 +140,21 @@ namespace Kaede2.UI.Framework
             var endColors = GetColors(Interactable, activated, activatedColor);
 
             Color startTextColor = text.color;
-            CommonButtonColor startButtonColor = new()
+            CommonButtonColor startButtonColor = colorType switch
             {
-                surface = colorComponent.targetColorRed,
-                outline = colorComponent.targetColorGreen,
-                shadow = colorComponent.targetColorBlue
+                ButtonColorType.Color_3 => new CommonButtonColor
+                {
+                    surface = colorComponent.targetColorRed,
+                    outline = colorComponent.targetColorGreen,
+                    shadow = colorComponent.targetColorBlue
+                },
+                ButtonColorType.Color_2 => new CommonButtonColor
+                {
+                    surface = colorComponent.targetColorRed,
+                    outline = colorComponent.targetColorBlue,
+                    shadow = colorComponent.targetColorGreen
+                },
+                _ => throw new ArgumentOutOfRangeException()
             };
 
             changeColorSequence = DOTween.Sequence();

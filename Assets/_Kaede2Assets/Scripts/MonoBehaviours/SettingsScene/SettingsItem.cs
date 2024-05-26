@@ -48,7 +48,7 @@ namespace Kaede2
 
         public void OnThemeChange(Theme.VolumeTheme theme)
         {
-            activeColor = theme.CommonButtonColor;
+            activeColor = theme.SettingsItemColor;
 
             UpdateColor();
         }

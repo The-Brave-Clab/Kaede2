@@ -17,6 +17,12 @@ namespace Kaede2
         [SerializeField]
         private CommonButton applyButton;
 
+        [SerializeField]
+        private GameObject confirmBoxPrefab;
+
+        [SerializeField]
+        private Canvas mainCanvas;
+
         // only contains 16:9 and 21:9 resolutions
         private static readonly List<Vector2Int> commonWindowModeResolutions = new()
         {
@@ -128,19 +134,37 @@ namespace Kaede2
             applyButton.onClick.RemoveAllListeners();
             applyButton.onClick.AddListener(() =>
             {
-                // TODO: add a confirmation dialog
-#if UNITY_EDITOR
-                this.Log($"Fake change resolution to {resolution.x}x{resolution.y}, fullscreen: {fullscreen}");
-#else
-                Screen.SetResolution(resolution.x, resolution.y, fullscreen);
-#endif
+                var oldResolution = currentResolution;
+                var oldFullscreen = currentFullscreen;
+                GameObject confirmBox = Instantiate(confirmBoxPrefab, mainCanvas.transform);
+                ResolutionChangeConfirmBox confirmBoxComponent = confirmBox.GetComponent<ResolutionChangeConfirmBox>();
+                confirmBoxComponent.onYes.AddListener(() =>
+                {
+                    // do nothing
+                });
+                confirmBoxComponent.onNo.AddListener(() =>
+                {
+                    ChangeResolution(oldResolution, oldFullscreen);
+                    currentResolution = oldResolution;
+                    currentFullscreen = oldFullscreen;
+                    applyButton.Interactable = true;
+                });
 
+                ChangeResolution(resolution, fullscreen);
                 currentResolution = resolution;
                 currentFullscreen = fullscreen;
-
                 applyButton.Interactable = false;
             });
             applyButton.Interactable = true;
+        }
+
+        private void ChangeResolution(Vector2Int resolution, bool fullscreen)
+        {
+#if UNITY_EDITOR
+            this.Log($"Fake change resolution to {resolution.x}x{resolution.y}, fullscreen: {fullscreen}");
+#else
+            Screen.SetResolution(resolution.x, resolution.y, fullscreen);
+#endif
         }
     }
 }
