@@ -107,6 +107,7 @@ namespace Kaede2
         public SelectionItem Add(string text, UnityAction action)
         {
             GameObject itemObject = Instantiate(itemPrefab, itemContainer);
+            itemObject.name = text;
             SelectionItem item = itemObject.GetComponent<SelectionItem>();
 
             item.Text = text;

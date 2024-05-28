@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using Kaede2.Scenario;
+using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using Kaede2.Utils;
@@ -58,6 +59,17 @@ namespace Kaede2
                 {
                     this.Log("Scenario finished.");
                 });
+        }
+
+        public void GoToSettings()
+        {
+            StartCoroutine(LoadNextScene("SettingsScene"));
+        }
+
+        private IEnumerator LoadNextScene(string sceneName)
+        {
+            yield return SceneTransition.Fade(1);
+            yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         }
     }
 }

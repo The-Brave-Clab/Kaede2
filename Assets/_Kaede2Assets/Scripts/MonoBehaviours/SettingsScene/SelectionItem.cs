@@ -44,7 +44,11 @@ namespace Kaede2
         public TMP_FontAsset Font
         {
             get => text.font;
-            set => text.font = value;
+            set
+            {
+                text.font = value;
+                text.UpdateFontAsset();
+            }
         }
 
         public void Select()
