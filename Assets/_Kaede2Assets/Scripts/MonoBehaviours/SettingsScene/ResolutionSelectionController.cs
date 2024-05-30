@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+using Kaede2.Localization;
 using Kaede2.UI.Framework;
 using Kaede2.Utils;
 using UnityEngine;
+using UnityEngine.Localization.Components;
 
 namespace Kaede2
 {
@@ -101,10 +103,12 @@ namespace Kaede2
                     bestResolutionIndex = i;
                 }
 
-                selectionControl.Add($"{resolution.x}x{resolution.y}", () =>
+                var item = selectionControl.Add($"{resolution.x}x{resolution.y}", () =>
                 {
                     RegisterApplyButton(resolution, fullscreen);
                 });
+                Destroy(item.gameObject.GetComponent<LocalizeStringEvent>());
+                Destroy(item.gameObject.GetComponent<LocalizeFontEvent>());
             }
 
             return bestResolutionIndex;

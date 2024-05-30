@@ -27,13 +27,7 @@ namespace Kaede2
         {
             OnThemeChange(Theme.Current);
 
-            // this does not only set the color, but also instantiates the material so that we can safely set properties for materialForRendering
-            var underlayKeyword = new LocalKeyword(text.fontMaterial.shader, ShaderUtilities.Keyword_Underlay);
-            text.fontMaterial.SetKeyword(underlayKeyword, true);
-            text.fontMaterial.SetColor(ShaderUtilities.ID_UnderlayColor, Color.clear);
-            text.fontMaterial.SetFloat(ShaderUtilities.ID_UnderlayOffsetY, -0.25f);
-            text.fontMaterial.SetFloat(ShaderUtilities.ID_UnderlayDilate, 1f);
-            text.UpdateFontAsset();
+            OnFontChange();
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -60,6 +54,17 @@ namespace Kaede2
             colorComponent.targetColorRed = color.surface;
             colorComponent.targetColorGreen = color.outline;
             colorComponent.targetColorBlue = color.shadow;
+        }
+
+        public void OnFontChange()
+        {
+            // this does not only set the color, but also instantiates the material so that we can safely set properties for materialForRendering
+            var underlayKeyword = new LocalKeyword(text.fontMaterial.shader, ShaderUtilities.Keyword_Underlay);
+            text.fontMaterial.SetKeyword(underlayKeyword, true);
+            text.fontMaterial.SetColor(ShaderUtilities.ID_UnderlayColor, activated ? Color.black : Color.clear);
+            text.fontMaterial.SetFloat(ShaderUtilities.ID_UnderlayOffsetY, -0.25f);
+            text.fontMaterial.SetFloat(ShaderUtilities.ID_UnderlayDilate, 1f);
+            text.UpdateFontAsset();
         }
 
         private void ChangeActiveState(bool active)

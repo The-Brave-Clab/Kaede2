@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using Kaede2.Localization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Localization;
+using UnityEngine.Localization.Components;
 using UnityEngine.Localization.Settings;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
@@ -52,6 +54,8 @@ namespace Kaede2
                 var locale = LocalizationSettings.AvailableLocales.Locales[i];
                 if (locale == GameSettings.Locale) selectedIndex = i;
                 var selectionItem = selectionControl.Add("", () => GameSettings.Locale = locale);
+                Destroy(selectionItem.gameObject.GetComponent<LocalizeStringEvent>());
+                Destroy(selectionItem.gameObject.GetComponent<LocalizeFontEvent>());
                 selectionItem.Font = localeToFont[locale].Result;
                 selectionItem.Text = locale.Identifier.CultureInfo.NativeName;
             }
