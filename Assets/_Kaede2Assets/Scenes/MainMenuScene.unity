@@ -135,6 +135,38 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: e557b56b58f4347128eb23d8036460f7, type: 3}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u30A2\u30EB\u30D0\u30E0"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u76F8\u3000\u518C"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Album
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     - target: {fileID: 4089607447297042578, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -237,7 +269,7 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4089607447297042578, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
   m_PrefabInstance: {fileID: 3710560}
   m_PrefabAsset: {fileID: 0}
---- !u!21 &10053057
+--- !u!21 &18438535
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -310,6 +342,43 @@ PrefabInstance:
     - target: {fileID: 4081447347365553071, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
       propertyPath: m_Name
       value: CollabStory
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u300C\u7D50\u57CE\u53CB\u5948\u306F\u52C7\u8005\u3067\u3042\u308B
+        \u82B1\u7D50\u3044\u306E\u304D\u3089\u3081\u304D\u300D\u3067\u5B9F\u65BD\u3057\u305F\n\u30B3\u30E9\u30DC\u306E\u30B9\u30C8\u30FC\u30EA\u30FC\u3084\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC\u30DC\u30A4\u30B9\u3092\u304A\u697D\u3057\u307F\u9802\u3051\u308B\u30E1\u30CB\u30E5\u30FC\u3067\u3059\u3002"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u60A8\u53EF\u4EE5\u5728\u6B64\u5904\u89C2\u8D4F\u300A\u7ED3\u57CE\u53CB\u5948\u662F\u52C7\u8005
+        \u95EA\u5149\u7684\u82B1\u7ED3\u300B\u7684\n\u8054\u52A8\u5267\u60C5\u4E0E\u89D2\u8272\u8BED\u97F3\u3002"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: 'Here you can enjoy the story and character voices of the collaborations
+
+        carried
+        out in @i{Yuuki Yuuna is a Hero: Bouquet of Brilliance}.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
       objectReference: {fileID: 0}
     - target: {fileID: 7993384636614461880, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
       propertyPath: m_Pivot.x
@@ -395,6 +464,38 @@ PrefabInstance:
       propertyPath: m_text
       value: "\u30B3\u30E9\u30DC\u30B9\u30C8\u30FC\u30EA\u30FC"
       objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u8054\u52A8\u5267\u60C5"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u30B3\u30E9\u30DC\u30B9\u30C8\u30FC\u30EA\u30FC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Collaboration Story
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -432,6 +533,38 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: bc9670e696c2c47e8af009e602a6a3f4, type: 3}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u304A\u6C17\u306B\u5165\u308A\u30B9\u30C8\u30FC\u30EA\u30FC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u6536\u85CF\u5939"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Favorite Story
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     - target: {fileID: 4089607447297042578, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -568,6 +701,43 @@ PrefabInstance:
       propertyPath: m_Name
       value: EventStory
       objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u300C\u7D50\u57CE\u53CB\u5948\u306F\u52C7\u8005\u3067\u3042\u308B
+        \u82B1\u7D50\u3044\u306E\u304D\u3089\u3081\u304D\u300D\u3067\u5B9F\u65BD\u3057\u305F\u30A4\u30D9\u30F3\u30C8\u306A\u3069\u306E\u30B9\u30C8\u30FC\u30EA\u30FC\u3092\n\u304A\u697D\u3057\u307F\u9802\u3051\u308B\u30E1\u30CB\u30E5\u30FC\u3067\u3059\u3002"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u60A8\u53EF\u4EE5\u5728\u6B64\u5904\u89C2\u8D4F\n\u300A\u7ED3\u57CE\u53CB\u5948\u662F\u52C7\u8005
+        \u95EA\u5149\u7684\u82B1\u7ED3\u300B\u7684\u6D3B\u52A8\u5267\u60C5\u3002"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: 'Here you can enjoy the stories of the events held in
+
+        @i{Yuuki
+        Yuuna is a Hero: Bouquet of Brilliance}.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     - target: {fileID: 7993384636614461880, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -647,6 +817,38 @@ PrefabInstance:
     - target: {fileID: 7993384636614461880, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u30A4\u30D9\u30F3\u30C8\u30B9\u30C8\u30FC\u30EA\u30FC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u6D3B\u52A8\u5267\u60C5"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Event Story
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -783,6 +985,43 @@ PrefabInstance:
       propertyPath: m_Name
       value: Album
       objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u300C\u7D50\u57CE\u53CB\u5948\u306F\u52C7\u8005\u3067\u3042\u308B
+        \u82B1\u7D50\u3044\u306E\u304D\u3089\u3081\u304D\u300D\u306E\u305F\u3081\u306B\u63CF\u304D\u4E0B\u308D\u3055\u308C\u305F\n\u30A4\u30D9\u30F3\u30C8CG\u3084\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC\u753B\u50CF\u3092\u3054\u89A7\u9802\u3051\u308B\u30E1\u30CB\u30E5\u30FC\u3067\u3059\u3002"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u60A8\u53EF\u4EE5\u5728\u6B64\u5904\u89C2\u8D4F\u4E3A\u300A\u7ED3\u57CE\u53CB\u5948\u662F\u52C7\u8005
+        \u95EA\u5149\u7684\u82B1\u7ED3\u300B\n\u7ED8\u5236\u7684\u6D3B\u52A8\u4E0E\u89D2\u8272\u7B49CG\u56FE\u50CF\u3002"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: 'Here you can view event CG and character images from
+
+        @i{Yuuki
+        Yuuna is a Hero: Bouquet of Brilliance}.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     - target: {fileID: 7993384636614461880, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -866,6 +1105,38 @@ PrefabInstance:
     - target: {fileID: 8556219957636687917, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
       propertyPath: m_text
       value: "\u30A2\u30EB\u30D0\u30E0"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u30A2\u30EB\u30D0\u30E0"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u76F8\u3000\u518C"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Album
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1160,6 +1431,38 @@ PrefabInstance:
     - target: {fileID: 2347162656984271111, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
       propertyPath: m_text
       value: "\u30A4\u30D9\u30F3\u30C8\u30B9\u30C8\u30FC\u30EA\u30FC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u30A4\u30D9\u30F3\u30C8\u30B9\u30C8\u30FC\u30EA\u30FC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u6D3B\u52A8\u5267\u60C5"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Event Story
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
       objectReference: {fileID: 0}
     - target: {fileID: 4089607447297042578, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
       propertyPath: m_Pivot.x
@@ -1538,6 +1841,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: 4Koma
       objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\uFF14\u30B3\u30DE\u307E\u3093\u304C\u300C\u52C7\u8005\u90E8\u3073\u3088\u308A\u300D\u3092\u304A\u697D\u3057\u307F\u9802\u3051\u308B\u30E1\u30CB\u30E5\u30FC\u3067\u3059\u3002"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u60A8\u53EF\u4EE5\u5728\u6B64\u5904\u89C2\u8D4F\u56DB\u683C\u6F2B\u753B\u300A\u52C7\u8005\u90E8\u65E5\u548C\u300B\u3002"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Here you can enjoy the 4-koma manga @i{Yuushabu Biyori}.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     - target: {fileID: 7993384636614461880, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1621,6 +1956,38 @@ PrefabInstance:
     - target: {fileID: 8556219957636687917, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
       propertyPath: m_text
       value: "\u52C7\u8005\u90E8\u3073\u3088\u308A"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u52C7\u8005\u90E8\u3073\u3088\u308A"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u52C7\u8005\u90E8\u65E5\u548C"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Yuushabu Biyori
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1826,6 +2193,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: FavoriteStory
       objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u304A\u6C17\u306B\u5165\u308A\u767B\u9332\u3057\u305F\u30B9\u30C8\u30FC\u30EA\u30FC\u306E\u518D\u751F\u3084\u7BA1\u7406\u3092\u884C\u3046\u30E1\u30CB\u30E5\u30FC\u3067\u3059\u3002"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u60A8\u53EF\u4EE5\u5728\u6B64\u5904\u64AD\u653E\u548C\u7BA1\u7406\u6536\u85CF\u5939\u5185\u7684\u5267\u60C5\u3002"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Here you can play and manage stories registered as favorites.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     - target: {fileID: 7993384636614461880, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1910,6 +2309,38 @@ PrefabInstance:
       propertyPath: m_text
       value: "\u304A\u6C17\u306B\u5165\u308A\u30B9\u30C8\u30FC\u30EA\u30FC"
       objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u304A\u6C17\u306B\u5165\u308A\u30B9\u30C8\u30FC\u30EA\u30FC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u6536\u85CF\u5939"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Favorite Story
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1992,18 +2423,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 971853390}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d7cbeda40964100ade85e423b9f5039, type: 3}
+  m_Script: {fileID: 11500000, guid: d3f05e545f1840779b9bb1fc939a95e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LocalizedAssetReference:
-    m_TableReference:
-      m_TableCollectionName: GUID:bb4ca73677ef14fc290e3e83e2fa39cd
-    m_TableEntryReference:
-      m_KeyId: 17052983296
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 1
-  m_UpdateAsset:
+  onLocaleChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1151802747}
@@ -2018,6 +2441,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  localizedFont:
+    localizedValues:
+      keys:
+      - cultureName: ja
+      - cultureName: en
+      - cultureName: zh
+      values:
+      - {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
+      - {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
+      - {fileID: 11400000, guid: a0a9703720ea14f4db73414ecf002bb2, type: 2}
 --- !u!1001 &996042866
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2034,6 +2467,38 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 27af6a0364f854d2297458e5d29d1614, type: 3}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u89D2\u8272\u56FE\u9274"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Characters
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     - target: {fileID: 4089607447297042578, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2232,6 +2697,38 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: aa2f6f78cddae4d1c9eb23b8b0d9a3b2, type: 3}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u52C7\u8005\u90E8\u3073\u3088\u308A"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u52C7\u8005\u90E8\u65E5\u548C"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Yuushabu Biyori
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     - target: {fileID: 4089607447297042578, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2345,7 +2842,6 @@ GameObject:
   - component: {fileID: 1151802746}
   - component: {fileID: 1151802748}
   - component: {fileID: 1151802747}
-  - component: {fileID: 1151802749}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -2471,41 +2967,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1151802745}
   m_CullTransparentMesh: 1
---- !u!114 &1151802749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1151802745}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d7cbeda40964100ade85e423b9f5039, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_LocalizedAssetReference:
-    m_TableReference:
-      m_TableCollectionName: GUID:bb4ca73677ef14fc290e3e83e2fa39cd
-    m_TableEntryReference:
-      m_KeyId: 17052983296
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-  m_UpdateAsset:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1151802747}
-        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
-        m_MethodName: set_font
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &1271220585
 GameObject:
   m_ObjectHideFlags: 0
@@ -2693,6 +3154,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: Setting
       objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u5404\u7A2E\u8A2D\u5B9A\u306E\u5909\u66F4\u304C\u884C\u3048\u3001\u30D8\u30EB\u30D7\u306B\u3064\u3044\u3066\u3082\u3053\u3061\u3089\u3067\u3054\u78BA\u8A8D\u9802\u3051\u307E\u3059\u3002"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u60A8\u53EF\u4EE5\u5728\u6B64\u5904\u66F4\u6539\u5404\u79CD\u8BBE\u7F6E\u6216\u67E5\u770B\u5E2E\u52A9\u754C\u9762\u3002"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Here you can change various settings and find help.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     - target: {fileID: 7993384636614461880, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2776,6 +3269,38 @@ PrefabInstance:
     - target: {fileID: 8556219957636687917, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
       propertyPath: m_text
       value: "\u8A2D\u3000\u5B9A"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u8A2D\u3000\u5B9A"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u8BBE\u3000\u7F6E"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Settings
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2989,6 +3514,38 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 8a54743275822401caceeea06bdc87d8, type: 3}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u8A2D\u3000\u5B9A"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u8BBE\u3000\u7F6E"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Settings
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     - target: {fileID: 4089607447297042578, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3107,6 +3664,38 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 3e051c62a1dd5445b97df02254ed7962, type: 3}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u30B3\u30E9\u30DC\u30B9\u30C8\u30FC\u30EA\u30FC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u8054\u52A8\u5267\u60C5"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Collaboration Story
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     - target: {fileID: 4089607447297042578, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3394,6 +3983,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character
       objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u53CE\u9332\u3055\u308C\u305F\u30B9\u30C8\u30FC\u30EA\u30FC\u306B\u767B\u9332\u3059\u308B\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC\u306E\u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u3084\n\u7CBE\u970A\u3001\u3046\u3069\u3093\u306A\u3069\u306E\u4E00\u89A7\u3092\u3054\u89A7\u9802\u3051\u308B\u30E1\u30CB\u30E5\u30FC\u3067\u3059\u3002"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u60A8\u53EF\u4EE5\u5728\u6B64\u5904\u67E5\u770B\u5267\u60C5\u4E2D\u767B\u573A\u7684\u89D2\u8272\u7B80\u4ECB\u3001\n\u7CBE\u7075\u3001\u4E4C\u51AC\u7B49\u5217\u8868\u3002"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: 'Here you can check the list of character profiles,
+
+        fairies,
+        udon, etc. that are used in the stories.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     - target: {fileID: 7993384636614461880, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3477,6 +4101,38 @@ PrefabInstance:
     - target: {fileID: 8556219957636687917, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
       propertyPath: m_text
       value: "\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u89D2\u8272\u56FE\u9274"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Characters
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3889,6 +4545,38 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 64be1ac08ebdb4f308cf01d4bf68ee46, type: 3}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u30E1\u30A4\u30F3\u30B9\u30C8\u30FC\u30EA\u30FC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u4E3B\u7EBF\u5267\u60C5"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Main Story
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422560555293444570, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     - target: {fileID: 4089607447297042578, guid: 92b0f12c3c8954e43a233ca233a79d40, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4084,6 +4772,43 @@ PrefabInstance:
       propertyPath: onSelected.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u300C\u7D50\u57CE\u53CB\u5948\u306F\u52C7\u8005\u3067\u3042\u308B
+        \u82B1\u7D50\u3044\u306E\u304D\u3089\u3081\u304D\u300D\u306E\u30E1\u30A4\u30F3\u30B9\u30C8\u30FC\u30EA\u30FC\u3092\n\u304A\u697D\u3057\u307F\u9802\u3051\u308B\u30E1\u30CB\u30E5\u30FC\u3067\u3059\u3002"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u60A8\u53EF\u4EE5\u5728\u6B64\u5904\u89C2\u8D4F\n\u300A\u7ED3\u57CE\u53CB\u5948\u662F\u52C7\u8005
+        \u95EA\u5149\u7684\u82B1\u7ED3\u300B\u7684\u4E3B\u7EBF\u5267\u60C5\u3002"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: 'Here you can enjoy the main story of
+
+        @i{Yuuki Yuuna is a Hero:
+        Bouquet of Brilliance}.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541400359498118793, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     - target: {fileID: 7993384636614461880, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4167,6 +4892,38 @@ PrefabInstance:
     - target: {fileID: 8556219957636687917, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
       propertyPath: m_text
       value: "\u30E1\u30A4\u30F3\u30B9\u30C8\u30FC\u30EA\u30FC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u30E1\u30A4\u30F3\u30B9\u30C8\u30FC\u30EA\u30FC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u4E3B\u7EBF\u5267\u60C5"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Main Story
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741592459304331504, guid: d2f0a7a83dc2f42eda0d5febb2b92631, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

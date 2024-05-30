@@ -75,7 +75,7 @@ namespace Kaede2.Localization
 
         public override int GetHashCode()
         {
-            return cultureInfo.GetHashCode();
+            return cultureInfo == null ? CultureInfo.InvariantCulture.GetHashCode() : cultureInfo.GetHashCode();
         }
     }
 

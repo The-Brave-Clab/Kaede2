@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using Kaede2.Input;
@@ -36,7 +37,7 @@ namespace Kaede2.Scenario
 
         private List<ResourceLoader.HandleBase> resourceHandles;
 
-        private Locale backupLocale;
+        private CultureInfo backupLocale;
 
         [SerializeField]
         private PlayerUIController uiController;
@@ -46,7 +47,7 @@ namespace Kaede2.Scenario
 
 #if UNITY_EDITOR
         [Header("For editor only")]
-        public Locale defaultLanguage;
+        public SerializableCultureInfo defaultLanguage;
         public string defaultScenarioName;
 #endif
 
@@ -120,14 +121,14 @@ namespace Kaede2.Scenario
 
 
         private static string scenarioName;
-        private static Locale scenarioLanguage;
+        private static CultureInfo scenarioLanguage;
         private static ScenarioState scenarioStateToBeRestored;
         private static Action scenarioEndCallback;
 
         public static string CurrentScenario => scenarioName;
-        public static Locale CurrentLanguage => scenarioLanguage;
+        public static CultureInfo CurrentLanguage => scenarioLanguage;
 
-        public static IEnumerator Play(string scenario, Locale language, LoadSceneMode loadSceneMode, ScenarioState stateToBeRestored, Action endCallback)
+        public static IEnumerator Play(string scenario, CultureInfo language, LoadSceneMode loadSceneMode, ScenarioState stateToBeRestored, Action endCallback)
         {
             scenarioName = scenario;
             scenarioLanguage = language;
@@ -139,7 +140,7 @@ namespace Kaede2.Scenario
 
         public void GoBackToPreviousSceneBeforeEnd()
         {
-            CoroutineProxy.Start(GoBackToPreviousScene(true));
+            GoBackToPreviousScene(true);
         }
 
         private void GoBackToPreviousSceneBeforeEnd(InputAction.CallbackContext context)
@@ -213,7 +214,7 @@ namespace Kaede2.Scenario
             {
                 // if we entered through command line args, we force the scenario language to be the specified one
                 // the logic of choosing specific locale is inside GameSettings
-                scenarioLanguage = GameSettings.Locale;
+                scenarioLanguage = GameSettings.CultureInfo;
             }
 
             var scriptHandle = ResourceLoader.LoadScenarioScriptText(ScenarioName);
@@ -227,8 +228,7 @@ namespace Kaede2.Scenario
             var scriptText = scriptHandle.Result.text;
 
             // download translation if needed
-            Locale targetLocale = LocalizationSettings.AvailableLocales.Locales
-                .FirstOrDefault(l => l.Identifier.CultureInfo.TwoLetterISOLanguageName == "ja")!;
+            var targetLocale = Locales.Load().All.FirstOrDefault(l => l.TwoLetterISOLanguageName == "ja")!;
             string translation = "";
 
             if (ScenarioRunMode.Args.OverrideTranslation)
@@ -238,9 +238,9 @@ namespace Kaede2.Scenario
                 else
                     this.LogWarning($"Failed to load override translation file: {ScenarioRunMode.Args.OverrideTranslationFile}");
             }
-            else if (scenarioLanguage != null && scenarioLanguage.Identifier.CultureInfo.TwoLetterISOLanguageName != "ja")
+            else if (scenarioLanguage != null && scenarioLanguage.TwoLetterISOLanguageName != "ja")
             {
-                yield return LocalizeScript.DownloadTranslation(ScenarioName, scenarioLanguage.Identifier.CultureInfo.TwoLetterISOLanguageName, t => translation = t);
+                yield return LocalizeScript.DownloadTranslation(ScenarioName, scenarioLanguage.TwoLetterISOLanguageName, t => translation = t);
 
                 if (string.IsNullOrEmpty(translation))
                     this.LogWarning($"Failed to download translation for {scenarioLanguage}. Defaulting to {targetLocale}. This should not happen if entered from scenario selection menu.");
@@ -254,13 +254,11 @@ namespace Kaede2.Scenario
             }
 
             // change locale if needed
-            if (targetLocale != LocalizationSettings.SelectedLocale)
+            if (!Equals(targetLocale, LocalizationManager.CurrentLocale))
             {
-                backupLocale = LocalizationSettings.SelectedLocale;
-                LocalizationSettings.Instance.SetSelectedLocale(targetLocale);
-                // wait for the locale to be changed
-                yield return LocalizationSettings.SelectedLocaleAsync;
-                this.Log($"Locale changed to {targetLocale}");
+                backupLocale = LocalizationManager.CurrentLocale;
+                LocalizationManager.CurrentLocale = targetLocale;
+                this.Log($"Locale changed to {targetLocale!.EnglishName}");
             }
 
 #if UNITY_WEBGL && !UNITY_EDITOR
@@ -375,11 +373,11 @@ namespace Kaede2.Scenario
 
             scenarioEndCallback?.Invoke();
 
-            yield return GoBackToPreviousScene(false);
+            GoBackToPreviousScene(false);
 #endif
         }
 
-        private IEnumerator GoBackToPreviousScene(bool saveState)
+        private void GoBackToPreviousScene(bool saveState)
         {
             Paused = true;
 
@@ -392,9 +390,8 @@ namespace Kaede2.Scenario
 
             if (backupLocale != null)
             {
-                LocalizationSettings.Instance.SetSelectedLocale(backupLocale);
-                yield return LocalizationSettings.SelectedLocaleAsync;
-                this.Log($"Restored locale to {backupLocale}");
+                LocalizationManager.CurrentLocale = backupLocale;
+                this.Log($"Restored locale to {backupLocale.EnglishName}");
             }
 
             // TODO: implement go back to previous scene

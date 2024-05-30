@@ -9,44 +9,54 @@ namespace Kaede2.Editor.Inspectors
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            return EditorGUIUtility.singleLineHeight * (Locales.Load().All.Count + 1);
+            var localeCount = Locales.Load().All.Count;
+            return EditorGUIUtility.singleLineHeight +
+                   localeCount * GetSinglePropertyHeight() +
+                   (localeCount - 1) * EditorGUIUtility.standardVerticalSpacing;
         }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            EditorGUI.BeginProperty(position, label, property);
-
             var valuesProperty = property.FindPropertyRelative("localizedValues");
 
             position.height = EditorGUIUtility.singleLineHeight;
+
+            EditorGUI.BeginProperty(position, label, property);
             EditorGUI.LabelField(position, label);
+            EditorGUI.EndProperty();
+
+            position.y += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
 
             EditorGUI.indentLevel += 1;
             foreach (var cultureInfo in Locales.Load().All)
             {
-                position.y += EditorGUIUtility.singleLineHeight;
-
                 EditorGUI.BeginChangeCheck();
-                var oldValue = TryGetFromSerializedDictionary(valuesProperty, cultureInfo, out var value)
+                var oldValue = TryGetFromSerializedDictionary(valuesProperty, cultureInfo, out var value, out var serializedValue)
                     ? value
                     : default;
                 string entryLabel = $"{cultureInfo.NativeName} / {cultureInfo.EnglishName}";
+
+                if (serializedValue != null) EditorGUI.BeginProperty(position, new GUIContent(entryLabel), serializedValue);
                 var newValue = DrawValueField(position, new GUIContent(entryLabel), oldValue);
+                if (serializedValue != null)  EditorGUI.EndProperty();
+
                 if (EditorGUI.EndChangeCheck())
                 {
                     SetToSerializedDictionary(valuesProperty, cultureInfo, newValue);
                 }
+
+                position.y += GetSinglePropertyHeight() + EditorGUIUtility.standardVerticalSpacing;
             }
             EditorGUI.indentLevel -= 1;
 
-            EditorGUI.EndProperty();
         }
 
         protected abstract T GetValueFromSerializedProperty(SerializedProperty property);
         protected abstract void SetValueToSerializedProperty(SerializedProperty property, T value);
         protected abstract T DrawValueField(Rect position, GUIContent label, T value);
+        protected abstract float GetSinglePropertyHeight();
 
-        private bool TryGetFromSerializedDictionary(SerializedProperty dictionaryProperty, CultureInfo key, out T value)
+        private bool TryGetFromSerializedDictionary(SerializedProperty dictionaryProperty, CultureInfo key, out T value, out SerializedProperty serializedValue)
         {
             var dictionaryKeysProperty = dictionaryProperty.FindPropertyRelative("keys");
             var dictionaryValuesProperty = dictionaryProperty.FindPropertyRelative("values");
@@ -57,11 +67,13 @@ namespace Kaede2.Editor.Inspectors
                 var keyCultureName = element.FindPropertyRelative("cultureName").stringValue;
                 if (keyCultureName == key.Name)
                 {
-                    value = GetValueFromSerializedProperty(dictionaryValuesProperty.GetArrayElementAtIndex(i));
+                    serializedValue = dictionaryValuesProperty.GetArrayElementAtIndex(i);
+                    value = GetValueFromSerializedProperty(serializedValue);
                     return true;
                 }
             }
 
+            serializedValue = null;
             value = default;
             return false;
         }
@@ -109,7 +121,17 @@ namespace Kaede2.Editor.Inspectors
 
         protected override string DrawValueField(Rect position, GUIContent label, string value)
         {
-            return EditorGUI.TextField(position, label, value);
+            position.height = EditorGUIUtility.singleLineHeight;
+            EditorGUI.LabelField(position, label);
+
+            position.height = EditorGUIUtility.singleLineHeight * 3;
+            position.y += EditorGUIUtility.singleLineHeight;
+            return EditorGUI.TextArea(position, value);
+        }
+
+        protected override float GetSinglePropertyHeight()
+        {
+            return 4 * EditorGUIUtility.singleLineHeight;
         }
     }
 
@@ -132,6 +154,11 @@ namespace Kaede2.Editor.Inspectors
             var genericType = fieldInfo.FieldType.GetGenericArguments()[0];
 
             return EditorGUI.ObjectField(position, label, value, genericType, false);
+        }
+
+        protected override float GetSinglePropertyHeight()
+        {
+            return EditorGUIUtility.singleLineHeight;
         }
     }
 }

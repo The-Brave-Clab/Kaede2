@@ -30,6 +30,7 @@ namespace Kaede2.UI
             set
             {
                 text = value;
+                if (string.IsNullOrEmpty(text)) text = "";
                 RefreshText();
             }
         }

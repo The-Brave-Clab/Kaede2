@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82705025a4d44d608e49c9d5919a712f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adjustHSVShader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
+  customShader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
   adjustment:
     referenceColor: {r: 0.93725497, g: 0.75294125, b: 0.7137255, a: 1}
     hsvAdjustment: {x: 0.91520464, y: 0.020329759, z: 0.062745035}
@@ -507,7 +507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82705025a4d44d608e49c9d5919a712f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adjustHSVShader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
+  customShader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
   adjustment:
     referenceColor: {r: 0.93725497, g: 0.75294125, b: 0.7137255, a: 1}
     hsvAdjustment: {x: 0.5023694, y: 0.004184097, z: 0}
@@ -679,6 +679,18 @@ PrefabInstance:
       propertyPath: managedReferences[1012040397265567814].m_VariantData.Array.data[2].value
       value: 2.1
       objectReference: {fileID: 0}
+    - target: {fileID: 843290758586814139, guid: aba2e992aad59fe44ab049c93778df2f, type: 3}
+      propertyPath: 'localizedFont.localizedValues.values.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f9ffa6edc7eca1f45b179c9633c90682, type: 2}
+    - target: {fileID: 843290758586814139, guid: aba2e992aad59fe44ab049c93778df2f, type: 3}
+      propertyPath: 'localizedFont.localizedValues.values.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 1d5f7c938594b458ca7bf97184d90089, type: 2}
+    - target: {fileID: 843290758586814139, guid: aba2e992aad59fe44ab049c93778df2f, type: 3}
+      propertyPath: 'localizedFont.localizedValues.values.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: a554be61dd3224be79f23199e4b7571e, type: 2}
     - target: {fileID: 1031452878154618415, guid: aba2e992aad59fe44ab049c93778df2f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -766,6 +778,14 @@ PrefabInstance:
     - target: {fileID: 1997797625463496843, guid: aba2e992aad59fe44ab049c93778df2f, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 255
+      objectReference: {fileID: 0}
+    - target: {fileID: 2236365781583312743, guid: aba2e992aad59fe44ab049c93778df2f, type: 3}
+      propertyPath: onLocaleChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5378192835373850450}
+    - target: {fileID: 2236365781583312743, guid: aba2e992aad59fe44ab049c93778df2f, type: 3}
+      propertyPath: onLocaleChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_text
       objectReference: {fileID: 0}
     - target: {fileID: 3834643229322254118, guid: aba2e992aad59fe44ab049c93778df2f, type: 3}
       propertyPath: m_Type
@@ -995,6 +1015,34 @@ PrefabInstance:
       propertyPath: m_LocalizedAssetReference.m_TableEntryReference.m_KeyId
       value: 476853559296
       objectReference: {fileID: 0}
+    - target: {fileID: 6622666001179987825, guid: aba2e992aad59fe44ab049c93778df2f, type: 3}
+      propertyPath: 'localizedFont.localizedValues.values.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f9ffa6edc7eca1f45b179c9633c90682, type: 2}
+    - target: {fileID: 6622666001179987825, guid: aba2e992aad59fe44ab049c93778df2f, type: 3}
+      propertyPath: 'localizedFont.localizedValues.values.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 1d5f7c938594b458ca7bf97184d90089, type: 2}
+    - target: {fileID: 6622666001179987825, guid: aba2e992aad59fe44ab049c93778df2f, type: 3}
+      propertyPath: 'localizedFont.localizedValues.values.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f9ffa6edc7eca1f45b179c9633c90682, type: 2}
+    - target: {fileID: 6622666001179987825, guid: aba2e992aad59fe44ab049c93778df2f, type: 3}
+      propertyPath: onLocaleChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5378192835373850450}
+    - target: {fileID: 6622666001179987825, guid: aba2e992aad59fe44ab049c93778df2f, type: 3}
+      propertyPath: onLocaleChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 997488919020043514}
+    - target: {fileID: 6622666001179987825, guid: aba2e992aad59fe44ab049c93778df2f, type: 3}
+      propertyPath: onLocaleChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_font
+      objectReference: {fileID: 0}
+    - target: {fileID: 6622666001179987825, guid: aba2e992aad59fe44ab049c93778df2f, type: 3}
+      propertyPath: onLocaleChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: set_font
+      objectReference: {fileID: 0}
     - target: {fileID: 6761248778477643818, guid: aba2e992aad59fe44ab049c93778df2f, type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
@@ -1059,6 +1107,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7154564795503877755, guid: aba2e992aad59fe44ab049c93778df2f, type: 3}
+      propertyPath: onLocaleChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 997488919020043514}
+    - target: {fileID: 7154564795503877755, guid: aba2e992aad59fe44ab049c93778df2f, type: 3}
+      propertyPath: onLocaleChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_text
+      objectReference: {fileID: 0}
     - target: {fileID: 7424527591648987800, guid: aba2e992aad59fe44ab049c93778df2f, type: 3}
       propertyPath: m_SizeDelta.x
       value: 68
@@ -1107,6 +1163,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: MessageBox
       objectReference: {fileID: 0}
+    - target: {fileID: 7973679374772498087, guid: aba2e992aad59fe44ab049c93778df2f, type: 3}
+      propertyPath: 'localizedFont.localizedValues.values.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f9ffa6edc7eca1f45b179c9633c90682, type: 2}
+    - target: {fileID: 7973679374772498087, guid: aba2e992aad59fe44ab049c93778df2f, type: 3}
+      propertyPath: 'localizedFont.localizedValues.values.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 1d5f7c938594b458ca7bf97184d90089, type: 2}
+    - target: {fileID: 7973679374772498087, guid: aba2e992aad59fe44ab049c93778df2f, type: 3}
+      propertyPath: 'localizedFont.localizedValues.values.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: a554be61dd3224be79f23199e4b7571e, type: 2}
     - target: {fileID: 8184496285910848731, guid: aba2e992aad59fe44ab049c93778df2f, type: 3}
       propertyPath: m_fontSize
       value: 36

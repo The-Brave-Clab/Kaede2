@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using Kaede2.Localization;
 using Kaede2.Scenario;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
@@ -51,7 +52,7 @@ namespace Kaede2
         {
             yield return SceneTransition.Fade(1);
             yield return PlayerScenarioModule.Play(scenarioName,
-                LocalizationSettings.SelectedLocale,
+                LocalizationManager.CurrentLocale,
                 // LocalizationSettings.AvailableLocales.GetLocale(new("ja")),
                 LoadSceneMode.Single,
                 null,

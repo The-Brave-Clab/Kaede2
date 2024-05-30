@@ -1219,11 +1219,11 @@ GameObject:
   - component: {fileID: 6047735587263603840}
   - component: {fileID: 4670805274910201121}
   - component: {fileID: 3972180431017641614}
-  - component: {fileID: 1619632261152011875}
-  - component: {fileID: 6592919176623849089}
-  - component: {fileID: 6268145264850171493}
-  - component: {fileID: 6272646153533666387}
-  - component: {fileID: 5001739142475183938}
+  - component: {fileID: 843290758586814139}
+  - component: {fileID: 7973679374772498087}
+  - component: {fileID: 6622666001179987825}
+  - component: {fileID: 2236365781583312743}
+  - component: {fileID: 7154564795503877755}
   m_Layer: 5
   m_Name: MessageBox
   m_TagString: Untagged
@@ -1281,7 +1281,7 @@ MonoBehaviour:
   nextMessageIndicator: {fileID: 8228340415272727319}
   autoModeIndicator: {fileID: 7589308026561499978}
   continuousModeIndicator: {fileID: 1462030079088514998}
---- !u!114 &1619632261152011875
+--- !u!114 &843290758586814139
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1290,18 +1290,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7595576014301023755}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d7cbeda40964100ade85e423b9f5039, type: 3}
+  m_Script: {fileID: 11500000, guid: d3f05e545f1840779b9bb1fc939a95e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LocalizedAssetReference:
-    m_TableReference:
-      m_TableCollectionName: GUID:df6a8cbeb59264133aa754471bd0e7ea
-    m_TableEntryReference:
-      m_KeyId: 398189387776
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-  m_UpdateAsset:
+  onLocaleChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8184496285910848731}
@@ -1316,7 +1308,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &6592919176623849089
+  localizedFont:
+    localizedValues:
+      keys:
+      - cultureName: ja
+      - cultureName: zh
+      - cultureName: en
+      values:
+      - {fileID: 11400000, guid: 7cb447fcd19bf7c458d269923c670e99, type: 2}
+      - {fileID: 11400000, guid: 05e6dbb1274764148af0fbdcd8d9e8a6, type: 2}
+      - {fileID: 11400000, guid: 6ab70616d80dc7d4d95f0d86692d147a, type: 2}
+--- !u!114 &7973679374772498087
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1325,18 +1327,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7595576014301023755}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d7cbeda40964100ade85e423b9f5039, type: 3}
+  m_Script: {fileID: 11500000, guid: d3f05e545f1840779b9bb1fc939a95e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LocalizedAssetReference:
-    m_TableReference:
-      m_TableCollectionName: GUID:df6a8cbeb59264133aa754471bd0e7ea
-    m_TableEntryReference:
-      m_KeyId: 456028839936
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-  m_UpdateAsset:
+  onLocaleChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7469443454402284184}
@@ -1351,7 +1345,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &6268145264850171493
+  localizedFont:
+    localizedValues:
+      keys:
+      - cultureName: ja
+      - cultureName: zh
+      - cultureName: en
+      values:
+      - {fileID: 11400000, guid: 90f7e644b8996014e9c29e21c44104a8, type: 2}
+      - {fileID: 11400000, guid: a045e05f95eb28043b1150a00548c572, type: 2}
+      - {fileID: 11400000, guid: 6ab70616d80dc7d4d95f0d86692d147a, type: 2}
+--- !u!114 &6622666001179987825
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1360,18 +1364,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7595576014301023755}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d7cbeda40964100ade85e423b9f5039, type: 3}
+  m_Script: {fileID: 11500000, guid: d3f05e545f1840779b9bb1fc939a95e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LocalizedAssetReference:
-    m_TableReference:
-      m_TableCollectionName: GUID:df6a8cbeb59264133aa754471bd0e7ea
-    m_TableEntryReference:
-      m_KeyId: 3591526482436096
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-  m_UpdateAsset:
+  onLocaleChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1864921492202912421}
@@ -1398,7 +1394,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &6272646153533666387
+  localizedFont:
+    localizedValues:
+      keys:
+      - cultureName: ja
+      - cultureName: zh
+      - cultureName: en
+      values:
+      - {fileID: 11400000, guid: 7cb447fcd19bf7c458d269923c670e99, type: 2}
+      - {fileID: 11400000, guid: 05e6dbb1274764148af0fbdcd8d9e8a6, type: 2}
+      - {fileID: 11400000, guid: 7cb447fcd19bf7c458d269923c670e99, type: 2}
+--- !u!114 &2236365781583312743
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1407,20 +1413,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7595576014301023755}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Script: {fileID: 11500000, guid: d4479b2f87544a818eea16356afd5198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_StringReference:
-    m_TableReference:
-      m_TableCollectionName: GUID:7e0c459e3aa314b3bb20908c28fcca59
-    m_TableEntryReference:
-      m_KeyId: 27159274971136
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  m_FormatArguments: []
-  m_UpdateString:
+  onLocaleChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1864921492202912421}
@@ -1435,10 +1431,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  references:
-    version: 2
-    RefIds: []
---- !u!114 &5001739142475183938
+  localizedString:
+    localizedValues:
+      keys:
+      - cultureName: ja
+      - cultureName: zh
+      - cultureName: en
+      values:
+      - "\u30AA\u30FC\u30C8"
+      - "\u81EA\u3000\u52A8"
+      - AUTO
+--- !u!114 &7154564795503877755
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1447,20 +1450,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7595576014301023755}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Script: {fileID: 11500000, guid: d4479b2f87544a818eea16356afd5198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_StringReference:
-    m_TableReference:
-      m_TableCollectionName: GUID:7e0c459e3aa314b3bb20908c28fcca59
-    m_TableEntryReference:
-      m_KeyId: 27210185433088
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  m_FormatArguments: []
-  m_UpdateString:
+  onLocaleChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2938438828874148647}
@@ -1475,9 +1468,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  references:
-    version: 2
-    RefIds: []
+  localizedString:
+    localizedValues:
+      keys:
+      - cultureName: ja
+      - cultureName: zh
+      - cultureName: en
+      values:
+      - "\u9023\u3000\u7D9A"
+      - "\u8FDE\u3000\u7EED"
+      - CONT.
 --- !u!1 &8153339775964296427
 GameObject:
   m_ObjectHideFlags: 0

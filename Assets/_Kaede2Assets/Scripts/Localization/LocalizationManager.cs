@@ -26,14 +26,15 @@ namespace Kaede2.Localization
             }
         }
 
+        private CultureInfo currentLocale;
+
         public static CultureInfo CurrentLocale
         {
-            get => GameSettings.CultureInfo;
+            get => Instance.currentLocale;
             set
             {
-                CultureInfo info = GameSettings.CultureInfo;
-                if (Equals(info, value)) return;
-                GameSettings.CultureInfo = value;
+                if (Equals(Instance.currentLocale, value)) return;
+                Instance.currentLocale = value;
                 onLocaleChanged?.Invoke(value);
             }
         }
