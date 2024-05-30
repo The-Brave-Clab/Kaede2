@@ -18,8 +18,6 @@ using Kaede2.Web;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem;
-using UnityEngine.Localization;
-using UnityEngine.Localization.Settings;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 using Sprite = UnityEngine.Sprite;
@@ -228,7 +226,7 @@ namespace Kaede2.Scenario
             var scriptText = scriptHandle.Result.text;
 
             // download translation if needed
-            var targetLocale = Locales.Load().All.FirstOrDefault(l => l.TwoLetterISOLanguageName == "ja")!;
+            var targetLocale = LocalizationManager.AllLocales.FirstOrDefault(l => l.TwoLetterISOLanguageName == "ja")!;
             string translation = "";
 
             if (ScenarioRunMode.Args.OverrideTranslation)

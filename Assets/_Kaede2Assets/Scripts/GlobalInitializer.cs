@@ -1,12 +1,9 @@
 ﻿using System.Collections;
-using System.Linq;
 using Kaede2.Input;
 using Kaede2.Scenario.Framework;
 using Kaede2.Utils;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.AddressableAssets.ResourceLocators;
-using UnityEngine.Localization.Settings;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 
@@ -61,12 +58,6 @@ namespace Kaede2
                 typeof(SceneManager).Log($"Scene {scene.name} unloaded");
             };
 
-            // it seems that localization will try to initialize addressables with autoreleasehandle == true
-            // which will cause the initialization handle to be disposed automatically by localization
-            // changing the internal op version != handle version, making it an invalid handle
-            // we skip addressables initialization and only wait for localization initialization for now
-            // since localization will initialize addressables by itself
-#if FALSE
             typeof(GlobalInitializer).Log("Initializing Addressables");
             var handle = Addressables.InitializeAsync(false);
             yield return handle;
@@ -78,10 +69,6 @@ namespace Kaede2
                 yield break;
             }
             typeof(GlobalInitializer).Log("Addressables initialized");
-#endif
-
-            typeof(GlobalInitializer).Log("Initializing localization");
-            yield return LocalizationSettings.InitializationOperation;
 
 #if UNITY_WEBGL && !UNITY_EDITOR
             WebInterop.RegisterInterops();

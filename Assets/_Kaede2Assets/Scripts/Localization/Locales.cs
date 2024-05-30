@@ -96,20 +96,5 @@ namespace Kaede2.Localization
         {
             supportedCultures.Remove(cultureInfo);
         }
-
-#if UNITY_EDITOR
-        private static Locales loadedInstance;
-        public static Locales Load()
-        {
-            if (loadedInstance != null) return loadedInstance;
-
-            string[] guids = UnityEditor.AssetDatabase.FindAssets($"t:{nameof(Locales)}");
-            if (guids.Length == 0) return null;
-
-            string path = UnityEditor.AssetDatabase.GUIDToAssetPath(guids[0]);
-            loadedInstance = UnityEditor.AssetDatabase.LoadAssetAtPath<Locales>(path);
-            return loadedInstance;
-        }
-#endif
     }
 }

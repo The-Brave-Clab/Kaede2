@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Globalization;
-using System.Linq;
 using Kaede2.Localization;
-using Kaede2.Scenario.Framework;
 using Kaede2.ScriptableObjects;
 using Kaede2.Utils;
 using UnityEngine;
-using UnityEngine.Localization;
-using UnityEngine.Localization.Settings;
 
 namespace Kaede2
 {
@@ -137,52 +133,22 @@ namespace Kaede2
             }
         }
 
-        [SerializeField]
-        private string locale;
+        [SerializeField] private SerializableCultureInfo locale;
 
         public static CultureInfo CultureInfo
         {
-            get => new(Instance.locale);
-            set
-            {
-                if (value.Name == Instance.locale) return;
-                Instance.locale = value.Name;
-                Save();
-            }
-        }
-
-        public static Locale Locale
-        {
             get
             {
-                if (ScenarioRunMode.Args.SpecifiedLanguage)
-                {
-                    var specified = LocalizationSettings.AvailableLocales.Locales
-                        .FirstOrDefault(locale => string.Equals(locale.Identifier.CultureInfo.TwoLetterISOLanguageName, ScenarioRunMode.Args.SpecifiedLanguageCode));
-                    if (specified != null)
-                    {
-                        Instance.Log($"Override locale with args: {specified}");
-                        return specified;
-                    }
-                }
-
-                if (Instance.locale != null)
-                    return LocalizationSettings.AvailableLocales.Locales
-                        .FirstOrDefault(locale => string.Equals(locale.Identifier.CultureInfo.TwoLetterISOLanguageName, Instance.locale));
-
-                Locale l = CommonUtils.GetSystemLocaleOrDefault();
-                Instance.locale = l.Identifier.CultureInfo.TwoLetterISOLanguageName;
+                if (Instance.locale != null) return Instance.locale;
+                Instance.locale = CommonUtils.GetSystemLocaleOrDefault();
                 Save();
-                Instance.Log($"Selected locale: {l}");
-                return l;
+                return Instance.locale;
+
             }
             set
             {
-                if (value == Locale) return;
-                var locale = LocalizationSettings.AvailableLocales.Locales.Contains(value) ? value : CommonUtils.GetSystemLocaleOrDefault();
-                LocalizationManager.CurrentLocale = locale.Identifier.CultureInfo;
-                Instance.locale = locale.Identifier.CultureInfo.TwoLetterISOLanguageName;
-                LocalizationSettings.Instance.SetSelectedLocale(locale);
+                if (Instance.locale.Equals(value)) return;
+                Instance.locale = value;
                 Save();
             }
         }

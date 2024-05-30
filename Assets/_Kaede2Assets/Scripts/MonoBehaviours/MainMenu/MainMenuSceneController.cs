@@ -3,13 +3,10 @@ using System.Collections;
 using System.Linq;
 using Kaede2.Localization;
 using Kaede2.Scenario;
-using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using Kaede2.Utils;
 using UnityEngine;
-using UnityEngine.Localization;
-using UnityEngine.Localization.Settings;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 

@@ -1,7 +1,6 @@
 using System.Globalization;
 using System.Linq;
-using UnityEngine.Localization;
-using UnityEngine.Localization.Settings;
+using Kaede2.Localization;
 
 namespace Kaede2.Utils
 {
@@ -34,10 +33,10 @@ namespace Kaede2.Utils
             return thisCulture.Equals(thatCulture) || thisCulture.Parent.BelongsTo(thatCulture);
         }
 
-        public static Locale GetSystemLocaleOrDefault()
+        public static CultureInfo GetSystemLocaleOrDefault()
         {
-            var locales = LocalizationSettings.AvailableLocales.Locales;
-            return locales.FirstOrDefault(l => CultureInfo.CurrentCulture.BelongsTo(l.Identifier.CultureInfo)) ??
+            var locales = LocalizationManager.AllLocales;
+            return locales.FirstOrDefault(l => CultureInfo.CurrentCulture.BelongsTo(l)) ??
                    locales[0];
         }
 

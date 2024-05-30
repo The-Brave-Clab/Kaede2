@@ -18,7 +18,7 @@ namespace Kaede2
         private void Awake()
         {
             int selectedIndex = -1;
-            var allLocales = Locales.Load().All;
+            var allLocales = LocalizationManager.AllLocales;
             for (var i = 0; i < allLocales.Count; i++)
             {
                 var locale = allLocales[i];

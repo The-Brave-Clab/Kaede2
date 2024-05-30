@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using Kaede2.Scenario.Framework.Utils;
 using UnityEngine;
@@ -9,6 +10,8 @@ namespace Kaede2.Localization
     {
         [SerializeField]
         private Locales locales;
+
+        public static IReadOnlyList<CultureInfo> AllLocales => Instance.locales.All;
 
         private event Action<CultureInfo> onLocaleChanged;
 
@@ -28,14 +31,16 @@ namespace Kaede2.Localization
         {
             base.Awake();
 
+            DontDestroyOnLoad(gameObject);
+
             if (locales == null)
             {
-#if UNITY_EDITOR
-                locales = Locales.Load();
-#else
-                Debug.LogError("Locales is null! This should not happen in a build.");
-                return;
-#endif
+                locales = LoadAsset();
+                if (locales == null)
+                {
+                    Debug.LogError("Locales is null and cannot be found! Please create a Locales asset in Resources folder.");
+                    return;
+                }
             }
 
             currentLocale = GameSettings.CultureInfo;
@@ -52,6 +57,14 @@ namespace Kaede2.Localization
                 Instance.currentLocale = value;
                 Instance.onLocaleChanged?.Invoke(value);
             }
+        }
+
+        private static Locales loadedLocalesAsset;
+        public static Locales LoadAsset()
+        {
+            if (loadedLocalesAsset != null) return loadedLocalesAsset;
+            loadedLocalesAsset = Resources.Load<Locales>("Locales");
+            return loadedLocalesAsset;
         }
     }
 }

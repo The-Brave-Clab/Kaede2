@@ -9,7 +9,7 @@ namespace Kaede2.Editor.Inspectors
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            var localeCount = Locales.Load().All.Count;
+            var localeCount = LocalizationManager.LoadAsset().All.Count;
             return EditorGUIUtility.singleLineHeight +
                    localeCount * GetSinglePropertyHeight() +
                    (localeCount - 1) * EditorGUIUtility.standardVerticalSpacing;
@@ -28,7 +28,7 @@ namespace Kaede2.Editor.Inspectors
             position.y += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
 
             EditorGUI.indentLevel += 1;
-            foreach (var cultureInfo in Locales.Load().All)
+            foreach (var cultureInfo in LocalizationManager.LoadAsset().All)
             {
                 EditorGUI.BeginChangeCheck();
                 var oldValue = TryGetFromSerializedDictionary(valuesProperty, cultureInfo, out var value, out var serializedValue)
