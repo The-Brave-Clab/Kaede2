@@ -5,6 +5,7 @@ using Kaede2.UI.Framework;
 using Kaede2.Utils;
 using UnityEngine;
 using UnityEngine.Localization.Components;
+using LocalizeStringEvent = UnityEngine.Localization.Components.LocalizeStringEvent;
 
 namespace Kaede2
 {

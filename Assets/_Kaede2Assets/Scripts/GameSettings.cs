@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using Kaede2.Localization;
 using Kaede2.Scenario.Framework;
 using Kaede2.ScriptableObjects;
 using Kaede2.Utils;
@@ -139,6 +140,17 @@ namespace Kaede2
         [SerializeField]
         private string locale;
 
+        public static CultureInfo CultureInfo
+        {
+            get => new(Instance.locale);
+            set
+            {
+                if (value.Name == Instance.locale) return;
+                Instance.locale = value.Name;
+                Save();
+            }
+        }
+
         public static Locale Locale
         {
             get
@@ -168,6 +180,7 @@ namespace Kaede2
             {
                 if (value == Locale) return;
                 var locale = LocalizationSettings.AvailableLocales.Locales.Contains(value) ? value : CommonUtils.GetSystemLocaleOrDefault();
+                LocalizationManager.CurrentLocale = locale.Identifier.CultureInfo;
                 Instance.locale = locale.Identifier.CultureInfo.TwoLetterISOLanguageName;
                 LocalizationSettings.Instance.SetSelectedLocale(locale);
                 Save();

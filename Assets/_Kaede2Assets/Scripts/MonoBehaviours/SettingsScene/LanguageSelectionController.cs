@@ -10,6 +10,7 @@ using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
 using UnityEngine.Localization.Settings;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using LocalizeStringEvent = UnityEngine.Localization.Components.LocalizeStringEvent;
 
 namespace Kaede2
 {

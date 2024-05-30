@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6012839576864036401}
   - component: {fileID: 1894377112898995207}
   - component: {fileID: 6375352291927690625}
-  - component: {fileID: 4653453928820792371}
-  - component: {fileID: 6416986800368182812}
+  - component: {fileID: 8186365558887529378}
+  - component: {fileID: 4615430866596238947}
   m_Layer: 5
   m_Name: InterfaceTitle
   m_TagString: Untagged
@@ -67,7 +67,7 @@ MonoBehaviour:
   firstCharacterText: {fileID: 1338843464377325540}
   restOfText: {fileID: 8687281365856830651}
   text: "\u30BF\u30A4\u30C8\u30EB\u30C6\u30AD\u30B9\u30C8"
---- !u!114 &4653453928820792371
+--- !u!114 &8186365558887529378
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -76,20 +76,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2593196822215548731}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Script: {fileID: 11500000, guid: d4479b2f87544a818eea16356afd5198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_StringReference:
-    m_TableReference:
-      m_TableCollectionName: GUID:767ae89b4ecb146f5b80fd9a320fb2d6
-    m_TableEntryReference:
-      m_KeyId: 0
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 1
-    m_LocalVariables: []
-  m_FormatArguments: []
-  m_UpdateString:
+  onLocaleChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6375352291927690625}
@@ -104,10 +94,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  references:
-    version: 2
-    RefIds: []
---- !u!114 &6416986800368182812
+  localizedString:
+    localizedValues:
+      keys: []
+      values: []
+--- !u!114 &4615430866596238947
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,18 +107,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2593196822215548731}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d7cbeda40964100ade85e423b9f5039, type: 3}
+  m_Script: {fileID: 11500000, guid: d3f05e545f1840779b9bb1fc939a95e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LocalizedAssetReference:
-    m_TableReference:
-      m_TableCollectionName: GUID:bb4ca73677ef14fc290e3e83e2fa39cd
-    m_TableEntryReference:
-      m_KeyId: 16019409068032
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 1
-  m_UpdateAsset:
+  onLocaleChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1338843464377325540}
@@ -154,6 +137,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  localizedFont:
+    localizedValues:
+      keys:
+      - cultureName: ja
+      - cultureName: en
+      - cultureName: zh
+      values:
+      - {fileID: 11400000, guid: 098f610f141ad437aad6e805ebde3e59, type: 2}
+      - {fileID: 11400000, guid: 098f610f141ad437aad6e805ebde3e59, type: 2}
+      - {fileID: 11400000, guid: 5c6cee52894db42caae04215a0ae8d12, type: 2}
 --- !u!1 &3553350721156764363
 GameObject:
   m_ObjectHideFlags: 0

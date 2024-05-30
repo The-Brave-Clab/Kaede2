@@ -7,7 +7,7 @@ using UnityEngine.Localization.Components;
 namespace Kaede2.Localization
 {
     [System.Serializable]
-    public class LocalizedFont : LocalizedAsset<TMP_FontAsset> {}
+    public class LocalizedFont : UnityEngine.Localization.LocalizedAsset<TMP_FontAsset> {}
  
     [System.Serializable]
     public class UpdateFontEvent : UnityEvent<TMP_FontAsset>{}
