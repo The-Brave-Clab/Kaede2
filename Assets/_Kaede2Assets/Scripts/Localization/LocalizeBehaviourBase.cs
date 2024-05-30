@@ -13,13 +13,13 @@ namespace Kaede2.Localization
 
         protected virtual void Awake()
         {
-            LocalizationManager.onLocaleChanged += OnLocaleChanged;
+            LocalizationManager.OnLocaleChanged += OnLocaleChanged;
             OnLocaleChanged(LocalizationManager.CurrentLocale);
         }
 
         protected virtual void OnDestroy()
         {
-            LocalizationManager.onLocaleChanged -= OnLocaleChanged;
+            LocalizationManager.OnLocaleChanged -= OnLocaleChanged;
         }
 
         private void OnLocaleChanged(CultureInfo cultureInfo)

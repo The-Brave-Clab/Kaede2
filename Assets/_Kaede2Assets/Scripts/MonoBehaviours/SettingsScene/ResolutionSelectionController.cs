@@ -108,8 +108,8 @@ namespace Kaede2
                 {
                     RegisterApplyButton(resolution, fullscreen);
                 });
-                Destroy(item.gameObject.GetComponent<LocalizeStringEvent>());
-                Destroy(item.gameObject.GetComponent<LocalizeFontEvent>());
+                Destroy(item.gameObject.GetComponent<LocalizeStringBehaviour>());
+                Destroy(item.gameObject.GetComponent<LocalizeFontBehaviour>());
             }
 
             return bestResolutionIndex;

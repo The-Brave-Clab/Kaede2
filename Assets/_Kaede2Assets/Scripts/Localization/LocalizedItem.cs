@@ -12,13 +12,13 @@ namespace Kaede2.Localization
         [SerializeField]
         protected SerializableDictionary<SerializableCultureInfo, T> localizedValues = new();
 
-        public T Get(CultureInfo cultureInfo)
+        public virtual T Get(CultureInfo cultureInfo)
         {
             localizedValues ??= new();
             return localizedValues.GetValueOrDefault(cultureInfo);
         }
 
-        public void Set(CultureInfo cultureInfo, T value)
+        public virtual void Set(CultureInfo cultureInfo, T value)
         {
             localizedValues ??= new();
             localizedValues[cultureInfo] = value;
@@ -28,6 +28,11 @@ namespace Kaede2.Localization
     [Serializable]
     public class LocalizedString : LocalizedItemBase<string>
     {
+        public override string Get(CultureInfo cultureInfo)
+        {
+            var str = base.Get(cultureInfo);
+            return string.IsNullOrEmpty(str) ? "" : str;
+        }
     }
 
     [Serializable]

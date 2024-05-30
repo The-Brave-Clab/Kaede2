@@ -10,7 +10,19 @@ namespace Kaede2.Localization
         [SerializeField]
         private Locales locales;
 
-        public static event Action<CultureInfo> onLocaleChanged;
+        private event Action<CultureInfo> onLocaleChanged;
+
+        public static event Action<CultureInfo> OnLocaleChanged
+        {
+            add
+            {
+                if (Instance != null) Instance.onLocaleChanged += value;
+            }
+            remove
+            {
+                if (Instance != null) Instance.onLocaleChanged -= value;
+            }
+        }
 
         protected override void Awake()
         {
@@ -22,8 +34,11 @@ namespace Kaede2.Localization
                 locales = Locales.Load();
 #else
                 Debug.LogError("Locales is null! This should not happen in a build.");
+                return;
 #endif
             }
+
+            currentLocale = GameSettings.CultureInfo;
         }
 
         private CultureInfo currentLocale;
@@ -35,7 +50,7 @@ namespace Kaede2.Localization
             {
                 if (Equals(Instance.currentLocale, value)) return;
                 Instance.currentLocale = value;
-                onLocaleChanged?.Invoke(value);
+                Instance.onLocaleChanged?.Invoke(value);
             }
         }
     }

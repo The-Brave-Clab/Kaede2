@@ -146,8 +146,8 @@ GameObject:
   m_Component:
   - component: {fileID: 531789353968093511}
   - component: {fileID: 558855182403048443}
-  - component: {fileID: 5818264724615930132}
-  - component: {fileID: 4464630805012624174}
+  - component: {fileID: 5282776754528082873}
+  - component: {fileID: 252492126739879147}
   m_Layer: 5
   m_Name: CommonButton3Colors
   m_TagString: Untagged
@@ -201,7 +201,7 @@ MonoBehaviour:
   onClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5818264724615930132
+--- !u!114 &5282776754528082873
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -210,20 +210,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5637220996913979191}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Script: {fileID: 11500000, guid: d4479b2f87544a818eea16356afd5198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_StringReference:
-    m_TableReference:
-      m_TableCollectionName: 
-    m_TableEntryReference:
-      m_KeyId: 0
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 1
-    m_LocalVariables: []
-  m_FormatArguments: []
-  m_UpdateString:
+  onLocaleChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2622488274853669527}
@@ -238,10 +228,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  references:
-    version: 2
-    RefIds: []
---- !u!114 &4464630805012624174
+  localizedString:
+    localizedValues:
+      keys: []
+      values: []
+--- !u!114 &252492126739879147
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -250,18 +241,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5637220996913979191}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d7cbeda40964100ade85e423b9f5039, type: 3}
+  m_Script: {fileID: 11500000, guid: d3f05e545f1840779b9bb1fc939a95e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LocalizedAssetReference:
-    m_TableReference:
-      m_TableCollectionName: GUID:bb4ca73677ef14fc290e3e83e2fa39cd
-    m_TableEntryReference:
-      m_KeyId: 17052983296
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 1
-  m_UpdateAsset:
+  onLocaleChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2622488274853669527}
@@ -276,6 +259,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  localizedFont:
+    localizedValues:
+      keys:
+      - cultureName: ja
+      - cultureName: zh
+      - cultureName: en
+      values:
+      - {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
+      - {fileID: 11400000, guid: a0a9703720ea14f4db73414ecf002bb2, type: 2}
+      - {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
 --- !u!1 &6464274467821788513
 GameObject:
   m_ObjectHideFlags: 0

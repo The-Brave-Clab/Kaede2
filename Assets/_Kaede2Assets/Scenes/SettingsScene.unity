@@ -119,6 +119,47 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!21 &31726356
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/HSV Adjustable
+  m_Shader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ReferenceColor: {r: 0.98039216, g: 0.59607846, b: 0.59607846, a: 1}
+    - _TargetColor: {r: 1, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1001 &58820254
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -440,6 +481,8 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5332207052937246006, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
     - {fileID: 5136816213393368827, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+    - {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+    - {fileID: 1925238867964326040, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -698,6 +741,38 @@ PrefabInstance:
     - target: {fileID: 6487914080917062501, guid: 75b504d2707aa470cb34131632cee375, type: 3}
       propertyPath: m_Name
       value: FullscreenSettings
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u8868\u793A\u30E2\u30FC\u30C9"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u7A97\u53E3\u6A21\u5F0F"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Screen Mode
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -989,48 +1064,6 @@ Material:
     - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!21 &446630075
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/UI Remap Color
-  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _BlueTargetColor: {r: 0.011764706, g: 0.011764706, b: 0.011764706, a: 1}
-    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
-    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1 &509386463
 GameObject:
   m_ObjectHideFlags: 0
@@ -1236,6 +1269,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: LanguageSettings
       objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u8A00\u8A9E"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u8BED\u8A00"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Language
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -1279,13 +1344,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectionControl: {fileID: 566193615}
   font:
-    m_TableReference:
-      m_TableCollectionName: GUID:bb4ca73677ef14fc290e3e83e2fa39cd
-    m_TableEntryReference:
-      m_KeyId: 17052983296
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
+    localizedValues:
+      keys:
+      - cultureName: ja
+      - cultureName: zh
+      - cultureName: en
+      values:
+      - {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
+      - {fileID: 11400000, guid: a0a9703720ea14f4db73414ecf002bb2, type: 2}
+      - {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
   sceneController: {fileID: 1559471749}
 --- !u!1001 &617736503
 PrefabInstance:
@@ -1394,6 +1461,38 @@ PrefabInstance:
     - target: {fileID: 6487914080917062501, guid: 75b504d2707aa470cb34131632cee375, type: 3}
       propertyPath: m_Name
       value: OpeningMovieSettings
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "OP\u30E0\u30FC\u30D3\u30FC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u5F00\u573A\u52A8\u753B"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: OP Movie
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1544,6 +1643,8 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5332207052937246006, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
     - {fileID: 5136816213393368827, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+    - {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+    - {fileID: 1925238867964326040, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1747,6 +1848,8 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5332207052937246006, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
     - {fileID: 5136816213393368827, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+    - {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+    - {fileID: 1925238867964326040, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1759,6 +1862,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1471302712}
     m_Modifications:
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u30E2\u30D0\u30A4\u30EB"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u624B\u673A\u7248"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Mobile
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2055,6 +2190,8 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5332207052937246006, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
     - {fileID: 5136816213393368827, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+    - {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+    - {fileID: 1925238867964326040, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2186,47 +2323,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6325911354353784261, guid: 75b504d2707aa470cb34131632cee375, type: 3}
   m_PrefabInstance: {fileID: 8212526841064480028}
   m_PrefabAsset: {fileID: 0}
---- !u!21 &936588944
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/HSV Adjustable
-  m_Shader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _ReferenceColor: {r: 0.98039216, g: 0.59607846, b: 0.59607846, a: 1}
-    - _TargetColor: {r: 1, g: 0, b: 0, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1 &1000544973
 GameObject:
   m_ObjectHideFlags: 0
@@ -2371,6 +2467,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1450392669}
     m_Modifications:
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u300E\u52C7\u6C17\u306E\u30D0\u30C8\u30F3\u300F"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u300A\u52C7\u6C14\u7684\u63A5\u529B\u68D2\u300B"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: <i>Yuuki No Baton</i>
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2539,6 +2667,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1450392669}
     m_Modifications:
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u300E\u30CF\u30CA\u30E6\u30A4\u300F"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u300A\u82B1\u7ED3\u300B"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: <i>Hanayui</i>
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2819,52 +2979,12 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5332207052937246006, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
     - {fileID: 5136816213393368827, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+    - {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+    - {fileID: 1925238867964326040, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
---- !u!21 &1093898656
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/UI Remap Color
-  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _BlueTargetColor: {r: 0.011764706, g: 0.011764706, b: 0.011764706, a: 1}
-    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
-    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1001 &1112879281
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3448,6 +3568,8 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5332207052937246006, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
     - {fileID: 5136816213393368827, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+    - {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+    - {fileID: 1925238867964326040, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -3488,6 +3610,38 @@ PrefabInstance:
     - target: {fileID: 1198745322187405336, guid: 1d8128adb9f62ee489a1c012af52b340, type: 3}
       propertyPath: onConfirmed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128004851963862512, guid: 1d8128adb9f62ee489a1c012af52b340, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128004851963862512, guid: 1d8128adb9f62ee489a1c012af52b340, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128004851963862512, guid: 1d8128adb9f62ee489a1c012af52b340, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u97F3\u3000\u58F0"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128004851963862512, guid: 1d8128adb9f62ee489a1c012af52b340, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u97F3\u3000\u9891"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128004851963862512, guid: 1d8128adb9f62ee489a1c012af52b340, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: AUDIO
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128004851963862512, guid: 1d8128adb9f62ee489a1c012af52b340, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128004851963862512, guid: 1d8128adb9f62ee489a1c012af52b340, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128004851963862512, guid: 1d8128adb9f62ee489a1c012af52b340, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
       objectReference: {fileID: 0}
     - target: {fileID: 2185431834155768089, guid: 1d8128adb9f62ee489a1c012af52b340, type: 3}
       propertyPath: m_Name
@@ -3737,6 +3891,8 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5332207052937246006, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
     - {fileID: 5136816213393368827, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+    - {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+    - {fileID: 1925238867964326040, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -3826,48 +3982,6 @@ RectTransform:
   m_AnchoredPosition: {x: 759, y: -548.5}
   m_SizeDelta: {x: 100, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!21 &1441474118
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/UI Remap Color
-  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _BlueTargetColor: {r: 0.011764706, g: 0.011764706, b: 0.011764706, a: 1}
-    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
-    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1001 &1450392665
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3943,6 +4057,38 @@ PrefabInstance:
     - target: {fileID: 2546236837327957027, guid: 19612527b27d44f57970089685e819db, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148509837470413777, guid: 19612527b27d44f57970089685e819db, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148509837470413777, guid: 19612527b27d44f57970089685e819db, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148509837470413777, guid: 19612527b27d44f57970089685e819db, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u7121\u52B9\u5316"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148509837470413777, guid: 19612527b27d44f57970089685e819db, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u7981\u7528"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148509837470413777, guid: 19612527b27d44f57970089685e819db, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Disabled
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148509837470413777, guid: 19612527b27d44f57970089685e819db, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148509837470413777, guid: 19612527b27d44f57970089685e819db, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148509837470413777, guid: 19612527b27d44f57970089685e819db, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
       objectReference: {fileID: 0}
     - target: {fileID: 6400236297884756537, guid: 19612527b27d44f57970089685e819db, type: 3}
       propertyPath: onSelected.m_PersistentCalls.m_Calls.Array.size
@@ -4245,6 +4391,38 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3148509837470413777, guid: 19612527b27d44f57970089685e819db, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148509837470413777, guid: 19612527b27d44f57970089685e819db, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148509837470413777, guid: 19612527b27d44f57970089685e819db, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u30B3\u30F3\u30B7\u30E5\u30FC\u30DE\u30FC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148509837470413777, guid: 19612527b27d44f57970089685e819db, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u4E3B\u673A\u7248"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148509837470413777, guid: 19612527b27d44f57970089685e819db, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Console
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148509837470413777, guid: 19612527b27d44f57970089685e819db, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148509837470413777, guid: 19612527b27d44f57970089685e819db, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148509837470413777, guid: 19612527b27d44f57970089685e819db, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     - target: {fileID: 6400236297884756537, guid: 19612527b27d44f57970089685e819db, type: 3}
       propertyPath: onSelected.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -4474,6 +4652,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 142190018}
     m_Modifications:
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u30D5\u30EB\u30B9\u30AF\u30EA\u30FC\u30F3"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u5168\u5C4F"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Fullscreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -4768,48 +4978,6 @@ Material:
     - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!21 &1594703371
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/UI Remap Color
-  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _BlueTargetColor: {r: 0.011764706, g: 0.011764706, b: 0.011764706, a: 1}
-    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
-    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1001 &1642177875
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4818,6 +4986,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 142190018}
     m_Modifications:
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u30A6\u30A4\u30F3\u30C9\u30A6\u30E2\u30FC\u30C9"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u7A97\u53E3\u5316"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Windowed
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -5205,6 +5405,8 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5332207052937246006, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
     - {fileID: 5136816213393368827, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+    - {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+    - {fileID: 1925238867964326040, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -5316,6 +5518,38 @@ PrefabInstance:
     - target: {fileID: 6487914080917062501, guid: 75b504d2707aa470cb34131632cee375, type: 3}
       propertyPath: m_Name
       value: StyleSettings
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u30B9\u30BF\u30A4\u30EB"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u6837\u5F0F"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Style
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5475,6 +5709,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: ResolutionSettings
       objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u89E3\u50CF\u5EA6"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u5206\u8FA8\u7387"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Resolution
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -5584,6 +5850,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1450392669}
     m_Modifications:
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u30E9\u30F3\u30C0\u30E0"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u968F\u673A"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Random
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193998671521677245, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -5753,6 +6051,38 @@ PrefabInstance:
     - target: {fileID: 1198745322187405336, guid: 1d8128adb9f62ee489a1c012af52b340, type: 3}
       propertyPath: onConfirmed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128004851963862512, guid: 1d8128adb9f62ee489a1c012af52b340, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128004851963862512, guid: 1d8128adb9f62ee489a1c012af52b340, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128004851963862512, guid: 1d8128adb9f62ee489a1c012af52b340, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u753B\u9762\u8868\u793A"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128004851963862512, guid: 1d8128adb9f62ee489a1c012af52b340, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u753B\u3000\u9762"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128004851963862512, guid: 1d8128adb9f62ee489a1c012af52b340, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: DISPLAY
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128004851963862512, guid: 1d8128adb9f62ee489a1c012af52b340, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128004851963862512, guid: 1d8128adb9f62ee489a1c012af52b340, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128004851963862512, guid: 1d8128adb9f62ee489a1c012af52b340, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
       objectReference: {fileID: 0}
     - target: {fileID: 2185431834155768089, guid: 1d8128adb9f62ee489a1c012af52b340, type: 3}
       propertyPath: m_Name
@@ -5979,6 +6309,38 @@ PrefabInstance:
       propertyPath: m_text
       value: "\u53CD\u3000\u6620"
       objectReference: {fileID: 0}
+    - target: {fileID: 5282776754528082873, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5282776754528082873, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5282776754528082873, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u53CD\u3000\u6620"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5282776754528082873, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u5E94\u3000\u7528"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5282776754528082873, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: APPLY
+      objectReference: {fileID: 0}
+    - target: {fileID: 5282776754528082873, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 5282776754528082873, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 5282776754528082873, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     - target: {fileID: 5637220996913979191, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
       propertyPath: m_Name
       value: ApplyResolutionButton
@@ -6112,6 +6474,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: ButtonGuide
       objectReference: {fileID: 0}
+    - target: {fileID: 6569917001897137532, guid: 1a97d20744475db409e6a5ace013c02b, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6569917001897137532, guid: 1a97d20744475db409e6a5ace013c02b, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6569917001897137532, guid: 1a97d20744475db409e6a5ace013c02b, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "%Input/GeneralUI/Cancel% \u623B\u308B"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6569917001897137532, guid: 1a97d20744475db409e6a5ace013c02b, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "%Input/GeneralUI/Cancel% \u8FD4\u56DE"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6569917001897137532, guid: 1a97d20744475db409e6a5ace013c02b, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: '%Input/GeneralUI/Cancel% Back'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6569917001897137532, guid: 1a97d20744475db409e6a5ace013c02b, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 6569917001897137532, guid: 1a97d20744475db409e6a5ace013c02b, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 6569917001897137532, guid: 1a97d20744475db409e6a5ace013c02b, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
+      objectReference: {fileID: 0}
     - target: {fileID: 8798067953145962828, guid: 1a97d20744475db409e6a5ace013c02b, type: 3}
       propertyPath: m_text
       value: "<sprite=\"DualSense-Filled\" name=\"Button-East\" color=#000000> \u623B\u308B"
@@ -6188,6 +6582,38 @@ PrefabInstance:
     - target: {fileID: 2546236837327957027, guid: 19612527b27d44f57970089685e819db, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148509837470413777, guid: 19612527b27d44f57970089685e819db, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148509837470413777, guid: 19612527b27d44f57970089685e819db, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148509837470413777, guid: 19612527b27d44f57970089685e819db, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u30E9\u30F3\u30C0\u30E0"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148509837470413777, guid: 19612527b27d44f57970089685e819db, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u968F\u673A"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148509837470413777, guid: 19612527b27d44f57970089685e819db, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Random
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148509837470413777, guid: 19612527b27d44f57970089685e819db, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148509837470413777, guid: 19612527b27d44f57970089685e819db, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148509837470413777, guid: 19612527b27d44f57970089685e819db, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
       objectReference: {fileID: 0}
     - target: {fileID: 6400236297884756537, guid: 19612527b27d44f57970089685e819db, type: 3}
       propertyPath: onSelected.m_PersistentCalls.m_Calls.Array.size
@@ -6408,6 +6834,38 @@ PrefabInstance:
     - target: {fileID: 5848499631879243870, guid: b6660b1a8c0119c4e8007535a8170b33, type: 3}
       propertyPath: m_Name
       value: General
+      objectReference: {fileID: 0}
+    - target: {fileID: 5977979721409367223, guid: b6660b1a8c0119c4e8007535a8170b33, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5977979721409367223, guid: b6660b1a8c0119c4e8007535a8170b33, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5977979721409367223, guid: b6660b1a8c0119c4e8007535a8170b33, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u4E00\u3000\u822C"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5977979721409367223, guid: b6660b1a8c0119c4e8007535a8170b33, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u901A\u3000\u7528"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5977979721409367223, guid: b6660b1a8c0119c4e8007535a8170b33, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: GENERAL
+      objectReference: {fileID: 0}
+    - target: {fileID: 5977979721409367223, guid: b6660b1a8c0119c4e8007535a8170b33, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 5977979721409367223, guid: b6660b1a8c0119c4e8007535a8170b33, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 5977979721409367223, guid: b6660b1a8c0119c4e8007535a8170b33, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
       objectReference: {fileID: 0}
     - target: {fileID: 6907661210785753439, guid: b6660b1a8c0119c4e8007535a8170b33, type: 3}
       propertyPath: onConfirmed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -6698,6 +7156,38 @@ PrefabInstance:
     - target: {fileID: 6487914080917062501, guid: 75b504d2707aa470cb34131632cee375, type: 3}
       propertyPath: m_Name
       value: ThemeSettings
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      value: "\u30C6\u30FC\u30DE"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      value: "\u4E3B\u9898"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      value: Theme
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      value: ja
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      value: zh
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346249426248362913, guid: 75b504d2707aa470cb34131632cee375, type: 3}
+      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      value: en
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

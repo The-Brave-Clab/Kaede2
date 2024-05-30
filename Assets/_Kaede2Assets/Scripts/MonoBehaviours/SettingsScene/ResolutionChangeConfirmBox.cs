@@ -33,6 +33,12 @@ namespace Kaede2
         [TextArea]
         private string message;
 
+        public string Message
+        {
+            get => message;
+            set => message = value;
+        }
+
         private void Awake()
         {
             yesButton.onClick.AddListener(() =>
@@ -48,6 +54,7 @@ namespace Kaede2
             });
 
             startTime = Time.time;
+            Update();
         }
 
         private void Update()
