@@ -36,7 +36,7 @@ namespace Kaede2
             OnOpeningMovieFinished += () =>
             {
                 this.Log($"Opening movie finished: {openingMovie:G}");
-                StartCoroutine(LoadNextScene());
+                CommonUtils.LoadNextScene("TitleScene", LoadSceneMode.Single);
             };
 
             if (openingMovie == GameSettings.OpeningMovieOptions.Disabled)
@@ -68,12 +68,6 @@ namespace Kaede2
 #endif
             InputManager.InputAction.SplashScreen.Skip.performed -= OnSkipPerformed;
             InputManager.InputAction?.SplashScreen.Disable();
-        }
-
-        private IEnumerator LoadNextScene()
-        {
-            yield return SceneTransition.Fade(1);
-            yield return SceneManager.LoadSceneAsync("TitleScene", LoadSceneMode.Single);
         }
 
         private void OnSkipPerformed(InputAction.CallbackContext ctx)

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
@@ -168,12 +169,12 @@ namespace Kaede2
 
             activateSequence.Append(DOVirtual.Float(0, 1, 0.1f, t =>
             {
-                leftArrow.color = Color.Lerp(startArrowColor, endArrowColor, t);
-                rightArrow.color = Color.Lerp(startArrowColor, endArrowColor, t);
+                if (leftArrow != null) leftArrow.color = Color.Lerp(startArrowColor, endArrowColor, t);
+                if (rightArrow != null) rightArrow.color = Color.Lerp(startArrowColor, endArrowColor, t);
 
                 currentTextColor = Color.Lerp(startTextColor, endTextColor, t);
 
-                foreach (var item in items)
+                foreach (var item in items.Where(i => i != null))
                     item.Color = currentTextColor;
             }));
 

@@ -1,6 +1,10 @@
+using System.Collections;
 using System.Globalization;
 using System.Linq;
 using Kaede2.Localization;
+using Kaede2.Scenario.Framework.Utils;
+using Kaede2.UI;
+using UnityEngine.SceneManagement;
 
 namespace Kaede2.Utils
 {
@@ -46,6 +50,17 @@ namespace Kaede2.Utils
         {
             if (m == 0) return x;
             return (x % m + m) % m;
+        }
+
+        public static void LoadNextScene(string sceneName, LoadSceneMode mode)
+        {
+            static IEnumerator LoadNextSceneCoroutine(string sceneName, LoadSceneMode mode)
+            {
+                yield return SceneTransition.Fade(1);
+                yield return SceneManager.LoadSceneAsync(sceneName, mode);
+            }
+
+            CoroutineProxy.Start(LoadNextSceneCoroutine(sceneName, mode));
         }
     }
 }

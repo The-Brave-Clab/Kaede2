@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using Kaede2.Input;
 using Kaede2.Scenario;
+using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using Kaede2.UI.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using CommonUtils = Kaede2.Utils.CommonUtils;
 
 namespace Kaede2
 {
@@ -40,16 +42,17 @@ namespace Kaede2
 
         public void MainMenuConfirm()
         {
-            StartCoroutine(LoadNextScene());
+            CommonUtils.LoadNextScene("MainMenuScene", LoadSceneMode.Single);
         }
 
-        private IEnumerator LoadNextScene()
+        public void SettingsConfirm()
         {
-            yield return SceneTransition.Fade(1);
-            // PlayerScenarioModule.GlobalScenarioName = "ms006_s011_a";
-            // yield return SceneManager.LoadSceneAsync("ScenarioScene", LoadSceneMode.Single);
-
-            yield return SceneManager.LoadSceneAsync("MainMenuScene", LoadSceneMode.Single);
+            var currentSceneName = gameObject.scene.name;
+            SettingsSceneController.goBackAction += () =>
+            {
+                CommonUtils.LoadNextScene(currentSceneName, LoadSceneMode.Single);
+            };
+            CommonUtils.LoadNextScene("SettingsScene", LoadSceneMode.Single);
         }
 
         public void OnThemeChange(Theme.VolumeTheme theme)

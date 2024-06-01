@@ -6,6 +6,7 @@ using Kaede2.Input;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using Kaede2.UI.Framework;
+using Kaede2.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -187,13 +188,7 @@ namespace Kaede2
 
         private void GoBack(InputAction.CallbackContext ctx)
         {
-            IEnumerator LoadPreviousScene()
-            {
-                yield return SceneTransition.Fade(1);
-                yield return SceneManager.LoadSceneAsync("TitleScene", LoadSceneMode.Single);
-            }
-
-            StartCoroutine(LoadPreviousScene());
+            CommonUtils.LoadNextScene("TitleScene", LoadSceneMode.Single);
         }
     }
 }

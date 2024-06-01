@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Kaede2.Input;
+using Kaede2.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -38,7 +39,7 @@ namespace Kaede2
         {
             yield return SplashColor();
 
-            yield return SceneManager.LoadSceneAsync("OpeningMovieScene", LoadSceneMode.Single);
+            CommonUtils.LoadNextScene("OpeningMovieScene", LoadSceneMode.Single);
         }
 
         private void OnDestroy()

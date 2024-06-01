@@ -61,13 +61,12 @@ namespace Kaede2
 
         public void GoToSettings()
         {
-            StartCoroutine(LoadNextScene("SettingsScene"));
-        }
-
-        private IEnumerator LoadNextScene(string sceneName)
-        {
-            yield return SceneTransition.Fade(1);
-            yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+            var currentSceneName = gameObject.scene.name;
+            SettingsSceneController.goBackAction += () =>
+            {
+                CommonUtils.LoadNextScene(currentSceneName, LoadSceneMode.Single);
+            };
+            CommonUtils.LoadNextScene("SettingsScene", LoadSceneMode.Single);
         }
     }
 }

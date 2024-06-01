@@ -39,6 +39,11 @@ namespace Kaede2.UI
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            Invoke();
+        }
+
+        public void Invoke()
+        {
             onClick.Invoke();
         }
     }

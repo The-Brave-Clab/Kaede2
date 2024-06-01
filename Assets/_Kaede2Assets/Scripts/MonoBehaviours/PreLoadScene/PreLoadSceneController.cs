@@ -34,7 +34,7 @@ namespace Kaede2
             yield return GlobalInitializer.Initialize();
             yield return DownloadAll();
 
-            yield return SceneManager.LoadSceneAsync("SplashScreenScene", LoadSceneMode.Single);
+            CommonUtils.LoadNextScene("SplashScreenScene", LoadSceneMode.Single);
         }
 
         private IEnumerator DownloadAll()

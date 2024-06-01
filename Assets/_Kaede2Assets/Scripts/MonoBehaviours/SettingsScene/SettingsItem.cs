@@ -99,6 +99,11 @@ namespace Kaede2
             changeColorSequence = DOTween.Sequence();
             changeColorSequence.Append(DOVirtual.Float(0, 1, 0.1f, t =>
             {
+                if (text == null) return;
+                if (colorComponent == null) return;
+                if (text.fontMaterial == null) return;
+                if (text.materialForRendering == null) return;
+
                 CommonButtonColor color = CommonButtonColor.Lerp(startColor, endColor, t);
                 colorComponent.targetColorRed = color.surface;
                 colorComponent.targetColorGreen = color.outline;
