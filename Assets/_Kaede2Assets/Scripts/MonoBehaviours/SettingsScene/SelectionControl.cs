@@ -76,7 +76,7 @@ namespace Kaede2
 
         public void OnThemeChange(Theme.VolumeTheme theme)
         {
-            activatedArrowColor = theme.HoverHighlight;
+            activatedArrowColor = theme.SliderControlActiveFillColor;
 
             UpdateAppearance();
         }

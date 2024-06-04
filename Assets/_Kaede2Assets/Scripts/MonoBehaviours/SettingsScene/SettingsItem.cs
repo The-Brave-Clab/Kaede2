@@ -8,7 +8,7 @@ using UnityEngine.Rendering;
 
 namespace Kaede2
 {
-    public class SettingsItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IThemeChangeObserver
+    public class SettingsItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IThemeChangeObserver
     {
         [SerializeField]
         private RemapRGB colorComponent;
@@ -20,11 +20,17 @@ namespace Kaede2
 
         private bool activated;
 
+        private bool shouldActivate;
+        private static SettingsItem currentPointerDown = null;
+        private static SettingsItem currentPointerOver = null;
+
         private Coroutine changeColorCoroutine;
         private Sequence changeColorSequence;
 
         private void Awake()
         {
+            activated = false;
+            shouldActivate = false;
             OnThemeChange(Theme.Current);
 
             OnFontChange();
@@ -32,12 +38,30 @@ namespace Kaede2
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            shouldActivate = true;
+            currentPointerOver = this;
             ChangeActiveState(true);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
+            shouldActivate = false;
+            currentPointerOver = null;
             ChangeActiveState(false);
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            currentPointerDown = this;
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            if (currentPointerDown == this)
+                currentPointerDown = null;
+            ChangeActiveState(shouldActivate);
+            if (currentPointerOver != null)
+                currentPointerOver.ChangeActiveState(currentPointerOver.shouldActivate);
         }
 
         public void OnThemeChange(Theme.VolumeTheme theme)
@@ -69,6 +93,11 @@ namespace Kaede2
 
         private void ChangeActiveState(bool active)
         {
+            if (currentPointerDown != null) return;
+            if (active == activated) return;
+
+            activated = active;
+
             if (changeColorCoroutine != null)
             {
                 StopCoroutine(changeColorCoroutine);
@@ -127,8 +156,6 @@ namespace Kaede2
             text.color = endTextColor;
 
             text.UpdateFontAsset();
-
-            activated = active;
 
             changeColorCoroutine = null;
             changeColorSequence = null;

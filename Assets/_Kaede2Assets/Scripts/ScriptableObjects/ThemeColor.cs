@@ -75,6 +75,11 @@ namespace Kaede2.ScriptableObjects
             [SerializeField]
             private CommonButtonColor settingsItemColor;
             public CommonButtonColor SettingsItemColor => settingsItemColor.NonTransparent();
+
+            [SerializeField]
+            [ColorUsage(false, false)]
+            private Color sliderControlActiveFillColor;
+            public Color SliderControlActiveFillColor => NonTransparent(sliderControlActiveFillColor);
         }
 
         [SerializeField]

@@ -18,6 +18,7 @@ namespace Kaede2
 
         private void OnDisable()
         {
+            if (InputManager.InputAction == null) return;
             InputManager.InputAction.GeneralUI.Cancel.performed -= GoBack;
         }
 

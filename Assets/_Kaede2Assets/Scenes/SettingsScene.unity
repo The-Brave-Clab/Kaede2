@@ -118,6 +118,48 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!21 &55390358
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Remap Color
+  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _BlueTargetColor: {r: 0.011764706, g: 0.011764706, b: 0.011764706, a: 1}
+    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
+    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1001 &58820254
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -141,7 +183,7 @@ PrefabInstance:
     - target: {fileID: 3184833168629142031, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 246698376}
+      objectReference: {fileID: 543406241}
     - target: {fileID: 4653453928820792371, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
       propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
       value: 16592649304662016
@@ -292,6 +334,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02936f89a69242879f3da61699343395, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!21 &187324524
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Remap Color
+  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _BlueTargetColor: {r: 0.011764706, g: 0.011764706, b: 0.011764706, a: 1}
+    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
+    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!224 &217700379 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8833166039679242736, guid: 19612527b27d44f57970089685e819db, type: 3}
@@ -350,7 +434,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2996
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_LocalPosition.y
@@ -511,47 +595,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!21 &246698376
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/HSV Adjustable
-  m_Shader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _ReferenceColor: {r: 0.98039216, g: 0.59607846, b: 0.59607846, a: 1}
-    - _TargetColor: {r: 1, g: 0, b: 0, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1 &247243434
 GameObject:
   m_ObjectHideFlags: 0
@@ -980,7 +1023,49 @@ MonoBehaviour:
   applyButton: {fileID: 1489041839}
   confirmBoxPrefab: {fileID: 8968190928175157303, guid: b370be2326c204a7db3fd63c09224687, type: 3}
   mainCanvas: {fileID: 1559471747}
---- !u!21 &442976573
+--- !u!21 &414366693
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Remap Color
+  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _BlueTargetColor: {r: 0.011764706, g: 0.011764706, b: 0.011764706, a: 1}
+    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
+    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
+--- !u!21 &466233439
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -1119,15 +1204,15 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7955173649288089110, guid: b6660b1a8c0119c4e8007535a8170b33, type: 3}
   m_PrefabInstance: {fileID: 7477621957895646933}
   m_PrefabAsset: {fileID: 0}
---- !u!21 &537873844
+--- !u!21 &543406241
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UI/UI Remap Color
-  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
+  m_Name: UI/HSV Adjustable
+  m_Shader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -1156,9 +1241,8 @@ Material:
     - _StencilWriteMask: 255
     - _UseUIAlphaClip: 0
     m_Colors:
-    - _BlueTargetColor: {r: 0.011764706, g: 0.011764706, b: 0.011764706, a: 1}
-    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
-    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
+    - _ReferenceColor: {r: 0.98039216, g: 0.59607846, b: 0.59607846, a: 1}
+    - _TargetColor: {r: 1, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1001 &545862470
@@ -1180,7 +1264,7 @@ PrefabInstance:
     - target: {fileID: 1560875995103261218, guid: 75b504d2707aa470cb34131632cee375, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 1467317855}
+      objectReference: {fileID: 187324524}
     - target: {fileID: 4083560943810475001, guid: 75b504d2707aa470cb34131632cee375, type: 3}
       propertyPath: m_text
       value: "\u8A00\u8A9E"
@@ -1219,11 +1303,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6418485956978230907, guid: 75b504d2707aa470cb34131632cee375, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 759
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6418485956978230907, guid: 75b504d2707aa470cb34131632cee375, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -114.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6418485956978230907, guid: 75b504d2707aa470cb34131632cee375, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1354,48 +1438,6 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a0a9703720ea14f4db73414ecf002bb2, type: 2}
       - {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
   sceneController: {fileID: 1559471749}
---- !u!21 &597992062
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/UI Remap Color
-  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _BlueTargetColor: {r: 0.011764706, g: 0.011764706, b: 0.011764706, a: 1}
-    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
-    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1001 &617736503
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1415,7 +1457,7 @@ PrefabInstance:
     - target: {fileID: 1560875995103261218, guid: 75b504d2707aa470cb34131632cee375, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 442976573}
+      objectReference: {fileID: 1955277441}
     - target: {fileID: 4083560943810475001, guid: 75b504d2707aa470cb34131632cee375, type: 3}
       propertyPath: m_text
       value: "OP\u30E0\u30FC\u30D3\u30FC"
@@ -1454,11 +1496,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6418485956978230907, guid: 75b504d2707aa470cb34131632cee375, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 759
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6418485956978230907, guid: 75b504d2707aa470cb34131632cee375, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -526.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6418485956978230907, guid: 75b504d2707aa470cb34131632cee375, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1596,7 +1638,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 932
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1801,7 +1843,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3512
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1970,7 +2012,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 416
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2143,7 +2185,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1964
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2365,6 +2407,48 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6325911354353784261, guid: 75b504d2707aa470cb34131632cee375, type: 3}
   m_PrefabInstance: {fileID: 8212526841064480028}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &914010515
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Remap Color
+  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _BlueTargetColor: {r: 0.011764706, g: 0.011764706, b: 0.011764706, a: 1}
+    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
+    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &1000544973
 GameObject:
   m_ObjectHideFlags: 0
@@ -2575,7 +2659,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 932
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2775,7 +2859,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1448
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2932,7 +3016,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 416
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3463,6 +3547,47 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!21 &1176252039
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/HSV Adjustable
+  m_Shader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ReferenceColor: {r: 0.98039216, g: 0.59607846, b: 0.59607846, a: 1}
+    - _TargetColor: {r: 1, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &1186303558 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7201848938906920533, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
@@ -3521,7 +3646,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4028
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3621,48 +3746,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6325911354353784261, guid: 75b504d2707aa470cb34131632cee375, type: 3}
   m_PrefabInstance: {fileID: 261275072}
   m_PrefabAsset: {fileID: 0}
---- !u!21 &1241049165
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/UI Remap Color
-  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _BlueTargetColor: {r: 0.011764706, g: 0.011764706, b: 0.011764706, a: 1}
-    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
-    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!114 &1251438000 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7201848938906920533, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
@@ -3679,47 +3762,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
   m_PrefabInstance: {fileID: 1064440042}
   m_PrefabAsset: {fileID: 0}
---- !u!21 &1338573918
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/HSV Adjustable
-  m_Shader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _ReferenceColor: {r: 0.98039216, g: 0.59607846, b: 0.59607846, a: 1}
-    - _TargetColor: {r: 1, g: 0, b: 0, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1001 &1340945324
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3806,11 +3848,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3787292679121698449, guid: 1d8128adb9f62ee489a1c012af52b340, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 347.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3787292679121698449, guid: 1d8128adb9f62ee489a1c012af52b340, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 236.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3787292679121698449, guid: 1d8128adb9f62ee489a1c012af52b340, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3927,7 +3969,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2480
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4406,48 +4448,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectionControl: {fileID: 1450392667}
---- !u!21 &1467317855
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/UI Remap Color
-  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _BlueTargetColor: {r: 0.011764706, g: 0.011764706, b: 0.011764706, a: 1}
-    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
-    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1001 &1471302708
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4753,6 +4753,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110fb761ace649e4ad1a06b8f6a8b0b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!21 &1516018894
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Remap Color
+  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _BlueTargetColor: {r: 0.011764706, g: 0.011764706, b: 0.011764706, a: 1}
+    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
+    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &1524252178 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7201848938906920533, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
@@ -5319,48 +5361,6 @@ Material:
     - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!21 &1678797662
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/UI Remap Color
-  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _BlueTargetColor: {r: 0.011764706, g: 0.011764706, b: 0.011764706, a: 1}
-    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
-    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1 &1682092198
 GameObject:
   m_ObjectHideFlags: 0
@@ -5483,7 +5483,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1448
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5597,7 +5597,7 @@ PrefabInstance:
     - target: {fileID: 1560875995103261218, guid: 75b504d2707aa470cb34131632cee375, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 442976573}
+      objectReference: {fileID: 466233439}
     - target: {fileID: 4083560943810475001, guid: 75b504d2707aa470cb34131632cee375, type: 3}
       propertyPath: m_text
       value: "\u30B9\u30BF\u30A4\u30EB"
@@ -5636,11 +5636,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6418485956978230907, guid: 75b504d2707aa470cb34131632cee375, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 759
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6418485956978230907, guid: 75b504d2707aa470cb34131632cee375, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -732.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6418485956978230907, guid: 75b504d2707aa470cb34131632cee375, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6004,6 +6004,48 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &1955277441
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Remap Color
+  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _BlueTargetColor: {r: 0.011764706, g: 0.011764706, b: 0.011764706, a: 1}
+    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
+    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!224 &2009218197 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 62829265125833181, guid: 1a97d20744475db409e6a5ace013c02b, type: 3}
@@ -6083,7 +6125,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 416
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6198,6 +6240,48 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1762634351374966863, guid: b014d9aae68724b49a70b4e29e226412, type: 3}
   m_PrefabInstance: {fileID: 2020353472}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &2023258038
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Remap Color
+  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _BlueTargetColor: {r: 0.011764706, g: 0.011764706, b: 0.011764706, a: 1}
+    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
+    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!224 &2052286226 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6418485956978230907, guid: 75b504d2707aa470cb34131632cee375, type: 3}
@@ -6289,11 +6373,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3787292679121698449, guid: 1d8128adb9f62ee489a1c012af52b340, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 347.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3787292679121698449, guid: 1d8128adb9f62ee489a1c012af52b340, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 326.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3787292679121698449, guid: 1d8128adb9f62ee489a1c012af52b340, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7208,11 +7292,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8930945241565458390, guid: b6660b1a8c0119c4e8007535a8170b33, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 347.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8930945241565458390, guid: b6660b1a8c0119c4e8007535a8170b33, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 416.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8930945241565458390, guid: b6660b1a8c0119c4e8007535a8170b33, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -7303,7 +7387,7 @@ PrefabInstance:
     - target: {fileID: 1560875995103261218, guid: 75b504d2707aa470cb34131632cee375, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 442976573}
+      objectReference: {fileID: 55390358}
     - target: {fileID: 4083560943810475001, guid: 75b504d2707aa470cb34131632cee375, type: 3}
       propertyPath: m_text
       value: "\u30C6\u30FC\u30DE"
@@ -7342,11 +7426,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6418485956978230907, guid: 75b504d2707aa470cb34131632cee375, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 759
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6418485956978230907, guid: 75b504d2707aa470cb34131632cee375, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -320.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6418485956978230907, guid: 75b504d2707aa470cb34131632cee375, type: 3}
       propertyPath: m_LocalPosition.z

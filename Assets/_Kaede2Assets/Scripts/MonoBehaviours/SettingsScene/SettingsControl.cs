@@ -1,12 +1,17 @@
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Kaede2
 {
-    public abstract class SettingsControl : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public abstract class SettingsControl : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
     {
         protected bool activated;
+
+        private bool shouldActivate;
+        private static SettingsControl currentPointerDown = null;
+        private static SettingsControl currentPointerOver = null;
+
+        private SettingsItem settingsItem;
 
         protected abstract void OnActivate();
         protected abstract void OnDeactivate();
@@ -14,30 +19,61 @@ namespace Kaede2
         protected virtual void Awake()
         {
             activated = false;
+            shouldActivate = false;
+
+            // find the SettingsItem component in the parent recursively
+            Transform parent = transform.parent;
+            while (parent != null)
+            {
+                settingsItem = parent.GetComponent<SettingsItem>();
+                if (settingsItem != null)
+                    break;
+                parent = parent.parent;
+            }
         }
 
-        private void Activate()
+        private void ChangeActivationStatus(bool newStatus)
         {
-            if (activated) return;
-            activated = true;
-            OnActivate();
-        }
+            if (currentPointerDown != null) return;
+            if (newStatus == activated) return;
+            activated = newStatus;
 
-        private void Deactivate()
-        {
-            if (!activated) return;
-            activated = false;
-            OnDeactivate();
+            if (newStatus)
+                OnActivate();
+            else
+                OnDeactivate();
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            Activate();
+            shouldActivate = true;
+            currentPointerOver = this;
+            ChangeActivationStatus(true);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            Deactivate();
+            shouldActivate = false;
+            currentPointerOver = null;
+            ChangeActivationStatus(false);
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            currentPointerDown = this;
+            if (settingsItem != null)
+                settingsItem.OnPointerDown(eventData);
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            if (currentPointerDown == this)
+                currentPointerDown = null;
+            ChangeActivationStatus(shouldActivate);
+            if (currentPointerOver != null)
+                currentPointerOver.ChangeActivationStatus(currentPointerOver.shouldActivate);
+            if (settingsItem != null)
+                settingsItem.OnPointerUp(eventData);
         }
     }
 }
