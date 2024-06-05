@@ -186,6 +186,7 @@ GameObject:
   - component: {fileID: 4626558615496211914}
   - component: {fileID: 7346249426248362913}
   - component: {fileID: 9104975174291524872}
+  - component: {fileID: 6696104063948522940}
   m_Layer: 5
   m_Name: SettingsItem
   m_TagString: Untagged
@@ -282,6 +283,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colorComponent: {fileID: 3276734695005583318}
   text: {fileID: 4083560943810475001}
+  infoText: 
 --- !u!114 &7346249426248362913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,3 +364,34 @@ MonoBehaviour:
       - {fileID: 11400000, guid: 1215138bef1c64ed0981b5dff693ccd5, type: 2}
       - {fileID: 11400000, guid: 15be1c60bdc1646ae9a57db4e60324df, type: 2}
       - {fileID: 11400000, guid: 1215138bef1c64ed0981b5dff693ccd5, type: 2}
+--- !u!114 &6696104063948522940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6487914080917062501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4479b2f87544a818eea16356afd5198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onLocaleChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4626558615496211914}
+        m_TargetAssemblyTypeName: Kaede2.SettingsItem, Assembly-CSharp
+        m_MethodName: set_InfoText
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  localizedString:
+    localizedValues:
+      keys: []
+      values: []

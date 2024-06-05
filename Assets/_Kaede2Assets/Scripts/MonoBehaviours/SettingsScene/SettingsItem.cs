@@ -16,6 +16,10 @@ namespace Kaede2
         [SerializeField]
         private TextMeshProUGUI text;
 
+        [SerializeField]
+        [TextArea]
+        private string infoText;
+
         private CommonButtonColor activeColor;
 
         private bool activated;
@@ -26,6 +30,17 @@ namespace Kaede2
 
         private Coroutine changeColorCoroutine;
         private Sequence changeColorSequence;
+
+        public string InfoText
+        {
+            get => infoText;
+            set
+            {
+                if (string.Equals(infoText, value)) return;
+                infoText = value;
+                if (activated) InfoBar.Text = infoText;
+            }
+        }
 
         private void Awake()
         {
@@ -97,6 +112,8 @@ namespace Kaede2
             if (active == activated) return;
 
             activated = active;
+
+            InfoBar.Text = activated ? infoText : string.Empty;
 
             if (changeColorCoroutine != null)
             {

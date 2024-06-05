@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2501766768895683352}
   - component: {fileID: 83313153257713739}
   - component: {fileID: 7566697317822774359}
+  - component: {fileID: 280402547593014981}
   m_Layer: 5
   m_Name: InfoBar
   m_TagString: Untagged
@@ -52,6 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textComponent: {fileID: 7566697317822774359}
+  text: 
 --- !u!114 &7566697317822774359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,6 +68,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textComponent: {fileID: 7399595555986582517}
   text: 
+--- !u!114 &280402547593014981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882837096418420952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3f05e545f1840779b9bb1fc939a95e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onLocaleChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7399595555986582517}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_font
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  localizedFont:
+    localizedValues:
+      keys:
+      - cultureName: ja
+      - cultureName: zh
+      - cultureName: en
+      values:
+      - {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
+      - {fileID: 11400000, guid: a0a9703720ea14f4db73414ecf002bb2, type: 2}
+      - {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
 --- !u!1 &2119207081372089945
 GameObject:
   m_ObjectHideFlags: 0

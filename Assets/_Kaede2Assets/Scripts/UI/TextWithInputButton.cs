@@ -29,6 +29,8 @@ namespace Kaede2.UI
             get => text;
             set
             {
+                if (string.Equals(text, value)) return;
+
                 text = value;
                 if (string.IsNullOrEmpty(text)) text = "";
                 RefreshText();
