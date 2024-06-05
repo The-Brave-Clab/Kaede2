@@ -35,39 +35,17 @@ namespace Kaede2
 
         private void Awake()
         {
-            switch (type)
+            float volume = type switch
             {
-                case AudioType.Master:
-                {
-                    float volume = GameSettings.AudioMasterVolume;
-                    slider.SetValueDisplayOnly(volume);
-                    valueText.text = $"{Mathf.RoundToInt(volume * 10)}";
-                    break;
-                }
-                case AudioType.BGM:
-                {
-                    float volume = GameSettings.AudioBGMVolume;
-                    slider.SetValueDisplayOnly(volume);
-                    valueText.text = $"{Mathf.RoundToInt(volume * 10)}";
-                    break;
-                }
-                case AudioType.SE:
-                {
-                    float volume = GameSettings.AudioSEVolume;
-                    slider.SetValueDisplayOnly(volume);
-                    valueText.text = $"{Mathf.RoundToInt(volume * 10)}";
-                    break;
-                }
-                case AudioType.Voice:
-                {
-                    float volume = GameSettings.AudioVoiceVolume;
-                    slider.SetValueDisplayOnly(volume);
-                    valueText.text = $"{Mathf.RoundToInt(volume * 10)}";
-                    break;
-                }
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                AudioType.Master => GameSettings.AudioMasterVolume,
+                AudioType.BGM => GameSettings.AudioBGMVolume,
+                AudioType.SE => GameSettings.AudioSEVolume,
+                AudioType.Voice => GameSettings.AudioVoiceVolume,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            slider.SetValueDisplayOnly(volume);
+            valueText.text = $"{Mathf.RoundToInt(volume * 10)}";
         }
 
         public void SliderValueChanged(float value)
