@@ -1,4 +1,6 @@
 ﻿using DG.Tweening;
+using Kaede2.Input;
+using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using TMPro;
@@ -54,12 +56,18 @@ namespace Kaede2
         public void OnPointerEnter(PointerEventData eventData)
         {
             shouldActivate = true;
+            if (currentPointerOver != null && currentPointerOver != this)
+            {
+                currentPointerOver.shouldActivate = false;
+                currentPointerOver.ChangeActiveState(false);
+            }
             currentPointerOver = this;
             ChangeActiveState(true);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
+            if (InputManager.CurrentDeviceType != InputDeviceType.KeyboardAndMouse) return;
             shouldActivate = false;
             currentPointerOver = null;
             ChangeActiveState(false);
@@ -117,13 +125,13 @@ namespace Kaede2
 
             if (changeColorCoroutine != null)
             {
-                StopCoroutine(changeColorCoroutine);
+                CoroutineProxy.Stop(changeColorCoroutine);
                 changeColorSequence.Kill();
                 changeColorCoroutine = null;
                 changeColorSequence = null;
             }
 
-            changeColorCoroutine = StartCoroutine(ChangeColorCoroutine(active));
+            changeColorCoroutine = CoroutineProxy.Start(ChangeColorCoroutine(active));
         }
 
         private System.Collections.IEnumerator ChangeColorCoroutine(bool active)

@@ -50,14 +50,14 @@ namespace Kaede2
 
         public void SliderValueChanged(float value)
         {
-            int volume = Mathf.FloorToInt(value * 10);
+            int volume = Mathf.RoundToInt(value * 10);
             valueText.text = $"{volume}";
             volumeIcon.sprite = volume == 0 ? mutedIcon : onIcon;
         }
 
         public void SetVolume(float value)
         {
-            int volume = Mathf.FloorToInt(value * 10);
+            int volume = Mathf.RoundToInt(value * 10);
             var volumeValue = volume / 10.0f;
             slider.Value = volumeValue;
             switch (type)
