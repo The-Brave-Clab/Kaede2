@@ -114,6 +114,11 @@ namespace Kaede2
             UpdateAppearance(true);
         }
 
+        public void SetValueDisplayOnly(float newValue)
+        {
+            value = newValue;
+        }
+
         private void UpdateAppearance(bool immediate)
         {
             var currentFillColor = fillImage.color;
