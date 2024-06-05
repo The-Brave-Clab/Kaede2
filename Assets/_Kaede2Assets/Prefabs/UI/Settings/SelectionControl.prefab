@@ -201,6 +201,7 @@ GameObject:
   - component: {fileID: 5403655639050674793}
   - component: {fileID: 9058171753682217958}
   - component: {fileID: 2004001334802200610}
+  - component: {fileID: 3392111966967005674}
   m_Layer: 5
   m_Name: SelectionViewport
   m_TagString: Untagged
@@ -279,6 +280,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 0
+--- !u!114 &3392111966967005674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6032535951271872578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2e0458a705734705b2094676a922624, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  control: {fileID: 1796935049255008410}
+  contentRT: {fileID: 30806445135282251}
 --- !u!1 &7808263661235770867
 GameObject:
   m_ObjectHideFlags: 0

@@ -50,6 +50,9 @@ namespace Kaede2
         private Coroutine selectCoroutine;
         private Sequence selectSequence;
 
+        public int SelectedIndex => selectedIndex;
+        public int ItemCount => items.Count;
+
         protected override void Awake()
         {
             base.Awake();
@@ -93,12 +96,12 @@ namespace Kaede2
         public void Select(int indexDiff)
         {
             if (items.Count == 0) return;
-            if (indexDiff == 0) return;
+            // if (indexDiff == 0) return;
 
             int nextIndex = selectedIndex + indexDiff;
             nextIndex = loop ? CommonUtils.Mod(nextIndex, items.Count) : Mathf.Clamp(nextIndex, 0, items.Count - 1);
 
-            if (nextIndex == selectedIndex) return;
+            // if (nextIndex == selectedIndex) return;
 
             StopCurrentSelectCoroutine();
 
@@ -132,6 +135,11 @@ namespace Kaede2
         private float CalculateTargetPosition(int index)
         {
             return -index * itemViewport.rect.width;
+        }
+
+        public int CalculateIndexFromPosition()
+        {
+            return Mathf.Clamp(Mathf.RoundToInt(-itemContainer.anchoredPosition.x / itemViewport.rect.width), 0, items.Count - 1);
         }
 
         private void UpdateAppearance()
