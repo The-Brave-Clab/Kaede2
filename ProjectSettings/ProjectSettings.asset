@@ -58,7 +58,7 @@ PlayerSettings:
   mipStripping: 0
   numberOfMipsStripped: 0
   numberOfMipsStrippedPerMipmapLimitGroup: {}
-  m_StackTraceTypes: 010000000100000001000000010000000100000001000000
+  m_StackTraceTypes: 010000000100000001000000000000000100000001000000
   iosShowActivityIndicatorOnLoading: -1
   androidShowActivityIndicatorOnLoading: -1
   iosUseCustomAppBackgroundBehavior: 0
@@ -247,14 +247,14 @@ PlayerSettings:
   metalCompileShaderBinary: 0
   iOSRenderExtraFrameOnPause: 0
   iosCopyPluginsCodeInsteadOfSymlink: 0
-  appleDeveloperTeamID: 
+  appleDeveloperTeamID: 5N89L96WBS
   iOSManualSigningProvisioningProfileID: 
   tvOSManualSigningProvisioningProfileID: 
   VisionOSManualSigningProvisioningProfileID: 
   iOSManualSigningProvisioningProfileType: 0
   tvOSManualSigningProvisioningProfileType: 0
   VisionOSManualSigningProvisioningProfileType: 0
-  appleEnableAutomaticSigning: 0
+  appleEnableAutomaticSigning: 1
   iOSRequireARKit: 0
   iOSAutomaticallyDetectAndAddCapabilities: 1
   appleEnableProMotion: 0
@@ -833,6 +833,7 @@ PlayerSettings:
   il2cppStacktraceInformation:
     Standalone: 1
     WebGL: 0
+    iPhone: 1
   managedStrippingLevel:
     Android: 1
     Bratwurst: 1

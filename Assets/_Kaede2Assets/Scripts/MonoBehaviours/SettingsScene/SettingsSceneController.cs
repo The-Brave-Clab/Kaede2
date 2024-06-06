@@ -9,6 +9,17 @@ namespace Kaede2
     {
         public static event Action goBackAction;
 
+        [SerializeField]
+        private GameObject displayTab;
+
+        private void Awake()
+        {
+            // hide the display tab on mobile platforms
+#if !UNITY_EDITOR && !UNITY_STANDALONE
+            displayTab.SetActive(false);
+#endif
+        }
+
         private IEnumerator Start()
         {
             yield return SceneTransition.Fade(0);
