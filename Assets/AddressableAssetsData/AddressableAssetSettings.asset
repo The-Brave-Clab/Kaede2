@@ -59,67 +59,67 @@ MonoBehaviour:
   m_BuildAddressablesWithPlayerBuild: 0
   m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
   m_GroupAssets:
-  - {fileID: 11400000, guid: 0eec3c5f47f21c644bfb2a207f808dc0, type: 2}
   - {fileID: 11400000, guid: 57632f6194974e0478f4e61de0f26e91, type: 2}
+  - {fileID: 11400000, guid: 0eec3c5f47f21c644bfb2a207f808dc0, type: 2}
   m_BuildSettings:
     m_LogResourceManagerExceptions: 1
     m_BundleBuildPath: Temp/com.unity.addressables/AssetBundles
   m_ProfileSettings:
     m_Profiles:
     - m_InheritedParent: 
-      m_Id: 85cb9cbaa431cc946981a993b3ebe8ec
-      m_ProfileName: Default
-      m_Values:
-      - m_Id: d038d99a54e08f344882e3b78fb5cecd
-        m_Value: '[Kaede2.Editor.SimplifiedBuildTarget.currentActive]'
-      - m_Id: 316fcbc72c5641744b9f78198245ea53
-        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
-      - m_Id: 6209078759526ea4d989241e7249ad05
-        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
-      - m_Id: 9c2b371738918c949966a52e4c8a9bbb
-        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
-      - m_Id: cfca3cd065d66a647bee0aca81d86ff3
-        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
-      - m_Id: 5b430b3467ad84270a41157b7f8b3476
-        m_Value: 
-    - m_InheritedParent: 
       m_Id: 325afec3b347c46bdb3e306507e41d42
       m_ProfileName: AWS S3
       m_Values:
-      - m_Id: d038d99a54e08f344882e3b78fb5cecd
-        m_Value: '[Kaede2.Editor.SimplifiedBuildTarget.currentActive]'
       - m_Id: 316fcbc72c5641744b9f78198245ea53
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+      - m_Id: 5b430b3467ad84270a41157b7f8b3476
+        m_Value: /release
       - m_Id: 6209078759526ea4d989241e7249ad05
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: 9c2b371738918c949966a52e4c8a9bbb
         m_Value: '[Kaede2.Editor.Addressables.UploadRemoteAddressables.RemoteBuildPath]/[BuildTarget]'
       - m_Id: cfca3cd065d66a647bee0aca81d86ff3
         m_Value: '[Kaede2.AWS.DefaultAddressableLoadUrl][AdditionalPrefix]/[BuildTarget]'
+      - m_Id: d038d99a54e08f344882e3b78fb5cecd
+        m_Value: '[Kaede2.Editor.SimplifiedBuildTarget.currentActive]'
+    - m_InheritedParent: 
+      m_Id: 85cb9cbaa431cc946981a993b3ebe8ec
+      m_ProfileName: Default
+      m_Values:
+      - m_Id: 316fcbc72c5641744b9f78198245ea53
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
       - m_Id: 5b430b3467ad84270a41157b7f8b3476
-        m_Value: /release
+        m_Value: 
+      - m_Id: 6209078759526ea4d989241e7249ad05
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+      - m_Id: 9c2b371738918c949966a52e4c8a9bbb
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+      - m_Id: cfca3cd065d66a647bee0aca81d86ff3
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+      - m_Id: d038d99a54e08f344882e3b78fb5cecd
+        m_Value: '[Kaede2.Editor.SimplifiedBuildTarget.currentActive]'
     - m_InheritedParent: 
       m_Id: ba243404de71b4bdfa4163615e0dad45
       m_ProfileName: AWS S3 (Test)
       m_Values:
-      - m_Id: d038d99a54e08f344882e3b78fb5cecd
-        m_Value: '[Kaede2.Editor.SimplifiedBuildTarget.currentActive]'
       - m_Id: 316fcbc72c5641744b9f78198245ea53
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+      - m_Id: 5b430b3467ad84270a41157b7f8b3476
+        m_Value: /test
       - m_Id: 6209078759526ea4d989241e7249ad05
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: 9c2b371738918c949966a52e4c8a9bbb
         m_Value: '[Kaede2.Editor.Addressables.UploadRemoteAddressables.RemoteBuildPath]/[BuildTarget]'
       - m_Id: cfca3cd065d66a647bee0aca81d86ff3
         m_Value: '[Kaede2.AWS.DefaultAddressableLoadUrl][AdditionalPrefix]/[BuildTarget]'
-      - m_Id: 5b430b3467ad84270a41157b7f8b3476
-        m_Value: /test
+      - m_Id: d038d99a54e08f344882e3b78fb5cecd
+        m_Value: '[Kaede2.Editor.SimplifiedBuildTarget.currentActive]'
     m_ProfileEntryNames:
-    - m_Id: d038d99a54e08f344882e3b78fb5cecd
-      m_Name: BuildTarget
-      m_InlineUsage: 0
     - m_Id: 316fcbc72c5641744b9f78198245ea53
       m_Name: Local.BuildPath
+      m_InlineUsage: 0
+    - m_Id: 5b430b3467ad84270a41157b7f8b3476
+      m_Name: AdditionalPrefix
       m_InlineUsage: 0
     - m_Id: 6209078759526ea4d989241e7249ad05
       m_Name: Local.LoadPath
@@ -130,8 +130,8 @@ MonoBehaviour:
     - m_Id: cfca3cd065d66a647bee0aca81d86ff3
       m_Name: Remote.LoadPath
       m_InlineUsage: 0
-    - m_Id: 5b430b3467ad84270a41157b7f8b3476
-      m_Name: AdditionalPrefix
+    - m_Id: d038d99a54e08f344882e3b78fb5cecd
+      m_Name: BuildTarget
       m_InlineUsage: 0
     m_ProfileVersion: 1
   m_LabelTable:
@@ -3783,46 +3783,86 @@ MonoBehaviour:
     - Locale-ja
     - Locale-zh
     - Locale-en
-    - kaede2/illust/00
-    - kaede2/illust/01
-    - kaede2/illust/02
-    - kaede2/illust/03
-    - kaede2/illust/04
-    - kaede2/illust/05
-    - kaede2/illust/06
-    - kaede2/illust/07
-    - kaede2/illust/08
-    - kaede2/illust/09
-    - kaede2/illust/10
-    - kaede2/illust/11
-    - kaede2/illust/12
-    - kaede2/illust/13
-    - kaede2/illust/14
-    - kaede2/illust/15
-    - kaede2/illust/16
-    - kaede2/illust/17
-    - kaede2/illust/18
-    - kaede2/illust/19
-    - kaede2/illust/20
-    - kaede2/illust/21
-    - kaede2/illust/22
-    - kaede2/illust/23
-    - kaede2/illust/24
-    - kaede2/illust/25
-    - kaede2/illust/26
-    - kaede2/illust/27
-    - kaede2/illust/28
-    - kaede2/illust/29
-    - kaede2/illust/30
-    - kaede2/illust/31
-    - kaede2/illust/32
-    - kaede2/illust/33
-    - kaede2/illust/34
-    - kaede2/illust/35
-    - kaede2/illust/36
-    - kaede2/illust/37
-    - kaede2/illust/38
-    - kaede2/illust/39
+    - kaede2/illust/original/00
+    - kaede2/illust/original/01
+    - kaede2/illust/original/02
+    - kaede2/illust/original/03
+    - kaede2/illust/original/04
+    - kaede2/illust/original/05
+    - kaede2/illust/original/06
+    - kaede2/illust/original/07
+    - kaede2/illust/original/08
+    - kaede2/illust/original/09
+    - kaede2/illust/original/10
+    - kaede2/illust/original/11
+    - kaede2/illust/original/12
+    - kaede2/illust/original/13
+    - kaede2/illust/original/14
+    - kaede2/illust/original/15
+    - kaede2/illust/original/16
+    - kaede2/illust/original/17
+    - kaede2/illust/original/18
+    - kaede2/illust/original/19
+    - kaede2/illust/original/20
+    - kaede2/illust/original/21
+    - kaede2/illust/original/22
+    - kaede2/illust/original/23
+    - kaede2/illust/original/24
+    - kaede2/illust/original/25
+    - kaede2/illust/original/26
+    - kaede2/illust/original/27
+    - kaede2/illust/original/28
+    - kaede2/illust/original/29
+    - kaede2/illust/original/30
+    - kaede2/illust/original/31
+    - kaede2/illust/original/32
+    - kaede2/illust/original/33
+    - kaede2/illust/original/34
+    - kaede2/illust/original/35
+    - kaede2/illust/original/36
+    - kaede2/illust/original/37
+    - kaede2/illust/original/38
+    - kaede2/illust/original/39
+    - kaede2/illust/thumbnail/00
+    - kaede2/illust/thumbnail/01
+    - kaede2/illust/thumbnail/02
+    - kaede2/illust/thumbnail/03
+    - kaede2/illust/thumbnail/04
+    - kaede2/illust/thumbnail/05
+    - kaede2/illust/thumbnail/06
+    - kaede2/illust/thumbnail/07
+    - kaede2/illust/thumbnail/08
+    - kaede2/illust/thumbnail/09
+    - kaede2/illust/thumbnail/10
+    - kaede2/illust/thumbnail/11
+    - kaede2/illust/thumbnail/12
+    - kaede2/illust/thumbnail/13
+    - kaede2/illust/thumbnail/14
+    - kaede2/illust/thumbnail/15
+    - kaede2/illust/thumbnail/16
+    - kaede2/illust/thumbnail/17
+    - kaede2/illust/thumbnail/18
+    - kaede2/illust/thumbnail/19
+    - kaede2/illust/thumbnail/20
+    - kaede2/illust/thumbnail/21
+    - kaede2/illust/thumbnail/22
+    - kaede2/illust/thumbnail/23
+    - kaede2/illust/thumbnail/24
+    - kaede2/illust/thumbnail/25
+    - kaede2/illust/thumbnail/26
+    - kaede2/illust/thumbnail/27
+    - kaede2/illust/thumbnail/28
+    - kaede2/illust/thumbnail/29
+    - kaede2/illust/thumbnail/30
+    - kaede2/illust/thumbnail/31
+    - kaede2/illust/thumbnail/32
+    - kaede2/illust/thumbnail/33
+    - kaede2/illust/thumbnail/34
+    - kaede2/illust/thumbnail/35
+    - kaede2/illust/thumbnail/36
+    - kaede2/illust/thumbnail/37
+    - kaede2/illust/thumbnail/38
+    - kaede2/illust/thumbnail/39
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: a6b2b15f1e274dd4bbd977a2eefbe76c, type: 2}

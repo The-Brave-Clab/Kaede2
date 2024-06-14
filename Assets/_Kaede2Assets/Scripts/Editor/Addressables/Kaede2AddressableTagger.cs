@@ -96,11 +96,12 @@ namespace Kaede2.Editor.Addressables
 
                 bool needModify = currentEntries.All(e => e.guid != guid) || // new entry
                                   currentEntries.Where(e => e.guid == guid) // existing entry that
-                                      .Any(e => !e.labels.Contains(label) || e.address != address); // doesn't match
+                                      .Any(e => e.labels.Count != 1 || !e.labels.Contains(label) || e.address != address); // doesn't match
 
                 if (needModify)
                 {
                     var entry = settings.CreateOrMoveEntry(guid, assetGroup);
+                    entry.labels.Clear();
                     entry.labels.Add(label);
                     entry.address = address;
 
@@ -178,13 +179,19 @@ namespace Kaede2.Editor.Addressables
 
             if (segments[0] == "illust")
             {
-                if (segments.Length != 2) return false;
+                if (segments.Length == 3)
+                {
+                    if (segments[1] == "original" || segments[1] == "thumbnail")
+                    {
+                        string illustName = Path.GetFileNameWithoutExtension(segments[2]);
+                        var bundleIndex = MasterAlbumInfo.GetBundleIndex(illustName);
+                        // override bundle name, with address remains the same
+                        bundleName = $"illust/{segments[1]}/{bundleIndex:00}";
+                        return true;
+                    }
+                }
 
-                string illustName = Path.GetFileNameWithoutExtension(segments[1]);
-                var bundleIndex = MasterAlbumInfo.GetBundleIndex(illustName);
-                // override bundle name, with address remains the same
-                bundleName = $"illust/{bundleIndex:00}";
-                return true;
+                return false;
             }
 
             return segments.Length == 1;
