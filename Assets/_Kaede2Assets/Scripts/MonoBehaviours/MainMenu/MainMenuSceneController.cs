@@ -7,6 +7,8 @@ using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using Kaede2.Utils;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -17,7 +19,7 @@ namespace Kaede2
         [SerializeField]
         private Image backgroundImage;
 
-        private ResourceLoader.LoadAddressableHandle<Sprite> handle;
+        private AsyncOperationHandle<Sprite> handle;
 
         private void Awake()
         {
@@ -27,7 +29,7 @@ namespace Kaede2
 
         private IEnumerator Start()
         {
-            yield return handle.Send();
+            yield return handle;
 
             backgroundImage.color = Color.white;
             backgroundImage.sprite = handle.Result;
@@ -37,7 +39,7 @@ namespace Kaede2
 
         private void OnDestroy()
         {
-            handle?.Dispose();
+            Addressables.Release(handle);
         }
 
         public void StartScenario(string scenarioName)
@@ -57,6 +59,11 @@ namespace Kaede2
                 {
                     this.Log("Scenario finished.");
                 });
+        }
+
+        public void GoToAlbum()
+        {
+            CommonUtils.LoadNextScene("AlbumScene", LoadSceneMode.Single);
         }
 
         public void GoToSettings()

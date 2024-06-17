@@ -20,7 +20,6 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
-using Sprite = UnityEngine.Sprite;
 
 namespace Kaede2.Scenario
 {
@@ -33,7 +32,7 @@ namespace Kaede2.Scenario
         private List<Command> commands;
         private int currentCommandIndex;
 
-        private List<ResourceLoader.HandleBase> resourceHandles;
+        private List<AsyncOperationHandle> resourceHandles;
 
         private CultureInfo backupLocale;
 
@@ -220,7 +219,7 @@ namespace Kaede2.Scenario
             // but it will usually unload the scenario bundle too which we are still going to use right after this,
             // so we will release it with other handles
             resourceHandles.Add(scriptHandle);
-            yield return scriptHandle.Send();
+            yield return scriptHandle;
 
             // TODO: error handling
             var scriptText = scriptHandle.Result.text;
@@ -282,7 +281,7 @@ namespace Kaede2.Scenario
         {
             foreach (var handle in resourceHandles)
             {
-                handle.Dispose();
+                Addressables.Release(handle);
             }
 
             InputManager.InputAction?.Scenario.Disable();
@@ -415,26 +414,15 @@ namespace Kaede2.Scenario
 
         #region ResourceLoading
 
-        private IEnumerator SendHandleWithFinishCallback<T>(ResourceLoader.LoadAddressableHandle<T> handle, Action<T> callback) where T : UnityEngine.Object
+        private IEnumerator SendHandleWithFinishCallback<T>(AsyncOperationHandle<T> handle, Action<T> callback) where T : UnityEngine.Object
         {
-            yield return handle.Send();
+            yield return handle;
             if (handle.Result == null)
             {
-                this.LogError($"Failed to load asset {handle.AssetAddress}");
+                this.LogError($"{handle.DebugName} failed");
             }
 
             callback(handle.Result);
-        }
-
-        private IEnumerator SendLive2DHandleWithFinish(ResourceLoader.LoadLive2DHandle handle, string resourceName)
-        {
-            yield return handle.Send();
-            if (handle.Result == null)
-            {
-                this.LogError($"Failed to Live2D model {resourceName}");
-            }
-
-            ScenarioResource.Actors[resourceName] = handle.Result;
         }
 
         public override IEnumerator LoadResource(Resource.Type type, string resourceName)
@@ -488,7 +476,7 @@ namespace Kaede2.Scenario
                 {
                     var handle = ResourceLoader.LoadLive2DModel(resourceName);
                     resourceHandles.Add(handle);
-                    return SendLive2DHandleWithFinish(handle, resourceName);
+                    return SendHandleWithFinishCallback(handle, l => ScenarioResource.Actors[resourceName] = l);
                 }
                 case Resource.Type.AliasText:
                 {
@@ -526,7 +514,7 @@ namespace Kaede2.Scenario
         {
             var includeStatements = statements.Where(s => s.StartsWith("include")).ToList();
 
-            List<Tuple<string, ResourceLoader.LoadAddressableHandle<TextAsset>>> includeHandles = new();
+            List<Tuple<string, AsyncOperationHandle<TextAsset>>> includeHandles = new();
             foreach (var s in includeStatements)
             {
                 string[] args = s.Split(new[] { '\t' }, StringSplitOptions.None);
@@ -542,7 +530,7 @@ namespace Kaede2.Scenario
 
             CoroutineGroup group = new();
             foreach (var (_, handle) in includeHandles)
-                group.Add(handle.Send(), this);
+                group.Add(handle, this);
             yield return group.WaitForAll();
 
             foreach (var (fileName, handle) in includeHandles)
@@ -550,7 +538,7 @@ namespace Kaede2.Scenario
                 var includeFileContent = handle.Result.text;
                 // include/define files are in a self-contained bundle
                 // since we are not going to use them after this, it's ok to release the handles
-                handle.Dispose();
+                Addressables.Release(handle);
 
                 this.Log($"Pre-Loaded include file {fileName}");
                 var includeFileStatements = GetStatementsFromScript(includeFileContent);

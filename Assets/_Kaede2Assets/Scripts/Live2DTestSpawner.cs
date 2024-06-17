@@ -3,6 +3,8 @@ using Kaede2.Scenario.Framework.Entities;
 using Kaede2.Scenario.Framework.Live2D;
 using Kaede2.Utils;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Kaede2
 {
@@ -20,7 +22,7 @@ namespace Kaede2
         [SerializeField]
         private string modelName;
 
-        private ResourceLoader.LoadLive2DHandle loadHandle;
+        private AsyncOperationHandle<Live2DAssets> loadHandle;
 
         private IEnumerator Start()
         {
@@ -32,7 +34,7 @@ namespace Kaede2
             }
 
             loadHandle = ResourceLoader.LoadLive2DModel(modelName);
-            yield return loadHandle.Send();
+            yield return loadHandle;
 
             GameObject newModel = Instantiate(uiEmptyPrefab, renderCanvas.transform, false);
             newModel.transform.localPosition = Vector3.zero;
@@ -43,7 +45,7 @@ namespace Kaede2
 
         private void OnDestroy()
         {
-            loadHandle?.Dispose();
+            Addressables.Release(loadHandle);
         }
     }
 }

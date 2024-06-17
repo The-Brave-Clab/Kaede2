@@ -1,118 +1,117 @@
-﻿using System.IO;
-using Kaede2.Scenario.Framework;
+﻿using Kaede2.Scenario.Framework;
+using Kaede2.Scenario.Framework.Live2D;
 using UnityEngine;
-using Kaede2.ScriptableObjects;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Kaede2.Utils
 {
     public static partial class ResourceLoader
     {
-        public static LoadAddressableHandle<T> Load<T>(string assetAddress) where T : Object
-        {
-            return new LoadAddressableHandle<T>(assetAddress);
-        }
-
         // audio
 
-        public static LoadAddressableHandle<AudioClip> LoadSystemBackgroundMusic(string bgmName)
+        public static AsyncOperationHandle<AudioClip> LoadSystemBackgroundMusic(string bgmName)
         {
-            return Load<AudioClip>($"audio/bgm/{bgmName}.wav");
+            return Addressables.LoadAssetAsync<AudioClip>($"audio/bgm/{bgmName}.wav");
         }
 
-        public static LoadAddressableHandle<AudioClip> LoadCharacterVoice(string voiceName)
+        public static AsyncOperationHandle<AudioClip> LoadCharacterVoice(string voiceName)
         {
-            return Load<AudioClip>($"audio/character_voice/{voiceName}.wav");
+            return Addressables.LoadAssetAsync<AudioClip>($"audio/character_voice/{voiceName}.wav");
         }
 
-        public static LoadAddressableHandle<AudioClip> LoadSystemSoundEffect(string seName)
+        public static AsyncOperationHandle<AudioClip> LoadSystemSoundEffect(string seName)
         {
-            return Load<AudioClip>($"audio/system_se/{seName}.wav");
+            return Addressables.LoadAssetAsync<AudioClip>($"audio/system_se/{seName}.wav");
         }
 
-        public static LoadAddressableHandle<AudioClip> LoadSystemVoice(string voiceName)
+        public static AsyncOperationHandle<AudioClip> LoadSystemVoice(string voiceName)
         {
-            return Load<AudioClip>($"audio/system_voice/{voiceName}.wav");
+            return Addressables.LoadAssetAsync<AudioClip>($"audio/system_voice/{voiceName}.wav");
         }
 
         // illust
 
-        public static LoadAddressableHandle<Sprite> LoadIllustration(string illustName)
+        public static AsyncOperationHandle<Sprite> LoadIllustration(string illustName, bool thumbnail = false)
         {
-            return Load<Sprite>($"illust/{illustName}.png");
+            var subfolder = thumbnail ? "thumbnail" : "original";
+            return Addressables.LoadAssetAsync<Sprite>($"illust/{subfolder}/{illustName}.png");
         }
 
         // scenario_common
 
-        public static LoadAddressableHandle<Texture2D> LoadScenarioBackground(string bgName)
+        public static AsyncOperationHandle<Texture2D> LoadScenarioBackground(string bgName)
         {
-            return Load<Texture2D>($"scenario_common/bg/{bgName}.png");
+            return Addressables.LoadAssetAsync<Texture2D>($"scenario_common/bg/{bgName}.png");
         }
 
-        public static LoadAddressableHandle<Sprite> LoadScenarioSprite(string spriteName)
+        public static AsyncOperationHandle<Sprite> LoadScenarioSprite(string spriteName)
         {
-            return Load<Sprite>($"scenario_common/sprite/{spriteName}.png");
+            return Addressables.LoadAssetAsync<Sprite>($"scenario_common/sprite/{spriteName}.png");
         }
         
-        public static LoadAddressableHandle<Sprite> LoadScenarioCharacterIcon(string charaIcon)
+        public static AsyncOperationHandle<Sprite> LoadScenarioCharacterIcon(string charaIcon)
         {
-            return Load<Sprite>($"scenario_common/icon/{charaIcon}.png");
+            return Addressables.LoadAssetAsync<Sprite>($"scenario_common/icon/{charaIcon}.png");
         }
 
-        public static LoadAddressableHandle<AudioClip> LoadScenarioBackgroundMusic(string bgmName)
+        public static AsyncOperationHandle<AudioClip> LoadScenarioBackgroundMusic(string bgmName)
         {
-            return Load<AudioClip>($"scenario_common/bgm/{bgmName}.wav");
+            return Addressables.LoadAssetAsync<AudioClip>($"scenario_common/bgm/{bgmName}.wav");
         }
 
-        public static LoadAddressableHandle<AudioClip> LoadScenarioSoundEffect(string seName)
+        public static AsyncOperationHandle<AudioClip> LoadScenarioSoundEffect(string seName)
         {
-            return Load<AudioClip>($"scenario_common/se/{seName}.wav");
+            return Addressables.LoadAssetAsync<AudioClip>($"scenario_common/se/{seName}.wav");
         }
 
-        public static LoadAddressableHandle<AudioClip> LoadScenarioJingle(string jingleName)
+        public static AsyncOperationHandle<AudioClip> LoadScenarioJingle(string jingleName)
         {
-            return Load<AudioClip>($"scenario_common/jingle/{jingleName}.wav");
+            return Addressables.LoadAssetAsync<AudioClip>($"scenario_common/jingle/{jingleName}.wav");
         }
 
-        public static LoadAddressableHandle<TextAsset> LoadScenarioDefineText(string defineTextName)
+        public static AsyncOperationHandle<TextAsset> LoadScenarioDefineText(string defineTextName)
         {
-            return Load<TextAsset>($"scenario_common/define/{defineTextName}.txt");
+            return Addressables.LoadAssetAsync<TextAsset>($"scenario_common/define/{defineTextName}.txt");
         }
 
-        public static LoadLive2DHandle LoadLive2DModel(string modelName)
+        public static AsyncOperationHandle<Live2DAssets> LoadLive2DModel(string modelName)
         {
-            return new LoadLive2DHandle(modelName);
+            var loadOperation = new Live2DOperation(modelName);
+            return Addressables.ResourceManager.StartOperation(loadOperation, default);
         }
 
-        public static LoadAddressableHandle<Sprite> LoadScenarioTransformEffectSprite(CharacterId characterId)
+        public static AsyncOperationHandle<Sprite> LoadScenarioTransformEffectSprite(CharacterId characterId)
         {
-            return Load<Sprite>($"scenario_common/trans_scene/{(int)characterId:00}.png");
+            return Addressables.LoadAssetAsync<Sprite>($"scenario_common/trans_scene/{(int)characterId:00}.png");
         }
 
         // scenario
 
-        public static LoadAddressableHandle<TextAsset> LoadScenarioScriptText(string scenario)
+        public static AsyncOperationHandle<TextAsset> LoadScenarioScriptText(string scenario)
         {
-            return Load<TextAsset>($"scenario/{scenario}/{scenario}_script.txt");
+            return Addressables.LoadAssetAsync<TextAsset>($"scenario/{scenario}/{scenario}_script.txt");
         }
 
-        public static LoadAddressableHandle<TextAsset> LoadScenarioAliasText(string scenario, string aliasFileName)
+        public static AsyncOperationHandle<TextAsset> LoadScenarioAliasText(string scenario, string aliasFileName)
         {
-            return Load<TextAsset>($"scenario/{scenario}/{aliasFileName}.txt");
+            return Addressables.LoadAssetAsync<TextAsset>($"scenario/{scenario}/{aliasFileName}.txt");
         }
 
-        public static LoadAddressableHandle<TextAsset> LoadScenarioIgnoreText(string scenario)
+        public static AsyncOperationHandle<TextAsset> LoadScenarioIgnoreText(string scenario)
         {
-            return Load<TextAsset>($"scenario/{scenario}/{scenario}_ignore.txt");
+            return Addressables.LoadAssetAsync<TextAsset>($"scenario/{scenario}/{scenario}_ignore.txt");
         }
 
-        public static LoadAddressableHandle<AudioClip> LoadScenarioVoice(string scenario, string voiceName)
+        public static AsyncOperationHandle<AudioClip> LoadScenarioVoice(string scenario, string voiceName)
         {
-            return Load<AudioClip>($"scenario/{scenario}/voice/{voiceName}.wav");
+            return Addressables.LoadAssetAsync<AudioClip>($"scenario/{scenario}/voice/{voiceName}.wav");
         }
 
-        public static LoadAddressableHandle<Texture2D> LoadScenarioStill(string scenario, string stillImage)
+        public static AsyncOperationHandle<Texture2D> LoadScenarioStill(string scenario, string stillImage)
         {
-            return Load<Texture2D>($"scenario/{scenario}/still/{stillImage}.png");
+            return Addressables.LoadAssetAsync<Texture2D>($"scenario/{scenario}/still/{stillImage}.png");
         }
     }
 }

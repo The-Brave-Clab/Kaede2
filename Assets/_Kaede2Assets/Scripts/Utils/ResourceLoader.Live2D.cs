@@ -3,48 +3,70 @@ using System.Collections.Generic;
 using UnityEngine;
 using Kaede2.Scenario.Framework.Live2D;
 using Kaede2.Scenario.Framework.Utils;
+using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Kaede2.Utils
 {
     public static partial class ResourceLoader
     {
-        public class LoadLive2DHandle : BaseHandle<Live2DAssets>
+        public class Live2DOperation : AsyncOperationBase<Live2DAssets>
         {
             private readonly string modelName;
-            private readonly List<HandleBase> handles;
+            private readonly List<AsyncOperationHandle> handles;
 
             public string ModelName => modelName;
 
-            internal LoadLive2DHandle(string modelName)
+            private Coroutine loadCoroutine;
+
+            internal Live2DOperation(string modelName)
             {
                 this.modelName = modelName;
-
-                result = null;
-                isDone = false;
-                handles = new List<HandleBase>();
+                handles = new();
+                loadCoroutine = null;
             }
 
-            private void OnFinishedCallback(Live2DAssets t)
+            protected override void Execute()
             {
-                progress = 1;
-                isDone = true;
-                status = t == null ? AsyncOperationStatus.Failed : AsyncOperationStatus.Succeeded;
-                result = t;
+                if (string.IsNullOrEmpty(modelName))
+                {
+                    Complete(null, false, "Model name is empty");
+                }
+
+                if (loadCoroutine != null)
+                {
+                    Complete(null, false, "Operation is already running");
+                }
+
+                loadCoroutine = CoroutineProxy.Start(LoadCoroutine());
             }
 
-            public override IEnumerator Send()
+            protected override void Destroy()
+            {
+                if (loadCoroutine != null)
+                {
+                    CoroutineProxy.Stop(loadCoroutine);
+                    loadCoroutine = null;
+                }
+
+                foreach (var handle in handles)
+                    Addressables.Release(handle);
+
+                base.Destroy();
+            }
+
+            private IEnumerator LoadCoroutine()
             {
                 const string basePath = "scenario_common/live2d";
 
-                var modelJson = Load<TextAsset>($"{basePath}/{modelName}/model.json");
+                var modelJson = Addressables.LoadAssetAsync<TextAsset>($"{basePath}/{modelName}/model.json");
                 handles.Add(modelJson);
-                yield return modelJson.Send();
+                yield return modelJson;
 
-                if (modelJson.Result == null)
+                if (modelJson.Status != AsyncOperationStatus.Succeeded)
                 {
-                    typeof(ResourceLoader).LogError($"Failed to load model.json for {modelName}");
-                    OnFinishedCallback(null);
+                    Complete(null, false, $"Failed to load model.json for {modelName}");
+                    loadCoroutine = null;
                     yield break;
                 }
 
@@ -52,8 +74,8 @@ namespace Kaede2.Utils
 
                 if (model == null)
                 {
-                    typeof(ResourceLoader).LogError($"Failed to parse model.json for {modelName}");
-                    OnFinishedCallback(null);
+                    Complete(null, false, $"Failed to parse model.json for {modelName}");
+                    loadCoroutine = null;
                     yield break;
                 }
 
@@ -63,26 +85,26 @@ namespace Kaede2.Utils
 
                 CoroutineGroup loadGroup = new();
 
-                var mocFileRequest = Load<TextAsset>($"{basePath}/{modelName}/{model.model}.bytes");
+                var mocFileRequest = Addressables.LoadAssetAsync<TextAsset>($"{basePath}/{modelName}/{model.model}.bytes");
                 handles.Add(mocFileRequest);
-                loadGroup.Add(mocFileRequest.Send());
+                loadGroup.Add(mocFileRequest);
 
                 loaded.textures = new Texture2D[model.textures.Length];
-                var textureRequests = new LoadAddressableHandle<Texture2D>[model.textures.Length];
+                var textureRequests = new AsyncOperationHandle<Texture2D>[model.textures.Length];
                 for (int i = 0; i < model.textures.Length; ++i)
                 {
-                    textureRequests[i] = Load<Texture2D>($"{basePath}/{modelName}/{model.textures[i]}");
+                    textureRequests[i] = Addressables.LoadAssetAsync<Texture2D>($"{basePath}/{modelName}/{model.textures[i]}");
                     handles.Add(textureRequests[i]);
-                    loadGroup.Add(textureRequests[i].Send());
+                    loadGroup.Add(textureRequests[i]);
                 }
 
                 loaded.motionFiles = new();
-                var motionRequests = new Dictionary<string, List<LoadAddressableHandle<TextAsset>>>();
+                var motionRequests = new Dictionary<string, List<AsyncOperationHandle<TextAsset>>>();
                 if (model.motions != null)
                 {
                     foreach (var (motionName, motionFiles) in model.motions)
                     {
-                        motionRequests.Add(motionName, new List<LoadAddressableHandle<TextAsset>>());
+                        motionRequests.Add(motionName, new List<AsyncOperationHandle<TextAsset>>());
                         loaded.motionFiles.Add(new()
                         {
                             name = motionName,
@@ -90,20 +112,20 @@ namespace Kaede2.Utils
                         });
                         foreach (var motionFile in motionFiles)
                         {
-                            var motionRequest = Load<TextAsset>($"{basePath}/{modelName}/{motionFile.file}.bytes");
+                            var motionRequest = Addressables.LoadAssetAsync<TextAsset>($"{basePath}/{modelName}/{motionFile.file}.bytes");
                             handles.Add(motionRequest);
                             motionRequests[motionName].Add(motionRequest);
-                            loadGroup.Add(motionRequest.Send());
+                            loadGroup.Add(motionRequest);
                         }
                     }
                 }
 
-                LoadAddressableHandle<TextAsset> poseRequest = null;
+                AsyncOperationHandle<TextAsset> poseRequest = new();
                 if (!string.IsNullOrEmpty(model.pose))
                 {
-                    poseRequest = Load<TextAsset>($"{basePath}/{modelName}/{model.pose}");
+                    poseRequest = Addressables.LoadAssetAsync<TextAsset>($"{basePath}/{modelName}/{model.pose}");
                     handles.Add(poseRequest);
-                    loadGroup.Add(poseRequest.Send());
+                    loadGroup.Add(poseRequest);
                 }
 
                 yield return loadGroup.WaitForAll();
@@ -111,8 +133,8 @@ namespace Kaede2.Utils
                 loaded.mocFile = mocFileRequest.Result;
                 if (loaded.mocFile == null)
                 {
-                    typeof(ResourceLoader).LogError($"Failed to load moc file for {modelName}");
-                    OnFinishedCallback(null);
+                    Complete(null, false, $"Failed to load moc file for {modelName}");
+                    loadCoroutine = null;
                     yield break;
                 }
 
@@ -121,8 +143,8 @@ namespace Kaede2.Utils
                     loaded.textures[i] = textureRequests[i].Result;
                     if (loaded.textures[i] == null)
                     {
-                        typeof(ResourceLoader).LogError($"Failed to load texture {model.textures[i]} for {modelName}");
-                        OnFinishedCallback(null);
+                        Complete(null, false, $"Failed to load texture {model.textures[i]} for {modelName}");
+                        loadCoroutine = null;
                         yield break;
                     }
                 }
@@ -136,8 +158,8 @@ namespace Kaede2.Utils
                             var loadedMotion = motionRequests[motionName][i].Result;
                             if (loadedMotion == null)
                             {
-                                typeof(ResourceLoader).LogError($"Failed to load motion file {motionFiles[i].file} for {modelName}");
-                                OnFinishedCallback(null);
+                                Complete(null, false, $"Failed to load motion file {motionFiles[i].file} for {modelName}");
+                                loadCoroutine = null;
                                 yield break;
                             }
 
@@ -146,27 +168,19 @@ namespace Kaede2.Utils
                     }
                 }
 
-                if (!string.IsNullOrEmpty(model.pose) && poseRequest != null)
+                if (!string.IsNullOrEmpty(model.pose) && poseRequest.IsValid())
                 {
                     loaded.poseFile = poseRequest.Result;
                     if (loaded.poseFile == null)
                     {
-                        typeof(ResourceLoader).LogError($"Failed to load pose file for {modelName}");
-                        OnFinishedCallback(null);
+                        Complete(null, false, $"Failed to load pose file for {modelName}");
+                        loadCoroutine = null;
                         yield break;
                     }
                 }
 
-                OnFinishedCallback(loaded);
-            }
-
-            public override void Dispose()
-            {
-                foreach (var handle in handles)
-                {
-                    handle.Dispose();
-                }
-                base.Dispose();
+                Complete(loaded, true, "");
+                loadCoroutine = null;
             }
         }
     }

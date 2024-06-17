@@ -6,6 +6,8 @@ using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
 using Kaede2.Utils;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -30,7 +32,7 @@ namespace Kaede2.UI
 
         private readonly Vector2 imageSize = new Vector2(1920, 1080);
 
-        private ResourceLoader.LoadAddressableHandle<Sprite>[] handles;
+        private AsyncOperationHandle<Sprite>[] handles;
 
         private float CalculateGridSize()
         {
@@ -100,11 +102,11 @@ namespace Kaede2.UI
 
             var group = new CoroutineGroup();
 
-            handles = new ResourceLoader.LoadAddressableHandle<Sprite>[imageCount];
+            handles = new AsyncOperationHandle<Sprite>[imageCount];
             for (var i = 0; i < imageCount; i++)
             {
-                handles[i] = ResourceLoader.LoadIllustration(images[i].AlbumName);
-                group.Add(handles[i].Send());
+                handles[i] = ResourceLoader.LoadIllustration(images[i].AlbumName, true);
+                group.Add(handles[i]);
             }
 
             yield return group.WaitForAll();
@@ -151,7 +153,7 @@ namespace Kaede2.UI
             {
                 foreach (var handle in handles)
                 {
-                    handle.Dispose();
+                    Addressables.Release(handle);
                 }
             }
         }
