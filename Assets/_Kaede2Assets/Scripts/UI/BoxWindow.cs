@@ -1,4 +1,3 @@
-using System;
 using Kaede2.ScriptableObjects;
 using TMPro;
 using UnityEngine;

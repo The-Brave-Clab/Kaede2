@@ -846,7 +846,7 @@ GameObject:
   - component: {fileID: 6761248778477643818}
   - component: {fileID: 8791028405835949071}
   - component: {fileID: 7469443454402284184}
-  - component: {fileID: 590266192768154873}
+  - component: {fileID: 4876194721936147873}
   m_Layer: 5
   m_Name: Message
   m_TagString: Untagged
@@ -972,7 +972,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &590266192768154873
+--- !u!114 &4876194721936147873
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -981,36 +981,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 5713184502801493033}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Script: {fileID: 11500000, guid: c8593964078a4ebbb09137f9185bdf20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjects:
-  - rid: 1012040397265567813
-  references:
-    version: 2
-    RefIds:
-    - rid: 1012040397265567813
-      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
-      data:
-        m_Target: {fileID: 7469443454402284184}
-        m_TrackedProperties:
-          items:
-          - rid: 1012040397265567814
-        m_UpdateType: 0
-    - rid: 1012040397265567814
-      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
-      data:
-        m_PropertyPath: m_characterSpacing
-        m_VariantData:
-        - localeIdentifier:
-            m_Code: ja
-          value: 1.6
-        - localeIdentifier:
-            m_Code: en
-          value: 0
-        - localeIdentifier:
-            m_Code: zh
-          value: 1.6
+  onLocaleChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7469443454402284184}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_characterSpacing
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  localizedValue:
+    localizedValues:
+      keys:
+      - cultureName: ja
+      - cultureName: zh
+      - cultureName: en
+      values:
+      - 1.6
+      - 1.6
+      - 0
 --- !u!1 &7523887874894848192
 GameObject:
   m_ObjectHideFlags: 0

@@ -30,6 +30,23 @@ namespace Kaede2.UI.Framework
         private bool interactable = true;
 
         private bool activated;
+        public bool Activated => activated;
+
+        [SerializeField]
+        private bool highlighted;
+
+        public bool Highlighted
+        {
+            get => highlighted;
+            set
+            {
+                if (highlighted == value) return;
+                highlighted = value;
+
+                StopCurrentCoroutine();
+                changeColorCoroutine = StartCoroutine(ChangeColorCoroutine());
+            }
+        }
 
         public bool Interactable
         {
@@ -49,6 +66,7 @@ namespace Kaede2.UI.Framework
         public UnityEvent onClick;
 
         private CommonButtonColor activatedColor;
+        private CommonButtonColor highlightedColor;
 
         private Coroutine changeColorCoroutine;
         private Sequence changeColorSequence;
@@ -90,18 +108,31 @@ namespace Kaede2.UI.Framework
         public void OnThemeChange(Theme.VolumeTheme theme)
         {
             activatedColor = theme.CommonButtonColor;
+            highlightedColor = theme.SettingsItemColor;
 
-            var colors = GetColors(Interactable, activated, activatedColor);
+            var colors = GetColors();
             SetColor(colors.textColor, colors.buttonColor);
         }
 
-        private static (Color textColor, CommonButtonColor buttonColor) GetColors(bool interactable, bool activated, CommonButtonColor activatedColor)
+        public void SetImmediate(bool activated, bool highlighted, bool interactable)
+        {
+            this.activated = activated;
+            this.highlighted = highlighted;
+            this.interactable = interactable;
+
+            var colors = GetColors();
+            SetColor(colors.textColor, colors.buttonColor);
+        }
+
+        private (Color textColor, CommonButtonColor buttonColor) GetColors()
         {
             if (!interactable)
                 return (new Color(0.8705882f, 0.8705882f, 0.8705882f), CommonButtonColor.Disabled);
-            if (!activated)
-                return (new Color(0.1254902f, 0.1372549f, 0.145098f), CommonButtonColor.Deactivated);
-            return (Color.white, activatedColor);
+            if (activated)
+                return (Color.white, activatedColor);
+            if (highlighted)
+                return (Color.black, highlightedColor);
+            return (new Color(0.1254902f, 0.1372549f, 0.145098f), CommonButtonColor.Deactivated);
         }
 
         private void SetColor(Color textColor, CommonButtonColor buttonColor)
@@ -137,7 +168,7 @@ namespace Kaede2.UI.Framework
 
         private IEnumerator ChangeColorCoroutine()
         {
-            var endColors = GetColors(Interactable, activated, activatedColor);
+            var endColors = GetColors();
 
             Color startTextColor = text.color;
             CommonButtonColor startButtonColor = colorType switch

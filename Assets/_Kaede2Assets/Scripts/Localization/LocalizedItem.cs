@@ -36,6 +36,11 @@ namespace Kaede2.Localization
     }
 
     [Serializable]
+    public class LocalizedValue<T> : LocalizedItemBase<T> where T : struct
+    {
+    }
+
+    [Serializable]
     public class LocalizedAsset<T> : LocalizedItemBase<T> where T : UnityEngine.Object
     {
     }

@@ -1,9 +1,8 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Kaede2.Input;
 using Kaede2.Scenario.Framework;
 using Kaede2.UI.Framework;
+using Kaede2.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -183,27 +182,7 @@ namespace Kaede2.Scenario
             if (entry == null) return;
 
             var entryTransform = entry.transform as RectTransform;
-            var viewport = scroll.viewport;
-            var content = scroll.content;
-
-            var entryRect = entryTransform!.rect;
-            var viewportRect = viewport.rect;
-            var contentRect = content.rect;
-
-            var entryPosition = entryTransform.anchoredPosition;
-            var contentPosition = content.anchoredPosition;
-
-            var entryYTopInViewport = entryPosition.y + contentPosition.y;
-            var entryYBottomInViewport = entryPosition.y - entryRect.height + contentPosition.y + viewportRect.height;
-
-            float posDiff = 0;
-            if (entryYTopInViewport > 0)
-                posDiff = entryYTopInViewport;
-            else if (entryYBottomInViewport < 0)
-                posDiff = entryYBottomInViewport;
-
-            var scrollDiff = posDiff / (contentRect.height - viewportRect.height);
-            scroll.verticalNormalizedPosition = Mathf.Clamp01(scroll.verticalNormalizedPosition + scrollDiff);
+            scroll.MoveItemIntoViewport(entryTransform);
         }
 
         private void OnInputDeviceChanged(InputDeviceType type)

@@ -77,15 +77,15 @@ namespace Kaede2.UI
 
         private Rect TransformedSafeArea()
         {
+            var fullRect = new Rect(0, 0, Screen.width, Screen.height);
+
             if (!safeArea)
-                return new Rect(0, 0, Screen.width, Screen.height);
+                return fullRect;
 
             var safeAreaRect = Screen.safeArea;
 
             if (ignoreSafeAreaBottom)
             {
-                var fullRect = new Rect(0, 0, Screen.width, Screen.height);
-
                 if (Screen.orientation == ScreenOrientation.LandscapeLeft)
                 {
                     // bottom on the right side

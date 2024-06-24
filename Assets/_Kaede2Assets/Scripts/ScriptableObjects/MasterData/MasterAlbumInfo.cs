@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Kaede2.Scenario.Framework;
 using Kaede2.Utils;
@@ -23,6 +24,27 @@ namespace Kaede2.ScriptableObjects
 
         public AlbumInfo[] albumInfo;
 
+        private List<AlbumInfo> sorted;
+
+        public static IReadOnlyList<AlbumInfo> Sorted
+        {
+            get
+            {
+                if (Instance.sorted != null) return Instance.sorted;
+
+                Instance.sorted = Instance.albumInfo.OrderBy(ai => ai.OriginId).ThenByDescending(ai => ai.AlbumName).ToList();
+                for (int i = 1; i < Instance.sorted.Count - 1; ++i)
+                {
+                    if (Instance.sorted[i].IsBg && !Instance.sorted[i - 1].IsBg && !Instance.sorted[i + 1].IsBg && Instance.sorted[i].OriginId % 10 == 5)
+                    {
+                        (Instance.sorted[i], Instance.sorted[i - 1]) = (Instance.sorted[i - 1], Instance.sorted[i]);
+                    }
+                }
+
+                return Instance.sorted;
+            }
+        }
+
         // we have 1999 illustrations, with 40 bundles, each bundle will contain 50 items
         // the split here is caused by main menu scene using one of the illustrations and has a very long loading time
         private const int BundleCount = 40;
@@ -30,9 +52,8 @@ namespace Kaede2.ScriptableObjects
         {
             // find the index inside master data
             int illustIndex = -1;
-            // we are going to display the illust in order of name, so sorting the bundle helps to reduce the loading time and memory usage
             int i = 0;
-            foreach (var info in Instance.albumInfo.OrderBy(ai => ai.AlbumName))
+            foreach (var info in Sorted)
             {
                 if (string.Equals(info.AlbumName, albumName))
                 {
@@ -51,6 +72,11 @@ namespace Kaede2.ScriptableObjects
 
             var bundleIndex = illustIndex / Mathf.RoundToInt((float)Instance.albumInfo.Length / BundleCount);
             return bundleIndex;
+        }
+
+        public static AlbumInfo FromAlbumName(string albumName)
+        {
+            return Instance.albumInfo.FirstOrDefault(info => info.AlbumName == albumName);
         }
     }
 }

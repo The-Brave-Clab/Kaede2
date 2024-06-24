@@ -42,7 +42,7 @@ namespace Kaede2.Scenario.Framework
         KohaguraNatsume = 17,
         [InspectorName("上里 ひなた")]
         UesatoHinata = 18,
-        [InspectorName("藤森 美都")]
+        [InspectorName("藤森 水都")]
         FujimoriMito = 19,
         [InspectorName("赤嶺 友奈")]
         AkamineYuuna = 20,
@@ -98,7 +98,7 @@ namespace Kaede2.Scenario.Framework
         [InspectorName("衛藤 可奈美")]
         EtouKanami = 56,
         [InspectorName("十条 姫和")]
-        JyujouHiyori = 57,
+        JuujouHiyori = 57,
         [InspectorName("獅童 真希")]
         ShidouMaki = 58,
 

@@ -23,8 +23,7 @@ namespace Kaede2
 
         private void Awake()
         {
-            var illustInfo = MasterAlbumInfo.Instance.albumInfo.First(i => i.OriginId == SaveData.MainMenuBackground);
-            handle = ResourceLoader.LoadIllustration(illustInfo.AlbumName);
+            handle = ResourceLoader.LoadIllustration(SaveData.MainMenuBackground.AlbumName);
         }
 
         private IEnumerator Start()

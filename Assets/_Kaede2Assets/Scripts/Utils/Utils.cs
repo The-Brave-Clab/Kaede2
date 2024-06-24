@@ -4,7 +4,9 @@ using System.Linq;
 using Kaede2.Localization;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.UI;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Kaede2.Utils
 {
@@ -40,8 +42,9 @@ namespace Kaede2.Utils
         public static CultureInfo GetSystemLocaleOrDefault()
         {
             var locales = LocalizationManager.AllLocales;
-            return locales.FirstOrDefault(l => CultureInfo.CurrentCulture.BelongsTo(l)) ??
-                   locales[0];
+            var locale = locales.FirstOrDefault(l => CultureInfo.CurrentCulture.BelongsTo(l)) ?? locales[0];
+            typeof(CommonUtils).Log($"Selected system locale: {locale}");
+            return locale;
         }
 
         // a mod function that works with negative numbers
@@ -62,5 +65,35 @@ namespace Kaede2.Utils
 
             CoroutineProxy.Start(LoadNextSceneCoroutine(sceneName, mode));
         }
+
+        public static void MoveItemIntoViewport(this ScrollRect scrollRect, RectTransform item, float multiplier = 1.0f)
+        {
+            var viewport = scrollRect.viewport;
+            var content = scrollRect.content;
+
+            Vector3[] entryWorldCorners = new Vector3[4];
+            item.GetWorldCorners(entryWorldCorners);
+            var entryWorldSize = entryWorldCorners[2] - entryWorldCorners[0];
+
+            Vector3[] viewportWorldCorners = new Vector3[4];
+            viewport.GetWorldCorners(viewportWorldCorners);
+            var viewportWorldSize = viewportWorldCorners[2] - viewportWorldCorners[0];
+
+            Vector3[] contentWorldCorners = new Vector3[4];
+            content.GetWorldCorners(contentWorldCorners);
+            var contentWorldSize = contentWorldCorners[2] - contentWorldCorners[0];
+
+            float topDiff = entryWorldCorners[2].y - (viewportWorldCorners[2].y - viewportWorldSize.y * multiplier);
+            float bottomDiff = entryWorldCorners[0].y - (viewportWorldCorners[0].y + viewportWorldSize.y * multiplier);
+            float posDiff = 0;
+            if (topDiff > 0)
+                posDiff = topDiff;
+            else if (bottomDiff < 0)
+                posDiff = bottomDiff;
+
+            var scrollDiff = posDiff / (contentWorldSize.y - viewportWorldSize.y);
+            scrollRect.verticalNormalizedPosition = Mathf.Clamp01(scrollRect.verticalNormalizedPosition + scrollDiff);
+        }
+
     }
 }

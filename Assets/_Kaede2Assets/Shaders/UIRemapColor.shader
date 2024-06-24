@@ -88,11 +88,11 @@ Shader "UI/UI Remap Color"
                 float3 weights = float3(color.r, color.g, color.b) / total;
                 
                 // Interpolate the target colors based on the weights
-                float3 newColor = weights.x * _RedTargetColor.rgb +
-                                  weights.y * _GreenTargetColor.rgb +
-                                  weights.z * _BlueTargetColor.rgb;
+                float4 newColor = weights.x * _RedTargetColor.rgba +
+                                  weights.y * _GreenTargetColor.rgba +
+                                  weights.z * _BlueTargetColor.rgba;
                 
-                return fixed4(newColor, color.a);
+                return fixed4(newColor.rgb, newColor.a * color.a);
             }
             ENDCG
         }

@@ -80,6 +80,12 @@ namespace Kaede2.ScriptableObjects
             [ColorUsage(false, false)]
             private Color sliderControlActiveFillColor;
             public Color SliderControlActiveFillColor => NonTransparent(sliderControlActiveFillColor);
+
+            [Header("Album")]
+            [SerializeField]
+            [ColorUsage(true, false)]
+            private Color favGradientTop;
+            public Color FavGradientTop => favGradientTop;
         }
 
         [SerializeField]

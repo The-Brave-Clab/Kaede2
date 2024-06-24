@@ -937,6 +937,116 @@ namespace Kaede2.Input
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""AlbumView"",
+            ""id"": ""9c249bd1-7d83-47eb-ad61-760112f51580"",
+            ""actions"": [
+                {
+                    ""name"": ""PrimaryPointer"",
+                    ""type"": ""Value"",
+                    ""id"": ""d53ce1fc-0d87-4b3e-90af-0f88d113d97a"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SecondaryPointer"",
+                    ""type"": ""Value"",
+                    ""id"": ""169f5f3f-04fb-45c6-9cff-e6af09d8a4cd"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""PrimaryPointerContact"",
+                    ""type"": ""Button"",
+                    ""id"": ""ac619dae-9ac5-4a03-9654-23905bac2c8b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SecondaryPointerContact"",
+                    ""type"": ""Button"",
+                    ""id"": ""9932a2d2-fc2b-49f9-add4-0849acf25922"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""c9aa2b2e-90a3-4189-871e-2c2db5b3fe47"",
+                    ""path"": ""<Touchscreen>/touch0/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Touchscreen"",
+                    ""action"": ""PrimaryPointer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""392d1344-7a99-4ab9-b5a6-9def015c4039"",
+                    ""path"": ""<Pointer>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""PrimaryPointer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""562bf83b-d3fc-4a25-a3e2-2d14d2166a75"",
+                    ""path"": ""<Touchscreen>/touch1/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Touchscreen"",
+                    ""action"": ""SecondaryPointer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2e4a6591-b62e-45a1-a36d-45ee16b71a77"",
+                    ""path"": ""<Touchscreen>/touch0/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Touchscreen"",
+                    ""action"": ""PrimaryPointerContact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b595bc25-9a0a-4ab0-946c-f317af25e21f"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""PrimaryPointerContact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""abf949e1-bdec-40f2-99fc-666005e8b11f"",
+                    ""path"": ""<Touchscreen>/touch1/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Touchscreen"",
+                    ""action"": ""SecondaryPointerContact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -992,6 +1102,12 @@ namespace Kaede2.Input
             m_ScenarioLog_Up = m_ScenarioLog.FindAction("Up", throwIfNotFound: true);
             m_ScenarioLog_Down = m_ScenarioLog.FindAction("Down", throwIfNotFound: true);
             m_ScenarioLog_PlayVoice = m_ScenarioLog.FindAction("PlayVoice", throwIfNotFound: true);
+            // AlbumView
+            m_AlbumView = asset.FindActionMap("AlbumView", throwIfNotFound: true);
+            m_AlbumView_PrimaryPointer = m_AlbumView.FindAction("PrimaryPointer", throwIfNotFound: true);
+            m_AlbumView_SecondaryPointer = m_AlbumView.FindAction("SecondaryPointer", throwIfNotFound: true);
+            m_AlbumView_PrimaryPointerContact = m_AlbumView.FindAction("PrimaryPointerContact", throwIfNotFound: true);
+            m_AlbumView_SecondaryPointerContact = m_AlbumView.FindAction("SecondaryPointerContact", throwIfNotFound: true);
         }
 
         ~@Kaede2InputAction()
@@ -1000,6 +1116,7 @@ namespace Kaede2.Input
             Debug.Assert(!m_GeneralUI.enabled, "This will cause a leak and performance issues, Kaede2InputAction.GeneralUI.Disable() has not been called.");
             Debug.Assert(!m_Scenario.enabled, "This will cause a leak and performance issues, Kaede2InputAction.Scenario.Disable() has not been called.");
             Debug.Assert(!m_ScenarioLog.enabled, "This will cause a leak and performance issues, Kaede2InputAction.ScenarioLog.Disable() has not been called.");
+            Debug.Assert(!m_AlbumView.enabled, "This will cause a leak and performance issues, Kaede2InputAction.AlbumView.Disable() has not been called.");
         }
 
         public void Dispose()
@@ -1385,6 +1502,76 @@ namespace Kaede2.Input
             }
         }
         public ScenarioLogActions @ScenarioLog => new ScenarioLogActions(this);
+
+        // AlbumView
+        private readonly InputActionMap m_AlbumView;
+        private List<IAlbumViewActions> m_AlbumViewActionsCallbackInterfaces = new List<IAlbumViewActions>();
+        private readonly InputAction m_AlbumView_PrimaryPointer;
+        private readonly InputAction m_AlbumView_SecondaryPointer;
+        private readonly InputAction m_AlbumView_PrimaryPointerContact;
+        private readonly InputAction m_AlbumView_SecondaryPointerContact;
+        public struct AlbumViewActions
+        {
+            private @Kaede2InputAction m_Wrapper;
+            public AlbumViewActions(@Kaede2InputAction wrapper) { m_Wrapper = wrapper; }
+            public InputAction @PrimaryPointer => m_Wrapper.m_AlbumView_PrimaryPointer;
+            public InputAction @SecondaryPointer => m_Wrapper.m_AlbumView_SecondaryPointer;
+            public InputAction @PrimaryPointerContact => m_Wrapper.m_AlbumView_PrimaryPointerContact;
+            public InputAction @SecondaryPointerContact => m_Wrapper.m_AlbumView_SecondaryPointerContact;
+            public InputActionMap Get() { return m_Wrapper.m_AlbumView; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(AlbumViewActions set) { return set.Get(); }
+            public void AddCallbacks(IAlbumViewActions instance)
+            {
+                if (instance == null || m_Wrapper.m_AlbumViewActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_AlbumViewActionsCallbackInterfaces.Add(instance);
+                @PrimaryPointer.started += instance.OnPrimaryPointer;
+                @PrimaryPointer.performed += instance.OnPrimaryPointer;
+                @PrimaryPointer.canceled += instance.OnPrimaryPointer;
+                @SecondaryPointer.started += instance.OnSecondaryPointer;
+                @SecondaryPointer.performed += instance.OnSecondaryPointer;
+                @SecondaryPointer.canceled += instance.OnSecondaryPointer;
+                @PrimaryPointerContact.started += instance.OnPrimaryPointerContact;
+                @PrimaryPointerContact.performed += instance.OnPrimaryPointerContact;
+                @PrimaryPointerContact.canceled += instance.OnPrimaryPointerContact;
+                @SecondaryPointerContact.started += instance.OnSecondaryPointerContact;
+                @SecondaryPointerContact.performed += instance.OnSecondaryPointerContact;
+                @SecondaryPointerContact.canceled += instance.OnSecondaryPointerContact;
+            }
+
+            private void UnregisterCallbacks(IAlbumViewActions instance)
+            {
+                @PrimaryPointer.started -= instance.OnPrimaryPointer;
+                @PrimaryPointer.performed -= instance.OnPrimaryPointer;
+                @PrimaryPointer.canceled -= instance.OnPrimaryPointer;
+                @SecondaryPointer.started -= instance.OnSecondaryPointer;
+                @SecondaryPointer.performed -= instance.OnSecondaryPointer;
+                @SecondaryPointer.canceled -= instance.OnSecondaryPointer;
+                @PrimaryPointerContact.started -= instance.OnPrimaryPointerContact;
+                @PrimaryPointerContact.performed -= instance.OnPrimaryPointerContact;
+                @PrimaryPointerContact.canceled -= instance.OnPrimaryPointerContact;
+                @SecondaryPointerContact.started -= instance.OnSecondaryPointerContact;
+                @SecondaryPointerContact.performed -= instance.OnSecondaryPointerContact;
+                @SecondaryPointerContact.canceled -= instance.OnSecondaryPointerContact;
+            }
+
+            public void RemoveCallbacks(IAlbumViewActions instance)
+            {
+                if (m_Wrapper.m_AlbumViewActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IAlbumViewActions instance)
+            {
+                foreach (var item in m_Wrapper.m_AlbumViewActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_AlbumViewActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public AlbumViewActions @AlbumView => new AlbumViewActions(this);
         private int m_GamepadSchemeIndex = -1;
         public InputControlScheme GamepadScheme
         {
@@ -1454,6 +1641,13 @@ namespace Kaede2.Input
             void OnUp(InputAction.CallbackContext context);
             void OnDown(InputAction.CallbackContext context);
             void OnPlayVoice(InputAction.CallbackContext context);
+        }
+        public interface IAlbumViewActions
+        {
+            void OnPrimaryPointer(InputAction.CallbackContext context);
+            void OnSecondaryPointer(InputAction.CallbackContext context);
+            void OnPrimaryPointerContact(InputAction.CallbackContext context);
+            void OnSecondaryPointerContact(InputAction.CallbackContext context);
         }
     }
 }

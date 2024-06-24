@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Kaede2.ScriptableObjects;
 using UnityEngine;
 
 namespace Kaede2
@@ -7,17 +9,36 @@ namespace Kaede2
     public class SaveData : SavableSingleton<SaveData>
     {
         [SerializeField]
-        private int mainMenuBackground = 950040;
+        private string mainMenuBackground = "card_image_950040";
 
-        public static int MainMenuBackground
+        public static MasterAlbumInfo.AlbumInfo MainMenuBackground
         {
-            get => Instance.mainMenuBackground;
+            get => MasterAlbumInfo.FromAlbumName(Instance.mainMenuBackground);
             set
             {
-                if (value == Instance.mainMenuBackground) return;
-                Instance.mainMenuBackground = value;
+                if (value.AlbumName == Instance.mainMenuBackground) return;
+                Instance.mainMenuBackground = value.AlbumName;
                 Save();
             }
+        }
+
+        [SerializeField]
+        private List<string> favoriteAlbums = new(); // AlbumName
+
+        public static IReadOnlyList<string> FavoriteAlbumNames => Instance.favoriteAlbums;
+
+        public static void AddFavoriteAlbum(MasterAlbumInfo.AlbumInfo album)
+        {
+            if (Instance.favoriteAlbums.Contains(album.AlbumName)) return;
+            Instance.favoriteAlbums.Add(album.AlbumName);
+            Save();
+        }
+
+        public static void RemoveFavoriteAlbum(MasterAlbumInfo.AlbumInfo album)
+        {
+            if (!Instance.favoriteAlbums.Contains(album.AlbumName)) return;
+            Instance.favoriteAlbums.Remove(album.AlbumName);
+            Save();
         }
     }
 }

@@ -106,6 +106,30 @@ namespace Kaede2.Editor.Inspectors
         }
     }
 
+    [CustomPropertyDrawer(typeof(LocalizedValue<float>))]
+    public class LocalizedFloatDrawer : LocalizedItemDrawer<float>
+    {
+        protected override float GetValueFromSerializedProperty(SerializedProperty property)
+        {
+            return property.floatValue;
+        }
+
+        protected override void SetValueToSerializedProperty(SerializedProperty property, float value)
+        {
+            property.floatValue = value;
+        }
+
+        protected override float DrawValueField(Rect position, GUIContent label, float value)
+        {
+            return EditorGUI.FloatField(position, label, value);
+        }
+
+        protected override float GetSinglePropertyHeight()
+        {
+            return EditorGUIUtility.singleLineHeight;
+        }
+    }
+
     [CustomPropertyDrawer(typeof(LocalizedString))]
     public class LocalizedStringDrawer : LocalizedItemDrawer<string>
     {

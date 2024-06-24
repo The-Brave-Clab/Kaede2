@@ -8,13 +8,13 @@ namespace Kaede2.UI
     [ExecuteAlways]
     public class RemapRGB : CustomUIMaterial
     {
-        [ColorUsage(false, false)]
+        [ColorUsage(true, false)]
         public Color targetColorRed = Color.red;
 
-        [ColorUsage(false, false)]
+        [ColorUsage(true, false)]
         public Color targetColorGreen = Color.green;
 
-        [ColorUsage(false, false)]
+        [ColorUsage(true, false)]
         public Color targetColorBlue = Color.blue;
 
         private Color lastTargetColorRed;
