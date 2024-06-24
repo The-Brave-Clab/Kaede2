@@ -43,6 +43,8 @@ namespace Kaede2.UI.Framework
 
         protected virtual void Update()
         {
+            if (!NeedUpdate()) return;
+
             var materialForRendering = graphic.materialForRendering;
             if (materialForRendering == null || materialForRendering.shader != customShader)
             {
@@ -55,6 +57,8 @@ namespace Kaede2.UI.Framework
             else
                 UpdateMaterial(material, materialForRendering);
         }
+
+        protected abstract bool NeedUpdate();
 
         protected abstract void UpdateMaterial(Material material, Material materialForRendering);
     }

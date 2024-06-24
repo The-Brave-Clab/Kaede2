@@ -1,5 +1,7 @@
+using System;
 using System.Linq;
 using DG.Tweening;
+using Kaede2.Input;
 using Kaede2.ScriptableObjects;
 using Kaede2.Utils;
 using UnityEngine;
@@ -101,6 +103,13 @@ namespace Kaede2
 
             visible = false;
             skipUpdate = true;
+
+            InputManager.onDeviceTypeChanged += OnInputDeviceChanged;
+        }
+
+        private void OnDestroy()
+        {
+            InputManager.onDeviceTypeChanged -= OnInputDeviceChanged;
         }
 
         private void Update()
@@ -125,6 +134,7 @@ namespace Kaede2
             Vector2 yMinMax = new(Mathf.Min(corners[0].y, corners[1].y), Mathf.Max(corners[0].y, corners[1].y));
 
             Visible = yMinMax.y > viewportYMinMax.x && yMinMax.x < viewportYMinMax.y;
+            UpdateSelectionVisibleStatus(currentSelected == this);
         }
 
         private void OnEnable()
@@ -175,6 +185,12 @@ namespace Kaede2
                 handle.Completed += _ => UnloadAction();
         }
 
+        public void UpdateSelectionVisibleStatus(bool selected)
+        {
+            selectedOutline.SetActive(InputManager.CurrentDeviceType != InputDeviceType.Touchscreen && selected);
+            favoriteIcon.gameObject.SetActive((InputManager.CurrentDeviceType == InputDeviceType.Touchscreen && visible) || selected);
+        }
+
         public void Select(bool makeSureFullyVisible)
         {
             if (currentSelected != null)
@@ -183,8 +199,7 @@ namespace Kaede2
             }
 
             currentSelected = this;
-            selectedOutline.SetActive(true);
-            favoriteIcon.gameObject.SetActive(true);
+            UpdateSelectionVisibleStatus(true);
             AlbumTitle.Text = AlbumInfo.ViewName;
 
             if (makeSureFullyVisible)
@@ -198,8 +213,12 @@ namespace Kaede2
                 currentSelected = null;
             }
 
-            selectedOutline.SetActive(false);
-            favoriteIcon.gameObject.SetActive(false);
+            UpdateSelectionVisibleStatus(false);
+        }
+
+        private void OnInputDeviceChanged(InputDeviceType type)
+        {
+            UpdateSelectionVisibleStatus(currentSelected == this);
         }
 
         public void OnPointerEnter(PointerEventData eventData)

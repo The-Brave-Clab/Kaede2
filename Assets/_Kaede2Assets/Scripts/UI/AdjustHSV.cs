@@ -40,10 +40,13 @@ namespace Kaede2.UI
             lastHSVAdjustment = new Vector3(Single.NaN, Single.NaN, Single.NaN);
         }
 
+        protected override bool NeedUpdate()
+        {
+            return adjustment.hsvAdjustment != lastHSVAdjustment;
+        }
+
         protected override void UpdateMaterial(Material material, Material materialForRendering)
         {
-            if (adjustment.hsvAdjustment == lastHSVAdjustment) return;
-
             var targetColor = CalculateTargetColor(adjustment.referenceColor, adjustment.hsvAdjustment);
             material.SetColor(ReferenceColor, adjustment.referenceColor);
             material.SetColor(TargetColor, targetColor);

@@ -51,7 +51,8 @@ namespace Kaede2
                 albumItem.transform.SetSiblingIndex(order);
                 albumItem.AlbumInfo = album;
                 albumItem.Scroll = scroll;
-                if (order == 0) albumItem.Select(false);
+                if (order == 0) albumItem.Select(true);
+                albumItem.UpdateSelectionVisibleStatus(order == 0);
                 albumItems.Add(albumItem);
                 ++order;
             }

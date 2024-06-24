@@ -40,13 +40,15 @@ namespace Kaede2.UI
             lastTargetColorBlue = targetColorBlue;
         }
 
+        protected override bool NeedUpdate()
+        {
+            return targetColorRed != lastTargetColorRed ||
+                   targetColorGreen != lastTargetColorGreen ||
+                   targetColorBlue != lastTargetColorBlue;
+        }
+
         protected override void UpdateMaterial(Material material, Material materialForRendering)
         {
-            if (targetColorRed == lastTargetColorRed &&
-                targetColorGreen == lastTargetColorGreen &&
-                targetColorBlue == lastTargetColorBlue)
-                return;
-
             material.SetColor(TargetColorR, targetColorRed);
             materialForRendering.SetColor(TargetColorR, targetColorRed);
             lastTargetColorRed = targetColorRed;
