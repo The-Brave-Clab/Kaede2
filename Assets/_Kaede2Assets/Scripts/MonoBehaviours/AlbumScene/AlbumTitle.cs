@@ -19,6 +19,19 @@ namespace Kaede2
             }
         }
 
+        public static TMP_FontAsset Font
+        {
+            get => instance == null ? null : instance.text.font;
+            set
+            {
+                if (instance == null) return;
+                if (instance.text.font == value) return;
+
+                instance.text.font = value;
+                instance.text.UpdateFontAsset();
+            }
+        }
+
         private void Awake()
         {
             instance = this;

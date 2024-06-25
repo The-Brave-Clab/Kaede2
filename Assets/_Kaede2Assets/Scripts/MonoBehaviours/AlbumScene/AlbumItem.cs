@@ -1,9 +1,8 @@
-using System;
 using System.Linq;
-using DG.Tweening;
 using Kaede2.Input;
 using Kaede2.ScriptableObjects;
 using Kaede2.Utils;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.EventSystems;
@@ -23,6 +22,9 @@ namespace Kaede2
         [SerializeField]
         private FavoriteIcon favoriteIcon;
 
+        [SerializeField]
+        private TMP_FontAsset titleFont;
+
         private AsyncOperationHandle<Sprite> handle;
 
         public MasterAlbumInfo.AlbumInfo AlbumInfo { get; set; }
@@ -39,8 +41,6 @@ namespace Kaede2
         private RectTransform rt;
         private Vector3[] corners;
 
-        public RectTransform RectTransform => rt;
-        public RectTransform Viewport => viewportRT;
         public Vector3[] WorldCorners => corners;
         public static Vector3[] ViewportWorldCorners => viewportCorners;
 
@@ -201,6 +201,7 @@ namespace Kaede2
             currentSelected = this;
             UpdateSelectionVisibleStatus(true);
             AlbumTitle.Text = AlbumInfo.ViewName;
+            AlbumTitle.Font = titleFont;
 
             if (makeSureFullyVisible)
                 Scroll.MoveItemIntoViewport(rt, 0.1f);

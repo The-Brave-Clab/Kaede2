@@ -36,7 +36,7 @@ namespace Kaede2.Input
                     ""id"": ""718943ec-b1d4-4a48-b7fa-1e8c10de4a3d"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press(behavior=1)"",
                     ""initialStateCheck"": false
                 }
             ],
