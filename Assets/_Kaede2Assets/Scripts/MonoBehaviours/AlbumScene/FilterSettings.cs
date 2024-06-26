@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Kaede2.Scenario.Framework;
@@ -34,7 +35,12 @@ namespace Kaede2
                 .Cast<CharacterId>()
                 .ToDictionary(id => id, id => id == CharacterId.Unknown);
             favoriteOnly = false;
+        }
 
+        private IEnumerator Start()
+        {
+            yield return null;
+            // delay a frame to ensure the layout is updated
             gameObject.SetActive(false);
         }
 

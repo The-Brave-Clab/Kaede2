@@ -62,6 +62,8 @@ namespace Kaede2
 
         private IEnumerator Start()
         {
+            yield return null;
+            scroll.verticalNormalizedPosition = 1;
             yield return SceneTransition.Fade(0);
         }
 
