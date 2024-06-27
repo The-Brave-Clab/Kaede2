@@ -820,9 +820,7 @@ namespace Kaede2
 
                 float sizeScale = Mathf.Lerp(1.0f, 0.5f, progress);
 
-                Vector2 posDiff = primaryPointerStatus.Start;
-
-                current.RectTransform.anchoredPosition = primaryPointerStatus.TotalDelta + posDiff * (1 - sizeScale);
+                current.RectTransform.anchoredPosition = primaryPointerStatus.Current - primaryPointerStatus.Start * sizeScale;
 
                 var width = viewportWidth * sizeScale;
                 var height = viewportHeight * sizeScale;
