@@ -1,14 +1,15 @@
 #if UNITY_WEBGL && !UNITY_EDITOR
 
+using System.Globalization;
+using System.Linq;
 using System.Runtime.InteropServices;
+using Kaede2.Localization;
 using Kaede2.Scenario;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
 using Kaede2.Web;
 using Kaede2.Utils;
 using UnityEngine;
-using UnityEngine.Localization;
-using UnityEngine.Localization.Settings;
 using UnityEngine.SceneManagement;
 
 namespace Kaede2
@@ -72,8 +73,8 @@ namespace Kaede2
 
             if (scenarioName == "") return;
             WebBackground.UpdateStatus(WebBackground.Status.ReadyToPlay);
-            Locale locale = LocalizationSettings.AvailableLocales.Locales
-                .Find(l => l.Identifier.CultureInfo.TwoLetterISOLanguageName == languageCode);
+            CultureInfo locale = LocalizationManager.AllLocales
+                .FirstOrDefault(l => l.TwoLetterISOLanguageName == languageCode) ?? LocalizationManager.AllLocales[0];
             CoroutineProxy.Start(PlayerScenarioModule.Play(scenarioName, locale, LoadSceneMode.Single, null, null));
         }
 

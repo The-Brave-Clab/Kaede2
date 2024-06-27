@@ -20,7 +20,9 @@ namespace Kaede2
         {
             yesButton.onClick.AddListener(() =>
             {
+#if !UNITY_WEBGL || UNITY_EDITOR
                 Caching.ClearCache();
+#endif
 #if UNITY_EDITOR
                 UnityEditor.EditorApplication.ExitPlaymode();
 #else

@@ -1,3 +1,5 @@
+#if !UNITY_WEBGL || UNITY_EDITOR
+
 using System.Linq;
 using Kaede2.Utils;
 using TMPro;
@@ -32,3 +34,5 @@ namespace Kaede2
         }
     }
 }
+
+#endif
