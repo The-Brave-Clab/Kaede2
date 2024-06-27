@@ -3,7 +3,6 @@ using DG.Tweening;
 using Kaede2.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Kaede2
@@ -817,16 +816,20 @@ namespace Kaede2
                 float viewportWidth = screenViewport.rect.width;
                 float viewportHeight = screenViewport.rect.height;
 
-                float progress = Mathf.Abs(primaryPointerStatus.TotalDelta.y) / viewportHeight * 2;
+                float progress = Mathf.Clamp01(Mathf.Abs(primaryPointerStatus.TotalDelta.y) / viewportHeight * 2);
 
-                current.RectTransform.anchoredPosition = primaryPointerStatus.TotalDelta;
+                float sizeScale = Mathf.Lerp(1.0f, 0.5f, progress);
 
-                var width = Mathf.Lerp(viewportWidth, viewportWidth * 0.8f, progress);
-                var height = Mathf.Lerp(viewportHeight, viewportHeight * 0.8f, progress);
+                Vector2 posDiff = primaryPointerStatus.Start;
+
+                current.RectTransform.anchoredPosition = primaryPointerStatus.TotalDelta + posDiff * (1 - sizeScale);
+
+                var width = viewportWidth * sizeScale;
+                var height = viewportHeight * sizeScale;
 
                 current.RectTransform.sizeDelta = new Vector2(width, height);
                 var color = background.color;
-                color.a = 1 - Mathf.Clamp01(Mathf.Abs(progress));
+                color.a = 1 - Mathf.Clamp01(Mathf.Pow(Mathf.Abs(progress), 2.2f));
                 background.color = color;
             }
             else if (pointerInputType == PointerInputType.Zooming)

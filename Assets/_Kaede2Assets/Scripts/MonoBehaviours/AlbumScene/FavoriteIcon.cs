@@ -68,7 +68,7 @@ namespace Kaede2
         private (Color center, Color outline) GetColor()
         {
             bool isFavorite = item.IsFavorite;
-            var c = isFavorite ? color : new Color(0, 0, 0, 0);
+            var c = isFavorite ? color : Color.white;
             var o = isFavorite ? Color.white : Color.black;
             return (c, o);
         }

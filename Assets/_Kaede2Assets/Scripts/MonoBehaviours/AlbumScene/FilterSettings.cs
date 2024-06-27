@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Kaede2.Scenario.Framework;
 using Kaede2.ScriptableObjects;
-using Kaede2.UI.Framework;
 using UnityEngine;
 
 namespace Kaede2
