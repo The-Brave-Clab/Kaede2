@@ -2,7 +2,7 @@
 // otherwise it will just be "Build"
 // baseUrl is provided in the outer scope in production environments
 // if baseUrl is not provided, it will be set to the current directory for easier local development
-function buildUnityConfig(_baseUrl) {
+window.buildUnityConfig = (_baseUrl) => {
   let baseUrl = typeof _baseUrl === "string" ? _baseUrl : "";
   let buildUrl = baseUrl + (baseUrl.length > 0 ? "/" : "") + "Build";
   let streamingAssetsUrl = baseUrl + (baseUrl.length > 0 ? "/" : "") + "StreamingAssets";
