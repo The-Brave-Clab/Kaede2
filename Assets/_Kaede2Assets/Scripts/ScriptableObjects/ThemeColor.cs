@@ -54,6 +54,18 @@ namespace Kaede2.ScriptableObjects
             [ColorUsage(false, false)]
             private Color arrowShadow;
             public Color ArrowShadow => NonTransparent(arrowShadow);
+            [SerializeField]
+            [ColorUsage(false, false)]
+            private Color arrowAlternateSurface;
+            public Color ArrowAlternateSurface => NonTransparent(arrowAlternateSurface);
+            [SerializeField]
+            [ColorUsage(false, false)]
+            private Color arrowAlternateShadow;
+            public Color ArrowAlternateShadow => NonTransparent(arrowAlternateShadow);
+            [SerializeField]
+            [ColorUsage(false, false)]
+            private Color slideBar;
+            public Color SlideBar => NonTransparent(slideBar);
 
             [Header("Interface Common")]
             [SerializeField]
@@ -94,6 +106,11 @@ namespace Kaede2.ScriptableObjects
             [ColorUsage(true, false)]
             private Color favGradientTop;
             public Color FavGradientTop => favGradientTop;
+
+            [SerializeField]
+            [ColorUsage(false, false)]
+            private Color selectionOutline;
+            public Color SelectionOutline => NonTransparent(selectionOutline);
         }
 
         [SerializeField]
