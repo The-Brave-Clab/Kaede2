@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4937623006036916034}
   - component: {fileID: 5077254557855305682}
   - component: {fileID: 8884640734929590741}
+  - component: {fileID: 4002730048460375673}
   m_Layer: 5
   m_Name: SelectedOutline
   m_TagString: Untagged
@@ -75,3 +76,16 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 0.1
+--- !u!114 &4002730048460375673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8476256209780831753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6258812b6148f8a0eeb73c0d5743d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 8884640734929590741}
