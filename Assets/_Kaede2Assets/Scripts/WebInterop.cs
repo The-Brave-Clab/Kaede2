@@ -59,6 +59,7 @@ namespace Kaede2
         private void Start()
         {
             RegisterWebInteropGameObject(gameObject.name);
+            RegisterInterops();
             DontDestroyOnLoad(gameObject);
 
             OnScenarioListLoaded(JsonUtility.ToJson(MasterScenarioInfo.Instance));

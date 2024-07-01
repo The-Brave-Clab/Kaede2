@@ -37,12 +37,12 @@ namespace Kaede2.Web
 
         private IEnumerator Start()
         {
-            WebInterop.EnsureInstance();
-
             CoroutineGroup group = new CoroutineGroup();
             group.Add(ShowLogos(), this);
             group.Add(GlobalInitializer.Initialize(), this);
             yield return group.WaitForAll();
+
+            WebInterop.EnsureInstance();
         }
 
         private IEnumerator ShowLogos()

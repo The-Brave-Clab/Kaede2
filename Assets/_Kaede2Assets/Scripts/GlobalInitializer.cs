@@ -70,10 +70,6 @@ namespace Kaede2
             }
             typeof(GlobalInitializer).Log("Addressables initialized");
 
-#if UNITY_WEBGL && !UNITY_EDITOR
-            WebInterop.RegisterInterops();
-#endif
-
             typeof(GlobalInitializer).Log("Initialization complete");
 
             CurrentStatus = Status.Done;
