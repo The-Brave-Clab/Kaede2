@@ -977,6 +977,33 @@ namespace Kaede2.Input
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Next"",
+                    ""type"": ""Button"",
+                    ""id"": ""18a9d741-d07b-462e-b79f-14380d18037b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Previous"",
+                    ""type"": ""Button"",
+                    ""id"": ""6b4092c8-817b-45c4-a1fd-3bf18f38bc85"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleUI"",
+                    ""type"": ""Button"",
+                    ""id"": ""7dae4cca-e323-455a-877e-a9fc34da5e75"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1045,6 +1072,116 @@ namespace Kaede2.Input
                     ""action"": ""SecondaryPointerContact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f468c7bb-ac51-4541-93d3-1446cca44a4f"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Next"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0b46ea5c-746a-4294-9333-580a3ceb8932"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Next"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e94235e2-f469-4b85-a4c8-e19006781685"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad;GamepadNintendoStyle"",
+                    ""action"": ""Next"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5fefa4bf-d94f-4d47-b75e-461bd7752751"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad;GamepadNintendoStyle"",
+                    ""action"": ""Next"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""01f651fd-9b37-468e-b4f0-ed61bbba07fd"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Previous"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eac2c0f8-720d-4a73-8255-e82629a42240"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Previous"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e76e7ded-7ab1-4de3-ae15-dc8d72b739ae"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad;GamepadNintendoStyle"",
+                    ""action"": ""Previous"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""80845b1a-0166-4072-a1a3-ea32edd21e08"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad;GamepadNintendoStyle"",
+                    ""action"": ""Previous"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7513b79a-075c-4865-9543-22d1fbf4ab75"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Tap"",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""ToggleUI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""938a5bbe-8377-4f4a-9c5d-8d35090a16ce"",
+                    ""path"": ""<Touchscreen>/primaryTouch/tap"",
+                    ""interactions"": ""Tap"",
+                    ""processors"": """",
+                    ""groups"": "";Touchscreen"",
+                    ""action"": ""ToggleUI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1108,6 +1245,9 @@ namespace Kaede2.Input
             m_AlbumView_SecondaryPointer = m_AlbumView.FindAction("SecondaryPointer", throwIfNotFound: true);
             m_AlbumView_PrimaryPointerContact = m_AlbumView.FindAction("PrimaryPointerContact", throwIfNotFound: true);
             m_AlbumView_SecondaryPointerContact = m_AlbumView.FindAction("SecondaryPointerContact", throwIfNotFound: true);
+            m_AlbumView_Next = m_AlbumView.FindAction("Next", throwIfNotFound: true);
+            m_AlbumView_Previous = m_AlbumView.FindAction("Previous", throwIfNotFound: true);
+            m_AlbumView_ToggleUI = m_AlbumView.FindAction("ToggleUI", throwIfNotFound: true);
         }
 
         ~@Kaede2InputAction()
@@ -1510,6 +1650,9 @@ namespace Kaede2.Input
         private readonly InputAction m_AlbumView_SecondaryPointer;
         private readonly InputAction m_AlbumView_PrimaryPointerContact;
         private readonly InputAction m_AlbumView_SecondaryPointerContact;
+        private readonly InputAction m_AlbumView_Next;
+        private readonly InputAction m_AlbumView_Previous;
+        private readonly InputAction m_AlbumView_ToggleUI;
         public struct AlbumViewActions
         {
             private @Kaede2InputAction m_Wrapper;
@@ -1518,6 +1661,9 @@ namespace Kaede2.Input
             public InputAction @SecondaryPointer => m_Wrapper.m_AlbumView_SecondaryPointer;
             public InputAction @PrimaryPointerContact => m_Wrapper.m_AlbumView_PrimaryPointerContact;
             public InputAction @SecondaryPointerContact => m_Wrapper.m_AlbumView_SecondaryPointerContact;
+            public InputAction @Next => m_Wrapper.m_AlbumView_Next;
+            public InputAction @Previous => m_Wrapper.m_AlbumView_Previous;
+            public InputAction @ToggleUI => m_Wrapper.m_AlbumView_ToggleUI;
             public InputActionMap Get() { return m_Wrapper.m_AlbumView; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1539,6 +1685,15 @@ namespace Kaede2.Input
                 @SecondaryPointerContact.started += instance.OnSecondaryPointerContact;
                 @SecondaryPointerContact.performed += instance.OnSecondaryPointerContact;
                 @SecondaryPointerContact.canceled += instance.OnSecondaryPointerContact;
+                @Next.started += instance.OnNext;
+                @Next.performed += instance.OnNext;
+                @Next.canceled += instance.OnNext;
+                @Previous.started += instance.OnPrevious;
+                @Previous.performed += instance.OnPrevious;
+                @Previous.canceled += instance.OnPrevious;
+                @ToggleUI.started += instance.OnToggleUI;
+                @ToggleUI.performed += instance.OnToggleUI;
+                @ToggleUI.canceled += instance.OnToggleUI;
             }
 
             private void UnregisterCallbacks(IAlbumViewActions instance)
@@ -1555,6 +1710,15 @@ namespace Kaede2.Input
                 @SecondaryPointerContact.started -= instance.OnSecondaryPointerContact;
                 @SecondaryPointerContact.performed -= instance.OnSecondaryPointerContact;
                 @SecondaryPointerContact.canceled -= instance.OnSecondaryPointerContact;
+                @Next.started -= instance.OnNext;
+                @Next.performed -= instance.OnNext;
+                @Next.canceled -= instance.OnNext;
+                @Previous.started -= instance.OnPrevious;
+                @Previous.performed -= instance.OnPrevious;
+                @Previous.canceled -= instance.OnPrevious;
+                @ToggleUI.started -= instance.OnToggleUI;
+                @ToggleUI.performed -= instance.OnToggleUI;
+                @ToggleUI.canceled -= instance.OnToggleUI;
             }
 
             public void RemoveCallbacks(IAlbumViewActions instance)
@@ -1648,6 +1812,9 @@ namespace Kaede2.Input
             void OnSecondaryPointer(InputAction.CallbackContext context);
             void OnPrimaryPointerContact(InputAction.CallbackContext context);
             void OnSecondaryPointerContact(InputAction.CallbackContext context);
+            void OnNext(InputAction.CallbackContext context);
+            void OnPrevious(InputAction.CallbackContext context);
+            void OnToggleUI(InputAction.CallbackContext context);
         }
     }
 }

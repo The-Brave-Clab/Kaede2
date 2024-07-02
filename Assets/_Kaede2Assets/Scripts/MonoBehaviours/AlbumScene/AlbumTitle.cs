@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -5,41 +7,45 @@ namespace Kaede2
 {
     public class AlbumTitle : MonoBehaviour
     {
-        private static AlbumTitle instance;
+        private static List<AlbumTitle> instances;
 
         [SerializeField]
         private TextMeshProUGUI text;
 
         public static string Text
         {
-            get => instance == null ? "" : instance.text.text;
+            get => (instances == null || instances.Count == 0) ? "" : instances[0].text.text;
             set
             {
-                if (instance != null) instance.text.text = value;
+                if (instances == null) return;
+                foreach (var instance in instances)
+                    instance.text.text = value;
             }
         }
 
         public static TMP_FontAsset Font
         {
-            get => instance == null ? null : instance.text.font;
+            get => (instances == null || instances.Count == 0) ? null : instances[0].text.font;
             set
             {
-                if (instance == null) return;
-                if (instance.text.font == value) return;
-
-                instance.text.font = value;
-                instance.text.UpdateFontAsset();
+                if (instances == null) return;
+                foreach (var instance in instances.Where(instance => instance.text.font != value))
+                {
+                    instance.text.font = value;
+                    instance.text.UpdateFontAsset();
+                }
             }
         }
 
         private void Awake()
         {
-            instance = this;
+            instances ??= new();
+            instances.Add(this);
         }
 
         private void OnDestroy()
         {
-            instance = null;
+            instances.Remove(this);
         }
     }
 }

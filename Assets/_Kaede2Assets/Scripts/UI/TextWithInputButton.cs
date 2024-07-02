@@ -20,8 +20,12 @@ namespace Kaede2.UI
         [Tooltip("The text to be displayed. Use %Input/<ActionMapName>/<ActionName>% to display input button icon.")]
         private string text;
 
+        [SerializeField]
+        private bool primaryOnly;
+
         private string lastText;
         private Color lastColor;
+        private bool lastPrimaryOnly;
         private Action<InputDeviceType> onDeviceTypeChanged;
 
         public string Text
@@ -41,6 +45,7 @@ namespace Kaede2.UI
         {
             lastText = "";
             lastColor = Color.clear;
+            lastPrimaryOnly = primaryOnly;
             onDeviceTypeChanged = type => RefreshText();
             InputManager.onDeviceTypeChanged += onDeviceTypeChanged;
         }
@@ -54,9 +59,10 @@ namespace Kaede2.UI
 
             Color color = textComponent.color;
 
-            if (text == lastText && color == lastColor) return;
+            if (text == lastText && color == lastColor && primaryOnly == lastPrimaryOnly) return;
             lastText = text;
             lastColor = color;
+            lastPrimaryOnly = primaryOnly;
 
             RefreshText();
         }
@@ -160,7 +166,10 @@ namespace Kaede2.UI
                     };
 
                     if (spriteId.SpriteName != "UNKNOWN")
+                    {
                         spriteIds.Add(spriteId);
+                        if (primaryOnly) break;
+                    }
                 }
 
                 var spriteSheetNames = spriteIds.Select(id => $"<sprite=\"{id.SpriteSheetName}\" name=\"{id.SpriteName}\" color=#{ColorUtility.ToHtmlStringRGB(color)}>");

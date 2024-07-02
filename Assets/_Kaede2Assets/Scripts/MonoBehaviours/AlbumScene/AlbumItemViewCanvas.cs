@@ -33,6 +33,9 @@ namespace Kaede2
         [SerializeField]
         private float spacing = 50;
 
+        [SerializeField]
+        private RectTransform topContainer;
+
         public static bool Enabled
         {
             get => instance != null && instance.gameObject.activeSelf;
@@ -54,6 +57,8 @@ namespace Kaede2
 
         private Canvas canvas;
 
+        private bool uiStatus;
+
         private Coroutine coroutine;
         private Sequence sequence;
 
@@ -64,12 +69,15 @@ namespace Kaede2
             canvas = GetComponent<Canvas>();
             gameObject.SetActive(false);
 
+            uiStatus = true;
+
             ResetDragStatus();
 
             InputManager.InputAction.AlbumView.PrimaryPointerContact.started += StartPointerHandler;
             InputManager.InputAction.AlbumView.PrimaryPointerContact.canceled += EndPointerHandler;
             InputManager.InputAction.AlbumView.SecondaryPointerContact.started += StartPointerHandler;
             InputManager.InputAction.AlbumView.SecondaryPointerContact.canceled += EndPointerHandler;
+            InputManager.InputAction.AlbumView.ToggleUI.performed += ToggleUI;
         }
 
         private void OnDestroy()
@@ -82,6 +90,7 @@ namespace Kaede2
                 InputManager.InputAction.AlbumView.PrimaryPointerContact.canceled -= EndPointerHandler;
                 InputManager.InputAction.AlbumView.SecondaryPointerContact.started -= StartPointerHandler;
                 InputManager.InputAction.AlbumView.SecondaryPointerContact.canceled -= EndPointerHandler;
+                InputManager.InputAction.AlbumView.ToggleUI.performed -= ToggleUI;
             }
         }
 
@@ -211,6 +220,9 @@ namespace Kaede2
                 var maskStartSize = (maskStartLocalTopRight - maskStartLocalPos) * 2;
                 var maskTargetSize = screenViewport.rect.size;
 
+                var topContainerStartPosY = topContainer.rect.height;
+                var topContainerTargetPosY = 0.0f;
+
                 sequence = DOTween.Sequence();
                 sequence.Append(DOVirtual.Float(0, 1, 0.2f, value =>
                 {
@@ -230,9 +242,15 @@ namespace Kaede2
                     viewItem.RectTransform.sizeDelta = localSize;
 
                     background.color = Color.Lerp(startBackgroundColor, targetBackgroundColor, value);
+
+                    var topContainerPos = topContainer.anchoredPosition;
+                    topContainerPos.y = Mathf.Lerp(topContainerStartPosY, topContainerTargetPosY, value);
+                    topContainer.anchoredPosition = topContainerPos;
                 }));
                 yield return sequence.WaitForCompletion();
                 Activate(viewItem);
+
+                uiStatus = true;
 
                 sequence = null;
                 coroutine = null;
@@ -275,6 +293,9 @@ namespace Kaede2
                 var targetBackgroundColor = backgroundColor;
                 targetBackgroundColor.a = 0;
 
+                var topContainerStartPosY = topContainer.anchoredPosition.y;
+                var topContainerTargetPosY = topContainer.rect.height;
+
                 sequence = DOTween.Sequence();
                 sequence.Append(DOVirtual.Float(0, 1, 0.2f, value =>
                 {
@@ -294,6 +315,10 @@ namespace Kaede2
                     current.RectTransform.sizeDelta = localSize;
 
                     background.color = Color.Lerp(startBackgroundColor, targetBackgroundColor, value);
+
+                    var topContainerPos = topContainer.anchoredPosition;
+                    topContainerPos.y = Mathf.Lerp(topContainerStartPosY, topContainerTargetPosY, value);
+                    topContainer.anchoredPosition = topContainerPos;
                 }));
 
                 yield return sequence.WaitForCompletion();
@@ -487,6 +512,9 @@ namespace Kaede2
                 var targetBackgroundColor = backgroundColor;
                 targetBackgroundColor.a = 1;
 
+                var topContainerStartPosY = topContainer.anchoredPosition.y;
+                var topContainerTargetPosY = uiStatus ? 0.0f : topContainer.rect.height;
+
                 sequence = DOTween.Sequence();
                 sequence.Append(DOVirtual.Float(0, 1, 0.2f, value =>
                 {
@@ -506,6 +534,10 @@ namespace Kaede2
                     }
 
                     background.color = Color.Lerp(startBackgroundColor, targetBackgroundColor, value);
+
+                    var topContainerPos = topContainer.anchoredPosition;
+                    topContainerPos.y = Mathf.Lerp(topContainerStartPosY, topContainerTargetPosY, value);
+                    topContainer.anchoredPosition = topContainerPos;
                 }));
 
                 yield return sequence.WaitForCompletion();
@@ -764,6 +796,34 @@ namespace Kaede2
             }
         }
 
+        private void ToggleUI(InputAction.CallbackContext ctx)
+        {
+            ClearCoroutine();
+
+            uiStatus = !uiStatus;
+
+            IEnumerator ToggleUICoroutine()
+            {
+                var topContainerStartPosY = topContainer.anchoredPosition.y;
+                var topContainerTargetPosY = uiStatus ? 0.0f : topContainer.rect.height;
+
+                sequence = DOTween.Sequence();
+                sequence.Append(DOVirtual.Float(0, 1, 0.2f, value =>
+                {
+                    var topContainerPos = topContainer.anchoredPosition;
+                    topContainerPos.y = Mathf.Lerp(topContainerStartPosY, topContainerTargetPosY, value);
+                    topContainer.anchoredPosition = topContainerPos;
+                }));
+
+                yield return sequence.WaitForCompletion();
+
+                sequence = null;
+                coroutine = null;
+            }
+
+            coroutine = StartCoroutine(ToggleUICoroutine());
+        }
+
         private void Update()
         {
             bool shouldUpdate = false;
@@ -829,6 +889,10 @@ namespace Kaede2
                 var color = background.color;
                 color.a = 1 - Mathf.Clamp01(Mathf.Pow(Mathf.Abs(progress), 2.2f));
                 background.color = color;
+
+                var topContainerPos = topContainer.anchoredPosition;
+                topContainerPos.y = Mathf.Lerp(uiStatus ? 0 : topContainer.rect.height, topContainer.rect.height, progress);
+                topContainer.anchoredPosition = topContainerPos;
             }
             else if (pointerInputType == PointerInputType.Zooming)
             {
