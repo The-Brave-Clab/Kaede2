@@ -1,6 +1,7 @@
 using System.Collections;
 using DG.Tweening;
 using Kaede2.Input;
+using Kaede2.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -171,6 +172,8 @@ namespace Kaede2
             current.Item.Select(true);
 
             InputManager.InputAction.AlbumView.Enable();
+
+            this.Log($"Viewing {current.Item.AlbumInfo.AlbumName}: {current.Item.AlbumInfo.ViewName}");
         }
 
         private void ClearCoroutine()
