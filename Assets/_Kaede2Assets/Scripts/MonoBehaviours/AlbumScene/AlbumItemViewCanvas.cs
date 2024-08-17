@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using Kaede2.Input;
@@ -11,6 +12,7 @@ namespace Kaede2
     public class AlbumItemViewCanvas : MonoBehaviour
     {
         private static AlbumItemViewCanvas instance;
+        public static AlbumItemViewCanvas Instance => instance;
 
         [SerializeField]
         private AlbumViewController controller;
@@ -36,6 +38,9 @@ namespace Kaede2
 
         [SerializeField]
         private RectTransform topContainer;
+
+        [SerializeField]
+        private RectTransform bottomContainer;
 
         public static bool Enabled
         {
@@ -79,6 +84,11 @@ namespace Kaede2
             InputManager.InputAction.AlbumView.SecondaryPointerContact.started += StartPointerHandler;
             InputManager.InputAction.AlbumView.SecondaryPointerContact.canceled += EndPointerHandler;
             InputManager.InputAction.AlbumView.ToggleUI.performed += ToggleUI;
+            InputManager.InputAction.AlbumView.Next.performed += Next;
+            InputManager.InputAction.AlbumView.Previous.performed += Previous;
+            InputManager.InputAction.AlbumView.Back.performed += Back;
+
+            InputManager.InputAction.AlbumView.Save.Disable();
         }
 
         private void OnDestroy()
@@ -92,6 +102,11 @@ namespace Kaede2
                 InputManager.InputAction.AlbumView.SecondaryPointerContact.started -= StartPointerHandler;
                 InputManager.InputAction.AlbumView.SecondaryPointerContact.canceled -= EndPointerHandler;
                 InputManager.InputAction.AlbumView.ToggleUI.performed -= ToggleUI;
+                InputManager.InputAction.AlbumView.Next.performed -= Next;
+                InputManager.InputAction.AlbumView.Previous.performed -= Previous;
+                InputManager.InputAction.AlbumView.Back.performed -= Back;
+
+                InputManager.InputAction.AlbumView.Save.Disable();
             }
         }
 
@@ -226,6 +241,9 @@ namespace Kaede2
                 var topContainerStartPosY = topContainer.rect.height;
                 var topContainerTargetPosY = 0.0f;
 
+                var bottomContainerStartPosY = -bottomContainer.rect.height;
+                var bottomContainerTargetPosY = 0.0f;
+
                 sequence = DOTween.Sequence();
                 sequence.Append(DOVirtual.Float(0, 1, 0.2f, value =>
                 {
@@ -249,6 +267,10 @@ namespace Kaede2
                     var topContainerPos = topContainer.anchoredPosition;
                     topContainerPos.y = Mathf.Lerp(topContainerStartPosY, topContainerTargetPosY, value);
                     topContainer.anchoredPosition = topContainerPos;
+
+                    var bottomContainerPos = bottomContainer.anchoredPosition;
+                    bottomContainerPos.y = Mathf.Lerp(bottomContainerStartPosY, bottomContainerTargetPosY, value);
+                    bottomContainer.anchoredPosition = bottomContainerPos;
                 }));
                 yield return sequence.WaitForCompletion();
                 Activate(viewItem);
@@ -299,6 +321,9 @@ namespace Kaede2
                 var topContainerStartPosY = topContainer.anchoredPosition.y;
                 var topContainerTargetPosY = topContainer.rect.height;
 
+                var bottomContainerStartPosY = bottomContainer.anchoredPosition.y;
+                var bottomContainerTargetPosY = -bottomContainer.rect.height;
+
                 sequence = DOTween.Sequence();
                 sequence.Append(DOVirtual.Float(0, 1, 0.2f, value =>
                 {
@@ -322,6 +347,10 @@ namespace Kaede2
                     var topContainerPos = topContainer.anchoredPosition;
                     topContainerPos.y = Mathf.Lerp(topContainerStartPosY, topContainerTargetPosY, value);
                     topContainer.anchoredPosition = topContainerPos;
+
+                    var bottomContainerPos = bottomContainer.anchoredPosition;
+                    bottomContainerPos.y = Mathf.Lerp(bottomContainerStartPosY, bottomContainerTargetPosY, value);
+                    bottomContainer.anchoredPosition = bottomContainerPos;
                 }));
 
                 yield return sequence.WaitForCompletion();
@@ -341,7 +370,7 @@ namespace Kaede2
             coroutine = StartCoroutine(ExitCoroutine());
         }
 
-        private void SetNext(bool nextOrPrevious)
+        public void SetNext(bool nextOrPrevious)
         {
             ClearCoroutine();
 
@@ -518,6 +547,9 @@ namespace Kaede2
                 var topContainerStartPosY = topContainer.anchoredPosition.y;
                 var topContainerTargetPosY = uiStatus ? 0.0f : topContainer.rect.height;
 
+                var bottomContainerStartPosY = bottomContainer.anchoredPosition.y;
+                var bottomContainerTargetPosY = uiStatus ? 0.0f : -bottomContainer.rect.height;
+
                 sequence = DOTween.Sequence();
                 sequence.Append(DOVirtual.Float(0, 1, 0.2f, value =>
                 {
@@ -541,6 +573,10 @@ namespace Kaede2
                     var topContainerPos = topContainer.anchoredPosition;
                     topContainerPos.y = Mathf.Lerp(topContainerStartPosY, topContainerTargetPosY, value);
                     topContainer.anchoredPosition = topContainerPos;
+
+                    var bottomContainerPos = bottomContainer.anchoredPosition;
+                    bottomContainerPos.y = Mathf.Lerp(bottomContainerStartPosY, bottomContainerTargetPosY, value);
+                    bottomContainer.anchoredPosition = bottomContainerPos;
                 }));
 
                 yield return sequence.WaitForCompletion();
@@ -799,16 +835,23 @@ namespace Kaede2
             }
         }
 
-        private void ToggleUI(InputAction.CallbackContext ctx)
+        public void ToggleUI()
         {
             ClearCoroutine();
 
             uiStatus = !uiStatus;
+            if (uiStatus)
+                InputManager.InputAction.AlbumView.Save.Enable();
+            else
+                InputManager.InputAction.AlbumView.Save.Disable();
 
             IEnumerator ToggleUICoroutine()
             {
                 var topContainerStartPosY = topContainer.anchoredPosition.y;
                 var topContainerTargetPosY = uiStatus ? 0.0f : topContainer.rect.height;
+
+                var bottomContainerStartPosY = bottomContainer.anchoredPosition.y;
+                var bottomContainerTargetPosY = uiStatus ? 0.0f : -bottomContainer.rect.height;
 
                 sequence = DOTween.Sequence();
                 sequence.Append(DOVirtual.Float(0, 1, 0.2f, value =>
@@ -816,6 +859,10 @@ namespace Kaede2
                     var topContainerPos = topContainer.anchoredPosition;
                     topContainerPos.y = Mathf.Lerp(topContainerStartPosY, topContainerTargetPosY, value);
                     topContainer.anchoredPosition = topContainerPos;
+
+                    var bottomContainerPos = bottomContainer.anchoredPosition;
+                    bottomContainerPos.y = Mathf.Lerp(bottomContainerStartPosY, bottomContainerTargetPosY, value);
+                    bottomContainer.anchoredPosition = bottomContainerPos;
                 }));
 
                 yield return sequence.WaitForCompletion();
@@ -896,6 +943,10 @@ namespace Kaede2
                 var topContainerPos = topContainer.anchoredPosition;
                 topContainerPos.y = Mathf.Lerp(uiStatus ? 0 : topContainer.rect.height, topContainer.rect.height, progress);
                 topContainer.anchoredPosition = topContainerPos;
+
+                var bottomContainerPos = bottomContainer.anchoredPosition;
+                bottomContainerPos.y = Mathf.Lerp(uiStatus ? 0 : -bottomContainer.rect.height, -bottomContainer.rect.height, progress);
+                bottomContainer.anchoredPosition = bottomContainerPos;
             }
             else if (pointerInputType == PointerInputType.Zooming)
             {
@@ -918,5 +969,29 @@ namespace Kaede2
             }
         }
 
+        public static void SaveCurrent()
+        {
+            SaveTexture.Save(instance.current.Item.AlbumInfo.ViewName, instance.current.Image.texture);
+        }
+
+        public void ToggleUI(InputAction.CallbackContext ctx)
+        {
+            ToggleUI();
+        }
+
+        private void Next(InputAction.CallbackContext ctx)
+        {
+            SetNext(true);
+        }
+
+        private void Previous(InputAction.CallbackContext ctx)
+        {
+            SetNext(false);
+        }
+
+        private void Back(InputAction.CallbackContext ctx)
+        {
+            Exit();
+        }
     }
 }

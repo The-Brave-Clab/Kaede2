@@ -30,7 +30,7 @@ namespace Kaede2.ScriptableObjects
         {
             get
             {
-                if (Instance.sorted != null) return Instance.sorted;
+                if (Instance.sorted != null && Instance.sorted.Count == Instance.albumInfo.Length) return Instance.sorted;
 
                 Instance.sorted = Instance.albumInfo.OrderBy(ai => ai.OriginId).ThenByDescending(ai => ai.AlbumName).ToList();
                 for (int i = 1; i < Instance.sorted.Count - 1; ++i)

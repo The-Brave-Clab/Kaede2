@@ -979,6 +979,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Save",
+                    "type": "Button",
+                    "id": "08f6c446-cf05-4d32-b7ec-71ab2425edcb",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Back",
+                    "type": "Button",
+                    "id": "ecf51c2c-ae85-45d7-accc-c41b0d4bdb92",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1138,23 +1156,67 @@
                 },
                 {
                     "name": "",
-                    "id": "7513b79a-075c-4865-9543-22d1fbf4ab75",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "Tap",
+                    "id": "c86e2efb-1c53-4948-a5bb-ae8dd3feb46e",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
+                    "groups": ";Gamepad;GamepadNintendoStyle",
                     "action": "ToggleUI",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "938a5bbe-8377-4f4a-9c5d-8d35090a16ce",
-                    "path": "<Touchscreen>/primaryTouch/tap",
-                    "interactions": "Tap",
+                    "id": "a12a1b4f-843a-4140-aee9-97a10fe3fc6e",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
                     "processors": "",
-                    "groups": ";Touchscreen",
-                    "action": "ToggleUI",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Save",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a35ea9b3-fb5b-4af6-8882-792cd34d9ec7",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad;GamepadNintendoStyle",
+                    "action": "Save",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "21f719ba-11b5-4f1e-8819-260a96857835",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bf267d1d-79f8-4bf4-ae69-93eb5da067c8",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d5a0e84e-1a0c-476f-ba86-4084c0e18567",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";GamepadNintendoStyle",
+                    "action": "Back",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

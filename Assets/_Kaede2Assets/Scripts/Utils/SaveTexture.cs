@@ -64,6 +64,8 @@ namespace Kaede2.Utils
             }
 #elif UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
             pngData = bytes;
+            if (Path.GetExtension(name) == "")
+                name += ".png";
             IntPtr titlePtr = Marshal.StringToHGlobalAuto("Save Texture");
             IntPtr directoryPtr = Marshal.StringToHGlobalAuto(directory);
             IntPtr namePtr = Marshal.StringToHGlobalAuto(name);

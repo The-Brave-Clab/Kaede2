@@ -3,11 +3,15 @@ using Kaede2.Input;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Kaede2
 {
-    public class ArrowColor : MonoBehaviour, IThemeChangeObserver
+    public class AlbumViewArrow : MonoBehaviour, IThemeChangeObserver, IPointerClickHandler
     {
+        [SerializeField]
+        private bool isNext;
+
         [SerializeField]
         private RemapRGB colorComponent;
 
@@ -40,6 +44,12 @@ namespace Kaede2
             colorComponent.targetColorRed = theme.ArrowSurface;
             colorComponent.targetColorGreen = theme.ArrowShadow;
             colorComponent.targetColorBlue = Color.clear;
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (InputManager.CurrentDeviceType != InputDeviceType.KeyboardAndMouse) return;
+            AlbumItemViewCanvas.Instance.SetNext(isNext);
         }
     }
 }
