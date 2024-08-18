@@ -19,6 +19,9 @@ namespace Kaede2.UI
         private AlbumExtraInfo availableImages;
 
         [SerializeField]
+        private AlbumExtraInfo.ImageFilter filter = AlbumExtraInfo.ImageFilter.Is16By9;
+
+        [SerializeField]
         private RectTransform scatterArea;
 
         [SerializeField]
@@ -33,6 +36,8 @@ namespace Kaede2.UI
         private readonly Vector2 imageSize = new Vector2(1920, 1080);
 
         private AsyncOperationHandle<Sprite>[] handles;
+
+        public bool Loaded { get; private set; } = false;
 
         private float CalculateGridSize()
         {
@@ -63,11 +68,13 @@ namespace Kaede2.UI
         private MasterAlbumInfo.AlbumInfo[] RandomImages(int count)
         {
             // no duplicate images
-            var illusts = availableImages.list.Where(i => i.is16by9).OrderBy(_ => Random.value).ToArray();
+            var illusts = availableImages.list.Where(i => i.Passes(filter)).OrderBy(_ => Random.value).ToArray();
             var result = new MasterAlbumInfo.AlbumInfo[count];
+            if (illusts.Length <= 0) return result;
+
             for (var i = 0; i < count; i++)
             {
-                result[i] = MasterAlbumInfo.Instance.albumInfo.First(info => info.AlbumName == illusts[i].name);
+                result[i] = MasterAlbumInfo.FromAlbumName(illusts[i % illusts.Length].name);
             }
             return result;
         }
@@ -86,7 +93,7 @@ namespace Kaede2.UI
             var imageCount = positions.Count;
             var imageInfo = RandomImages(imageCount);
             var images = new List<Img>();
-            for (var i = 0; i < imageCount; i++)
+            for (var i = 0; i < imageInfo.Length; i++)
             {
                 var position = positions[i];
                 var rotation = Random.Range(rotationRangeInDegrees.x, rotationRangeInDegrees.y);
@@ -103,7 +110,7 @@ namespace Kaede2.UI
             var group = new CoroutineGroup();
 
             handles = new AsyncOperationHandle<Sprite>[imageCount];
-            for (var i = 0; i < imageCount; i++)
+            for (var i = 0; i < images.Count; i++)
             {
                 handles[i] = ResourceLoader.LoadIllustration(images[i].AlbumName, true);
                 group.Add(handles[i]);
@@ -133,18 +140,20 @@ namespace Kaede2.UI
                 var background = backgroundImage.AddComponent<Image>();
                 background.color = Color.white;
 
-                var gameObject = new GameObject(image.AlbumName);
-                gameObject.transform.SetParent(backgroundImage.transform, false);
+                var go = new GameObject(image.AlbumName);
+                go.transform.SetParent(backgroundImage.transform, false);
 
-                var rectTransform = gameObject.AddComponent<RectTransform>();
+                var rectTransform = go.AddComponent<RectTransform>();
                 rectTransform.sizeDelta = imageSize;
                 rectTransform.anchoredPosition = Vector2.zero;
                 rectTransform.localRotation = Quaternion.identity;
                 rectTransform.localScale = Vector3.one;
 
-                var imageComponent = gameObject.AddComponent<Image>();
+                var imageComponent = go.AddComponent<Image>();
                 imageComponent.sprite = handles[i].Result;
             }
+
+            Loaded = true;
         }
 
         private void OnDestroy()

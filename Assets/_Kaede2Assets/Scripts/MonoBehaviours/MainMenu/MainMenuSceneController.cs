@@ -60,6 +60,11 @@ namespace Kaede2
                 });
         }
 
+        public void GoToEventStory()
+        {
+            CommonUtils.LoadNextScene("EventStoryScene", LoadSceneMode.Single);
+        }
+
         public void GoToAlbum()
         {
             CommonUtils.LoadNextScene("AlbumScene", LoadSceneMode.Single);

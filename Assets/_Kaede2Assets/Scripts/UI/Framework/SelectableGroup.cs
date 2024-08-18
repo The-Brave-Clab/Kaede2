@@ -30,13 +30,18 @@ namespace Kaede2.UI.Framework
                 item.selected = sel == selectedIndex;
                 item.onSelected.AddListener(() =>
                 {
-                    selectedIndex = sel;
-                    for (var j = 0; j < items.Count; j++)
-                    {
-                        items[j].selected = sel == j;
-                        if (!items[j].selected) items[j].onDeselected?.Invoke();
-                    }
+                    OnItemSelected(sel);
                 });
+            }
+        }
+
+        protected virtual void OnItemSelected(int selection)
+        {
+            selectedIndex = selection;
+            for (var i = 0; i < items.Count; i++)
+            {
+                items[i].selected = selection == i;
+                if (!items[i].selected) items[i].onDeselected?.Invoke();
             }
         }
 
@@ -50,14 +55,14 @@ namespace Kaede2.UI.Framework
             }
         }
 
-        public void Next()
+        public virtual void Next()
         {
             var nextAvailable = NextAvailable(1);
             if (nextAvailable >= 0)
                 Select(nextAvailable);
         }
 
-        public void Previous()
+        public virtual void Previous()
         {
             var nextAvailable = NextAvailable(-1);
             if (nextAvailable >= 0)
