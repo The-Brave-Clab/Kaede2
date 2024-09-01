@@ -70,33 +70,28 @@ namespace Kaede2.UI
             sequence = null;
         }
 
-        public void Initialize(Func<MasterScenarioInfo.ScenarioInfo, bool> scenarioInfoFilter)
+        public void Clear()
         {
             foreach (Transform child in contentGroup)
             {
                 Destroy(child.gameObject);
             }
 
-            var scenarioInfos = MasterScenarioInfo.Instance.scenarioInfo
-                .Where(scenarioInfoFilter)
-                .ToList();
+            items.Clear();
+        }
 
-            var scenarioChapterInfos = scenarioInfos
-                .OrderBy(si => si.ChapterId)
-                .ThenBy(si => si.EpisodeId)
-                .GroupBy(scenarioInfo => scenarioInfo.EpisodeId)
-                .Select(group => group.First())
-                .ToList();
+        public LabeledListSelectableItem Add(string label, string text)
+        {
+            var item = Instantiate(itemPrefab, contentGroup);
+            item.gameObject.name = text;
+            item.Label = label;
+            item.Text = text;
+            items.Add(item);
+            return item;
+        }
 
-            foreach (var info in scenarioChapterInfos)
-            {
-                var item = Instantiate(itemPrefab, contentGroup);
-                item.gameObject.name = info.EpisodeName;
-                item.Label = info.EpisodeNumber;
-                item.Text = info.EpisodeName;
-                items.Add(item);
-            }
-
+        public void Initialize()
+        {
             selectedIndex = 0;
             base.Awake();
         }

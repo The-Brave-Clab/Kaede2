@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
@@ -29,6 +30,12 @@ namespace Kaede2
 
         [SerializeField]
         private InterfaceTitle eventTitle;
+
+        [SerializeField]
+        private StorySelectionBackground storySelectionBackground;
+
+        [SerializeField]
+        private AlbumExtraInfo albumExtraInfo;
 
         private IEnumerator Start()
         {
@@ -77,9 +84,56 @@ namespace Kaede2
                 eventTitle.gameObject.SetActive(true);
             }
 
-            chapterSelectableGroup.Initialize(scenarioInfo => scenarioInfo.KindId == kind);
+            var scenarioInfos = MasterScenarioInfo.Instance.scenarioInfo
+                .Where(si => si.KindId == kind)
+                .ToList();
+
+            var scenarioChapterInfos = scenarioInfos
+                .OrderBy(si => si.ChapterId)
+                .ThenBy(si => si.EpisodeId)
+                .GroupBy(scenarioInfo => scenarioInfo.EpisodeId)
+                .Select(group => group.First())
+                .ToList();
+
+            chapterSelectableGroup.Clear();
+            foreach (var info in scenarioChapterInfos)
+            {
+                string illust = GetCardIllustFromScenarioInfo(info);
+
+                var item = chapterSelectableGroup.Add(info.EpisodeNumber, info.EpisodeName);
+                item.onSelected.AddListener(() =>
+                {
+                    storySelectionBackground.Set(illust);
+                });
+            }
+            chapterSelectableGroup.Initialize();
+
+            yield return null;
+            yield return null;
 
             yield return SceneTransition.Fade(0);
+        }
+
+        private string GetCardIllustFromScenarioInfo(MasterScenarioInfo.ScenarioInfo scenarioInfo)
+        {
+            string result = "";
+            var bgInfo = MasterEventEpisodeBg.Instance.eventEpisodeBgs
+                .FirstOrDefault(bg => bg.EpisodeId == scenarioInfo.EpisodeId);
+            if (!string.IsNullOrEmpty(bgInfo?.EpisodeBg))
+            {
+                result = albumExtraInfo.list.FirstOrDefault(ei => ei.replaceEpisodeBackground == bgInfo.EpisodeBg).name;
+                return result;
+            }
+
+            var storyImageData = MasterEventStoryImageData.Instance.eventStoryImages
+                .FirstOrDefault(si => si.EpisodeId == scenarioInfo.EpisodeId);
+            if (!string.IsNullOrEmpty(storyImageData?.FileName))
+            {
+                result = albumExtraInfo.list.FirstOrDefault(ei => ei.replaceStoryImage == storyImageData.FileName).name;
+                return result;
+            }
+
+            return result;
         }
     }
 
