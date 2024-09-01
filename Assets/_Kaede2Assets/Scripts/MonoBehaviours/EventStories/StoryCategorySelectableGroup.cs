@@ -2,7 +2,7 @@ using Kaede2.UI.Framework;
 
 namespace Kaede2
 {
-    public class EventStorySelectableGroup : SelectableGroup
+    public class StoryCategorySelectableGroup : SelectableGroup
     {
         protected override void OnItemSelected(int selection)
         {

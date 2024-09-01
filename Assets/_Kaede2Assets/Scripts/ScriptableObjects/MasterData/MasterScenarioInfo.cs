@@ -7,12 +7,21 @@ namespace Kaede2.ScriptableObjects
 {
     public class MasterScenarioInfo : BaseMasterData<MasterScenarioInfo>
     {
+        public enum Kind
+        {
+            Main = 1,
+            Sub = 2,
+            Event = 3,
+            Birthday = 4,
+            Collab = 5,
+        }
+
         [Serializable]
         public class ScenarioInfo
         {
             public int No;
             public int Id;
-            public int KindId;
+            public Kind KindId;
             public string KindName;
             public int ChapterId;
             public string ChapterName;
