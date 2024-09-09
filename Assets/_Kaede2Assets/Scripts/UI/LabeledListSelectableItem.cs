@@ -38,6 +38,9 @@ namespace Kaede2.UI
         [SerializeField]
         private Color notSelectedTextColor;
 
+        [SerializeField]
+        private RectTransform safeAreaContainer;
+
         private RectTransform rt;
         private Dictionary<TextMeshProUGUI, RectTransform> textRectTransforms;
         private VerticalLayoutGroup layoutGroup;
@@ -111,6 +114,8 @@ namespace Kaede2.UI
             UpdateMaterials();
             yield return null;
 
+            UpdateSafeArea();
+
             // set initial state
             RectTransform mainTextRectTransform = textRectTransforms[mainText];
             RectTransform mainLabelRectTransform = textRectTransforms[mainLabel];
@@ -153,6 +158,12 @@ namespace Kaede2.UI
             ForceUpdate();
         }
 
+        protected override void Update()
+        {
+            UpdateSafeArea();
+            base.Update();
+        }
+
         private bool lastSelectionState;
         private void OnSelected(bool isSelected)
         {
@@ -181,6 +192,8 @@ namespace Kaede2.UI
 
         private IEnumerator SelectCoroutine(bool isSelected)
         {
+            UpdateSafeArea();
+
             RectTransform mainTextRectTransform = textRectTransforms[mainText];
             RectTransform mainLabelRectTransform = textRectTransforms[mainLabel];
 
@@ -255,7 +268,7 @@ namespace Kaede2.UI
             var localCorners = new Vector3[4];
             for (var i = 0; i < 4; i++)
             {
-                localCorners[i] = rt.InverseTransformPoint(worldCorners[i]);
+                localCorners[i] = safeAreaContainer.InverseTransformPoint(worldCorners[i]);
             }
 
             // calculate size and position
@@ -299,6 +312,14 @@ namespace Kaede2.UI
             {
                 mainLabelMaterials.Add(subMesh.materialForRendering);
             }
+        }
+
+        private void UpdateSafeArea()
+        {
+            float additionalX = Screen.orientation == ScreenOrientation.LandscapeLeft
+                ? Screen.safeArea.x / safeAreaContainer.lossyScale.x
+                : 0; // i'll be damned if any device have safe area on the bottom side of the screen
+            safeAreaContainer.offsetMin = new Vector2(additionalX, safeAreaContainer.offsetMin.y);
         }
 
         public void OnThemeChange(Theme.VolumeTheme theme)
