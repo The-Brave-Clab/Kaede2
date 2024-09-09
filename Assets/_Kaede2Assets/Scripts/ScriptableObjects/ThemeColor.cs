@@ -111,6 +111,11 @@ namespace Kaede2.ScriptableObjects
             [ColorUsage(false, false)]
             private Color selectionOutline;
             public Color SelectionOutline => NonTransparent(selectionOutline);
+
+            [Header("Selection")]
+            [SerializeField]
+            private AdjustHSV.Adjustment selectionOverlay;
+            public AdjustHSV.Adjustment SelectionOverlay => selectionOverlay;
         }
 
         [SerializeField]
