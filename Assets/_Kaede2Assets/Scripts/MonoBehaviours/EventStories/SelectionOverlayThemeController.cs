@@ -6,11 +6,11 @@ namespace Kaede2
 {
     public class SelectionOverlayThemeController : MonoBehaviour, IThemeChangeObserver
     {
+        [SerializeField]
         private AdjustHSV adjustHSV;
 
         private void Awake()
         {
-            adjustHSV = GetComponent<AdjustHSV>();
             OnThemeChange(Theme.Current);
         }
 

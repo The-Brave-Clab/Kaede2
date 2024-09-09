@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using Kaede2.ScriptableObjects;
 using Kaede2.UI.Framework;
 using TMPro;
 using UnityEngine;
@@ -9,7 +8,7 @@ using UnityEngine.UI;
 
 namespace Kaede2.UI
 {
-    public class LabeledListSelectableItem : SelectableItem, IThemeChangeObserver
+    public class LabeledListSelectableItem : SelectableItem
     {
         [SerializeField]
         private TextMeshProUGUI mainLabel;
@@ -47,13 +46,10 @@ namespace Kaede2.UI
         private LayoutGroup selectedLayoutGroup;
         private LayoutGroup notSelectedLayoutGroup;
 
-        private List<Material> mainTextMaterials;
-        private List<Material> mainLabelMaterials;
-
         private Coroutine selectCoroutine;
         private Sequence selectSequence;
 
-        private Color textRim;
+        private bool needRefresh;
 
         public string Label
         {
@@ -64,7 +60,6 @@ namespace Kaede2.UI
                 notSelectedLabel.text = value;
                 selectedLabel.text = value;
                 ForceUpdate();
-                UpdateMaterials();
             }
         }
 
@@ -77,15 +72,14 @@ namespace Kaede2.UI
                 notSelectedText.text = value;
                 selectedText.text = value;
                 ForceUpdate();
-                UpdateMaterials();
             }
         }
 
         protected override void Awake()
         {
-            OnThemeChange(Theme.Current);
-
             base.Awake();
+
+            needRefresh = false;
 
             rt = GetComponent<RectTransform>();
             layoutGroup = rt.parent.GetComponent<VerticalLayoutGroup>();
@@ -111,9 +105,7 @@ namespace Kaede2.UI
         {
             // wait for layout to be calculated
             ForceUpdate();
-            UpdateMaterials();
             yield return null;
-
             UpdateSafeArea();
 
             // set initial state
@@ -139,22 +131,6 @@ namespace Kaede2.UI
             mainLabel.color = targetTextColor;
             mainLabel.fontSize = targetLabelFontSize;
 
-            var outlineColor = selected ? textRim : Color.black;
-            var outlineWidth = selected ? 0.35f : 0;
-            var faceDilate = selected ? 0.35f : 0;
-            foreach (var material in mainTextMaterials)
-            {
-                material.SetColor(ShaderUtilities.ID_OutlineColor, outlineColor);
-                material.SetFloat(ShaderUtilities.ID_OutlineWidth, outlineWidth);
-                material.SetFloat(ShaderUtilities.ID_FaceDilate, faceDilate);
-            }
-            foreach (var material in mainLabelMaterials)
-            {
-                material.SetColor(ShaderUtilities.ID_OutlineColor, outlineColor);
-                material.SetFloat(ShaderUtilities.ID_OutlineWidth, outlineWidth);
-                material.SetFloat(ShaderUtilities.ID_FaceDilate, faceDilate);
-            }
-
             ForceUpdate();
         }
 
@@ -162,6 +138,27 @@ namespace Kaede2.UI
         {
             UpdateSafeArea();
             base.Update();
+        }
+
+        public void OnEnable()
+        {
+            if (!needRefresh) return;
+
+            if (selectCoroutine != null)
+            {
+                StopCoroutine(selectCoroutine);
+                selectSequence.Kill();
+                selectCoroutine = null;
+                selectSequence = null;
+            }
+
+            Awake();
+            StartCoroutine(Start());
+        }
+
+        private void OnDisable()
+        {
+            needRefresh = true;
         }
 
         private bool lastSelectionState;
@@ -208,14 +205,10 @@ namespace Kaede2.UI
             var currentLabelSize = mainLabelRectTransform.sizeDelta;
             var currentTextColor = mainText.color;
             var currentLabelFontSize = mainLabel.fontSize;
-            var currentOutlineColor = mainText.fontMaterial.GetColor(ShaderUtilities.ID_OutlineColor);
-            var currentOutlineWidth = mainText.fontMaterial.GetFloat(ShaderUtilities.ID_OutlineWidth);
 
             var targetHeight = targetParent.rect.height;
             var targetTextColor = isSelected ? Color.white : notSelectedTextColor;
             var targetLabelFontSize = layoutLabel.fontSize;
-            var targetOutlineColor = isSelected ? textRim : Color.black;
-            var targetOutlineWidth = isSelected ? 0.35f : 0;
 
             selectSequence = DOTween.Sequence();
             selectSequence.Append(DOVirtual.Float(0, 1, 0.1f, value =>
@@ -232,22 +225,6 @@ namespace Kaede2.UI
                 mainText.color = Color.Lerp(currentTextColor, targetTextColor, value);
                 mainLabel.color = Color.Lerp(currentTextColor, targetTextColor, value);
                 mainLabel.fontSize = Mathf.RoundToInt(Mathf.Lerp(currentLabelFontSize, targetLabelFontSize, value));
-
-                var outlineColor = Color.Lerp(currentOutlineColor, targetOutlineColor, value);
-                var outlineWidth = Mathf.Lerp(currentOutlineWidth, targetOutlineWidth, value);
-                var faceDilate = Mathf.Lerp(currentOutlineWidth, targetOutlineWidth, value);
-                foreach (var material in mainTextMaterials)
-                {
-                    material.SetColor(ShaderUtilities.ID_OutlineColor, outlineColor);
-                    material.SetFloat(ShaderUtilities.ID_OutlineWidth, outlineWidth);
-                    material.SetFloat(ShaderUtilities.ID_FaceDilate, faceDilate);
-                }
-                foreach (var material in mainLabelMaterials)
-                {
-                    material.SetColor(ShaderUtilities.ID_OutlineColor, outlineColor);
-                    material.SetFloat(ShaderUtilities.ID_OutlineWidth, outlineWidth);
-                    material.SetFloat(ShaderUtilities.ID_FaceDilate, faceDilate);
-                }
 
                 ForceUpdate();
             }));
@@ -289,42 +266,12 @@ namespace Kaede2.UI
             mainLabel.UpdateFontAsset();
         }
 
-        private void UpdateMaterials()
-        {
-            mainTextMaterials ??= new List<Material>();
-            mainLabelMaterials ??= new List<Material>();
-
-            mainTextMaterials.Clear();
-            mainLabelMaterials.Clear();
-
-            mainTextMaterials.Add(mainText.fontMaterial);
-            mainTextMaterials.Add(mainText.materialForRendering);
-            var mainTextSubMeshes = mainText.GetComponentsInChildren<TMP_SubMeshUI>();
-            foreach (var subMesh in mainTextSubMeshes)
-            {
-                mainTextMaterials.Add(subMesh.materialForRendering);
-            }
-
-            mainLabelMaterials.Add(mainLabel.fontMaterial);
-            mainLabelMaterials.Add(mainLabel.materialForRendering);
-            var mainLabelSubMeshes = mainLabel.GetComponentsInChildren<TMP_SubMeshUI>();
-            foreach (var subMesh in mainLabelSubMeshes)
-            {
-                mainLabelMaterials.Add(subMesh.materialForRendering);
-            }
-        }
-
         private void UpdateSafeArea()
         {
             float additionalX = Screen.orientation == ScreenOrientation.LandscapeLeft
                 ? Screen.safeArea.x / safeAreaContainer.lossyScale.x
                 : 0; // i'll be damned if any device have safe area on the bottom side of the screen
             safeAreaContainer.offsetMin = new Vector2(additionalX, safeAreaContainer.offsetMin.y);
-        }
-
-        public void OnThemeChange(Theme.VolumeTheme theme)
-        {
-            textRim = theme.MainTextRim;
         }
     }
 

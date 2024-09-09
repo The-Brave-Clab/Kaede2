@@ -25,6 +25,8 @@ namespace Kaede2.Scenario
 {
     public class PlayerScenarioModule : ScenarioModule
     {
+        private static PlayerScenarioModule instance;
+
         private static bool? lastAutoMode = null;
         private static bool? lastContinuousMode = null;
 
@@ -135,14 +137,20 @@ namespace Kaede2.Scenario
             yield return SceneManager.LoadSceneAsync("ScenarioScene", loadSceneMode);
         }
 
-        public void GoBackToPreviousSceneBeforeEnd()
+        public static IEnumerator Unload()
         {
-            GoBackToPreviousScene(true);
+            yield return SceneTransition.Fade(1);
+            yield return SceneManager.UnloadSceneAsync("ScenarioScene");
         }
 
-        private void GoBackToPreviousSceneBeforeEnd(InputAction.CallbackContext context)
+        public void Stop()
         {
-            GoBackToPreviousSceneBeforeEnd();
+            instance.StopPlaying(true);
+        }
+
+        private void StopBeforeEnd(InputAction.CallbackContext context)
+        {
+            instance.StopPlaying(true);
         }
 
         #region EventFunctions
@@ -150,6 +158,8 @@ namespace Kaede2.Scenario
         protected override void Awake()
         {
             base.Awake();
+
+            instance = this;
 
             if (ScenarioRunMode.Args.TestMode)
                 Time.timeScale = 10.0f;
@@ -292,19 +302,21 @@ namespace Kaede2.Scenario
 #if UNITY_WEBGL && !UNITY_EDITOR
             WebInterop.Module = null;
 #endif
+
+            instance = null;
         }
 
 #if !UNITY_WEBGL || UNITY_EDITOR
         private void OnEnable()
         {
-            InputManager.InputAction.Scenario.GoBack.performed += GoBackToPreviousSceneBeforeEnd;
+            InputManager.InputAction.Scenario.GoBack.performed += StopBeforeEnd;
         }
 
         private void OnDisable()
         {
             if (InputManager.InputAction != null)
             {
-                InputManager.InputAction.Scenario.GoBack.performed -= GoBackToPreviousSceneBeforeEnd;
+                InputManager.InputAction.Scenario.GoBack.performed -= StopBeforeEnd;
             }
         }
 #endif
@@ -370,11 +382,11 @@ namespace Kaede2.Scenario
 
             scenarioEndCallback?.Invoke();
 
-            GoBackToPreviousScene(false);
+            StopPlaying(false);
 #endif
         }
 
-        private void GoBackToPreviousScene(bool saveState)
+        private void StopPlaying(bool saveState)
         {
             Paused = true;
 
@@ -391,9 +403,7 @@ namespace Kaede2.Scenario
                 this.Log($"Restored locale to {backupLocale.EnglishName}");
             }
 
-            // TODO: implement go back to previous scene
-            this.LogWarning("Go back to previous scene not implemented");
-            // this.Log("Going back to previous scene");
+            scenarioEndCallback?.Invoke();
         }
 
         private IEnumerator Reload()
