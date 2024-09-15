@@ -1,10 +1,10 @@
+using System;
 using System.Collections;
 using DG.Tweening;
-using Kaede2.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Kaede2
+namespace Kaede2.UI
 {
     public class FavoriteIcon : MonoBehaviour, IPointerClickHandler
     {
@@ -12,13 +12,23 @@ namespace Kaede2
         private RemapRGB colorComponent;
 
         [SerializeField]
-        private AlbumItem item;
-
-        [SerializeField]
         private Color color;
 
         private Coroutine coroutine;
         private Sequence sequence;
+
+        public Action OnClicked;
+
+        private Func<bool> isFavorite;
+
+        public Func<bool> IsFavorite
+        {
+            set
+            {
+                isFavorite = value;
+                OnEnable();
+            }
+        }
 
         private void OnEnable()
         {
@@ -30,7 +40,7 @@ namespace Kaede2
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            item.IsFavorite = !item.IsFavorite;
+            OnClicked?.Invoke();
             if (coroutine != null)
             {
                 StopCoroutine(coroutine);
@@ -67,9 +77,9 @@ namespace Kaede2
 
         private (Color center, Color outline) GetColor()
         {
-            bool isFavorite = item.IsFavorite;
-            var c = isFavorite ? color : Color.white;
-            var o = isFavorite ? Color.white : Color.black;
+            bool fav = isFavorite?.Invoke() ?? false;
+            var c = fav ? color : Color.white;
+            var o = fav ? Color.white : Color.black;
             return (c, o);
         }
     }

@@ -40,6 +40,9 @@ namespace Kaede2.UI
         [SerializeField]
         private RectTransform safeAreaContainer;
 
+        [SerializeField]
+        private RectTransform textContainer;
+
         private RectTransform rt;
         private Dictionary<TextMeshProUGUI, RectTransform> textRectTransforms;
         private VerticalLayoutGroup layoutGroup;
@@ -245,7 +248,7 @@ namespace Kaede2.UI
             var localCorners = new Vector3[4];
             for (var i = 0; i < 4; i++)
             {
-                localCorners[i] = safeAreaContainer.InverseTransformPoint(worldCorners[i]);
+                localCorners[i] = textContainer.InverseTransformPoint(worldCorners[i]);
             }
 
             // calculate size and position

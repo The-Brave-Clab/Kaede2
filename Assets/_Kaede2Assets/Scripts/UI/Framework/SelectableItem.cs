@@ -1,3 +1,4 @@
+using Kaede2.Input;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -13,9 +14,12 @@ namespace Kaede2.UI.Framework
         public UnityEvent onDeselected;
         public UnityEvent onConfirmed;
 
+        private float lastSelectedTime;
+
         protected virtual void Awake()
         {
             lastSelected = false;
+            lastSelectedTime = 0;
         }
 
         protected virtual void Update()
@@ -24,7 +28,10 @@ namespace Kaede2.UI.Framework
             lastSelected = selected;
 
             if (selected)
+            {
+                lastSelectedTime = Time.time;
                 onSelected?.Invoke();
+            }
             else
                 onDeselected?.Invoke();
         }
@@ -42,6 +49,9 @@ namespace Kaede2.UI.Framework
 
         public virtual void OnPointerClick(PointerEventData eventData)
         {
+            // for touch devices, treat first click as hover
+            if (InputManager.CurrentDeviceType == InputDeviceType.Touchscreen && Time.time - lastSelectedTime < 0.3f)
+                return;
             Confirm();
         }
     }

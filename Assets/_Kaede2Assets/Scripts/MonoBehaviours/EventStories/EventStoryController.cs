@@ -157,9 +157,30 @@ namespace Kaede2
             foreach (var info in storyInfos)
             {
                 var item = storySelectableGroup.Add(info.Label, info.StoryName);
+                var selectionItem = item.GetComponent<StorySelectionItem>();
+                selectionItem.Unread = !SaveData.ReadScenarioNames.Contains(info.ScenarioName);
+                selectionItem.FavoriteIcon.gameObject.SetActive(!selectionItem.Unread);
+                selectionItem.FavoriteIcon.OnClicked = () =>
+                {
+                    if (SaveData.IsScenarioFavorite(info))
+                        SaveData.RemoveFavoriteScenario(info);
+                    else
+                        SaveData.AddFavoriteScenario(info);
+                };
+                selectionItem.FavoriteIcon.IsFavorite = () => SaveData.IsScenarioFavorite(info);
+                item.onSelected.AddListener(() =>
+                {
+                    if (!selectionItem.Unread)
+                        selectionItem.FavoriteIcon.gameObject.SetActive(true);
+                });
+                item.onDeselected.AddListener(() =>
+                {
+                    if (!selectionItem.Unread)
+                        selectionItem.FavoriteIcon.gameObject.SetActive(false);
+                });
                 item.onConfirmed.AddListener(() =>
                 {
-                    CoroutineProxy.Start(EnterScenario(info.ScenarioName));
+                    CoroutineProxy.Start(EnterScenario(info, selectionItem));
                 });
             }
             storySelectableGroup.Initialize();
@@ -170,18 +191,21 @@ namespace Kaede2
             yield return SceneTransition.Fade(0);
         }
 
-        private IEnumerator EnterScenario(string scenarioName)
+        private IEnumerator EnterScenario(MasterScenarioInfo.ScenarioInfo scenario, StorySelectionItem item)
         {
             yield return SceneTransition.Fade(1);
 
             sceneRoot.SetActive(false);
             yield return PlayerScenarioModule.Play(
-                scenarioName,
+                scenario.ScenarioName,
                 LocalizationManager.AllLocales.First(),
                 LoadSceneMode.Additive,
                 null,
                 BackToStorySelection
             );
+
+            SaveData.AddReadScenario(scenario);
+            item.Unread = false;
         }
 
         private void BackToStorySelection()

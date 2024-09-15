@@ -1,6 +1,7 @@
 using System.Linq;
 using Kaede2.Input;
 using Kaede2.ScriptableObjects;
+using Kaede2.UI;
 using Kaede2.Utils;
 using TMPro;
 using UnityEngine;
@@ -75,7 +76,7 @@ namespace Kaede2
             }
         }
 
-        public bool IsFavorite
+        private bool IsFavorite
         {
             get => SaveData.FavoriteAlbumNames.Any(n => n == AlbumInfo.AlbumName);
             set
@@ -166,6 +167,9 @@ namespace Kaede2
             {
                 image.sprite = h.Result;
             };
+
+            favoriteIcon.OnClicked = () => { IsFavorite = !IsFavorite; };
+            favoriteIcon.IsFavorite = () => IsFavorite;
         }
 
         private void Unload()
