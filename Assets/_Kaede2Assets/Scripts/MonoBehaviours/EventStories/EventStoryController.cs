@@ -45,6 +45,9 @@ namespace Kaede2
         private StorySelectionBackground storySelectionBackground;
 
         [SerializeField]
+        private EpisodeTitle episodeTitle;
+
+        [SerializeField]
         private AlbumExtraInfo albumExtraInfo;
 
         private IEnumerator Start()
@@ -139,6 +142,9 @@ namespace Kaede2
         {
             yield return SceneTransition.Fade(1);
 
+            episodeTitle.Label = scenarioInfo.EpisodeNumber;
+            episodeTitle.Text = scenarioInfo.EpisodeName;
+
             episodeSelectableGroup.transform.parent.gameObject.SetActive(false);
             storySelectableGroup.transform.parent.gameObject.SetActive(true);
 
@@ -167,6 +173,8 @@ namespace Kaede2
         private IEnumerator EnterScenario(string scenarioName)
         {
             yield return SceneTransition.Fade(1);
+
+            sceneRoot.SetActive(false);
             yield return PlayerScenarioModule.Play(
                 scenarioName,
                 LocalizationManager.AllLocales.First(),
@@ -174,8 +182,6 @@ namespace Kaede2
                 null,
                 BackToStorySelection
             );
-
-            sceneRoot.SetActive(false);
         }
 
         private void BackToStorySelection()

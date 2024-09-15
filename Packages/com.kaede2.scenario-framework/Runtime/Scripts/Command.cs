@@ -66,6 +66,15 @@ namespace Kaede2.Scenario.Framework
                 if (index >= originalArgs.Length) return defaultValue;
 
                 string resolved = Module.ResolveAlias(originalArgs[index]) ?? originalArgs[index];
+                if ((typeof(T) == typeof(float) ||
+                     typeof(T) == typeof(double) ||
+                     typeof(T) == typeof(int)) &&
+                    resolved.StartsWith('+'))
+                {
+                    // Apparently our parser doesn't like + signs in front of numbers
+                    resolved = resolved[1..];
+                }
+
 
                 if (typeof(T) == typeof(string)) return (T)(object)resolved;
                 if (typeof(T) == typeof(bool)) return (T)(object)bool.Parse(resolved);
