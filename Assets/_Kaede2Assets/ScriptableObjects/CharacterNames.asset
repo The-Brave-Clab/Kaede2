@@ -1,0 +1,653 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cff37d4d9d04b11ab1b27146f3cb6fa, type: 3}
+  m_Name: CharacterNames
+  m_EditorClassIdentifier: 
+  names:
+    pairs:
+    - key: 0
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u4E0D\u660E"
+          - key:
+              cultureName: zh
+            value: "\u672A\u77E5"
+          - key:
+              cultureName: en
+            value: Unknown
+    - key: 1
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u7D50\u57CE \u53CB\u5948"
+          - key:
+              cultureName: zh
+            value: "\u7ED3\u57CE \u53CB\u5948"
+          - key:
+              cultureName: en
+            value: Yuuki Yuuna
+    - key: 2
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u6771\u90F7 \u7F8E\u68EE"
+          - key:
+              cultureName: zh
+            value: "\u4E1C\u4E61 \u7F8E\u68EE"
+          - key:
+              cultureName: en
+            value: Tougou Mimori
+    - key: 3
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u72AC\u5420\u57FC \u98A8"
+          - key:
+              cultureName: zh
+            value: "\u72AC\u5420\u57FC \u98CE"
+          - key:
+              cultureName: en
+            value: Inubouzaki Fuu
+    - key: 4
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u72AC\u5420\u57FC \u6A39"
+          - key:
+              cultureName: zh
+            value: "\u72AC\u5420\u57FC \u6811"
+          - key:
+              cultureName: en
+            value: Inubouzaki Itsuki
+    - key: 5
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u4E09\u597D \u590F\u51DC"
+          - key:
+              cultureName: zh
+            value: "\u4E09\u597D \u590F\u51DB"
+          - key:
+              cultureName: en
+            value: Miyoshi Karin
+    - key: 6
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u9DF2\u5C3E \u9808\u7F8E"
+          - key:
+              cultureName: zh
+            value: "\u9E6B\u5C3E \u987B\u7F8E"
+          - key:
+              cultureName: en
+            value: Washio Sumi
+    - key: 7
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u4E09\u30CE\u8F2A \u9280"
+          - key:
+              cultureName: zh
+            value: "\u4E09\u4E4B\u8F6E \u94F6"
+          - key:
+              cultureName: en
+            value: Minowa Gin
+    - key: 8
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u4E43\u6728 \u5712\u5B50 (\u5C0F)"
+          - key:
+              cultureName: zh
+            value: "\u4E43\u6728 \u56ED\u5B50 (\u5C0F)"
+          - key:
+              cultureName: en
+            value: Nogi Sonoko (S)
+    - key: 9
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u4E43\u6728 \u82E5\u8449"
+          - key:
+              cultureName: zh
+            value: "\u4E43\u6728 \u82E5\u53F6"
+          - key:
+              cultureName: en
+            value: Nogi Wakaba
+    - key: 10
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u571F\u5C45 \u7403\u5B50"
+          - key:
+              cultureName: zh
+            value: "\u571F\u5C45 \u7403\u5B50"
+          - key:
+              cultureName: en
+            value: Doi Tamako
+    - key: 11
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u4F0A\u4E88\u5CF6 \u674F"
+          - key:
+              cultureName: zh
+            value: "\u4F0A\u4E88\u5C9B \u674F"
+          - key:
+              cultureName: en
+            value: Iyojima Anzu
+    - key: 12
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u90E1 \u5343\u666F"
+          - key:
+              cultureName: zh
+            value: "\u90E1 \u5343\u666F"
+          - key:
+              cultureName: en
+            value: Koori Chikage
+    - key: 13
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u9AD8\u5D8B \u53CB\u5948"
+          - key:
+              cultureName: zh
+            value: "\u9AD8\u5C9B \u53CB\u5948"
+          - key:
+              cultureName: en
+            value: Takashima Yuuna
+    - key: 14
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u767D\u9CE5 \u6B4C\u91CE"
+          - key:
+              cultureName: zh
+            value: "\u767D\u9E1F \u6B4C\u91CE"
+          - key:
+              cultureName: en
+            value: Shiratori Utano
+    - key: 15
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u4E43\u6728 \u5712\u5B50 (\u4E2D)"
+          - key:
+              cultureName: zh
+            value: "\u4E43\u6728 \u56ED\u5B50 (\u4E2D)"
+          - key:
+              cultureName: en
+            value: Nogi Sonoko (M)
+    - key: 16
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u79CB\u539F \u96EA\u82B1"
+          - key:
+              cultureName: zh
+            value: "\u79CB\u539F \u96EA\u82B1"
+          - key:
+              cultureName: en
+            value: Akihara Sekka
+    - key: 17
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u53E4\u6CE2\u8535 \u68D7"
+          - key:
+              cultureName: zh
+            value: "\u53E4\u6CE2\u85CF \u67A3"
+          - key:
+              cultureName: en
+            value: Kohagura Natsume
+    - key: 18
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u4E0A\u91CC \u3072\u306A\u305F"
+          - key:
+              cultureName: zh
+            value: "\u4E0A\u91CC \u65E5\u5411"
+          - key:
+              cultureName: en
+            value: Uesato Hinata
+    - key: 19
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u85E4\u68EE \u6C34\u90FD"
+          - key:
+              cultureName: zh
+            value: "\u85E4\u68EE \u6C34\u90FD"
+          - key:
+              cultureName: en
+            value: Fujimori Mito
+    - key: 20
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u8D64\u5DBA \u53CB\u5948"
+          - key:
+              cultureName: zh
+            value: "\u8D64\u5CAD \u53CB\u5948"
+          - key:
+              cultureName: en
+            value: Akamine Yuuna
+    - key: 21
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u56FD\u571F \u4E9C\u8036"
+          - key:
+              cultureName: zh
+            value: "\u56FD\u571F \u4E9A\u8036"
+          - key:
+              cultureName: en
+            value: Kokudo Aya
+    - key: 22
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u6960 \u82BD\u5439"
+          - key:
+              cultureName: zh
+            value: "\u6960 \u4E9A\u5439"
+          - key:
+              cultureName: en
+            value: Kusunoki Mebuki
+    - key: 23
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u52A0\u8CC0\u57CE \u96C0"
+          - key:
+              cultureName: zh
+            value: "\u52A0\u8D3A\u57CE \u96C0"
+          - key:
+              cultureName: en
+            value: Kagajou Suzume
+    - key: 24
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u5F25\u52D2 \u5915\u6D77\u5B50"
+          - key:
+              cultureName: zh
+            value: "\u5F25\u52D2 \u5915\u6D77\u5B50"
+          - key:
+              cultureName: en
+            value: Miroku Yumiko
+    - key: 25
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u5C71\u4F0F \u3057\u305A\u304F"
+          - key:
+              cultureName: zh
+            value: "\u5C71\u4F0F \u96EB"
+          - key:
+              cultureName: en
+            value: Yamabushi Shizuku
+    - key: 26
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u5C71\u4F0F \u30B7\u30BA\u30AF"
+          - key:
+              cultureName: zh
+            value: "\u5C71\u4F0F \u971E"
+          - key:
+              cultureName: en
+            value: Yamabushi SHIZUKU
+    - key: 27
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u5F25\u52D2 \u84EE\u83EF"
+          - key:
+              cultureName: zh
+            value: "\u5F25\u52D2 \u83B2\u534E"
+          - key:
+              cultureName: en
+            value: Miroku Renge
+    - key: 28
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u6850\u751F \u9759"
+          - key:
+              cultureName: zh
+            value: "\u6850\u751F \u9759"
+          - key:
+              cultureName: en
+            value: Kiryuu Shizuka
+    - key: 30
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u5B89\u82B8 \u771F\u9234"
+          - key:
+              cultureName: zh
+            value: "\u5B89\u827A \u771F\u94C3"
+          - key:
+              cultureName: en
+            value: Aki Masuzu
+    - key: 31
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u82B1\u672C \u7F8E\u4F73"
+          - key:
+              cultureName: zh
+            value: "\u82B1\u672C \u7F8E\u4F73"
+          - key:
+              cultureName: en
+            value: Hanamoto Yoshika
+    - key: 32
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u5929\u99AC \u7F8E\u54B2"
+          - key:
+              cultureName: en
+            value: Tenma Misaki
+          - key:
+              cultureName: zh
+            value: "\u5929\u9A6C \u7F8E\u54B2"
+    - key: 33
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u6CD5\u82B1\u5802 \u59EB"
+          - key:
+              cultureName: en
+            value: Hokkedou Hime
+          - key:
+              cultureName: zh
+            value: "\u6CD5\u82B1\u5802 \u59EC"
+    - key: 34
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u8299\u84C9 \u53CB\u5948"
+          - key:
+              cultureName: en
+            value: Fuyou Yuuna
+          - key:
+              cultureName: zh
+            value: "\u8299\u84C9 \u53CB\u5948"
+    - key: 35
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u67DA\u6728 \u53CB\u5948"
+          - key:
+              cultureName: en
+            value: Yuzuki Yuuna
+          - key:
+              cultureName: zh
+            value: "\u67DA\u6728 \u53CB\u5948"
+    - key: 43
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u72AC\u5420\u57FC \u98A8 (\u773C\u5E2F)"
+          - key:
+              cultureName: en
+            value: Inubouzaki Fuu (Eyepatch)
+          - key:
+              cultureName: zh
+            value: "\u72AC\u5420\u57FC \u98CE (\u773C\u7F69)"
+    - key: 50
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u6E90 \u30E2\u30E2"
+          - key:
+              cultureName: en
+            value: Minamoto Momo
+          - key:
+              cultureName: zh
+            value: "\u6E90 \u6843"
+    - key: 51
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u77F3\u5DDD \u4E94\u6075"
+          - key:
+              cultureName: en
+            value: Ishikawa Goe
+          - key:
+              cultureName: zh
+            value: "\u77F3\u5DDD \u4E94\u60E0"
+    - key: 52
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u516B\u5343\u4EE3 \u547D"
+          - key:
+              cultureName: en
+            value: Yachiyo Mei
+          - key:
+              cultureName: zh
+            value: "\u516B\u5343\u4EE3 \u547D"
+    - key: 53
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u534A\u8535\u9580 \u96EA"
+          - key:
+              cultureName: en
+            value: Hanzoumon Yuki
+          - key:
+              cultureName: zh
+            value: "\u534A\u85CF\u95E8 \u96EA"
+    - key: 54
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u9752\u8449 \u521D\u82BD"
+          - key:
+              cultureName: en
+            value: Aoba Hatsume
+          - key:
+              cultureName: zh
+            value: "\u9752\u53F6 \u521D\u82BD"
+    - key: 55
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u76F8\u6A21 \u6953"
+          - key:
+              cultureName: en
+            value: Sagami Fuu
+          - key:
+              cultureName: zh
+            value: "\u76F8\u6A21 \u67AB"
+    - key: 56
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u885B\u85E4 \u53EF\u5948\u7F8E"
+          - key:
+              cultureName: en
+            value: Etou Kanami
+          - key:
+              cultureName: zh
+            value: "\u536B\u85E4 \u53EF\u5948\u7F8E"
+    - key: 57
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u5341\u6761 \u59EB\u548C"
+          - key:
+              cultureName: en
+            value: Juujou Hiyori
+          - key:
+              cultureName: zh
+            value: "\u5341\u6761 \u59EC\u548C"
+    - key: 58
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u7345\u7AE5 \u771F\u5E0C"
+          - key:
+              cultureName: en
+            value: Shidou Maki
+          - key:
+              cultureName: zh
+            value: "\u72EE\u7AE5 \u771F\u5E0C"
+    - key: 59
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u5FA1\u5742 \u7F8E\u7434"
+          - key:
+              cultureName: en
+            value: Misaka Mikoto
+          - key:
+              cultureName: zh
+            value: "\u5FA1\u5742 \u7F8E\u7434"
+    - key: 60
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u767D\u4E95 \u9ED2\u5B50"
+          - key:
+              cultureName: en
+            value: Shirai Kuroko
+          - key:
+              cultureName: zh
+            value: "\u767D\u4E95 \u9ED1\u5B50"
+    - key: 61
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u521D\u6625 \u98FE\u5229"
+          - key:
+              cultureName: en
+            value: Ueharu Kazari
+          - key:
+              cultureName: zh
+            value: "\u521D\u6625 \u9970\u5229"
+    - key: 62
+      value:
+        localizedValues:
+          pairs:
+          - key:
+              cultureName: ja
+            value: "\u4F50\u5929 \u6D99\u5B50"
+          - key:
+              cultureName: en
+            value: Saten Ruiko
+          - key:
+              cultureName: zh
+            value: "\u4F50\u5929 \u6CEA\u5B50"

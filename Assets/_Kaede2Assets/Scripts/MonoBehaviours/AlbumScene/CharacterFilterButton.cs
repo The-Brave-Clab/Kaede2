@@ -1,9 +1,12 @@
-using System;
 using System.Collections;
+using System.Globalization;
 using System.Linq;
 using DG.Tweening;
+using Kaede2.Localization;
 using Kaede2.Scenario.Framework;
+using Kaede2.ScriptableObjects;
 using Kaede2.UI.Framework;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,9 +24,13 @@ namespace Kaede2
         private Image offImage;
 
         [SerializeField]
-        private CharacterId characterId;
+        private TextMeshProUGUI text;
 
-        public CharacterId CharacterId => characterId;
+        [SerializeField]
+        private CharacterNames characterNames;
+
+        [SerializeField]
+        private CharacterId characterId;
 
         private Coroutine coroutine;
         private Sequence sequence;
@@ -48,11 +55,19 @@ namespace Kaede2
                 SetStatus();
             });
 
+            LocalizationManager.OnLocaleChanged += SetCharacterName;
+            SetCharacterName(LocalizationManager.CurrentLocale);
+
             coroutine = null;
             sequence = null;
 
             onImage.gameObject.SetActive(button.Activated);
             offImage.gameObject.SetActive(!button.Activated);
+        }
+
+        private void OnDestroy()
+        {
+            LocalizationManager.OnLocaleChanged -= SetCharacterName;
         }
 
         private void Start()
@@ -97,6 +112,12 @@ namespace Kaede2
 
             coroutine = null;
             sequence = null;
+        }
+
+        private void SetCharacterName(CultureInfo cultureInfo)
+        {
+            if (characterId == CharacterId.Unknown) return;
+            text.text = characterNames.Get(characterId, cultureInfo);
         }
     }
 
