@@ -11,44 +11,45 @@ namespace Kaede2
 
         public static T Instance
         {
-            get => _instance ??= new T();
+            get
+            {
+                if (_instance == null)
+                    Load();
+                return _instance;
+            }
             private set => _instance = value;
         }
 
-        static SavableSingleton()
-        {
-            Load();
-        }
 
 #if !UNITY_WEBGL || UNITY_EDITOR
         private static string FullFilePath => Path.Combine(Application.persistentDataPath, typeof(T).Name + ".json")
             .Replace('/', Path.DirectorySeparatorChar);
 #endif
 
-        private static void Load()
+        public static void Load()
         {
 #if !UNITY_WEBGL || UNITY_EDITOR
             if (!File.Exists(FullFilePath))
             {
-                Instance = new T();
-                Instance.Log("Created new instance");
+                _instance = new T();
+                _instance.Log("Created new instance");
                 Save();
             }
             else
             {
                 var json = File.ReadAllText(FullFilePath);
-                Instance = JsonUtility.FromJson<T>(json);
-                Instance.Log($"Loaded instance from {FullFilePath}");
+                _instance = JsonUtility.FromJson<T>(json);
+                _instance.Log($"Loaded instance from {FullFilePath}");
             }
 #else
-            Instance = new();
+            _instance = new();
 #endif
         }
 
-        protected static void Save()
+        public static void Save()
         {
 #if !UNITY_WEBGL || UNITY_EDITOR
-            var json = JsonUtility.ToJson(Instance, false);
+            var json = JsonUtility.ToJson(_instance, false);
             File.WriteAllText(FullFilePath, json);
 #endif
         }
