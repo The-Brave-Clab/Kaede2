@@ -192,6 +192,7 @@ MonoBehaviour:
   text: {fileID: 2622488274853669527}
   colorType: 0
   interactable: 1
+  highlighted: 0
   onActivate:
     m_PersistentCalls:
       m_Calls: []
@@ -230,8 +231,7 @@ MonoBehaviour:
         m_CallState: 2
   localizedString:
     localizedValues:
-      keys: []
-      values: []
+      pairs: []
 --- !u!114 &252492126739879147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,14 +261,16 @@ MonoBehaviour:
         m_CallState: 2
   localizedFont:
     localizedValues:
-      keys:
-      - cultureName: ja
-      - cultureName: zh
-      - cultureName: en
-      values:
-      - {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
-      - {fileID: 11400000, guid: a0a9703720ea14f4db73414ecf002bb2, type: 2}
-      - {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
+      pairs:
+      - key:
+          cultureName: ja
+        value: {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
+      - key:
+          cultureName: zh
+        value: {fileID: 11400000, guid: a0a9703720ea14f4db73414ecf002bb2, type: 2}
+      - key:
+          cultureName: en
+        value: {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
 --- !u!1 &6464274467821788513
 GameObject:
   m_ObjectHideFlags: 0

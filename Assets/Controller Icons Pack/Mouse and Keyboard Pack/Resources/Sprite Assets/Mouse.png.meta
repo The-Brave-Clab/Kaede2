@@ -1,21 +1,53 @@
 fileFormatVersion: 2
 guid: d1d6ebee18a591043a880c390128f77f
+AssetOrigin:
+  serializedVersion: 1
+  productId: 85215
+  packageName: PC & Consoles Controller Buttons Icons Pack
+  packageVersion: 2.1
+  assetPath: Assets/Controller Icons Pack/Mouse and Keyboard Pack/Resources/Sprite
+    Assets/Mouse.png
+  uploadId: 417254
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: Mouse
-    21300002: LeftClick
-    21300004: RightClick
-    21300006: MiddleClick
-    21300008: WheelMove
-    21300010: WheelUp
-    21300012: WheelDown
-    21300014: Move
-    21300016: Up
-    21300018: Right
-    21300020: Down
-    21300022: Left
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: Mouse
+  - first:
+      213: 21300002
+    second: LeftClick
+  - first:
+      213: 21300004
+    second: RightClick
+  - first:
+      213: 21300006
+    second: MiddleClick
+  - first:
+      213: 21300008
+    second: WheelMove
+  - first:
+      213: 21300010
+    second: WheelUp
+  - first:
+      213: 21300012
+    second: WheelDown
+  - first:
+      213: 21300014
+    second: Move
+  - first:
+      213: 21300016
+    second: Up
+  - first:
+      213: 21300018
+    second: Right
+  - first:
+      213: 21300020
+    second: Down
+  - first:
+      213: 21300022
+    second: Left
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
@@ -32,9 +64,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -43,9 +78,9 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -66,11 +101,17 @@ TextureImporter:
   textureType: 0
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
-  - serializedVersion: 2
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -80,8 +121,10 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -91,7 +134,48 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -106,11 +190,13 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: 96b3ca907ddc9b94db0a57fa237f07d9
+      internalID: 0
       vertices: []
       indices: 
       edges: []
@@ -126,11 +212,13 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: 657b220bdc922194cb3d4af68031476e
+      internalID: 0
       vertices: []
       indices: 
       edges: []
@@ -146,11 +234,13 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: 8fe347bd8ba5db3458f173a7bf55b58b
+      internalID: 0
       vertices: []
       indices: 
       edges: []
@@ -166,11 +256,13 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: 654f327d13602554d92a03a020925a18
+      internalID: 0
       vertices: []
       indices: 
       edges: []
@@ -186,11 +278,13 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: cd90ca9beafe6bd4cb0b3a2b9d94c4ab
+      internalID: 0
       vertices: []
       indices: 
       edges: []
@@ -206,11 +300,13 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: 83c420e47dba2e44394f8b2cb64c727a
+      internalID: 0
       vertices: []
       indices: 
       edges: []
@@ -226,11 +322,13 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: 6b1f6a42475fbad45ac8535899a3cbc0
+      internalID: 0
       vertices: []
       indices: 
       edges: []
@@ -246,11 +344,13 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: 4d552d867b1d940499be4e62424c537b
+      internalID: 0
       vertices: []
       indices: 
       edges: []
@@ -266,11 +366,13 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: d1978161ae36183459cfcfaefad9f7eb
+      internalID: 0
       vertices: []
       indices: 
       edges: []
@@ -286,11 +388,13 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: 7163ede462c81a64bb8308d5fe153b29
+      internalID: 0
       vertices: []
       indices: 
       edges: []
@@ -306,11 +410,13 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: a4c8a2690ad91c34eaca77e7175ec9e8
+      internalID: 0
       vertices: []
       indices: 
       edges: []
@@ -326,34 +432,33 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: f0c26a25c72e0bf42a201cfb6ad4754e
+      internalID: 0
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
+    customData: 
     physicsShape: []
     bones: []
     spriteID: 1bc1e4674faea86459aab163aa04ec33
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
-  spritePackingTag: 
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 85215
-  packageName: PC & Consoles Controller Buttons Icons Pack
-  packageVersion: 2.1
-  assetPath: Assets/Controller Icons Pack/Mouse and Keyboard Pack/Resources/Sprite
-    Assets/Mouse.png
-  uploadId: 417254

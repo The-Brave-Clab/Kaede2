@@ -313,8 +313,7 @@ MonoBehaviour:
         m_CallState: 2
   localizedString:
     localizedValues:
-      keys: []
-      values: []
+      pairs: []
 --- !u!114 &9104975174291524872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,14 +355,16 @@ MonoBehaviour:
         m_CallState: 2
   localizedFont:
     localizedValues:
-      keys:
-      - cultureName: ja
-      - cultureName: zh
-      - cultureName: en
-      values:
-      - {fileID: 11400000, guid: 1215138bef1c64ed0981b5dff693ccd5, type: 2}
-      - {fileID: 11400000, guid: 15be1c60bdc1646ae9a57db4e60324df, type: 2}
-      - {fileID: 11400000, guid: 1215138bef1c64ed0981b5dff693ccd5, type: 2}
+      pairs:
+      - key:
+          cultureName: ja
+        value: {fileID: 11400000, guid: 1215138bef1c64ed0981b5dff693ccd5, type: 2}
+      - key:
+          cultureName: zh
+        value: {fileID: 11400000, guid: 15be1c60bdc1646ae9a57db4e60324df, type: 2}
+      - key:
+          cultureName: en
+        value: {fileID: 11400000, guid: 1215138bef1c64ed0981b5dff693ccd5, type: 2}
 --- !u!114 &6696104063948522940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,5 +394,4 @@ MonoBehaviour:
         m_CallState: 2
   localizedString:
     localizedValues:
-      keys: []
-      values: []
+      pairs: []

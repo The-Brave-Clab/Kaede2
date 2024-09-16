@@ -96,8 +96,7 @@ MonoBehaviour:
         m_CallState: 2
   localizedString:
     localizedValues:
-      keys: []
-      values: []
+      pairs: []
 --- !u!114 &4615430866596238947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,14 +138,16 @@ MonoBehaviour:
         m_CallState: 2
   localizedFont:
     localizedValues:
-      keys:
-      - cultureName: ja
-      - cultureName: en
-      - cultureName: zh
-      values:
-      - {fileID: 11400000, guid: 098f610f141ad437aad6e805ebde3e59, type: 2}
-      - {fileID: 11400000, guid: 098f610f141ad437aad6e805ebde3e59, type: 2}
-      - {fileID: 11400000, guid: 5c6cee52894db42caae04215a0ae8d12, type: 2}
+      pairs:
+      - key:
+          cultureName: ja
+        value: {fileID: 11400000, guid: 098f610f141ad437aad6e805ebde3e59, type: 2}
+      - key:
+          cultureName: en
+        value: {fileID: 11400000, guid: 098f610f141ad437aad6e805ebde3e59, type: 2}
+      - key:
+          cultureName: zh
+        value: {fileID: 11400000, guid: 5c6cee52894db42caae04215a0ae8d12, type: 2}
 --- !u!1 &3553350721156764363
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,7 +231,7 @@ MonoBehaviour:
     topRight: {r: 1, g: 1, b: 1, a: 1}
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 11400000, guid: 1801820b9e8cf46809b7a2be45ad0a6b, type: 2}
+  m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}

@@ -58,16 +58,16 @@ namespace Kaede2.Editor.Inspectors
 
         private bool TryGetFromSerializedDictionary(SerializedProperty dictionaryProperty, CultureInfo key, out T value, out SerializedProperty serializedValue)
         {
-            var dictionaryKeysProperty = dictionaryProperty.FindPropertyRelative("keys");
-            var dictionaryValuesProperty = dictionaryProperty.FindPropertyRelative("values");
+            var dictionaryPairsProperty = dictionaryProperty.FindPropertyRelative("pairs");
 
-            for (int i = 0; i < dictionaryKeysProperty.arraySize; i++)
+            for (int i = 0; i < dictionaryPairsProperty.arraySize; i++)
             {
-                var element = dictionaryKeysProperty.GetArrayElementAtIndex(i);
-                var keyCultureName = element.FindPropertyRelative("cultureName").stringValue;
+                var pairElement = dictionaryPairsProperty.GetArrayElementAtIndex(i);
+                var keyElement = pairElement.FindPropertyRelative("key");
+                var keyCultureName = keyElement.FindPropertyRelative("cultureName").stringValue;
                 if (keyCultureName == key.Name)
                 {
-                    serializedValue = dictionaryValuesProperty.GetArrayElementAtIndex(i);
+                    serializedValue = pairElement.FindPropertyRelative("value");
                     value = GetValueFromSerializedProperty(serializedValue);
                     return true;
                 }
@@ -80,28 +80,28 @@ namespace Kaede2.Editor.Inspectors
 
         private void SetToSerializedDictionary(SerializedProperty dictionaryProperty, CultureInfo key, T value)
         {
-            var dictionaryKeysProperty = dictionaryProperty.FindPropertyRelative("keys");
-            var dictionaryValuesProperty = dictionaryProperty.FindPropertyRelative("values");
+            var dictionaryPairsProperty = dictionaryProperty.FindPropertyRelative("pairs");
 
-            for (int i = 0; i < dictionaryKeysProperty.arraySize; i++)
+            for (int i = 0; i < dictionaryPairsProperty.arraySize; i++)
             {
-                var element = dictionaryKeysProperty.GetArrayElementAtIndex(i);
-                var keyCultureName = element.FindPropertyRelative("cultureName").stringValue;
+                var pairElement = dictionaryPairsProperty.GetArrayElementAtIndex(i);
+                var keyElement = pairElement.FindPropertyRelative("key");
+                var keyCultureName = keyElement.FindPropertyRelative("cultureName").stringValue;
                 if (keyCultureName == key.Name)
                 {
-                    var valueElement = dictionaryValuesProperty.GetArrayElementAtIndex(i);
+                    var valueElement = pairElement.FindPropertyRelative("value");
                     SetValueToSerializedProperty(valueElement, value);
                     return;
                 }
             }
 
-            dictionaryKeysProperty.arraySize++;
-            dictionaryValuesProperty.arraySize++;
+            dictionaryPairsProperty.arraySize++;
 
-            var newKeyElement = dictionaryKeysProperty.GetArrayElementAtIndex(dictionaryKeysProperty.arraySize - 1);
+            var newPairElement = dictionaryPairsProperty.GetArrayElementAtIndex(dictionaryPairsProperty.arraySize - 1);
+            var newKeyElement = newPairElement.FindPropertyRelative("key");
             newKeyElement.FindPropertyRelative("cultureName").stringValue = key.Name;
 
-            var newValueElement = dictionaryValuesProperty.GetArrayElementAtIndex(dictionaryValuesProperty.arraySize - 1);
+            var newValueElement = newPairElement.FindPropertyRelative("value");
             SetValueToSerializedProperty(newValueElement, value);
         }
     }

@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2161,14 +2160,16 @@ MonoBehaviour:
         m_CallState: 2
   localizedFont:
     localizedValues:
-      keys:
-      - cultureName: ja
-      - cultureName: zh
-      - cultureName: en
-      values:
-      - {fileID: 11400000, guid: 90f7e644b8996014e9c29e21c44104a8, type: 2}
-      - {fileID: 11400000, guid: a045e05f95eb28043b1150a00548c572, type: 2}
-      - {fileID: 11400000, guid: 6ab70616d80dc7d4d95f0d86692d147a, type: 2}
+      pairs:
+      - key:
+          cultureName: ja
+        value: {fileID: 11400000, guid: 90f7e644b8996014e9c29e21c44104a8, type: 2}
+      - key:
+          cultureName: zh
+        value: {fileID: 11400000, guid: a045e05f95eb28043b1150a00548c572, type: 2}
+      - key:
+          cultureName: en
+        value: {fileID: 11400000, guid: 6ab70616d80dc7d4d95f0d86692d147a, type: 2}
 --- !u!114 &1488541827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2198,14 +2199,16 @@ MonoBehaviour:
         m_CallState: 2
   localizedFont:
     localizedValues:
-      keys:
-      - cultureName: ja
-      - cultureName: zh
-      - cultureName: en
-      values:
-      - {fileID: 11400000, guid: 7cb447fcd19bf7c458d269923c670e99, type: 2}
-      - {fileID: 11400000, guid: 05e6dbb1274764148af0fbdcd8d9e8a6, type: 2}
-      - {fileID: 11400000, guid: 6ab70616d80dc7d4d95f0d86692d147a, type: 2}
+      pairs:
+      - key:
+          cultureName: ja
+        value: {fileID: 11400000, guid: 7cb447fcd19bf7c458d269923c670e99, type: 2}
+      - key:
+          cultureName: zh
+        value: {fileID: 11400000, guid: 05e6dbb1274764148af0fbdcd8d9e8a6, type: 2}
+      - key:
+          cultureName: en
+        value: {fileID: 11400000, guid: 6ab70616d80dc7d4d95f0d86692d147a, type: 2}
 --- !u!114 &1488541828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2235,14 +2238,16 @@ MonoBehaviour:
         m_CallState: 2
   localizedFont:
     localizedValues:
-      keys:
-      - cultureName: ja
-      - cultureName: zh
-      - cultureName: en
-      values:
-      - {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
-      - {fileID: 11400000, guid: a0a9703720ea14f4db73414ecf002bb2, type: 2}
-      - {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
+      pairs:
+      - key:
+          cultureName: ja
+        value: {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
+      - key:
+          cultureName: zh
+        value: {fileID: 11400000, guid: a0a9703720ea14f4db73414ecf002bb2, type: 2}
+      - key:
+          cultureName: en
+        value: {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
 --- !u!114 &1488541829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2272,14 +2277,16 @@ MonoBehaviour:
         m_CallState: 2
   localizedString:
     localizedValues:
-      keys:
-      - cultureName: ja
-      - cultureName: zh
-      - cultureName: en
-      values:
-      - "%Input/ScenarioLog/GoBack% \u9589\u3058\u308B"
-      - "%Input/ScenarioLog/GoBack% \u5173\u95ED"
-      - '%Input/ScenarioLog/GoBack% BACK'
+      pairs:
+      - key:
+          cultureName: ja
+        value: "%Input/ScenarioLog/GoBack% \u9589\u3058\u308B"
+      - key:
+          cultureName: zh
+        value: "%Input/ScenarioLog/GoBack% \u5173\u95ED"
+      - key:
+          cultureName: en
+        value: '%Input/ScenarioLog/GoBack% BACK'
 --- !u!1 &1502977532
 GameObject:
   m_ObjectHideFlags: 0
@@ -2913,6 +2920,7 @@ MonoBehaviour:
   text: '
 
 '
+  primaryOnly: 0
 --- !u!1 &2037039026
 GameObject:
   m_ObjectHideFlags: 0
@@ -3001,7 +3009,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 752681669310438170, guid: b8c5991ae1f0441b5b430b17c9d008d4, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 49.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 752681669310438170, guid: b8c5991ae1f0441b5b430b17c9d008d4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 21.63
       objectReference: {fileID: 0}
     - target: {fileID: 1161142874792304367, guid: b8c5991ae1f0441b5b430b17c9d008d4, type: 3}
       propertyPath: m_Name
@@ -3009,7 +3021,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1417904443314023686, guid: b8c5991ae1f0441b5b430b17c9d008d4, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 49.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417904443314023686, guid: b8c5991ae1f0441b5b430b17c9d008d4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -188.9
       objectReference: {fileID: 0}
     - target: {fileID: 1770203288366564531, guid: b8c5991ae1f0441b5b430b17c9d008d4, type: 3}
       propertyPath: m_Pivot.x
@@ -3093,35 +3109,67 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2119121847531879236, guid: b8c5991ae1f0441b5b430b17c9d008d4, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 49.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 2119121847531879236, guid: b8c5991ae1f0441b5b430b17c9d008d4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 205.07
       objectReference: {fileID: 0}
     - target: {fileID: 2167450458128053154, guid: b8c5991ae1f0441b5b430b17c9d008d4, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 21.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 2167450458128053154, guid: b8c5991ae1f0441b5b430b17c9d008d4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 166.13
       objectReference: {fileID: 0}
     - target: {fileID: 2277558784272544005, guid: b8c5991ae1f0441b5b430b17c9d008d4, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 52.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2277558784272544005, guid: b8c5991ae1f0441b5b430b17c9d008d4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -32.9
       objectReference: {fileID: 0}
     - target: {fileID: 4156100549004057085, guid: b8c5991ae1f0441b5b430b17c9d008d4, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 62.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 4156100549004057085, guid: b8c5991ae1f0441b5b430b17c9d008d4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -248.48
       objectReference: {fileID: 0}
     - target: {fileID: 6113101010954716960, guid: b8c5991ae1f0441b5b430b17c9d008d4, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 45.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 6113101010954716960, guid: b8c5991ae1f0441b5b430b17c9d008d4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 72.48
       objectReference: {fileID: 0}
     - target: {fileID: 6455697746205461474, guid: b8c5991ae1f0441b5b430b17c9d008d4, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 46.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 6455697746205461474, guid: b8c5991ae1f0441b5b430b17c9d008d4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 256.8
       objectReference: {fileID: 0}
     - target: {fileID: 6912552524999222839, guid: b8c5991ae1f0441b5b430b17c9d008d4, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 67.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 6912552524999222839, guid: b8c5991ae1f0441b5b430b17c9d008d4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -126.71
       objectReference: {fileID: 0}
     - target: {fileID: 7028669975853659827, guid: b8c5991ae1f0441b5b430b17c9d008d4, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 51.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 7028669975853659827, guid: b8c5991ae1f0441b5b430b17c9d008d4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 125.65
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4546,14 +4594,16 @@ MonoBehaviour:
         m_CallState: 2
   localizedString:
     localizedValues:
-      keys:
-      - cultureName: ja
-      - cultureName: zh
-      - cultureName: en
-      values:
-      - "\u623B \u308B"
-      - "\u8FD4 \u56DE"
-      - BACK
+      pairs:
+      - key:
+          cultureName: ja
+        value: "\u623B \u308B"
+      - key:
+          cultureName: zh
+        value: "\u8FD4 \u56DE"
+      - key:
+          cultureName: en
+        value: BACK
 --- !u!114 &6176007990479361506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4583,14 +4633,16 @@ MonoBehaviour:
         m_CallState: 2
   localizedString:
     localizedValues:
-      keys:
-      - cultureName: ja
-      - cultureName: zh
-      - cultureName: en
-      values:
-      - "\u9023 \u7D9A"
-      - "\u8FDE \u7EED"
-      - CONT.
+      pairs:
+      - key:
+          cultureName: ja
+        value: "\u9023 \u7D9A"
+      - key:
+          cultureName: zh
+        value: "\u8FDE \u7EED"
+      - key:
+          cultureName: en
+        value: CONT.
 --- !u!114 &6176007990479361507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4620,14 +4672,16 @@ MonoBehaviour:
         m_CallState: 2
   localizedString:
     localizedValues:
-      keys:
-      - cultureName: ja
-      - cultureName: zh
-      - cultureName: en
-      values:
-      - "\u30AA\u30FC\u30C8"
-      - "\u81EA \u52A8"
-      - AUTO
+      pairs:
+      - key:
+          cultureName: ja
+        value: "\u30AA\u30FC\u30C8"
+      - key:
+          cultureName: zh
+        value: "\u81EA \u52A8"
+      - key:
+          cultureName: en
+        value: AUTO
 --- !u!114 &6176007990479361508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4657,14 +4711,16 @@ MonoBehaviour:
         m_CallState: 2
   localizedString:
     localizedValues:
-      keys:
-      - cultureName: ja
-      - cultureName: zh
-      - cultureName: en
-      values:
-      - "\u30ED \u30B0"
-      - "\u65E5 \u5FD7"
-      - LOG
+      pairs:
+      - key:
+          cultureName: ja
+        value: "\u30ED \u30B0"
+      - key:
+          cultureName: zh
+        value: "\u65E5 \u5FD7"
+      - key:
+          cultureName: en
+        value: LOG
 --- !u!114 &6176007990479361509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4694,14 +4750,16 @@ MonoBehaviour:
         m_CallState: 2
   localizedString:
     localizedValues:
-      keys:
-      - cultureName: ja
-      - cultureName: zh
-      - cultureName: en
-      values:
-      - "\u975E\u8868\u793A"
-      - "\u9690 \u85CF"
-      - HIDE
+      pairs:
+      - key:
+          cultureName: ja
+        value: "\u975E\u8868\u793A"
+      - key:
+          cultureName: zh
+        value: "\u9690 \u85CF"
+      - key:
+          cultureName: en
+        value: HIDE
 --- !u!114 &6176007990479361510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4731,14 +4789,16 @@ MonoBehaviour:
         m_CallState: 2
   localizedString:
     localizedValues:
-      keys:
-      - cultureName: ja
-      - cultureName: zh
-      - cultureName: en
-      values:
-      - "\u5168\u753B\u9762"
-      - "\u5168 \u5C4F"
-      - FULL
+      pairs:
+      - key:
+          cultureName: ja
+        value: "\u5168\u753B\u9762"
+      - key:
+          cultureName: zh
+        value: "\u5168 \u5C4F"
+      - key:
+          cultureName: en
+        value: FULL
 --- !u!114 &6176007990479361511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4816,14 +4876,16 @@ MonoBehaviour:
         m_CallState: 2
   localizedFont:
     localizedValues:
-      keys:
-      - cultureName: ja
-      - cultureName: zh
-      - cultureName: en
-      values:
-      - {fileID: 11400000, guid: 7cb447fcd19bf7c458d269923c670e99, type: 2}
-      - {fileID: 11400000, guid: 05e6dbb1274764148af0fbdcd8d9e8a6, type: 2}
-      - {fileID: 11400000, guid: 7cb447fcd19bf7c458d269923c670e99, type: 2}
+      pairs:
+      - key:
+          cultureName: ja
+        value: {fileID: 11400000, guid: 7cb447fcd19bf7c458d269923c670e99, type: 2}
+      - key:
+          cultureName: zh
+        value: {fileID: 11400000, guid: 05e6dbb1274764148af0fbdcd8d9e8a6, type: 2}
+      - key:
+          cultureName: en
+        value: {fileID: 11400000, guid: 7cb447fcd19bf7c458d269923c670e99, type: 2}
 --- !u!1 &6260522724614001066
 GameObject:
   m_ObjectHideFlags: 0

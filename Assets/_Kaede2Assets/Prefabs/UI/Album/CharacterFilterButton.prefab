@@ -197,7 +197,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 470051224126146674, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -52.5
+      value: -112.5
       objectReference: {fileID: 0}
     - target: {fileID: 470051224126146674, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -284,12 +284,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2622488274853669527, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
-      propertyPath: m_text
-      value: "\u7D50\u57CE \u53CB\u5948"
-      objectReference: {fileID: 0}
-    - target: {fileID: 2622488274853669527, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
       propertyPath: m_fontSize
       value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622488274853669527, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622488274853669527, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
+      propertyPath: m_fontSizeMin
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2622488274853669527, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
       propertyPath: m_lineSpacing
@@ -299,43 +303,20 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 28
       objectReference: {fileID: 0}
-    - target: {fileID: 5282776754528082873, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.size
-      value: 3
+    - target: {fileID: 2622488274853669527, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
+      propertyPath: m_TextWrappingMode
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5282776754528082873, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
-      propertyPath: localizedString.localizedValues.values.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5282776754528082873, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
-      value: "\u7D50\u57CE \u53CB\u5948"
-      objectReference: {fileID: 0}
-    - target: {fileID: 5282776754528082873, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
-      value: "\u7ED3\u57CE \u53CB\u5948"
-      objectReference: {fileID: 0}
-    - target: {fileID: 5282776754528082873, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
-      value: Yuuki Yuuna
-      objectReference: {fileID: 0}
-    - target: {fileID: 5282776754528082873, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
-      value: ja
-      objectReference: {fileID: 0}
-    - target: {fileID: 5282776754528082873, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
-      value: zh
-      objectReference: {fileID: 0}
-    - target: {fileID: 5282776754528082873, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
-      value: en
+    - target: {fileID: 2622488274853669527, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5637220996913979191, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
       propertyPath: m_Name
       value: CharacterFilterButton
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5282776754528082873, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 531789353968093511, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
@@ -366,6 +347,8 @@ MonoBehaviour:
   button: {fileID: 6480410032601944412}
   onImage: {fileID: 7416684136014928630}
   offImage: {fileID: 8716897124746854756}
+  text: {fileID: 8812007859750398000}
+  characterNames: {fileID: 11400000, guid: 59c85cabdf7fe42d697e08bde0313fd5, type: 2}
   characterId: 1
 --- !u!224 &6435418318622067680 stripped
 RectTransform:
@@ -381,5 +364,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 110fb761ace649e4ad1a06b8f6a8b0b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8812007859750398000 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2622488274853669527, guid: cd2bce87bb4c14561820c066fe6bd081, type: 3}
+  m_PrefabInstance: {fileID: 6786495025151263399}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

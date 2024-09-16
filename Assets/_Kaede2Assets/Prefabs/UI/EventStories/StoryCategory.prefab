@@ -269,14 +269,16 @@ MonoBehaviour:
         m_CallState: 2
   localizedFont:
     localizedValues:
-      keys:
-      - cultureName: ja
-      - cultureName: en
-      - cultureName: zh
-      values:
-      - {fileID: 11400000, guid: 4bd3c3cce59e44559875a8e03a8f7555, type: 2}
-      - {fileID: 11400000, guid: 4bd3c3cce59e44559875a8e03a8f7555, type: 2}
-      - {fileID: 11400000, guid: cdb7f063f95e643f58d88b5fe0bfd7aa, type: 2}
+      pairs:
+      - key:
+          cultureName: ja
+        value: {fileID: 11400000, guid: 4bd3c3cce59e44559875a8e03a8f7555, type: 2}
+      - key:
+          cultureName: en
+        value: {fileID: 11400000, guid: 4bd3c3cce59e44559875a8e03a8f7555, type: 2}
+      - key:
+          cultureName: zh
+        value: {fileID: 11400000, guid: cdb7f063f95e643f58d88b5fe0bfd7aa, type: 2}
 --- !u!114 &4191117653647919120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,14 +308,16 @@ MonoBehaviour:
         m_CallState: 2
   localizedFont:
     localizedValues:
-      keys:
-      - cultureName: ja
-      - cultureName: en
-      - cultureName: zh
-      values:
-      - {fileID: 11400000, guid: 865d958da30184888b448ac60a287c0f, type: 2}
-      - {fileID: 11400000, guid: 865d958da30184888b448ac60a287c0f, type: 2}
-      - {fileID: 11400000, guid: 955de43d5820a435fb2510b0f26cc6ea, type: 2}
+      pairs:
+      - key:
+          cultureName: ja
+        value: {fileID: 11400000, guid: 865d958da30184888b448ac60a287c0f, type: 2}
+      - key:
+          cultureName: en
+        value: {fileID: 11400000, guid: 865d958da30184888b448ac60a287c0f, type: 2}
+      - key:
+          cultureName: zh
+        value: {fileID: 11400000, guid: 955de43d5820a435fb2510b0f26cc6ea, type: 2}
 --- !u!114 &8199494165324294183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,8 +359,7 @@ MonoBehaviour:
         m_CallState: 2
   localizedString:
     localizedValues:
-      keys: []
-      values: []
+      pairs: []
 --- !u!1 &5939623511845836616
 GameObject:
   m_ObjectHideFlags: 0

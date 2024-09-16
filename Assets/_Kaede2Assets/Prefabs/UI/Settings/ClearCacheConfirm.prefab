@@ -225,35 +225,31 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2324610974233086221, guid: 739ff491ee6014f8a9baf8830aa80df4, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.size
+      propertyPath: localizedString.localizedValues.pairs.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2324610974233086221, guid: 739ff491ee6014f8a9baf8830aa80df4, type: 3}
-      propertyPath: localizedString.localizedValues.values.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2324610974233086221, guid: 739ff491ee6014f8a9baf8830aa80df4, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[0].value
       value: "\u30AD\u30E3\u30C3\u30B7\u30E5\u30AF\u30EA\u30A2"
       objectReference: {fileID: 0}
     - target: {fileID: 2324610974233086221, guid: 739ff491ee6014f8a9baf8830aa80df4, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[1].value
       value: "\u6E05\u7A7A\u7F13\u5B58"
       objectReference: {fileID: 0}
     - target: {fileID: 2324610974233086221, guid: 739ff491ee6014f8a9baf8830aa80df4, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[2].value
       value: Clear Cache
       objectReference: {fileID: 0}
     - target: {fileID: 2324610974233086221, guid: 739ff491ee6014f8a9baf8830aa80df4, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[0].key.cultureName
       value: ja
       objectReference: {fileID: 0}
     - target: {fileID: 2324610974233086221, guid: 739ff491ee6014f8a9baf8830aa80df4, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[1].key.cultureName
       value: zh
       objectReference: {fileID: 0}
     - target: {fileID: 2324610974233086221, guid: 739ff491ee6014f8a9baf8830aa80df4, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[2].key.cultureName
       value: en
       objectReference: {fileID: 0}
     - target: {fileID: 7120435142241524713, guid: 739ff491ee6014f8a9baf8830aa80df4, type: 3}
@@ -355,14 +351,16 @@ MonoBehaviour:
         m_CallState: 2
   localizedFont:
     localizedValues:
-      keys:
-      - cultureName: ja
-      - cultureName: en
-      - cultureName: zh
-      values:
-      - {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
-      - {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
-      - {fileID: 11400000, guid: a0a9703720ea14f4db73414ecf002bb2, type: 2}
+      pairs:
+      - key:
+          cultureName: ja
+        value: {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
+      - key:
+          cultureName: en
+        value: {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
+      - key:
+          cultureName: zh
+        value: {fileID: 11400000, guid: a0a9703720ea14f4db73414ecf002bb2, type: 2}
 --- !u!114 &766246874154724619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,16 +390,18 @@ MonoBehaviour:
         m_CallState: 2
   localizedString:
     localizedValues:
-      keys:
-      - cultureName: ja
-      - cultureName: zh
-      - cultureName: en
-      values:
-      - "\u30AD\u30E3\u30C3\u30B7\u30E5\u3092\u30AF\u30EA\u30A2\u3059\u308B\u3068\u3001\u30B2\u30FC\u30E0\u304C\u7D42\u4E86\u3057\u3001\n\u3059\u3079\u3066\u306E\u5FC5\u8981\u306A\u30D5\u30A1\u30A4\u30EB\u3092\u518D\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u3059\u308B\u5FC5\u8981\u304C\u3042\u308A\u307E\u3059\u3002\n\n\u3053\u306E\u64CD\u4F5C\u306F\u5143\u306B\u623B\u305B\u307E\u305B\u3093\u3002\u7D9A\u884C\u3057\u307E\u3059\u304B\uFF1F"
-      - "\u6E05\u9664\u6E38\u620F\u7F13\u5B58\u5C06\u5BFC\u81F4\u6E38\u620F\u9000\u51FA\uFF0C\n\u5E76\u4E14\u60A8\u9700\u8981\u91CD\u65B0\u4E0B\u8F7D\u6240\u6709\u5FC5\u9700\u6587\u4EF6\u3002\n\n\u6B64\u64CD\u4F5C\u4E0D\u53EF\u64A4\u9500\u3002\u60A8\u786E\u5B9A\u8981\u7EE7\u7EED\u5417\uFF1F"
-      - "Clearing the game\u2019s cache will cause the game to exit,\nand you will
-        need to re-download all required files.\n\nThis action is irreversible. Do
-        you wish to continue?"
+      pairs:
+      - key:
+          cultureName: ja
+        value: "\u30AD\u30E3\u30C3\u30B7\u30E5\u3092\u30AF\u30EA\u30A2\u3059\u308B\u3068\u3001\u30B2\u30FC\u30E0\u304C\u7D42\u4E86\u3057\u3001\n\u3059\u3079\u3066\u306E\u5FC5\u8981\u306A\u30D5\u30A1\u30A4\u30EB\u3092\u518D\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u3059\u308B\u5FC5\u8981\u304C\u3042\u308A\u307E\u3059\u3002\n\n\u3053\u306E\u64CD\u4F5C\u306F\u5143\u306B\u623B\u305B\u307E\u305B\u3093\u3002\u7D9A\u884C\u3057\u307E\u3059\u304B\uFF1F"
+      - key:
+          cultureName: zh
+        value: "\u6E05\u9664\u6E38\u620F\u7F13\u5B58\u5C06\u5BFC\u81F4\u6E38\u620F\u9000\u51FA\uFF0C\n\u5E76\u4E14\u60A8\u9700\u8981\u91CD\u65B0\u4E0B\u8F7D\u6240\u6709\u5FC5\u9700\u6587\u4EF6\u3002\n\n\u6B64\u64CD\u4F5C\u4E0D\u53EF\u64A4\u9500\u3002\u60A8\u786E\u5B9A\u8981\u7EE7\u7EED\u5417\uFF1F"
+      - key:
+          cultureName: en
+        value: "Clearing the game\u2019s cache will cause the game to exit,\nand
+          you will need to re-download all required files.\n\nThis action is irreversible.
+          Do you wish to continue?"
 --- !u!224 &8993493805816924516 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8595221338787663255, guid: 739ff491ee6014f8a9baf8830aa80df4, type: 3}
@@ -420,35 +420,31 @@ PrefabInstance:
       value: NoButton
       objectReference: {fileID: 0}
     - target: {fileID: 3323931168449455958, guid: 5fd6277dc67734da982ef985f5f099c7, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.size
+      propertyPath: localizedString.localizedValues.pairs.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3323931168449455958, guid: 5fd6277dc67734da982ef985f5f099c7, type: 3}
-      propertyPath: localizedString.localizedValues.values.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3323931168449455958, guid: 5fd6277dc67734da982ef985f5f099c7, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[0].value
       value: "\u3044\u3044\u3048"
       objectReference: {fileID: 0}
     - target: {fileID: 3323931168449455958, guid: 5fd6277dc67734da982ef985f5f099c7, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[1].value
       value: "\u5426"
       objectReference: {fileID: 0}
     - target: {fileID: 3323931168449455958, guid: 5fd6277dc67734da982ef985f5f099c7, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[2].value
       value: NO
       objectReference: {fileID: 0}
     - target: {fileID: 3323931168449455958, guid: 5fd6277dc67734da982ef985f5f099c7, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[0].key.cultureName
       value: ja
       objectReference: {fileID: 0}
     - target: {fileID: 3323931168449455958, guid: 5fd6277dc67734da982ef985f5f099c7, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[1].key.cultureName
       value: zh
       objectReference: {fileID: 0}
     - target: {fileID: 3323931168449455958, guid: 5fd6277dc67734da982ef985f5f099c7, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[2].key.cultureName
       value: en
       objectReference: {fileID: 0}
     - target: {fileID: 4833553722667079288, guid: 5fd6277dc67734da982ef985f5f099c7, type: 3}
@@ -569,35 +565,31 @@ PrefabInstance:
       value: YesButton
       objectReference: {fileID: 0}
     - target: {fileID: 3323931168449455958, guid: 5fd6277dc67734da982ef985f5f099c7, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.size
+      propertyPath: localizedString.localizedValues.pairs.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3323931168449455958, guid: 5fd6277dc67734da982ef985f5f099c7, type: 3}
-      propertyPath: localizedString.localizedValues.values.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3323931168449455958, guid: 5fd6277dc67734da982ef985f5f099c7, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[0].value
       value: "\u306F\u3044"
       objectReference: {fileID: 0}
     - target: {fileID: 3323931168449455958, guid: 5fd6277dc67734da982ef985f5f099c7, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[1].value
       value: "\u662F"
       objectReference: {fileID: 0}
     - target: {fileID: 3323931168449455958, guid: 5fd6277dc67734da982ef985f5f099c7, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[2].value
       value: YES
       objectReference: {fileID: 0}
     - target: {fileID: 3323931168449455958, guid: 5fd6277dc67734da982ef985f5f099c7, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[0].key.cultureName
       value: ja
       objectReference: {fileID: 0}
     - target: {fileID: 3323931168449455958, guid: 5fd6277dc67734da982ef985f5f099c7, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[1].key.cultureName
       value: zh
       objectReference: {fileID: 0}
     - target: {fileID: 3323931168449455958, guid: 5fd6277dc67734da982ef985f5f099c7, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[2].key.cultureName
       value: en
       objectReference: {fileID: 0}
     - target: {fileID: 4833553722667079288, guid: 5fd6277dc67734da982ef985f5f099c7, type: 3}

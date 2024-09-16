@@ -295,6 +295,47 @@ Material:
     - _TargetColor: {r: 1, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
+--- !u!21 &99161448
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/HSV Adjustable
+  m_Shader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ReferenceColor: {r: 0.98039216, g: 0.84313726, b: 0.9098039, a: 0.8823529}
+    - _TargetColor: {r: 0.98039216, g: 0.84313726, b: 0.84313726, a: 0.8823529}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!224 &105133130 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6012839576864036401, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
@@ -455,14 +496,16 @@ MonoBehaviour:
         m_CallState: 2
   localizedFont:
     localizedValues:
-      keys:
-      - cultureName: ja
-      - cultureName: en
-      - cultureName: zh
-      values:
-      - {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
-      - {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
-      - {fileID: 11400000, guid: a0a9703720ea14f4db73414ecf002bb2, type: 2}
+      pairs:
+      - key:
+          cultureName: ja
+        value: {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
+      - key:
+          cultureName: en
+        value: {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
+      - key:
+          cultureName: zh
+        value: {fileID: 11400000, guid: a0a9703720ea14f4db73414ecf002bb2, type: 2}
 --- !u!114 &163814839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -492,17 +535,19 @@ MonoBehaviour:
         m_CallState: 2
   localizedString:
     localizedValues:
-      keys:
-      - cultureName: ja
-      - cultureName: zh
-      - cultureName: en
-      values:
-      - "\u30B9\u30C8\u30FC\u30EA\u30FC\u3092\u518D\u751F\u3057\u305F\u3044\u30A4\u30D9\u30F3\u30C8\u30AB\u30C6\u30B4\u30EA\u30FC\u3092\u9078\u629E\n\u3057\u3066\u304F\u3060\u3055\u3044\u3002"
-      - "\u8BF7\u9009\u62E9\u60F3\u8981\u64AD\u653E\u7684\u6D3B\u52A8\u5267\u60C5\u7684\u7C7B\u522B\u3002"
-      - 'Please select the category of the event stories
+      pairs:
+      - key:
+          cultureName: ja
+        value: "\u30B9\u30C8\u30FC\u30EA\u30FC\u3092\u518D\u751F\u3057\u305F\u3044\u30A4\u30D9\u30F3\u30C8\u30AB\u30C6\u30B4\u30EA\u30FC\u3092\u9078\u629E\n\u3057\u3066\u304F\u3060\u3055\u3044\u3002"
+      - key:
+          cultureName: zh
+        value: "\u8BF7\u9009\u62E9\u60F3\u8981\u64AD\u653E\u7684\u6D3B\u52A8\u5267\u60C5\u7684\u7C7B\u522B\u3002"
+      - key:
+          cultureName: en
+        value: 'Please select the category of the event stories
 
-        that you want to
-        playback.'
+          that you
+          want to playback.'
 --- !u!114 &202116171 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8086793666590724523, guid: d42595381b96343cdb2a3575681d862b, type: 3}
@@ -611,35 +656,31 @@ PrefabInstance:
       value: GUID:a3dd9b100436b4e2ca29af1a7ed3ed64
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.size
+      propertyPath: localizedString.localizedValues.pairs.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: localizedString.localizedValues.values.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[0].value
       value: "\u304A\u6C17\u306B\u5165\u308A\u30B9\u30C8\u30FC\u30EA\u30FC"
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[1].value
       value: "\u6536 \u85CF \u5939"
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[2].value
       value: Favorite Stories
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[0].key.cultureName
       value: ja
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[1].key.cultureName
       value: zh
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[2].key.cultureName
       value: en
       objectReference: {fileID: 0}
     - target: {fileID: 4757311817901298255, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
@@ -655,47 +696,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
---- !u!21 &233484041
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/HSV Adjustable
-  m_Shader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _ReferenceColor: {r: 0.98039216, g: 0.59607846, b: 0.59607846, a: 1}
-    - _TargetColor: {r: 1, g: 0, b: 0, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!224 &261418671 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 453491413553768657, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
@@ -821,35 +821,31 @@ PrefabInstance:
       value: "\u8A95 \u751F \u65E5"
       objectReference: {fileID: 0}
     - target: {fileID: 8186365558887529378, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.size
+      propertyPath: localizedString.localizedValues.pairs.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8186365558887529378, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
-      propertyPath: localizedString.localizedValues.values.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8186365558887529378, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[0].value
       value: "\u8A95 \u751F \u65E5"
       objectReference: {fileID: 0}
     - target: {fileID: 8186365558887529378, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[1].value
       value: "\u751F  \u65E5"
       objectReference: {fileID: 0}
     - target: {fileID: 8186365558887529378, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[2].value
       value: BIRTHDAY
       objectReference: {fileID: 0}
     - target: {fileID: 8186365558887529378, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[0].key.cultureName
       value: ja
       objectReference: {fileID: 0}
     - target: {fileID: 8186365558887529378, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[1].key.cultureName
       value: zh
       objectReference: {fileID: 0}
     - target: {fileID: 8186365558887529378, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[2].key.cultureName
       value: en
       objectReference: {fileID: 0}
     - target: {fileID: 8687281365856830651, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
@@ -982,6 +978,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04dd42a87174458d8aade5d548676aa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!21 &475287262
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/HSV Adjustable
+  m_Shader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ReferenceColor: {r: 0.98039216, g: 0.59607846, b: 0.59607846, a: 1}
+    - _TargetColor: {r: 1, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &493197891
 GameObject:
   m_ObjectHideFlags: 0
@@ -1329,47 +1366,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4200032182064343199, guid: 2eac1923bb6c74fee8200b1f30689058, type: 3}
   m_PrefabInstance: {fileID: 2951289546266386859}
   m_PrefabAsset: {fileID: 0}
---- !u!21 &924861605
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/HSV Adjustable
-  m_Shader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _ReferenceColor: {r: 0.98039216, g: 0.59607846, b: 0.59607846, a: 1}
-    - _TargetColor: {r: 1, g: 0, b: 0, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1 &945438187
 GameObject:
   m_ObjectHideFlags: 0
@@ -1722,35 +1718,31 @@ PrefabInstance:
       value: "\u5B63\u7BC0\u30FB\u65E5\u5E38\u30FB\u305D\u306E\u4ED6"
       objectReference: {fileID: 0}
     - target: {fileID: 8186365558887529378, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.size
+      propertyPath: localizedString.localizedValues.pairs.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8186365558887529378, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
-      propertyPath: localizedString.localizedValues.values.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8186365558887529378, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[0].value
       value: "\u5B63\u7BC0\u30FB\u65E5\u5E38\u30FB\u305D\u306E\u4ED6"
       objectReference: {fileID: 0}
     - target: {fileID: 8186365558887529378, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[1].value
       value: "\u5B63\u8282\u30FB\u65E5\u5E38\u30FB\u5176\u4ED6"
       objectReference: {fileID: 0}
     - target: {fileID: 8186365558887529378, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[2].value
       value: SEASONAL / DAILY / OTHERS
       objectReference: {fileID: 0}
     - target: {fileID: 8186365558887529378, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[0].key.cultureName
       value: ja
       objectReference: {fileID: 0}
     - target: {fileID: 8186365558887529378, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[1].key.cultureName
       value: zh
       objectReference: {fileID: 0}
     - target: {fileID: 8186365558887529378, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[2].key.cultureName
       value: en
       objectReference: {fileID: 0}
     - target: {fileID: 8687281365856830651, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
@@ -1812,47 +1804,6 @@ Material:
     m_Colors:
     - _ReferenceColor: {r: 0.98039216, g: 0.84313726, b: 0.9098039, a: 0.8823529}
     - _TargetColor: {r: 0.98039216, g: 0.84313726, b: 0.84313726, a: 0.8823529}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
---- !u!21 &1158530502
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/HSV Adjustable
-  m_Shader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _ReferenceColor: {r: 0.98039216, g: 0.59607846, b: 0.59607846, a: 1}
-    - _TargetColor: {r: 1, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1 &1178526203
@@ -1962,6 +1913,47 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!21 &1204785054
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/HSV Adjustable
+  m_Shader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ReferenceColor: {r: 0.98039216, g: 0.59607846, b: 0.59607846, a: 1}
+    - _TargetColor: {r: 1, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1001 &1234746722
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2063,35 +2055,31 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.size
+      propertyPath: localizedString.localizedValues.pairs.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: localizedString.localizedValues.values.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[0].value
       value: "\u7D9A\u304D\u304B\u3089"
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[1].value
       value: "\u7EE7 \u7EED"
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[2].value
       value: Continue
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[0].key.cultureName
       value: ja
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[1].key.cultureName
       value: zh
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[2].key.cultureName
       value: en
       objectReference: {fileID: 0}
     - target: {fileID: 4757311817901298255, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
@@ -2115,47 +2103,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
---- !u!21 &1244678612
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/HSV Adjustable
-  m_Shader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _ReferenceColor: {r: 0.98039216, g: 0.84313726, b: 0.9098039, a: 0.8823529}
-    - _TargetColor: {r: 0.98039216, g: 0.84313726, b: 0.84313726, a: 0.8823529}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!224 &1305329242 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 453491413553768657, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
@@ -2306,7 +2253,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8914881576403010444, guid: 09b9395177502451fb4639a997481e66, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 8914881576403010444, guid: 09b9395177502451fb4639a997481e66, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2433,35 +2380,31 @@ PrefabInstance:
       value: GUID:a3dd9b100436b4e2ca29af1a7ed3ed64
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.size
+      propertyPath: localizedString.localizedValues.pairs.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: localizedString.localizedValues.values.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[0].value
       value: "\u623B \u308B"
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[1].value
       value: "\u8FD4 \u56DE"
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[2].value
       value: Back
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[0].key.cultureName
       value: ja
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[1].key.cultureName
       value: zh
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[2].key.cultureName
       value: en
       objectReference: {fileID: 0}
     - target: {fileID: 4757311817901298255, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
@@ -2582,35 +2525,31 @@ PrefabInstance:
       value: "\u30A4\u30D9\u30F3\u30C8\u30B9\u30C8\u30FC\u30EA\u30FC"
       objectReference: {fileID: 0}
     - target: {fileID: 8186365558887529378, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.size
+      propertyPath: localizedString.localizedValues.pairs.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8186365558887529378, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
-      propertyPath: localizedString.localizedValues.values.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8186365558887529378, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[0].value
       value: "\u30A4\u30D9\u30F3\u30C8\u30B9\u30C8\u30FC\u30EA\u30FC"
       objectReference: {fileID: 0}
     - target: {fileID: 8186365558887529378, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[1].value
       value: "\u6D3B \u52A8 \u5267 \u60C5"
       objectReference: {fileID: 0}
     - target: {fileID: 8186365558887529378, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[2].value
       value: EVENT STORY
       objectReference: {fileID: 0}
     - target: {fileID: 8186365558887529378, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[0].key.cultureName
       value: ja
       objectReference: {fileID: 0}
     - target: {fileID: 8186365558887529378, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[1].key.cultureName
       value: zh
       objectReference: {fileID: 0}
     - target: {fileID: 8186365558887529378, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[2].key.cultureName
       value: en
       objectReference: {fileID: 0}
     - target: {fileID: 8687281365856830651, guid: e175924579a954b3da1e5f4f509f11e8, type: 3}
@@ -2704,6 +2643,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 711762712}
+--- !u!21 &1784659019
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/HSV Adjustable
+  m_Shader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ReferenceColor: {r: 0.98039216, g: 0.59607846, b: 0.59607846, a: 1}
+    - _TargetColor: {r: 1, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &1795718510 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4207033040017485763, guid: 09b9395177502451fb4639a997481e66, type: 3}
@@ -3264,14 +3244,16 @@ MonoBehaviour:
         m_CallState: 2
   localizedValue:
     localizedValues:
-      keys:
-      - cultureName: ja
-      - cultureName: zh
-      - cultureName: en
-      values:
-      - -15
-      - -15
-      - -7
+      pairs:
+      - key:
+          cultureName: ja
+        value: -15
+      - key:
+          cultureName: zh
+        value: -15
+      - key:
+          cultureName: en
+        value: -7
 --- !u!114 &2068931063 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5488276476507501073, guid: 0b658536d375142bdb520daaacb366bc, type: 3}
@@ -3458,35 +3440,31 @@ PrefabInstance:
       value: GUID:a3dd9b100436b4e2ca29af1a7ed3ed64
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.size
+      propertyPath: localizedString.localizedValues.pairs.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: localizedString.localizedValues.values.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[0].value
       value: "\u30E1\u30A4\u30F3\u30B9\u30C8\u30FC\u30EA\u30FC"
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[1].value
       value: "\u4E3B \u7EBF \u5267 \u60C5"
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[2].value
       value: Main Story
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[0].key.cultureName
       value: ja
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[1].key.cultureName
       value: zh
       objectReference: {fileID: 0}
     - target: {fileID: 3770934407499562676, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[2].key.cultureName
       value: en
       objectReference: {fileID: 0}
     - target: {fileID: 4757311817901298255, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
@@ -3632,42 +3610,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3982725555607601180, guid: 0b658536d375142bdb520daaacb366bc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 5274065130193915596, guid: 0b658536d375142bdb520daaacb366bc, type: 3}
       propertyPath: m_Name
       value: BirthdayStories
       objectReference: {fileID: 0}
     - target: {fileID: 8199494165324294183, guid: 0b658536d375142bdb520daaacb366bc, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.size
+      propertyPath: localizedString.localizedValues.pairs.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8199494165324294183, guid: 0b658536d375142bdb520daaacb366bc, type: 3}
-      propertyPath: localizedString.localizedValues.values.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8199494165324294183, guid: 0b658536d375142bdb520daaacb366bc, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[0].value
       value: "\u8A95  \u751F  \u65E5"
       objectReference: {fileID: 0}
     - target: {fileID: 8199494165324294183, guid: 0b658536d375142bdb520daaacb366bc, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[1].value
       value: "\u751F  \u65E5"
       objectReference: {fileID: 0}
     - target: {fileID: 8199494165324294183, guid: 0b658536d375142bdb520daaacb366bc, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[2].value
       value: B I R T H D A Y
       objectReference: {fileID: 0}
     - target: {fileID: 8199494165324294183, guid: 0b658536d375142bdb520daaacb366bc, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[0].key.cultureName
       value: ja
       objectReference: {fileID: 0}
     - target: {fileID: 8199494165324294183, guid: 0b658536d375142bdb520daaacb366bc, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[1].key.cultureName
       value: zh
       objectReference: {fileID: 0}
     - target: {fileID: 8199494165324294183, guid: 0b658536d375142bdb520daaacb366bc, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[2].key.cultureName
       value: en
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3737,7 +3711,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4200032182064343199, guid: 2eac1923bb6c74fee8200b1f30689058, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -960
       objectReference: {fileID: 0}
     - target: {fileID: 4200032182064343199, guid: 2eac1923bb6c74fee8200b1f30689058, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3922,42 +3896,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3982725555607601180, guid: 0b658536d375142bdb520daaacb366bc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 5274065130193915596, guid: 0b658536d375142bdb520daaacb366bc, type: 3}
       propertyPath: m_Name
       value: SeasonalStories
       objectReference: {fileID: 0}
     - target: {fileID: 8199494165324294183, guid: 0b658536d375142bdb520daaacb366bc, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.size
+      propertyPath: localizedString.localizedValues.pairs.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8199494165324294183, guid: 0b658536d375142bdb520daaacb366bc, type: 3}
-      propertyPath: localizedString.localizedValues.values.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8199494165324294183, guid: 0b658536d375142bdb520daaacb366bc, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[0]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[0].value
       value: "\u5B63\u7BC0\u3082\u306E\u30FB\u65E5\u5E38\u30FB\u305D\u306E\u4ED6"
       objectReference: {fileID: 0}
     - target: {fileID: 8199494165324294183, guid: 0b658536d375142bdb520daaacb366bc, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[1]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[1].value
       value: "\u5B63 \u8282 \u30FB \u65E5 \u5E38 \u30FB \u5176 \u4ED6"
       objectReference: {fileID: 0}
     - target: {fileID: 8199494165324294183, guid: 0b658536d375142bdb520daaacb366bc, type: 3}
-      propertyPath: 'localizedString.localizedValues.values.Array.data[2]'
+      propertyPath: localizedString.localizedValues.pairs.Array.data[2].value
       value: SEASONAL / DAILY / OTHERS
       objectReference: {fileID: 0}
     - target: {fileID: 8199494165324294183, guid: 0b658536d375142bdb520daaacb366bc, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[0].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[0].key.cultureName
       value: ja
       objectReference: {fileID: 0}
     - target: {fileID: 8199494165324294183, guid: 0b658536d375142bdb520daaacb366bc, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[1].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[1].key.cultureName
       value: zh
       objectReference: {fileID: 0}
     - target: {fileID: 8199494165324294183, guid: 0b658536d375142bdb520daaacb366bc, type: 3}
-      propertyPath: localizedString.localizedValues.keys.Array.data[2].cultureName
+      propertyPath: localizedString.localizedValues.pairs.Array.data[2].key.cultureName
       value: en
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -4090,7 +4060,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8914881576403010444, guid: 09b9395177502451fb4639a997481e66, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 8914881576403010444, guid: 09b9395177502451fb4639a997481e66, type: 3}
       propertyPath: m_AnchoredPosition.y

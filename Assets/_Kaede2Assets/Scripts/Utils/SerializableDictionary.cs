@@ -7,24 +7,25 @@ namespace Kaede2.Utils
     [Serializable]
     public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
     {
-        [SerializeField]
-        private List<TKey> keys;
+        [Serializable]
+        private class Pair
+        {
+            public TKey key;
+            public TValue value;
+        }
 
         [SerializeField]
-        private List<TValue> values;
+        private List<Pair> pairs;
 
         // save the dictionary to lists
         public void OnBeforeSerialize()
         {
-            keys ??= new();
-            values ??= new();
+            pairs ??= new();
 
-            keys.Clear();
-            values.Clear();
+            pairs.Clear();
             foreach (KeyValuePair<TKey, TValue> pair in this)
             {
-                keys.Add(pair.Key);
-                values.Add(pair.Value);
+                pairs.Add(new Pair { key = pair.Key, value = pair.Value });
             }
         }
 
@@ -33,14 +34,24 @@ namespace Kaede2.Utils
         {
             Clear();
 
-            if (keys.Count != values.Count)
-                throw new Exception($"Count mismatch between keys and values ({keys.Count} keys vs {values.Count} values)");
+            foreach (var pair in pairs)
+            {
+                Add(pair.key, pair.value);
+            }
 
-            for (int i = 0; i < keys.Count; i++)
-                Add(keys[i], values[i]);
+            pairs.Clear();
+        }
 
-            keys.Clear();
-            values.Clear();
+        public SerializableDictionary()
+        {
+        }
+
+        public SerializableDictionary(Dictionary<TKey, TValue> dictionary)
+        {
+            foreach (var pair in dictionary)
+            {
+                Add(pair.Key, pair.Value);
+            }
         }
     }
 }
