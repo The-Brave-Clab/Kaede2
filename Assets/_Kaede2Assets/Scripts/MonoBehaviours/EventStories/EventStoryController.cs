@@ -50,6 +50,9 @@ namespace Kaede2
         [SerializeField]
         private AlbumExtraInfo albumExtraInfo;
 
+        [SerializeField]
+        private CharacterWindow characterWindow;
+
         private IEnumerator Start()
         {
             IEnumerator WaitForCondition(Func<bool> condition)
@@ -156,6 +159,9 @@ namespace Kaede2
             storySelectableGroup.Clear();
             foreach (var info in storyInfos)
             {
+                var castInfo = MasterScenarioCast.Instance.scenarioCast
+                    .First(c => c.ScenarioName == info.ScenarioName);
+
                 var item = storySelectableGroup.Add(info.Label, info.StoryName);
                 var selectionItem = item.GetComponent<StorySelectionItem>();
                 selectionItem.Unread = !SaveData.ReadScenarioNames.Contains(info.ScenarioName);
@@ -172,6 +178,7 @@ namespace Kaede2
                 {
                     if (!selectionItem.Unread)
                         selectionItem.FavoriteIcon.gameObject.SetActive(true);
+                    characterWindow.SetNames(castInfo.CastCharaIds);
                 });
                 item.onDeselected.AddListener(() =>
                 {
