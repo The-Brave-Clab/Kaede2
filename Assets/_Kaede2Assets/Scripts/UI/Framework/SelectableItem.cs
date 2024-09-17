@@ -50,7 +50,7 @@ namespace Kaede2.UI.Framework
         public virtual void OnPointerClick(PointerEventData eventData)
         {
             // for touch devices, treat first click as hover
-            if (InputManager.CurrentDeviceType == InputDeviceType.Touchscreen && Time.time - lastSelectedTime < 0.3f)
+            if (InputManager.CurrentDeviceType == InputDeviceType.Touchscreen && Time.time - lastSelectedTime < 0.5f)
                 return;
             Confirm();
         }

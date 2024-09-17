@@ -1,14 +1,14 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using Kaede2.Localization;
 using Kaede2.Scenario;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace Kaede2
 {
@@ -52,6 +52,15 @@ namespace Kaede2
 
         [SerializeField]
         private CharacterWindow characterWindow;
+
+        public CharacterWindow CharacterWindow => characterWindow;
+
+        private List<StorySelectionItem> storySelectionItems;
+
+        private void Awake()
+        {
+            storySelectionItems = new List<StorySelectionItem>();
+        }
 
         private IEnumerator Start()
         {
@@ -157,38 +166,13 @@ namespace Kaede2
                 .ToList();
 
             storySelectableGroup.Clear();
+            storySelectionItems.Clear();
             foreach (var info in storyInfos)
             {
-                var castInfo = MasterScenarioCast.Instance.scenarioCast
-                    .First(c => c.ScenarioName == info.ScenarioName);
-
                 var item = storySelectableGroup.Add(info.Label, info.StoryName);
                 var selectionItem = item.GetComponent<StorySelectionItem>();
-                selectionItem.Unread = !SaveData.ReadScenarioNames.Contains(info.ScenarioName);
-                selectionItem.FavoriteIcon.gameObject.SetActive(!selectionItem.Unread);
-                selectionItem.FavoriteIcon.OnClicked = () =>
-                {
-                    if (SaveData.IsScenarioFavorite(info))
-                        SaveData.RemoveFavoriteScenario(info);
-                    else
-                        SaveData.AddFavoriteScenario(info);
-                };
-                selectionItem.FavoriteIcon.IsFavorite = () => SaveData.IsScenarioFavorite(info);
-                item.onSelected.AddListener(() =>
-                {
-                    if (!selectionItem.Unread)
-                        selectionItem.FavoriteIcon.gameObject.SetActive(true);
-                    characterWindow.SetNames(castInfo.CastCharaIds);
-                });
-                item.onDeselected.AddListener(() =>
-                {
-                    if (!selectionItem.Unread)
-                        selectionItem.FavoriteIcon.gameObject.SetActive(false);
-                });
-                item.onConfirmed.AddListener(() =>
-                {
-                    CoroutineProxy.Start(EnterScenario(info, selectionItem));
-                });
+                selectionItem.Initialize(info, this);
+                storySelectionItems.Add(selectionItem);
             }
             storySelectableGroup.Initialize();
 
@@ -198,21 +182,25 @@ namespace Kaede2
             yield return SceneTransition.Fade(0);
         }
 
-        private IEnumerator EnterScenario(MasterScenarioInfo.ScenarioInfo scenario, StorySelectionItem item)
+        public IEnumerator EnterScenario(MasterScenarioInfo.ScenarioInfo scenario, CultureInfo language)
         {
             yield return SceneTransition.Fade(1);
 
             sceneRoot.SetActive(false);
             yield return PlayerScenarioModule.Play(
                 scenario.ScenarioName,
-                LocalizationManager.AllLocales.First(),
+                language,
                 LoadSceneMode.Additive,
                 null,
-                BackToStorySelection
+                () =>
+                {
+                    BackToStorySelection();
+                    foreach (var selectionItem in storySelectionItems)
+                    {
+                        selectionItem.Refresh();
+                    }
+                }
             );
-
-            SaveData.AddReadScenario(scenario);
-            item.Unread = false;
         }
 
         private void BackToStorySelection()

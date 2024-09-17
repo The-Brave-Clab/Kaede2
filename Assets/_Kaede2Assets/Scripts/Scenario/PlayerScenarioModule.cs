@@ -25,8 +25,6 @@ namespace Kaede2.Scenario
 {
     public class PlayerScenarioModule : ScenarioModule
     {
-        private static PlayerScenarioModule instance;
-
         private static bool? lastAutoMode = null;
         private static bool? lastContinuousMode = null;
 
@@ -122,17 +120,17 @@ namespace Kaede2.Scenario
         private static string scenarioName;
         private static CultureInfo scenarioLanguage;
         private static ScenarioState scenarioStateToBeRestored;
-        private static Action scenarioEndCallback;
+        private static Action exitCallback;
 
         public static string CurrentScenario => scenarioName;
         public static CultureInfo CurrentLanguage => scenarioLanguage;
 
-        public static IEnumerator Play(string scenario, CultureInfo language, LoadSceneMode loadSceneMode, ScenarioState stateToBeRestored, Action endCallback)
+        public static IEnumerator Play(string scenario, CultureInfo language, LoadSceneMode loadSceneMode, ScenarioState stateToBeRestored, Action onExit)
         {
             scenarioName = scenario;
             scenarioLanguage = language;
             scenarioStateToBeRestored = stateToBeRestored;
-            scenarioEndCallback = endCallback;
+            exitCallback = onExit;
 
             yield return SceneManager.LoadSceneAsync("ScenarioScene", loadSceneMode);
         }
@@ -145,12 +143,12 @@ namespace Kaede2.Scenario
 
         public void Stop()
         {
-            instance.StopPlaying(true);
+            StopPlaying(true);
         }
 
         private void StopBeforeEnd(InputAction.CallbackContext context)
         {
-            instance.StopPlaying(true);
+            StopPlaying(true);
         }
 
         #region EventFunctions
@@ -158,8 +156,6 @@ namespace Kaede2.Scenario
         protected override void Awake()
         {
             base.Awake();
-
-            instance = this;
 
             if (ScenarioRunMode.Args.TestMode)
                 Time.timeScale = 10.0f;
@@ -302,8 +298,6 @@ namespace Kaede2.Scenario
 #if UNITY_WEBGL && !UNITY_EDITOR
             WebInterop.Module = null;
 #endif
-
-            instance = null;
         }
 
 #if !UNITY_WEBGL || UNITY_EDITOR
@@ -354,6 +348,10 @@ namespace Kaede2.Scenario
         {
             this.Log("Scenario ended");
 
+#if !UNITY_WEBGL || UNITY_EDITOR
+            SaveData.AddReadScenario(MasterScenarioInfo.GetScenarioInfo(scenarioName));
+#endif
+
             if (ContinuousMode)
             {
                 var nextScenarioInfo = MasterScenarioInfo.GetNextScenarioInfo(scenarioName);
@@ -380,7 +378,7 @@ namespace Kaede2.Scenario
                 Application.Quit(0);
             }
 
-            scenarioEndCallback?.Invoke();
+            exitCallback?.Invoke();
 
             StopPlaying(false);
 #endif
@@ -403,7 +401,7 @@ namespace Kaede2.Scenario
                 this.Log($"Restored locale to {backupLocale.EnglishName}");
             }
 
-            scenarioEndCallback?.Invoke();
+            exitCallback?.Invoke();
         }
 
         private IEnumerator Reload()
@@ -412,10 +410,10 @@ namespace Kaede2.Scenario
 #if UNITY_WEBGL && !UNITY_EDITOR
             WebInterop.OnScenarioChanged(scenarioName);
             // on web build the scene is loaded with single mode so just load it again with single mode
-            yield return Play(scenarioName, scenarioLanguage, LoadSceneMode.Single, scenarioStateToBeRestored, scenarioEndCallback);
+            yield return Play(scenarioName, scenarioLanguage, LoadSceneMode.Single, scenarioStateToBeRestored, exitCallback);
 #else
             // on other platforms the scene is loaded additively, so we need to unload the old one
-            yield return Play(scenarioName, scenarioLanguage, LoadSceneMode.Additive, scenarioStateToBeRestored, scenarioEndCallback);
+            yield return Play(scenarioName, scenarioLanguage, LoadSceneMode.Additive, scenarioStateToBeRestored, exitCallback);
             yield return SceneManager.UnloadSceneAsync(gameObject.scene);
 #endif
         }
