@@ -66,7 +66,7 @@ namespace Kaede2.Utils
             CoroutineProxy.Start(LoadNextSceneCoroutine(sceneName, mode));
         }
 
-        public static void MoveItemIntoViewport(this ScrollRect scrollRect, RectTransform item, float multiplier = 1.0f)
+        public static float GetScrollDiffToMakeItemVisible(this ScrollRect scrollRect, RectTransform item, float multiplier = 1.0f)
         {
             var viewport = scrollRect.viewport;
             var content = scrollRect.content;
@@ -92,6 +92,12 @@ namespace Kaede2.Utils
                 posDiff = bottomDiff;
 
             var scrollDiff = posDiff / (contentWorldSize.y - viewportWorldSize.y);
+            return scrollDiff;
+        }
+
+        public static void MoveItemIntoViewport(this ScrollRect scrollRect, RectTransform item, float multiplier = 1.0f)
+        {
+            var scrollDiff = scrollRect.GetScrollDiffToMakeItemVisible(item, multiplier);
             scrollRect.verticalNormalizedPosition = Mathf.Clamp01(scrollRect.verticalNormalizedPosition + scrollDiff);
         }
 
