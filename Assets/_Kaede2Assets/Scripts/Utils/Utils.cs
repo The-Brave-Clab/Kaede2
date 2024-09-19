@@ -4,6 +4,7 @@ using System.Linq;
 using Kaede2.Localization;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.UI;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -101,5 +102,36 @@ namespace Kaede2.Utils
             scrollRect.verticalNormalizedPosition = Mathf.Clamp01(scrollRect.verticalNormalizedPosition + scrollDiff);
         }
 
+        public static Color NoAlpha(this Color color)
+        {
+            return new Color(color.r, color.g, color.b, 1);
+        }
+
+        public static VertexGradient Multiply(this VertexGradient gradient, float scale)
+        {
+            return new VertexGradient(
+                gradient.topLeft * scale,
+                gradient.topRight * scale,
+                gradient.bottomLeft * scale,
+                gradient.bottomRight * scale);
+        }
+
+        public static VertexGradient LerpVertexGradient(VertexGradient a, VertexGradient b, float t)
+        {
+            return new VertexGradient(
+                Color.Lerp(a.topLeft, b.topLeft, t),
+                Color.Lerp(a.topRight, b.topRight, t),
+                Color.Lerp(a.bottomLeft, b.bottomLeft, t),
+                Color.Lerp(a.bottomRight, b.bottomRight, t));
+        }
+
+        public static VertexGradient NoAlpha(this VertexGradient gradient)
+        {
+            return new VertexGradient(
+                gradient.topLeft.NoAlpha(),
+                gradient.topRight.NoAlpha(),
+                gradient.bottomLeft.NoAlpha(),
+                gradient.bottomRight.NoAlpha());
+        }
     }
 }

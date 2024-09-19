@@ -23,19 +23,83 @@ namespace Kaede2
         private Image selectionFrame;
 
         [SerializeField]
-        private ColorAdjustmentMask colorAdjustmentOverlay;
+        private Image background;
 
         [SerializeField]
-        private List<TextMeshProUGUI> titleTexts;
+        private Image logo;
 
         [SerializeField]
-        private List<TextMeshProUGUI> chapterNumberTexts;
+        private TextMeshProUGUI titleText;
+
+        [SerializeField]
+        private TextMeshProUGUI titleOutlineText;
+
+        [SerializeField]
+        private TextMeshProUGUI titleBackgroundText;
+
+        [SerializeField]
+        private TextMeshProUGUI titleBackgroundOutlineText;
+
+        [SerializeField]
+        private TextMeshProUGUI titleBackgroundShadowText;
+
+        [SerializeField]
+        private TextMeshProUGUI chapterNumberText;
+
+        [SerializeField]
+        private TextMeshProUGUI chapterNumberOutlineText;
+
+        [SerializeField]
+        private TextMeshProUGUI chapterNumberShadowText;
+
+        [SerializeField]
+        private TextMeshProUGUI circleText;
+
+        [SerializeField]
+        private TextMeshProUGUI circleOutlineText;
 
         [SerializeField]
         private int index;
 
+        [SerializeField]
+        private Color titleGradientTop;
+
+        [SerializeField]
+        private Color titleGradientBottom;
+
+        [SerializeField]
+        private Color titleOutline;
+
+        [SerializeField]
+        private Color titleBackground;
+
+        [SerializeField]
+        private Color titleBackgroundOutline;
+
+        [SerializeField]
+        private Color circleGradientTop;
+
+        [SerializeField]
+        private Color circleGradientBottom;
+
+        [SerializeField]
+        private Color circleColor;
+
+        [SerializeField]
+        private Color circleTextOutline;
+
+        [SerializeField]
+        private Color circleTextShadow;
+
+        [SerializeField]
+        [Range(0, 1)]
+        private float deselectedBrightness = 0.5f;
+
         private AsyncOperationHandle<Sprite> thumbnailHandle;
         private MasterCartoonInfo.CartoonInfo cartoonChapter;
+
+        private VertexGradient titleGradient;
+        private VertexGradient circleGradient;
 
         private Coroutine selectionCoroutine;
         private Sequence selectionSequence;
@@ -51,13 +115,31 @@ namespace Kaede2
         private void Awake()
         {
             OnThemeChange(Theme.Current);
+
+            titleGradient = new VertexGradient(titleGradientTop, titleGradientTop, titleGradientBottom, titleGradientBottom);
+            circleGradient = new VertexGradient(circleGradientTop, circleGradientTop, circleGradientBottom, circleGradientBottom);
         }
 
         private IEnumerator Start()
         {
             // start with deselected state
-            colorAdjustmentOverlay.gameObject.SetActive(true);
-            colorAdjustmentOverlay.Saturation = -0.5f;
+            titleText.colorGradient = titleGradient.Multiply(deselectedBrightness).NoAlpha();
+            titleOutlineText.color = (titleOutline * deselectedBrightness).NoAlpha();
+            titleBackgroundText.color = (titleBackground * deselectedBrightness).NoAlpha();
+            titleBackgroundOutlineText.color = (titleBackgroundOutline * deselectedBrightness).NoAlpha();
+            titleBackgroundShadowText.color = (titleBackgroundOutline * deselectedBrightness).NoAlpha();
+            var circleGradientDeselected = circleGradient.Multiply(deselectedBrightness).NoAlpha();
+            circleText.color = (circleColor * deselectedBrightness).NoAlpha();
+            circleOutlineText.colorGradient = circleGradientDeselected;
+            chapterNumberText.colorGradient = circleGradientDeselected;
+            chapterNumberOutlineText.color = (circleTextOutline * deselectedBrightness).NoAlpha();
+            chapterNumberShadowText.color = (circleTextShadow * deselectedBrightness).NoAlpha();
+
+            var deselectedColor = new Color(deselectedBrightness, deselectedBrightness, deselectedBrightness, 1);
+            thumbnail.color = deselectedColor;
+            logo.color = deselectedColor;
+            background.color = deselectedColor;
+
             var newColor = selectionFrame.color;
             newColor.a = 0;
             selectionFrame.color = newColor;
@@ -100,15 +182,15 @@ namespace Kaede2
             // also we want to replace full-width exclamation mark with half-width one
             groupTitle = groupTitle.Replace("！", "!");
 
-            foreach (var text in titleTexts)
-            {
-                text.text = groupTitle;
-            }
+            titleText.text = groupTitle;
+            titleOutlineText.text = groupTitle;
+            titleBackgroundText.text = groupTitle;
+            titleBackgroundOutlineText.text = groupTitle;
+            titleBackgroundShadowText.text = groupTitle;
 
-            foreach (var text in chapterNumberTexts)
-            {
-                text.text = cartoonChapter.GroupId;
-            }
+            chapterNumberText.text = cartoonChapter.GroupId;
+            chapterNumberOutlineText.text = cartoonChapter.GroupId;
+            chapterNumberShadowText.text = cartoonChapter.GroupId;
 
             if (!thumbnailHandle.IsDone)
             {
@@ -160,11 +242,40 @@ namespace Kaede2
 
         private IEnumerator SelectionCoroutine(bool selected)
         {
-            float targetSelectionFrameAlpha = selected ? 1 : 0;
-            float targetColorAdjustmentSaturation = selected ? 0 : -0.5f;
+            float targetBrightness = selected ? 1 : deselectedBrightness;
 
             var currentSelectionFrameAlpha = selectionFrame.color.a;
-            var currentColorAdjustmentSaturation = colorAdjustmentOverlay.Saturation;
+            float targetSelectionFrameAlpha = selected ? 1 : 0;
+
+            var currentTitleGradient = titleText.colorGradient;
+            var targetTitleGradient = titleGradient.Multiply(targetBrightness);
+
+            var currentTitleOutline = titleOutlineText.color;
+            var targetTitleOutline = titleOutline * targetBrightness;
+
+            var currentTitleBackground = titleBackgroundText.color;
+            var targetTitleBackground = titleBackground * targetBrightness;
+
+            var currentTitleBackgroundOutline = titleBackgroundOutlineText.color;
+            var targetTitleBackgroundOutline = titleBackgroundOutline * targetBrightness;
+
+            var currentCircle = circleText.color;
+            var targetCircle = circleColor * targetBrightness;
+
+            var currentCircleOutlineGradient = circleOutlineText.colorGradient;
+            var targetCircleGradient = circleGradient.Multiply(targetBrightness);
+
+            var currentChapterNumberGradient = chapterNumberText.colorGradient;
+            var targetChapterNumberGradient = targetCircleGradient;
+
+            var currentChapterNumberOutline = chapterNumberOutlineText.color;
+            var targetChapterNumberOutline = circleTextOutline * targetBrightness;
+
+            var currentChapterNumberShadow = chapterNumberShadowText.color;
+            var targetChapterNumberShadow = circleTextShadow * targetBrightness;
+
+            var currentImageComponentColor = thumbnail.color;
+            var targetImageComponentColor = new Color(targetBrightness, targetBrightness, targetBrightness, 1);
 
             selectionSequence = DOTween.Sequence();
             selectionSequence.Append(DOVirtual.Float(0, 1, 0.1f, value =>
@@ -172,7 +283,21 @@ namespace Kaede2
                 var newColor = selectionFrame.color;
                 newColor.a = Mathf.Lerp(currentSelectionFrameAlpha, targetSelectionFrameAlpha, value);
                 selectionFrame.color = newColor;
-                colorAdjustmentOverlay.Saturation = Mathf.Lerp(currentColorAdjustmentSaturation, targetColorAdjustmentSaturation, value);
+
+                titleText.colorGradient = CommonUtils.LerpVertexGradient(currentTitleGradient, targetTitleGradient, value).NoAlpha();
+                titleOutlineText.color = Color.Lerp(currentTitleOutline, targetTitleOutline, value).NoAlpha();
+                titleBackgroundText.color = Color.Lerp(currentTitleBackground, targetTitleBackground, value).NoAlpha();
+                titleBackgroundOutlineText.color = Color.Lerp(currentTitleBackgroundOutline, targetTitleBackgroundOutline, value).NoAlpha();
+                titleBackgroundShadowText.color = Color.Lerp(currentTitleBackgroundOutline, targetTitleBackgroundOutline, value).NoAlpha();
+                circleText.color = Color.Lerp(currentCircle, targetCircle, value).NoAlpha();
+                circleOutlineText.colorGradient = CommonUtils.LerpVertexGradient(currentCircleOutlineGradient, targetCircleGradient, value).NoAlpha();
+                chapterNumberText.colorGradient = CommonUtils.LerpVertexGradient(currentChapterNumberGradient, targetChapterNumberGradient, value).NoAlpha();
+                chapterNumberOutlineText.color = Color.Lerp(currentChapterNumberOutline, targetChapterNumberOutline, value).NoAlpha();
+                chapterNumberShadowText.color = Color.Lerp(currentChapterNumberShadow, targetChapterNumberShadow, value).NoAlpha();
+
+                thumbnail.color = Color.Lerp(currentImageComponentColor, targetImageComponentColor, value).NoAlpha();
+                logo.color = thumbnail.color;
+                background.color = thumbnail.color;
             }));
 
             yield return selectionSequence.WaitForCompletion();
