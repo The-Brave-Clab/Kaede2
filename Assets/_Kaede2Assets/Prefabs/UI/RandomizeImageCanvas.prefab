@@ -226,9 +226,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f59423791eff4a51bcc015b954f02f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  availableImages: {fileID: 11400000, guid: 0ee1a8f89f8d84810b490a681f77ed3d, type: 2}
-  filter: 1
+  imageProvider: {fileID: 0}
   scatterArea: {fileID: 7362293737805710274}
   scaleRange: {x: 0.3, y: 0.7}
   rotationRangeInDegrees: {x: -15, y: 15}
-  imageBorder: 80
+  imageBorder: {x: 50, y: 50}

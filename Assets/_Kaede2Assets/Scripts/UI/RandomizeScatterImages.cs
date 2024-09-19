@@ -2,12 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Kaede2.Scenario.Framework.Utils;
-using Kaede2.ScriptableObjects;
-using Kaede2.Utils;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -16,10 +11,7 @@ namespace Kaede2.UI
     public class RandomizeScatterImages : MonoBehaviour
     {
         [SerializeField]
-        private AlbumExtraInfo availableImages;
-
-        [SerializeField]
-        private AlbumExtraInfo.ImageFilter filter = AlbumExtraInfo.ImageFilter.Is16By9;
+        private RandomizedImageProvider imageProvider;
 
         [SerializeField]
         private RectTransform scatterArea;
@@ -31,16 +23,13 @@ namespace Kaede2.UI
         private Vector2 rotationRangeInDegrees = new Vector2(-10, 10);
 
         [SerializeField]
-        private float imageBorder = 50;
-
-        private readonly Vector2 imageSize = new Vector2(1920, 1080);
-
-        private AsyncOperationHandle<Sprite>[] handles;
+        private Vector2 imageBorder = Vector2.one * 50;
 
         public bool Loaded { get; private set; } = false;
 
         private float CalculateGridSize()
         {
+            var imageSize = imageProvider.ImageSize;
             var smallestSide = Mathf.Min(imageSize.x, imageSize.y) * scaleRange.x;
             return smallestSide / Mathf.Sqrt(2);
         }
@@ -65,74 +54,53 @@ namespace Kaede2.UI
             return result;
         }
 
-        private MasterAlbumInfo.AlbumInfo[] RandomImages(int count)
-        {
-            // no duplicate images
-            var illusts = availableImages.list.Where(i => i.Passes(filter)).OrderBy(_ => Random.value).ToArray();
-            var result = new MasterAlbumInfo.AlbumInfo[count];
-            if (illusts.Length <= 0) return result;
-
-            for (var i = 0; i < count; i++)
-            {
-                result[i] = MasterAlbumInfo.FromAlbumName(illusts[i % illusts.Length].name);
-            }
-            return result;
-        }
-
         private struct Img
         {
             public Vector2 Position;
             public float Rotation;
             public float Scale;
-            public string AlbumName;
+            public string Name;
+            public Sprite Image;
         }
 
         private IEnumerator Start()
         {
             var positions = GridPositions();
             var imageCount = positions.Count;
-            var imageInfo = RandomImages(imageCount);
-            var images = new List<Img>();
-            for (var i = 0; i < imageInfo.Length; i++)
+            var images = Array.Empty<RandomizedImageProvider.ImageInfo>();
+            yield return imageProvider.Provide(imageCount, sprites => images = sprites);
+            var imageDescriptions = new List<Img>();
+            for (var i = 0; i < images.Length; i++)
             {
                 var position = positions[i];
                 var rotation = Random.Range(rotationRangeInDegrees.x, rotationRangeInDegrees.y);
                 var scale = Random.Range(scaleRange.x, scaleRange.y);
-                images.Add(new Img
+                imageDescriptions.Add(new Img
                 {
                     Position = position,
                     Rotation = rotation,
                     Scale = scale,
-                    AlbumName = imageInfo[i].AlbumName
+                    Name = images[i].Name,
+                    Image = images[i].Sprite
                 });
             }
 
-            var group = new CoroutineGroup();
-
-            handles = new AsyncOperationHandle<Sprite>[imageCount];
-            for (var i = 0; i < images.Count; i++)
-            {
-                handles[i] = ResourceLoader.LoadIllustration(images[i].AlbumName, true);
-                group.Add(handles[i]);
-            }
-
-            yield return group.WaitForAll();
-
             // var shuffledImages = images.OrderBy(_ => Random.value).ToList();
-            var orderedImages = images
+            var orderedImages = imageDescriptions
                 .OrderBy(_ => Random.value)
                 // .OrderBy(i => Mathf.FloorToInt(i.Scale * 10))
                 // .ThenByDescending(i => i.Position.y)
                 .ToList();
 
+            var imageSize = imageProvider.ImageSize;
             for (var i = 0; i < orderedImages.Count; i++)
             {
                 var image = orderedImages[i];
-                var backgroundImage = new GameObject(image.AlbumName);
+                var backgroundImage = new GameObject(image.Name);
                 backgroundImage.transform.SetParent(scatterArea, false);
 
                 var backgroundRectTransform = backgroundImage.AddComponent<RectTransform>();
-                backgroundRectTransform.sizeDelta = imageSize + Vector2.one * imageBorder;
+                backgroundRectTransform.sizeDelta = imageSize + imageBorder;
                 backgroundRectTransform.anchoredPosition = image.Position;
                 backgroundRectTransform.localRotation = Quaternion.Euler(0, 0, image.Rotation);
                 backgroundRectTransform.localScale = new Vector3(image.Scale, image.Scale, 1);
@@ -140,7 +108,7 @@ namespace Kaede2.UI
                 var background = backgroundImage.AddComponent<Image>();
                 background.color = Color.white;
 
-                var go = new GameObject(image.AlbumName);
+                var go = new GameObject(image.Name);
                 go.transform.SetParent(backgroundImage.transform, false);
 
                 var rectTransform = go.AddComponent<RectTransform>();
@@ -150,21 +118,10 @@ namespace Kaede2.UI
                 rectTransform.localScale = Vector3.one;
 
                 var imageComponent = go.AddComponent<Image>();
-                imageComponent.sprite = handles[i].Result;
+                imageComponent.sprite = image.Image;
             }
 
             Loaded = true;
-        }
-
-        private void OnDestroy()
-        {
-            if (handles != null)
-            {
-                foreach (var handle in handles)
-                {
-                    Addressables.Release(handle);
-                }
-            }
         }
     }
 }
