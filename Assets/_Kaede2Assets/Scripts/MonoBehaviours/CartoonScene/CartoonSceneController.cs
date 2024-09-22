@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,13 @@ namespace Kaede2
         private CartoonChapterSelection cartoonFramePrefab;
 
         [SerializeField]
-        private RectTransform frameParent;
+        private Canvas chapterSelectionCanvas;
+
+        [SerializeField]
+        private RectTransform chapterFrameParent;
+
+        [SerializeField]
+        private CartoonEpisodeSelection episodeSelection;
 
         private class CartoonInfoGroupIdComparer : IEqualityComparer<MasterCartoonInfo.CartoonInfo>
         {
@@ -31,6 +38,13 @@ namespace Kaede2
                 return obj.GroupId.GetHashCode();
             }
         }
+
+        private void Awake()
+        {
+            episodeSelection.gameObject.SetActive(false);
+            chapterSelectionCanvas.gameObject.SetActive(true);
+        }
+
         private IEnumerator Start()
         {
             var cartoonChapters = MasterCartoonInfo.Instance.cartoonInfo
@@ -45,11 +59,28 @@ namespace Kaede2
             for (int i = 0; i < cartoonChapters.Count; i++)
             {
                 var chapter = cartoonChapters[i];
-                var chapterSelection = Instantiate(cartoonFramePrefab, frameParent);
-                group.Add(chapterSelection.Initialize(i + 1));
+                var chapterSelection = Instantiate(cartoonFramePrefab, chapterFrameParent);
+                group.Add(chapterSelection.Initialize(this, i + 1));
             }
 
             yield return group.WaitForAll();
+
+            yield return SceneTransition.Fade(0);
+        }
+
+        public void OnChapterSelected(CartoonChapterSelection chapterSelection)
+        {
+            StartCoroutine(OnChapterSelectedCoroutine(chapterSelection));
+        }
+
+        private IEnumerator OnChapterSelectedCoroutine(CartoonChapterSelection chapterSelection)
+        {
+            yield return SceneTransition.Fade(1);
+
+            episodeSelection.gameObject.SetActive(true);
+            chapterSelectionCanvas.gameObject.SetActive(false);
+
+            yield return episodeSelection.Initialize(chapterSelection);
 
             yield return SceneTransition.Fade(0);
         }
