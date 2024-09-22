@@ -59,9 +59,6 @@ namespace Kaede2
         private TextMeshProUGUI circleOutlineText;
 
         [SerializeField]
-        private int index;
-
-        [SerializeField]
         private Color titleGradientTop;
 
         [SerializeField]
@@ -120,7 +117,20 @@ namespace Kaede2
             circleGradient = new VertexGradient(circleGradientTop, circleGradientTop, circleGradientBottom, circleGradientBottom);
         }
 
-        private IEnumerator Start()
+        private void OnDestroy()
+        {
+            if (thumbnailHandle.IsValid())
+                Addressables.Release(thumbnailHandle);
+        }
+
+        public void OnThemeChange(Theme.VolumeTheme theme)
+        {
+            var newColor = theme.CommonButtonColor.surface;
+            newColor.a = selectionFrame.color.a;
+            selectionFrame.color = newColor;
+        }
+
+        public IEnumerator Initialize(int cartoonChapterNumber) // note: starts from 1
         {
             // start with deselected state
             titleText.colorGradient = titleGradient.Multiply(deselectedBrightness).NoAlpha();
@@ -144,24 +154,6 @@ namespace Kaede2
             newColor.a = 0;
             selectionFrame.color = newColor;
 
-            yield return Initialize(index);
-        }
-
-        private void OnDestroy()
-        {
-            if (thumbnailHandle.IsValid())
-                Addressables.Release(thumbnailHandle);
-        }
-
-        public void OnThemeChange(Theme.VolumeTheme theme)
-        {
-            var newColor = theme.CommonButtonColor.surface;
-            newColor.a = selectionFrame.color.a;
-            selectionFrame.color = newColor;
-        }
-
-        public IEnumerator Initialize(int cartoonChapterNumber) // note: starts from 1
-        {
             cartoonChapter = MasterCartoonInfo.Instance.cartoonInfo
                 .OrderBy(ci => ci.No)
                 .FirstOrDefault(ci => ci.GroupId == $"#{cartoonChapterNumber}");

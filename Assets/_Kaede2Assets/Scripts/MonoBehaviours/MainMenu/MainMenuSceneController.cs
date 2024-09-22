@@ -70,6 +70,11 @@ namespace Kaede2
             CommonUtils.LoadNextScene("AlbumScene", LoadSceneMode.Single);
         }
 
+        public void GoToCartoon()
+        {
+            CommonUtils.LoadNextScene("CartoonScene", LoadSceneMode.Single);
+        }
+
         public void GoToSettings()
         {
             var currentSceneName = gameObject.scene.name;
