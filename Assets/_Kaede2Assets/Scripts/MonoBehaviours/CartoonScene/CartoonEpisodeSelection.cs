@@ -7,6 +7,7 @@ using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Kaede2
@@ -26,6 +27,8 @@ namespace Kaede2
         private RectTransform selectionFrame;
 
         private CartoonEpisodeGroup currentSelected;
+
+        private CartoonSceneController sceneController;
 
         private Image selectionFrameImage;
         private RectTransform selectionFrameParent;
@@ -50,8 +53,10 @@ namespace Kaede2
             OnThemeChange(Theme.Current);
         }
 
-        public IEnumerator Initialize(CartoonChapterSelection chapter)
+        public IEnumerator Initialize(CartoonSceneController controller, CartoonChapterSelection chapter)
         {
+            sceneController = controller;
+
             var cartoonInfos = MasterCartoonInfo.Instance.cartoonInfo
                 .Where(ci => ci.GroupId == chapter.ChapterInfo.GroupId)
                 .OrderBy(ci => ci.No)
@@ -123,6 +128,11 @@ namespace Kaede2
 
             coroutine = null;
             sequence = null;
+        }
+
+        public void Confirm(CartoonEpisodeGroup episode)
+        {
+            sceneController.OnEpisodeSelected(episode.CartoonInfo);
         }
 
         public void OnThemeChange(Theme.VolumeTheme theme)

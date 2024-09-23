@@ -1,22 +1,27 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
+using Kaede2.UI;
+using Kaede2.UI.Framework;
 using Kaede2.Utils;
-using TMPro;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.EventSystems;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
 namespace Kaede2
 {
-    public class CartoonEpisodeGroup : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
+    public class CartoonViewWindow : MonoBehaviour
     {
         [SerializeField]
-        private TextMeshProUGUI titleText;
+        private BoxWindow window;
+
+        [SerializeField]
+        private Scrollbar scrollbar;
+
+        [SerializeField]
+        private CommonButton backButton;
 
         [SerializeField]
         private Image frame1;
@@ -31,29 +36,20 @@ namespace Kaede2
         private Image frame4;
 
         private List<AsyncOperationHandle<Sprite>> handles;
-        private CartoonEpisodeSelection episodeSelection;
-
-        private MasterCartoonInfo.CartoonInfo cartoonInfo;
-        public MasterCartoonInfo.CartoonInfo CartoonInfo => cartoonInfo;
 
         private void OnDestroy()
         {
             Clear();
         }
 
-        public IEnumerator Initialize(CartoonEpisodeSelection selection, string labelPrefix, MasterCartoonInfo.CartoonInfo info)
+        public IEnumerator Initialize(MasterCartoonInfo.CartoonInfo cartoonInfo)
         {
             Clear();
 
-            cartoonInfo = info;
-            episodeSelection = selection;
-
-            titleText.text = $"{labelPrefix} {info.CartoonLabel}";
-
-            var handle1 = ResourceLoader.LoadCartoonFrame(info.ImageNames[0]);
-            var handle2 = ResourceLoader.LoadCartoonFrame(info.ImageNames[1]);
-            var handle3 = ResourceLoader.LoadCartoonFrame(info.ImageNames[2]);
-            var handle4 = ResourceLoader.LoadCartoonFrame(info.ImageNames[3]);
+            var handle1 = ResourceLoader.LoadCartoonFrame(cartoonInfo.ImageNames[0]);
+            var handle2 = ResourceLoader.LoadCartoonFrame(cartoonInfo.ImageNames[1]);
+            var handle3 = ResourceLoader.LoadCartoonFrame(cartoonInfo.ImageNames[2]);
+            var handle4 = ResourceLoader.LoadCartoonFrame(cartoonInfo.ImageNames[3]);
 
             handles.Add(handle1);
             handles.Add(handle2);
@@ -71,6 +67,10 @@ namespace Kaede2
             frame2.sprite = handle2.Result;
             frame3.sprite = handle3.Result;
             frame4.sprite = handle4.Result;
+
+            window.TitleText = cartoonInfo.CartoonLabel;
+
+            scrollbar.value = 1;
         }
 
         private void Clear()
@@ -79,21 +79,11 @@ namespace Kaede2
             {
                 foreach (var handle in handles)
                 {
-                    Addressables.Release(handle);
+                    if (handle.IsValid())
+                        handle.Release();
                 }
             }
-
-            handles = new List<AsyncOperationHandle<Sprite>>();
-        }
-
-        public void OnPointerEnter(PointerEventData eventData)
-        {
-            episodeSelection.Select(this);
-        }
-
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            episodeSelection.Confirm(this);
+            handles = new();
         }
     }
 }

@@ -1246,6 +1246,56 @@ namespace Kaede2.Input
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""CartoonView"",
+            ""id"": ""11bd296a-15cc-424e-89b7-9b7748665b69"",
+            ""actions"": [
+                {
+                    ""name"": ""Back"",
+                    ""type"": ""Button"",
+                    ""id"": ""972507a6-818d-47d3-8f56-7ce01405470a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""542291cb-23b5-46c1-b06c-897fae9bed56"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""da993044-95aa-47ce-95bc-208190ceae8b"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""69eed6f1-0e66-41bf-b1ae-9650950f9d34"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";GamepadNintendoStyle"",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -1312,6 +1362,9 @@ namespace Kaede2.Input
             m_AlbumView_ToggleUI = m_AlbumView.FindAction("ToggleUI", throwIfNotFound: true);
             m_AlbumView_Save = m_AlbumView.FindAction("Save", throwIfNotFound: true);
             m_AlbumView_Back = m_AlbumView.FindAction("Back", throwIfNotFound: true);
+            // CartoonView
+            m_CartoonView = asset.FindActionMap("CartoonView", throwIfNotFound: true);
+            m_CartoonView_Back = m_CartoonView.FindAction("Back", throwIfNotFound: true);
         }
 
         ~@Kaede2InputAction()
@@ -1321,6 +1374,7 @@ namespace Kaede2.Input
             Debug.Assert(!m_Scenario.enabled, "This will cause a leak and performance issues, Kaede2InputAction.Scenario.Disable() has not been called.");
             Debug.Assert(!m_ScenarioLog.enabled, "This will cause a leak and performance issues, Kaede2InputAction.ScenarioLog.Disable() has not been called.");
             Debug.Assert(!m_AlbumView.enabled, "This will cause a leak and performance issues, Kaede2InputAction.AlbumView.Disable() has not been called.");
+            Debug.Assert(!m_CartoonView.enabled, "This will cause a leak and performance issues, Kaede2InputAction.CartoonView.Disable() has not been called.");
         }
 
         public void Dispose()
@@ -1816,6 +1870,52 @@ namespace Kaede2.Input
             }
         }
         public AlbumViewActions @AlbumView => new AlbumViewActions(this);
+
+        // CartoonView
+        private readonly InputActionMap m_CartoonView;
+        private List<ICartoonViewActions> m_CartoonViewActionsCallbackInterfaces = new List<ICartoonViewActions>();
+        private readonly InputAction m_CartoonView_Back;
+        public struct CartoonViewActions
+        {
+            private @Kaede2InputAction m_Wrapper;
+            public CartoonViewActions(@Kaede2InputAction wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Back => m_Wrapper.m_CartoonView_Back;
+            public InputActionMap Get() { return m_Wrapper.m_CartoonView; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(CartoonViewActions set) { return set.Get(); }
+            public void AddCallbacks(ICartoonViewActions instance)
+            {
+                if (instance == null || m_Wrapper.m_CartoonViewActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_CartoonViewActionsCallbackInterfaces.Add(instance);
+                @Back.started += instance.OnBack;
+                @Back.performed += instance.OnBack;
+                @Back.canceled += instance.OnBack;
+            }
+
+            private void UnregisterCallbacks(ICartoonViewActions instance)
+            {
+                @Back.started -= instance.OnBack;
+                @Back.performed -= instance.OnBack;
+                @Back.canceled -= instance.OnBack;
+            }
+
+            public void RemoveCallbacks(ICartoonViewActions instance)
+            {
+                if (m_Wrapper.m_CartoonViewActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(ICartoonViewActions instance)
+            {
+                foreach (var item in m_Wrapper.m_CartoonViewActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_CartoonViewActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public CartoonViewActions @CartoonView => new CartoonViewActions(this);
         private int m_GamepadSchemeIndex = -1;
         public InputControlScheme GamepadScheme
         {
@@ -1896,6 +1996,10 @@ namespace Kaede2.Input
             void OnPrevious(InputAction.CallbackContext context);
             void OnToggleUI(InputAction.CallbackContext context);
             void OnSave(InputAction.CallbackContext context);
+            void OnBack(InputAction.CallbackContext context);
+        }
+        public interface ICartoonViewActions
+        {
             void OnBack(InputAction.CallbackContext context);
         }
     }

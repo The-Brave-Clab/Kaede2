@@ -26,6 +26,12 @@ namespace Kaede2
         [SerializeField]
         private CartoonEpisodeSelection episodeSelection;
 
+        [SerializeField]
+        private Canvas cartoonViewCanvas;
+
+        [SerializeField]
+        private CartoonViewWindow cartoonViewWindow;
+
         private class CartoonInfoGroupIdComparer : IEqualityComparer<MasterCartoonInfo.CartoonInfo>
         {
             public bool Equals(MasterCartoonInfo.CartoonInfo x, MasterCartoonInfo.CartoonInfo y)
@@ -41,8 +47,9 @@ namespace Kaede2
 
         private void Awake()
         {
-            episodeSelection.gameObject.SetActive(false);
             chapterSelectionCanvas.gameObject.SetActive(true);
+            episodeSelection.gameObject.SetActive(false);
+            cartoonViewCanvas.gameObject.SetActive(false);
         }
 
         private IEnumerator Start()
@@ -77,12 +84,27 @@ namespace Kaede2
         {
             yield return SceneTransition.Fade(1);
 
-            episodeSelection.gameObject.SetActive(true);
             chapterSelectionCanvas.gameObject.SetActive(false);
+            episodeSelection.gameObject.SetActive(true);
+            cartoonViewCanvas.gameObject.SetActive(false);
 
-            yield return episodeSelection.Initialize(chapterSelection);
+            yield return episodeSelection.Initialize(this, chapterSelection);
 
             yield return SceneTransition.Fade(0);
+        }
+
+        public void OnEpisodeSelected(MasterCartoonInfo.CartoonInfo cartoonInfo)
+        {
+            StartCoroutine(OnEpisodeSelectedCoroutine(cartoonInfo));
+        }
+
+        private IEnumerator OnEpisodeSelectedCoroutine(MasterCartoonInfo.CartoonInfo cartoonInfo)
+        {
+            yield return cartoonViewWindow.Initialize(cartoonInfo);
+
+            chapterSelectionCanvas.gameObject.SetActive(false);
+            episodeSelection.gameObject.SetActive(false);
+            cartoonViewCanvas.gameObject.SetActive(true);
         }
     }
 }

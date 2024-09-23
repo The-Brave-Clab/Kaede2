@@ -1221,6 +1221,56 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "CartoonView",
+            "id": "11bd296a-15cc-424e-89b7-9b7748665b69",
+            "actions": [
+                {
+                    "name": "Back",
+                    "type": "Button",
+                    "id": "972507a6-818d-47d3-8f56-7ce01405470a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "542291cb-23b5-46c1-b06c-897fae9bed56",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "da993044-95aa-47ce-95bc-208190ceae8b",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "69eed6f1-0e66-41bf-b1ae-9650950f9d34",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";GamepadNintendoStyle",
+                    "action": "Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
