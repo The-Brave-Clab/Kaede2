@@ -6,6 +6,10 @@ Shader "UI/UI Gradient"
         _TopColor ("Top Color", Color) = (1,1,1,1)
         _BottomColor ("Bottom Color", Color) = (0,0,0,1)
 
+        [Enum(UnityEngine.Rendering.BlendMode)]_BlendSrc("Blend Src", Float) = 5 // BlendMode.SrcAlpha
+        [Enum(UnityEngine.Rendering.BlendMode)]_BlendDst("Blend Dst", Float) = 10 // BlendMode.OneMinusSrcAlpha
+        [Enum(UnityEngine.Rendering.BlendOp)]_BlendOp("Blend Op", Float) = 0 // BlendOp.Add
+
         [HideInInspector] _StencilComp ("Stencil Comparison", Float) = 8
         [HideInInspector] _Stencil ("Stencil ID", Float) = 0
         [HideInInspector] _StencilOp ("Stencil Operation", Float) = 0
@@ -40,7 +44,8 @@ Shader "UI/UI Gradient"
         Lighting Off
         ZWrite Off
         ZTest [unity_GUIZTestMode]
-        Blend SrcAlpha OneMinusSrcAlpha
+        Blend [_BlendSrc] [_BlendDst]
+        BlendOp [_BlendOp]
         ColorMask [_ColorMask]
 
         Pass

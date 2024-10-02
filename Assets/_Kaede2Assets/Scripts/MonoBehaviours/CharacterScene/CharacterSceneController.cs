@@ -42,6 +42,17 @@ namespace Kaede2
         private Image vertexPreviewImage;
         public Image VertexPreviewImage => vertexPreviewImage;
 
+        [Header("Udon Selection")]
+        [SerializeField]
+        private UdonSelection udonSelectionPrefab;
+
+        [SerializeField]
+        private RectTransform udonSelectionContainer;
+
+        [SerializeField]
+        private Image udonPreviewImage;
+        public Image UdonPreviewImage => udonPreviewImage;
+
         private IEnumerator Start()
         {
             CoroutineGroup group = new();
@@ -82,6 +93,19 @@ namespace Kaede2
                 VertexSelection selection = Instantiate(vertexSelectionPrefab, vertexSelectionContainer);
                 selection.gameObject.name = vertexProfile.Name;
                 group.Add(selection.Initialize(this, vertexProfile, first));
+                first = false;
+            }
+
+            // udon selection
+            udonPreviewImage.gameObject.SetActive(false);
+            first = true;
+            foreach (var udonProfile in MasterZukanUdonProfile.Instance.zukanProfile)
+            {
+                if (string.IsNullOrEmpty(udonProfile.Thumbnail)) continue;
+
+                UdonSelection selection = Instantiate(udonSelectionPrefab, udonSelectionContainer);
+                selection.gameObject.name = udonProfile.Name;
+                group.Add(selection.Initialize(this, udonProfile, first));
                 first = false;
             }
 
