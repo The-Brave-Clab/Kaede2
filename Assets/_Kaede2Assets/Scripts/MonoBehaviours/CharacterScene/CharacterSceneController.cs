@@ -53,6 +53,17 @@ namespace Kaede2
         private Image udonPreviewImage;
         public Image UdonPreviewImage => udonPreviewImage;
 
+        [Header("Stardust Selection")]
+        [SerializeField]
+        private StardustSelection stardustSelectionPrefab;
+
+        [SerializeField]
+        private RectTransform stardustSelectionContainer;
+
+        [SerializeField]
+        private Image stardustPreviewImage;
+        public Image StardustPreviewImage => stardustPreviewImage;
+
         private IEnumerator Start()
         {
             CoroutineGroup group = new();
@@ -106,6 +117,19 @@ namespace Kaede2
                 UdonSelection selection = Instantiate(udonSelectionPrefab, udonSelectionContainer);
                 selection.gameObject.name = udonProfile.Name;
                 group.Add(selection.Initialize(this, udonProfile, first));
+                first = false;
+            }
+
+            // stardust selection
+            stardustPreviewImage.gameObject.SetActive(false);
+            first = true;
+            foreach (var stardustProfile in MasterZukanStardustProfile.Instance.zukanProfile)
+            {
+                if (string.IsNullOrEmpty(stardustProfile.StandingPic)) continue;
+
+                StardustSelection selection = Instantiate(stardustSelectionPrefab, stardustSelectionContainer);
+                selection.gameObject.name = stardustProfile.Name;
+                group.Add(selection.Initialize(this, stardustProfile, first));
                 first = false;
             }
 

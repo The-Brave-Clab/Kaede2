@@ -76,6 +76,11 @@ namespace Kaede2.Utils
             return Addressables.LoadAssetAsync<Sprite>($"zukan/udon/{profile.BigPicture}.png");
         }
 
+        public static AsyncOperationHandle<Sprite> LoadStardustImage(ZukanProfile profile)
+        {
+            return Addressables.LoadAssetAsync<Sprite>($"zukan/stardust/{profile.StandingPic}.png");
+        }
+
         // scenario_common
 
         public static AsyncOperationHandle<Texture2D> LoadScenarioBackground(string bgName)
