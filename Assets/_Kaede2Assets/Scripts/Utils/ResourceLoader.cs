@@ -1,5 +1,6 @@
 ﻿using Kaede2.Scenario.Framework;
 using Kaede2.Scenario.Framework.Live2D;
+using Kaede2.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement;
@@ -56,6 +57,13 @@ namespace Kaede2.Utils
         public static AsyncOperationHandle<Sprite> LoadCharacterSprite(string characterStandingName)
         {
             return Addressables.LoadAssetAsync<Sprite>($"character/character_standing/{characterStandingName}.png");
+        }
+
+        // zukan
+
+        public static AsyncOperationHandle<Sprite> LoadFairyImage(ZukanProfile profile)
+        {
+            return Addressables.LoadAssetAsync<Sprite>($"zukan/fairy/{profile.BigPicture}.png");
         }
 
         // scenario_common
