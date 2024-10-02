@@ -46,6 +46,18 @@ namespace Kaede2.Utils
             return Addressables.LoadAssetAsync<Sprite>($"cartoon_images/frame/{frameName}.png");
         }
 
+        // character
+
+        public static AsyncOperationHandle<Sprite> LoadCharacterIcon(string characterThumbName)
+        {
+            return Addressables.LoadAssetAsync<Sprite>($"character/character_icon/{characterThumbName}.png");
+        }
+
+        public static AsyncOperationHandle<Sprite> LoadCharacterSprite(string characterStandingName)
+        {
+            return Addressables.LoadAssetAsync<Sprite>($"character/character_standing/{characterStandingName}.png");
+        }
+
         // scenario_common
 
         public static AsyncOperationHandle<Texture2D> LoadScenarioBackground(string bgName)
