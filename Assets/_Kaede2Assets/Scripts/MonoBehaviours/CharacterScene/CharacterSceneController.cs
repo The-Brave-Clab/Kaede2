@@ -31,6 +31,17 @@ namespace Kaede2
         private Image fairyPreviewImage;
         public Image FairyPreviewImage => fairyPreviewImage;
 
+        [Header("Vertex Selection")]
+        [SerializeField]
+        private VertexSelection vertexSelectionPrefab;
+
+        [SerializeField]
+        private RectTransform vertexSelectionContainer;
+
+        [SerializeField]
+        private Image vertexPreviewImage;
+        public Image VertexPreviewImage => vertexPreviewImage;
+
         private IEnumerator Start()
         {
             CoroutineGroup group = new();
@@ -58,6 +69,19 @@ namespace Kaede2
                 FairySelection selection = Instantiate(fairySelectionPrefab, fairySelectionContainer);
                 selection.gameObject.name = fairyProfile.Name;
                 group.Add(selection.Initialize(this, fairyProfile, first));
+                first = false;
+            }
+
+            // vertex selection
+            vertexPreviewImage.gameObject.SetActive(false);
+            first = true;
+            foreach (var vertexProfile in MasterZukanVertexProfile.Instance.zukanProfile)
+            {
+                if (string.IsNullOrEmpty(vertexProfile.BigPicture)) continue;
+
+                VertexSelection selection = Instantiate(vertexSelectionPrefab, vertexSelectionContainer);
+                selection.gameObject.name = vertexProfile.Name;
+                group.Add(selection.Initialize(this, vertexProfile, first));
                 first = false;
             }
 
