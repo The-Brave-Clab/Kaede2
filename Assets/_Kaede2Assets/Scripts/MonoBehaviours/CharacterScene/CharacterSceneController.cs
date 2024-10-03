@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
@@ -19,6 +20,10 @@ namespace Kaede2
         [SerializeField]
         private Image characterPreviewImage;
         public Image CharacterPreviewImage => characterPreviewImage;
+
+        [SerializeField]
+        private CharacterProfileController characterProfileController;
+        public CharacterProfileController CharacterProfileController => characterProfileController;
 
         [Header("Fairy Selection")]
         [SerializeField]
@@ -63,6 +68,11 @@ namespace Kaede2
         [SerializeField]
         private Image stardustPreviewImage;
         public Image StardustPreviewImage => stardustPreviewImage;
+
+        private void Awake()
+        {
+            CharacterProfileController.gameObject.SetActive(false);
+        }
 
         private IEnumerator Start()
         {

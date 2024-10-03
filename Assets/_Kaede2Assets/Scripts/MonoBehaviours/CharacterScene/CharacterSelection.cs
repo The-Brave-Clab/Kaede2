@@ -64,9 +64,7 @@ namespace Kaede2
 
         private void Confirm()
         {
-            if (selected == null) return;
-
-            // TODO
+            sceneController.CharacterProfileController.Enter(profile);
         }
 
         public void OnPointerEnter(PointerEventData eventData)

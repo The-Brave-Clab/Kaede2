@@ -39,6 +39,9 @@ namespace Kaede2.ScriptableObjects
             private CommonButtonColor commonButtonColor;
             public CommonButtonColor CommonButtonColor => commonButtonColor.NonTransparent();
             [SerializeField]
+            private CommonButtonColor optionColor;
+            public CommonButtonColor OptionColor => optionColor.NonTransparent();
+            [SerializeField]
             [ColorUsage(false, false)]
             private Color windowOutline;
             public Color WindowOutline => NonTransparent(windowOutline);
@@ -116,6 +119,20 @@ namespace Kaede2.ScriptableObjects
             [SerializeField]
             private AdjustHSV.Adjustment selectionOverlay;
             public AdjustHSV.Adjustment SelectionOverlay => selectionOverlay;
+
+            [Header("Character")]
+            [SerializeField]
+            private AdjustHSV.Adjustment characterProfile;
+            public AdjustHSV.Adjustment CharacterProfile => characterProfile;
+
+            [SerializeField]
+            private AdjustHSV.Adjustment profileSceneBackground;
+            public AdjustHSV.Adjustment ProfileSceneBackground => profileSceneBackground;
+
+            [SerializeField]
+            [ColorUsage(false, false)]
+            private Color voiceButtonCircle;
+            public Color VoiceButtonCircle => NonTransparent(voiceButtonCircle);
         }
 
         [SerializeField]
