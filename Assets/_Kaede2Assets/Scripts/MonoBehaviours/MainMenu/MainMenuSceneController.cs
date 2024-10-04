@@ -65,6 +65,11 @@ namespace Kaede2
             CommonUtils.LoadNextScene("EventStoryScene", LoadSceneMode.Single);
         }
 
+        public void GoToCharacter()
+        {
+            CommonUtils.LoadNextScene("CharacterScene", LoadSceneMode.Single);
+        }
+
         public void GoToAlbum()
         {
             CommonUtils.LoadNextScene("AlbumScene", LoadSceneMode.Single);

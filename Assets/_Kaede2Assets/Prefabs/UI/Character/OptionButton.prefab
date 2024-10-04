@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 7994950113523659310}
   - component: {fileID: 4378872603736097577}
   - component: {fileID: 4486829624917554337}
-  - component: {fileID: 1386188683228535302}
   - component: {fileID: 5370412197023658365}
   m_Layer: 0
   m_Name: OptionButton
@@ -187,28 +186,6 @@ MonoBehaviour:
       - key:
           cultureName: en
         value: {fileID: 11400000, guid: f971211b053a446c4a80ae332bcf9df0, type: 2}
---- !u!114 &1386188683228535302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 213986087707354025}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8d128ed7be34964f9433b46d998453f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selected: 0
-  onSelected:
-    m_PersistentCalls:
-      m_Calls: []
-  onDeselected:
-    m_PersistentCalls:
-      m_Calls: []
-  onConfirmed:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &5370412197023658365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,6 +198,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 824eaad6d52c4201b222cf29164b96da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selected: 0
+  onSelected:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeselected:
+    m_PersistentCalls:
+      m_Calls: []
+  onConfirmed:
+    m_PersistentCalls:
+      m_Calls: []
   remapRGB: {fileID: 7994950113523659310}
   text: {fileID: 32599598937685146}
   nonHighlightColor:
@@ -228,7 +215,12 @@ MonoBehaviour:
     outline: {r: 1, g: 0.99607843, b: 0.99607843, a: 0}
     shadow: {r: 0.69411767, g: 0.69803923, b: 0.75686276, a: 0}
   nonHighlightTextColor: {r: 0.2, g: 0.2, b: 0.26666668, a: 1}
-  selectableItem: {fileID: 1386188683228535302}
+  disabledColor:
+    surface: {r: 0.5372549, g: 0.5529412, b: 0.58431375, a: 0}
+    outline: {r: 0.5372549, g: 0.5529412, b: 0.58431375, a: 0}
+    shadow: {r: 0.32156864, g: 0.33333334, b: 0.39215687, a: 0}
+  disabledTextColor: {r: 0.2, g: 0.2, b: 0.2627451, a: 1}
+  interactable: 1
 --- !u!1 &8328673301775040675
 GameObject:
   m_ObjectHideFlags: 0

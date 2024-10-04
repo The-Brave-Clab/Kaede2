@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using Kaede2.Scenario.Framework;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
@@ -83,7 +84,7 @@ namespace Kaede2
         private void Awake()
         {
             // unlike others, we only do this once here because we can't clear listeners (we don't know if there are listeners other than the one we add)
-            selfIntroButton.SelectableItem.onConfirmed.AddListener(PlaySelfIntroScenario);
+            selfIntroButton.onConfirmed.AddListener(PlaySelfIntroScenario);
         }
 
         public void Enter(MasterCharaProfile.CharacterProfile profile)
@@ -94,8 +95,7 @@ namespace Kaede2
 
             selfIntroScenarioName = MasterScenarioCast.Instance.scenarioCast
                 .Where(c => c.ScenarioName.StartsWith("os001_")) // indicates self intro scenario
-                .Where(c => c.CastCharaIds.Length == 1) // only one character
-                .Where(c => c.CastCharaIds[0] == profile.Id) // the character is the one we're looking for
+                .Where(c => c.CastCharaIds.Contains(profile.Id)) // the character is the one we're looking for
                 .Select(c => c.ScenarioName)
                 .FirstOrDefault();
 
@@ -117,6 +117,8 @@ namespace Kaede2
             // but we do need to remove the disambiguation part
             characterName.text = characterNames.Get(profile.Id).Split(" (")[0];
             voiceActor.text = $"CV: {profile.CharacterVoice}";
+
+            selfIntroButton.Interactable = !string.IsNullOrEmpty(selfIntroScenarioName);
 
             gradeValueText.text = profile.Grade;
             heightValueText.text = profile.Height;

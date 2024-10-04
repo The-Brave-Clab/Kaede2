@@ -3,17 +3,21 @@ using Kaede2.UI;
 using Kaede2.UI.Framework;
 using Kaede2.Utils;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Kaede2
 {
-    public class VoiceButton : MonoBehaviour, IThemeChangeObserver
+    public class VoiceButton : SelectableItem, IThemeChangeObserver
     {
         [SerializeField]
-        private SelectableItem selectableItem;
+        private Color nonHighlightIconColor;
 
         [SerializeField]
-        private Color nonHighlightIconColor;
+        private Color disabledCircleColor;
+
+        [SerializeField]
+        private Color disabledIconColor;
 
         [SerializeField]
         private Image circle;
@@ -25,36 +29,69 @@ namespace Kaede2
 
         private string voiceName;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake()
+;
             OnThemeChange(Theme.Current);
 
-            selectableItem.onSelected.AddListener(() => UpdateColor(true));
-            selectableItem.onDeselected.AddListener(() => UpdateColor(false));
-            selectableItem.onConfirmed.AddListener(PlayVoice);
+            onSelected.AddListener(UpdateColor);
+            onDeselected.AddListener(UpdateColor);
+            onConfirmed.AddListener(PlayVoice);
         }
 
         public void OnThemeChange(Theme.VolumeTheme theme)
         {
             highlightCircleColor = theme.VoiceButtonCircle;
-            UpdateColor(selectableItem.selected);
+            UpdateColor();
         }
 
-        private void UpdateColor(bool selected)
+        private void UpdateColor()
         {
-            circle.color = selected ? highlightCircleColor : Color.white;
-            icon.color = selected ? Color.white : nonHighlightIconColor;
+            if (!Valid())
+            {
+                circle.color = disabledCircleColor;
+                icon.color = disabledIconColor;
+            }
+            else if (selected)
+            {
+                circle.color = highlightCircleColor;
+                icon.color = Color.white;
+            }
+            else
+            {
+                circle.color = Color.white;
+                icon.color = nonHighlightIconColor;
+            }
         }
 
         public void SetVoice(string voiceName)
         {
             this.voiceName = voiceName;
+            UpdateColor();
         }
 
         private void PlayVoice()
         {
             // TODO
             this.Log($"Play voice: {voiceName}");
+        }
+
+        public bool Valid()
+        {
+            return !string.IsNullOrEmpty(voiceName);
+        }
+
+        public override void OnPointerEnter(PointerEventData eventData)
+        {
+            if (!Valid()) return;
+            base.OnPointerEnter(eventData);
+        }
+
+        public override void OnPointerClick(PointerEventData eventData)
+        {
+            if (!Valid()) return;
+            base.OnPointerClick(eventData);
         }
     }
 }
