@@ -1,6 +1,9 @@
 using System;
 using System.Collections;
+using System.Globalization;
 using System.Linq;
+using Kaede2.Localization;
+using Kaede2.Scenario;
 using Kaede2.Scenario.Framework;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
@@ -10,12 +13,16 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Kaede2
 {
     public class CharacterProfileController : MonoBehaviour
     {
+        [SerializeField]
+        private GameObject sceneRoot;
+
         [SerializeField]
         private CharacterSceneController sceneController;
 
@@ -168,8 +175,35 @@ namespace Kaede2
 
         private void PlaySelfIntroScenario()
         {
-            // TODO
-            this.Log($"Play scenario: {selfIntroScenarioName}");
+            CoroutineProxy.Start(EnterScenario(selfIntroScenarioName, LocalizationManager.AllLocales.First()));
+        }
+
+        private IEnumerator EnterScenario(string scenario, CultureInfo language)
+        {
+            yield return SceneTransition.Fade(1);
+
+            sceneRoot.SetActive(false);
+            yield return PlayerScenarioModule.Play(
+                scenario,
+                language,
+                LoadSceneMode.Additive,
+                null,
+                BackToProfile
+            );
+        }
+
+        private void BackToProfile()
+        {
+            CoroutineProxy.Start(BackToProfileCoroutine());
+        }
+
+        private IEnumerator BackToProfileCoroutine()
+        {
+            yield return PlayerScenarioModule.Unload();
+
+            sceneRoot.SetActive(true);
+
+            yield return SceneTransition.Fade(0);
         }
     }
 }
