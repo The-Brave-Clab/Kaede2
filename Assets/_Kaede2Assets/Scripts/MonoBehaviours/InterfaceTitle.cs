@@ -12,10 +12,7 @@ namespace Kaede2
         private AdjustHSV adjustHSV;
 
         [SerializeField]
-        private TextMeshProUGUI firstCharacterText;
-
-        [SerializeField]
-        private TextMeshProUGUI restOfText;
+        private TextMeshProUGUI tmpText;
 
         [SerializeField]
         [TextArea(3, 10)]
@@ -33,16 +30,11 @@ namespace Kaede2
         {
             if (text.Length > 1)
             {
-                var firstChar = text[..1];
-                var rest = text[1..];
-
-                firstCharacterText.text = $"{firstChar}";
-                restOfText.text = $"<color=#FFF0>{firstChar}</color>{rest}";
+                tmpText.text = $"{text[..1]}<color=black>{text[1..]}</color>";
             }
             else
             {
-                firstCharacterText.text = "";
-                restOfText.text = "";
+                tmpText.text = "";
             }
         }
 
