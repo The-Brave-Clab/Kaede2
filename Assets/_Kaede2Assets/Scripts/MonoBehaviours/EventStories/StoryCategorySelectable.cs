@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Linq;
+using DG.Tweening;
+using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI.Framework;
 using Kaede2.Utils;
@@ -14,8 +16,13 @@ namespace Kaede2
 {
     class StoryCategorySelectable : SelectableItem
     {
+        private static readonly int SaturationAdjustment = Shader.PropertyToID("_SaturationAdjustment");
+
         [SerializeField]
         private Image image;
+
+        [SerializeField]
+        private RectTransform imageContainer;
 
         [SerializeField]
         private Color textOutlineActivatedColor;
@@ -27,7 +34,7 @@ namespace Kaede2
         private bool activated;
 
         [SerializeField]
-        private GameObject notActivatedColorAdjuster;
+        private Image notActivatedColorAdjuster;
 
         [SerializeField]
         private GameObject selectedOutline;
@@ -52,21 +59,30 @@ namespace Kaede2
             set => activated = value;
         }
 
+        private Coroutine selectedCoroutine;
+        private Sequence selectedSequence;
+
+        private Coroutine activatedCoroutine;
+        private Sequence activatedSequence;
+
         protected override void Awake()
         {
             base.Awake();
             selectedOutline.SetActive(false);
             lastActivated = activated;
-            UpdateActivatedStatus();
+            notActivatedColorAdjuster.material.SetFloat(SaturationAdjustment, activated ? 0 : -0.5f);
+            textOutline.color = activated ? textOutlineActivatedColor : textOutlineDeactivatedColor;
 
             onSelected.AddListener(() =>
             {
-                selectedOutline.SetActive(true);
+                UpdateSelectedStatus(true);
+                // selectedOutline.SetActive(true);
             });
 
             onDeselected.AddListener(() =>
             {
-                selectedOutline.SetActive(false);
+                UpdateSelectedStatus(false);
+                // selectedOutline.SetActive(false);
             });
         }
 
@@ -90,7 +106,7 @@ namespace Kaede2
                 lastActivated = activated;
 
                 UpdateActivatedStatus();
-                selectedOutline.SetActive(selected);
+                UpdateSelectedStatus(selected);
             }
         }
 
@@ -102,10 +118,72 @@ namespace Kaede2
             }
         }
 
+        private void UpdateSelectedStatus(bool selected)
+        {
+            if (selectedCoroutine != null)
+            {
+                StopCoroutine(selectedCoroutine);
+                selectedSequence.Kill();
+                selectedCoroutine = null;
+                selectedSequence = null;
+            }
+
+            selectedCoroutine = CoroutineProxy.Start(ChangeSelectedStatus(selected));
+        }
+
+        private IEnumerator ChangeSelectedStatus(bool selected)
+        {
+            selectedOutline.SetActive(selected);
+
+            var startScale = imageContainer.localScale;
+            var targetScale = Vector3.one * (selected ? 1.05f : 1.0f);
+
+            selectedSequence = DOTween.Sequence();
+            selectedSequence.Append(DOVirtual.Float(0, 1, 0.2f, value =>
+            {
+                imageContainer.localScale = Vector3.Lerp(startScale, targetScale, value);
+            }));
+
+            yield return selectedSequence.WaitForCompletion();
+
+            selectedCoroutine = null;
+            selectedSequence = null;
+        }
+
         private void UpdateActivatedStatus()
         {
-            notActivatedColorAdjuster.SetActive(!activated);
-            textOutline.color = activated ? textOutlineActivatedColor : textOutlineDeactivatedColor;
+            if (activatedCoroutine != null)
+            {
+                StopCoroutine(activatedCoroutine);
+                activatedSequence.Kill();
+                activatedCoroutine = null;
+                activatedSequence = null;
+            }
+
+            activatedCoroutine = CoroutineProxy.Start(ChangeActivatedStatus());
+        }
+
+        private IEnumerator ChangeActivatedStatus()
+        {
+            var startSaturation = notActivatedColorAdjuster.material.GetFloat(SaturationAdjustment);
+            var startOutlineColor = textOutline.color;
+
+            var targetSaturation = activated ? 0 : -0.5f;
+            var targetOutlineColor = activated ? textOutlineActivatedColor : textOutlineDeactivatedColor;
+
+            activatedSequence = DOTween.Sequence();
+            activatedSequence.Append(DOVirtual.Float(0, 1, 0.2f,
+                value =>
+                {
+                    notActivatedColorAdjuster.material.SetFloat(SaturationAdjustment,
+                        Mathf.Lerp(startSaturation, targetSaturation, value));
+                    textOutline.color = Color.Lerp(startOutlineColor, targetOutlineColor, value);
+                }));
+
+            yield return activatedSequence.WaitForCompletion();
+
+            activatedCoroutine = null;
+            activatedSequence = null;
         }
     }
 }
