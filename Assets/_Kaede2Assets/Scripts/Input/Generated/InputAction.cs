@@ -1296,6 +1296,129 @@ namespace Kaede2.Input
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Character"",
+            ""id"": ""c3b90c3a-43cc-4a8e-b0bd-28027a5f4c26"",
+            ""actions"": [
+                {
+                    ""name"": ""ExitCharacterProfile"",
+                    ""type"": ""Button"",
+                    ""id"": ""a03028a9-288f-4e3a-af43-38c86a76f327"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ExitZukanView"",
+                    ""type"": ""Button"",
+                    ""id"": ""58dd8732-480a-4701-98fd-99e6940fb5b1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SaveZukanImage"",
+                    ""type"": ""Button"",
+                    ""id"": ""df6a8a67-8501-4076-bf5c-9c27ee954c68"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""80febe2a-fb5f-453b-9cff-2d558595cfdd"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""ExitCharacterProfile"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0cbdca0c-3a6e-4636-943e-e12d72a74630"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""ExitCharacterProfile"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""00d5d3d0-a5ae-46ec-b3a0-018b2ffb3c40"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";GamepadNintendoStyle"",
+                    ""action"": ""ExitCharacterProfile"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4ca97dca-cdae-4137-bc61-2cb4bb799d1d"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""ExitZukanView"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eaac16ac-9788-4509-9898-070a3fe898db"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""ExitZukanView"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""836b7299-51c6-4c4d-83ef-d8a41171fafc"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";GamepadNintendoStyle"",
+                    ""action"": ""ExitZukanView"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""db02ca58-820b-4a9b-bf3d-ddb08b623e07"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""SaveZukanImage"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2c1cdf28-68b2-4d1e-803d-58d7bfe99838"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad;GamepadNintendoStyle"",
+                    ""action"": ""SaveZukanImage"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -1365,6 +1488,11 @@ namespace Kaede2.Input
             // CartoonView
             m_CartoonView = asset.FindActionMap("CartoonView", throwIfNotFound: true);
             m_CartoonView_Back = m_CartoonView.FindAction("Back", throwIfNotFound: true);
+            // Character
+            m_Character = asset.FindActionMap("Character", throwIfNotFound: true);
+            m_Character_ExitCharacterProfile = m_Character.FindAction("ExitCharacterProfile", throwIfNotFound: true);
+            m_Character_ExitZukanView = m_Character.FindAction("ExitZukanView", throwIfNotFound: true);
+            m_Character_SaveZukanImage = m_Character.FindAction("SaveZukanImage", throwIfNotFound: true);
         }
 
         ~@Kaede2InputAction()
@@ -1375,6 +1503,7 @@ namespace Kaede2.Input
             Debug.Assert(!m_ScenarioLog.enabled, "This will cause a leak and performance issues, Kaede2InputAction.ScenarioLog.Disable() has not been called.");
             Debug.Assert(!m_AlbumView.enabled, "This will cause a leak and performance issues, Kaede2InputAction.AlbumView.Disable() has not been called.");
             Debug.Assert(!m_CartoonView.enabled, "This will cause a leak and performance issues, Kaede2InputAction.CartoonView.Disable() has not been called.");
+            Debug.Assert(!m_Character.enabled, "This will cause a leak and performance issues, Kaede2InputAction.Character.Disable() has not been called.");
         }
 
         public void Dispose()
@@ -1916,6 +2045,68 @@ namespace Kaede2.Input
             }
         }
         public CartoonViewActions @CartoonView => new CartoonViewActions(this);
+
+        // Character
+        private readonly InputActionMap m_Character;
+        private List<ICharacterActions> m_CharacterActionsCallbackInterfaces = new List<ICharacterActions>();
+        private readonly InputAction m_Character_ExitCharacterProfile;
+        private readonly InputAction m_Character_ExitZukanView;
+        private readonly InputAction m_Character_SaveZukanImage;
+        public struct CharacterActions
+        {
+            private @Kaede2InputAction m_Wrapper;
+            public CharacterActions(@Kaede2InputAction wrapper) { m_Wrapper = wrapper; }
+            public InputAction @ExitCharacterProfile => m_Wrapper.m_Character_ExitCharacterProfile;
+            public InputAction @ExitZukanView => m_Wrapper.m_Character_ExitZukanView;
+            public InputAction @SaveZukanImage => m_Wrapper.m_Character_SaveZukanImage;
+            public InputActionMap Get() { return m_Wrapper.m_Character; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(CharacterActions set) { return set.Get(); }
+            public void AddCallbacks(ICharacterActions instance)
+            {
+                if (instance == null || m_Wrapper.m_CharacterActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_CharacterActionsCallbackInterfaces.Add(instance);
+                @ExitCharacterProfile.started += instance.OnExitCharacterProfile;
+                @ExitCharacterProfile.performed += instance.OnExitCharacterProfile;
+                @ExitCharacterProfile.canceled += instance.OnExitCharacterProfile;
+                @ExitZukanView.started += instance.OnExitZukanView;
+                @ExitZukanView.performed += instance.OnExitZukanView;
+                @ExitZukanView.canceled += instance.OnExitZukanView;
+                @SaveZukanImage.started += instance.OnSaveZukanImage;
+                @SaveZukanImage.performed += instance.OnSaveZukanImage;
+                @SaveZukanImage.canceled += instance.OnSaveZukanImage;
+            }
+
+            private void UnregisterCallbacks(ICharacterActions instance)
+            {
+                @ExitCharacterProfile.started -= instance.OnExitCharacterProfile;
+                @ExitCharacterProfile.performed -= instance.OnExitCharacterProfile;
+                @ExitCharacterProfile.canceled -= instance.OnExitCharacterProfile;
+                @ExitZukanView.started -= instance.OnExitZukanView;
+                @ExitZukanView.performed -= instance.OnExitZukanView;
+                @ExitZukanView.canceled -= instance.OnExitZukanView;
+                @SaveZukanImage.started -= instance.OnSaveZukanImage;
+                @SaveZukanImage.performed -= instance.OnSaveZukanImage;
+                @SaveZukanImage.canceled -= instance.OnSaveZukanImage;
+            }
+
+            public void RemoveCallbacks(ICharacterActions instance)
+            {
+                if (m_Wrapper.m_CharacterActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(ICharacterActions instance)
+            {
+                foreach (var item in m_Wrapper.m_CharacterActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_CharacterActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public CharacterActions @Character => new CharacterActions(this);
         private int m_GamepadSchemeIndex = -1;
         public InputControlScheme GamepadScheme
         {
@@ -2001,6 +2192,12 @@ namespace Kaede2.Input
         public interface ICartoonViewActions
         {
             void OnBack(InputAction.CallbackContext context);
+        }
+        public interface ICharacterActions
+        {
+            void OnExitCharacterProfile(InputAction.CallbackContext context);
+            void OnExitZukanView(InputAction.CallbackContext context);
+            void OnSaveZukanImage(InputAction.CallbackContext context);
         }
     }
 }

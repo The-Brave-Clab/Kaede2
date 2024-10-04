@@ -63,7 +63,8 @@ namespace Kaede2
         {
             if (selected == null) return;
 
-            // TODO
+            // if we manually wrap the text, we need to remove it
+            sceneController.ZukanViewWindow.Show(Text.Replace("\n", ""), imageHandle.Result);
         }
 
         public void OnPointerEnter(PointerEventData eventData)

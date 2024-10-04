@@ -55,13 +55,6 @@ namespace Kaede2
             sceneController.StardustPreviewImage.sprite = image.sprite;
         }
 
-        private void Confirm()
-        {
-            if (selected == null) return;
-
-            // TODO
-        }
-
         public void OnPointerEnter(PointerEventData eventData)
         {
             Select();

@@ -1271,6 +1271,129 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Character",
+            "id": "c3b90c3a-43cc-4a8e-b0bd-28027a5f4c26",
+            "actions": [
+                {
+                    "name": "ExitCharacterProfile",
+                    "type": "Button",
+                    "id": "a03028a9-288f-4e3a-af43-38c86a76f327",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ExitZukanView",
+                    "type": "Button",
+                    "id": "58dd8732-480a-4701-98fd-99e6940fb5b1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SaveZukanImage",
+                    "type": "Button",
+                    "id": "df6a8a67-8501-4076-bf5c-9c27ee954c68",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "80febe2a-fb5f-453b-9cff-2d558595cfdd",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "ExitCharacterProfile",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0cbdca0c-3a6e-4636-943e-e12d72a74630",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "ExitCharacterProfile",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "00d5d3d0-a5ae-46ec-b3a0-018b2ffb3c40",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";GamepadNintendoStyle",
+                    "action": "ExitCharacterProfile",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4ca97dca-cdae-4137-bc61-2cb4bb799d1d",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "ExitZukanView",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eaac16ac-9788-4509-9898-070a3fe898db",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "ExitZukanView",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "836b7299-51c6-4c4d-83ef-d8a41171fafc",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";GamepadNintendoStyle",
+                    "action": "ExitZukanView",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "db02ca58-820b-4a9b-bf3d-ddb08b623e07",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "SaveZukanImage",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2c1cdf28-68b2-4d1e-803d-58d7bfe99838",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad;GamepadNintendoStyle",
+                    "action": "SaveZukanImage",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

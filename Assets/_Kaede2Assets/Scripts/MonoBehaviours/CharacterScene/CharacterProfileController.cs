@@ -26,9 +26,6 @@ namespace Kaede2
         private TextMeshProUGUI characterName;
 
         [SerializeField]
-        private TextMeshProUGUI voiceActor;
-
-        [SerializeField]
         private OptionButton selfIntroButton;
 
         [SerializeField]
@@ -115,8 +112,8 @@ namespace Kaede2
 
             // we don't take from profile itself because it's not localized and lack the whitespace
             // but we do need to remove the disambiguation part
-            characterName.text = characterNames.Get(profile.Id).Split(" (")[0];
-            voiceActor.text = $"CV: {profile.CharacterVoice}";
+            string localizedName = characterNames.Get(profile.Id).Split(" (")[0];
+            characterName.text = $"{localizedName}\n<size=23.44>CV: {profile.CharacterVoice}</size>";
 
             selfIntroButton.Interactable = !string.IsNullOrEmpty(selfIntroScenarioName);
 

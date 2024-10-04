@@ -4,12 +4,17 @@ using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Kaede2
 {
     public class CharacterSceneController : MonoBehaviour
     {
+        [SerializeField]
+        private ZukanViewWindow zukanViewWindow;
+        public ZukanViewWindow ZukanViewWindow => zukanViewWindow;
+
         [Header("Character Selection")]
         [SerializeField]
         private CharacterSelection characterSelectionPrefab;
@@ -71,7 +76,8 @@ namespace Kaede2
 
         private void Awake()
         {
-            CharacterProfileController.gameObject.SetActive(false);
+            zukanViewWindow.gameObject.SetActive(false);
+            characterProfileController.gameObject.SetActive(false);
         }
 
         private IEnumerator Start()
