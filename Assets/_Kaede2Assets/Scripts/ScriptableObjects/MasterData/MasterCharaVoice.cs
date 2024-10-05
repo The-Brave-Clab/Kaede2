@@ -1,11 +1,12 @@
 ﻿using System;
 using Kaede2.Scenario.Framework;
+using UnityEngine;
 
 // ReSharper disable IdentifierTypo InconsistentNaming
 
 namespace Kaede2.ScriptableObjects
 {
-    public class MasterCharaVoice : BaseMasterData<MasterCharaVoice>
+    public class MasterCharaVoice : BaseMasterData<MasterCharaVoice, MasterCharaVoice.CharacterVoice>
     {
         [Serializable]
         public class CharacterVoice
@@ -21,6 +22,8 @@ namespace Kaede2.ScriptableObjects
             public string Sleep_Voice;
         }
 
-        public CharacterVoice[] charaVoice;
+        [SerializeField]
+        private CharacterVoice[] charaVoice;
+        public override CharacterVoice[] Data => charaVoice;
     }
 }

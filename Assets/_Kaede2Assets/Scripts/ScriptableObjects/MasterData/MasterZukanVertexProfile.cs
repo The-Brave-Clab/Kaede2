@@ -1,4 +1,6 @@
 ﻿using System;
+using UnityEngine;
+
 // ReSharper disable IdentifierTypo InconsistentNaming
 
 namespace Kaede2.ScriptableObjects
@@ -23,8 +25,10 @@ namespace Kaede2.ScriptableObjects
         public string Description;
     }
 
-    public class MasterZukanVertexProfile : BaseMasterData<MasterZukanVertexProfile>
+    public class MasterZukanVertexProfile : BaseMasterData<MasterZukanVertexProfile, ZukanProfile>
     {
-        public ZukanProfile[] zukanProfile;
+        [SerializeField]
+        private ZukanProfile[] zukanProfile;
+        public override ZukanProfile[] Data => zukanProfile;
     }
 }

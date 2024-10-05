@@ -87,7 +87,7 @@ namespace Kaede2
             // character selection
             characterPreviewImage.gameObject.SetActive(true);
             bool first = true;
-            foreach (var characterProfile in MasterCharaProfile.Instance.charaProfile)
+            foreach (var characterProfile in MasterCharaProfile.Instance.Data)
             {
                 if (string.IsNullOrEmpty(characterProfile.Thumbnail)) continue;
 
@@ -100,7 +100,7 @@ namespace Kaede2
             // fairy selection
             fairyPreviewImage.gameObject.SetActive(false);
             first = true;
-            foreach (var fairyProfile in MasterZukanFairyProfile.Instance.zukanProfile)
+            foreach (var fairyProfile in MasterZukanFairyProfile.Instance.Data)
             {
                 if (string.IsNullOrEmpty(fairyProfile.BigPicture)) continue;
 
@@ -113,7 +113,7 @@ namespace Kaede2
             // vertex selection
             vertexPreviewImage.gameObject.SetActive(false);
             first = true;
-            foreach (var vertexProfile in MasterZukanVertexProfile.Instance.zukanProfile)
+            foreach (var vertexProfile in MasterZukanVertexProfile.Instance.Data)
             {
                 if (string.IsNullOrEmpty(vertexProfile.BigPicture)) continue;
 
@@ -126,7 +126,7 @@ namespace Kaede2
             // udon selection
             udonPreviewImage.gameObject.SetActive(false);
             first = true;
-            foreach (var udonProfile in MasterZukanUdonProfile.Instance.zukanProfile)
+            foreach (var udonProfile in MasterZukanUdonProfile.Instance.Data)
             {
                 if (string.IsNullOrEmpty(udonProfile.Thumbnail)) continue;
 
@@ -139,7 +139,7 @@ namespace Kaede2
             // stardust selection
             stardustPreviewImage.gameObject.SetActive(false);
             first = true;
-            foreach (var stardustProfile in MasterZukanStardustProfile.Instance.zukanProfile)
+            foreach (var stardustProfile in MasterZukanStardustProfile.Instance.Data)
             {
                 if (string.IsNullOrEmpty(stardustProfile.StandingPic)) continue;
 

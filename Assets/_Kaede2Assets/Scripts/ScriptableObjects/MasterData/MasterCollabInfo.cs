@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Kaede2.ScriptableObjects
 {
-    public class MasterCollabInfo : BaseMasterData<MasterCollabInfo>
+    public class MasterCollabInfo : BaseMasterData<MasterCollabInfo, MasterCollabInfo.CollabInfo>
     {
         public enum CollabType
         {
@@ -39,6 +39,8 @@ namespace Kaede2.ScriptableObjects
             public string TitleLogoImage;
         }
 
-        public CollabInfo[] collabInfo;
+        [SerializeField]
+        private CollabInfo[] collabInfo;
+        public override CollabInfo[] Data => collabInfo;
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using UnityEngine;
+
 // ReSharper disable IdentifierTypo InconsistentNaming
 
 namespace Kaede2.ScriptableObjects
@@ -15,8 +17,10 @@ namespace Kaede2.ScriptableObjects
         public int Collabo; // could be boolean?
     }
 
-    public class MasterZukanVertexInfo : BaseMasterData<MasterZukanVertexInfo>
+    public class MasterZukanVertexInfo : BaseMasterData<MasterZukanVertexInfo, ZukanInfo>
     {
-        public ZukanInfo[] zukanInfo;
+        [SerializeField]
+        private ZukanInfo[] zukanInfo;
+        public override ZukanInfo[] Data => zukanInfo;
     }
 }

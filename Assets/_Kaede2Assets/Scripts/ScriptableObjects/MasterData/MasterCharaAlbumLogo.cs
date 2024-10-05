@@ -1,11 +1,12 @@
 ﻿using System;
 using Kaede2.Scenario.Framework;
+using UnityEngine;
 
 // ReSharper disable IdentifierTypo InconsistentNaming
 
 namespace Kaede2.ScriptableObjects
 {
-    public class MasterCharaAlbumLogo : BaseMasterData<MasterCharaAlbumLogo>
+    public class MasterCharaAlbumLogo : BaseMasterData<MasterCharaAlbumLogo, MasterCharaAlbumLogo.CharacterAlbumLogo>
     {
         [Serializable]
         public class CharacterAlbumLogo
@@ -15,6 +16,8 @@ namespace Kaede2.ScriptableObjects
             public string[] AlbumLogo; // length is 8, one for each volume
         }
 
-        public CharacterAlbumLogo[] charaAlbumLogo;
+        [SerializeField]
+        private CharacterAlbumLogo[] charaAlbumLogo;
+        public override CharacterAlbumLogo[] Data => charaAlbumLogo;
     }
 }

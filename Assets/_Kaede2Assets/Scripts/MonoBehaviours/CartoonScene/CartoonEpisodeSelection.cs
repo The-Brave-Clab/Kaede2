@@ -57,7 +57,7 @@ namespace Kaede2
         {
             sceneController = controller;
 
-            var cartoonInfos = MasterCartoonInfo.Instance.cartoonInfo
+            var cartoonInfos = MasterCartoonInfo.Instance.Data
                 .Where(ci => ci.GroupId == chapter.ChapterInfo.GroupId)
                 .OrderBy(ci => ci.No)
                 .ToList();

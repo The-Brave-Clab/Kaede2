@@ -1,22 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using Kaede2.Scenario;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Kaede2
 {
-    public class EventStoryController : MonoBehaviour
+    public class EventStoryController : StorySelectionSceneController
     {
-        [SerializeField]
-        private GameObject sceneRoot;
-
         [SerializeField]
         private RandomizeScatterImages randomizeScatterImages;
 
@@ -24,16 +18,7 @@ namespace Kaede2
         private StoryCategorySelectable[] storyCategorySelectables;
 
         [SerializeField]
-        private LabeledListSelectableGroup episodeSelectableGroup;
-
-        [SerializeField]
-        private LabeledListSelectableGroup storySelectableGroup;
-
-        [SerializeField]
         private Canvas randomizedImageBackgroundCanvas;
-
-        [SerializeField]
-        private Canvas selectionCanvas;
 
         [SerializeField]
         private InterfaceTitle birthdayTitle;
@@ -45,22 +30,7 @@ namespace Kaede2
         private StorySelectionBackground storySelectionBackground;
 
         [SerializeField]
-        private EpisodeTitle episodeTitle;
-
-        [SerializeField]
         private AlbumExtraInfo albumExtraInfo;
-
-        [SerializeField]
-        private CharacterWindow characterWindow;
-
-        public CharacterWindow CharacterWindow => characterWindow;
-
-        private List<StorySelectionItem> storySelectionItems;
-
-        private void Awake()
-        {
-            storySelectionItems = new List<StorySelectionItem>();
-        }
 
         private IEnumerator Start()
         {
@@ -80,147 +50,45 @@ namespace Kaede2
 
             yield return group.WaitForAll();
 
-            selectionCanvas.gameObject.SetActive(false);
-            episodeSelectableGroup.transform.parent.gameObject.SetActive(true);
-            storySelectableGroup.transform.parent.gameObject.SetActive(false);
+            InitialSetup();
 
             yield return SceneTransition.Fade(0);
         }
 
         public void EnterEpisodeSelection(bool isBirthday)
         {
-            CoroutineProxy.Start(EnterEpisodeSelectionCoroutine(isBirthday ? MasterScenarioInfo.Kind.Birthday : MasterScenarioInfo.Kind.Event));
+            EnterEpisodeSelection(new EventStoryProvider(isBirthday));
         }
 
-        private IEnumerator EnterEpisodeSelectionCoroutine(MasterScenarioInfo.Kind kind)
+        protected override void OnEnterEpisodeSelection(MasterScenarioInfo.IProvider provider)
         {
-            yield return SceneTransition.Fade(1);
-
-            gameObject.SetActive(false);
             randomizedImageBackgroundCanvas.gameObject.SetActive(false);
-            selectionCanvas.gameObject.SetActive(true);
 
-            if (kind == MasterScenarioInfo.Kind.Birthday)
+            if (provider is not EventStoryProvider eventStoryProvider)
+                return;
+
+            if (eventStoryProvider.IsBirthday)
             {
                 birthdayTitle.gameObject.SetActive(true);
                 eventTitle.gameObject.SetActive(false);
             }
-            else if (kind == MasterScenarioInfo.Kind.Event)
+            else
             {
                 birthdayTitle.gameObject.SetActive(false);
                 eventTitle.gameObject.SetActive(true);
             }
-
-            var scenarioInfos = MasterScenarioInfo.Instance.scenarioInfo
-                .Where(si => si.KindId == kind)
-                .ToList();
-
-            var scenarioChapterInfos = scenarioInfos
-                .OrderBy(si => si.ChapterId)
-                .ThenBy(si => si.EpisodeId)
-                .GroupBy(scenarioInfo => scenarioInfo.EpisodeId)
-                .Select(group => group.First())
-                .ToList();
-
-            episodeSelectableGroup.Clear();
-            foreach (var info in scenarioChapterInfos)
-            {
-                string illust = GetCardIllustFromScenarioInfo(info);
-
-                var item = episodeSelectableGroup.Add(info.EpisodeNumber, info.EpisodeName);
-                item.onSelected.AddListener(() =>
-                {
-                    storySelectionBackground.Set(illust);
-                });
-                item.onConfirmed.AddListener(() =>
-                {
-                    EnterStorySelection(info);
-                });
-            }
-            episodeSelectableGroup.Initialize();
-
-            yield return null;
-            yield return null;
-
-            yield return SceneTransition.Fade(0);
         }
 
-        private void EnterStorySelection(MasterScenarioInfo.ScenarioInfo scenarioInfo)
+        protected override void OnEpisodeItemSelected(MasterScenarioInfo.ScenarioInfo scenarioInfo)
         {
-            CoroutineProxy.Start(EnterStorySelectionCoroutine(scenarioInfo));
-        }
-
-        private IEnumerator EnterStorySelectionCoroutine(MasterScenarioInfo.ScenarioInfo scenarioInfo)
-        {
-            yield return SceneTransition.Fade(1);
-
-            episodeTitle.Label = scenarioInfo.EpisodeNumber;
-            episodeTitle.Text = scenarioInfo.EpisodeName;
-
-            episodeSelectableGroup.transform.parent.gameObject.SetActive(false);
-            storySelectableGroup.transform.parent.gameObject.SetActive(true);
-
-            var storyInfos = MasterScenarioInfo.Instance.scenarioInfo
-                .Where(si => si.EpisodeId == scenarioInfo.EpisodeId)
-                .OrderBy(si => si.StoryId)
-                .ToList();
-
-            storySelectableGroup.Clear();
-            storySelectionItems.Clear();
-            foreach (var info in storyInfos)
-            {
-                var item = storySelectableGroup.Add(info.Label, info.StoryName);
-                var selectionItem = item.GetComponent<StorySelectionItem>();
-                selectionItem.Initialize(info, this);
-                storySelectionItems.Add(selectionItem);
-            }
-            storySelectableGroup.Initialize();
-
-            yield return null;
-            yield return null;
-
-            yield return SceneTransition.Fade(0);
-        }
-
-        public IEnumerator EnterScenario(MasterScenarioInfo.ScenarioInfo scenario, CultureInfo language)
-        {
-            yield return SceneTransition.Fade(1);
-
-            sceneRoot.SetActive(false);
-            yield return PlayerScenarioModule.Play(
-                scenario.ScenarioName,
-                language,
-                LoadSceneMode.Additive,
-                null,
-                () =>
-                {
-                    BackToStorySelection();
-                    foreach (var selectionItem in storySelectionItems)
-                    {
-                        selectionItem.Refresh();
-                    }
-                }
-            );
-        }
-
-        private void BackToStorySelection()
-        {
-            CoroutineProxy.Start(BackToStorySelectionCoroutine());
-        }
-
-        private IEnumerator BackToStorySelectionCoroutine()
-        {
-            yield return PlayerScenarioModule.Unload();
-
-            sceneRoot.SetActive(true);
-
-            yield return SceneTransition.Fade(0);
+            string illust = GetCardIllustFromScenarioInfo(scenarioInfo);
+            storySelectionBackground.Set(illust);
         }
 
         private string GetCardIllustFromScenarioInfo(MasterScenarioInfo.ScenarioInfo scenarioInfo)
         {
             string result = "";
-            var bgInfo = MasterEventEpisodeBg.Instance.eventEpisodeBgs
+            var bgInfo = MasterEventEpisodeBg.Instance.Data
                 .FirstOrDefault(bg => bg.EpisodeId == scenarioInfo.EpisodeId);
             if (!string.IsNullOrEmpty(bgInfo?.EpisodeBg))
             {
@@ -228,7 +96,7 @@ namespace Kaede2
                 return result;
             }
 
-            var storyImageData = MasterEventStoryImageData.Instance.eventStoryImages
+            var storyImageData = MasterEventStoryImageData.Instance.Data
                 .FirstOrDefault(si => si.EpisodeId == scenarioInfo.EpisodeId);
             if (!string.IsNullOrEmpty(storyImageData?.FileName))
             {
@@ -237,6 +105,23 @@ namespace Kaede2
             }
 
             return result;
+        }
+
+        private class EventStoryProvider : MasterScenarioInfo.IProvider
+        {
+            public bool IsBirthday { get; }
+
+            public EventStoryProvider(bool isBirthday)
+            {
+                IsBirthday = isBirthday;
+            }
+
+            public IEnumerable<MasterScenarioInfo.ScenarioInfo> Provide()
+            {
+                var kindId = IsBirthday ? MasterScenarioInfo.Kind.Birthday : MasterScenarioInfo.Kind.Event;
+                return MasterScenarioInfo.Instance.Data
+                    .Where(si => si.KindId == kindId);
+            }
         }
     }
 

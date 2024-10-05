@@ -38,7 +38,7 @@ namespace Kaede2
 
             albumItems = new()
             {
-                Capacity = masterData.albumInfo.Length
+                Capacity = masterData.Data.Length
             };
 
             currentFilter = info => true;

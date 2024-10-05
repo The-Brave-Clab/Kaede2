@@ -7,7 +7,7 @@ namespace Kaede2
     public class FixedSizeScaler : MonoBehaviour
     {
         [SerializeField]
-        private Vector2 targetSize;
+        private Vector2 targetSize = Vector2.one * 100.0f;
 
         private DrivenRectTransformTracker tracker;
 
@@ -30,7 +30,7 @@ namespace Kaede2
             tracker.Clear();
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             rt.anchorMax = rt.anchorMin = rt.pivot = new Vector2(0.5f, 0.5f);
             rt.anchoredPosition = Vector2.zero;

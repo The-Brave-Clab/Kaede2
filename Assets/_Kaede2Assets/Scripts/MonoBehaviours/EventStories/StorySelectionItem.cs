@@ -17,7 +17,7 @@ namespace Kaede2
         private FavoriteIcon favoriteIcon;
 
         private LabeledListSelectableItem selectable;
-        private EventStoryController eventStoryController;
+        private StorySelectionSceneController eventStoryController;
         private MasterScenarioInfo.ScenarioInfo scenarioInfo;
         private MasterScenarioCast.ScenarioCast castInfo;
 
@@ -30,12 +30,12 @@ namespace Kaede2
                 favoriteIcon.gameObject.SetActive(selectable.selected);
         }
 
-        public void Initialize(MasterScenarioInfo.ScenarioInfo info, EventStoryController controller)
+        public void Initialize(MasterScenarioInfo.ScenarioInfo info, StorySelectionSceneController controller)
         {
             eventStoryController = controller;
             scenarioInfo = info;
             selectable = GetComponent<LabeledListSelectableItem>();
-            castInfo = MasterScenarioCast.Instance.scenarioCast
+            castInfo = MasterScenarioCast.Instance.Data
                 .First(c => c.ScenarioName == info.ScenarioName);
 
             unreadIcon.enabled = !SaveData.ReadScenarioNames.Contains(scenarioInfo.ScenarioName);

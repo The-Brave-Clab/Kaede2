@@ -19,52 +19,70 @@ namespace Kaede2.ScriptableObjects
             [SerializeField]
             private Color mainThemeColor;
             public Color MainThemeColor => NonTransparent(mainThemeColor);
+
             [ColorUsage(false, true)]
             [SerializeField]
             private Color mainTextRim;
             public Color MainTextRim => NonTransparent(mainTextRim);
+
             [ColorUsage(false, false)]
             [SerializeField]
             private Color hoverHighlight;
             public Color HoverHighlight => NonTransparent(hoverHighlight);
+
             [ColorUsage(false, false)]
             [SerializeField]
             private Color hoverColor;
             public Color HoverColor => NonTransparent(hoverColor);
+
             [ColorUsage(false, false)]
             [SerializeField]
             private Color selectedColor;
             public Color SelectedColor => NonTransparent(selectedColor);
+
             [SerializeField]
             private CommonButtonColor commonButtonColor;
             public CommonButtonColor CommonButtonColor => commonButtonColor.NonTransparent();
+
             [SerializeField]
             private CommonButtonColor optionColor;
             public CommonButtonColor OptionColor => optionColor.NonTransparent();
+
             [SerializeField]
             [ColorUsage(false, false)]
             private Color windowOutline;
             public Color WindowOutline => NonTransparent(windowOutline);
+
             [ColorUsage(true, false)]
             [SerializeField]
             private Color buttonGuideColor;
             public Color ButtonGuideColor => buttonGuideColor;
+
             [SerializeField]
             [ColorUsage(false, false)]
             private Color arrowSurface;
             public Color ArrowSurface => NonTransparent(arrowSurface);
+
             [SerializeField]
             [ColorUsage(false, false)]
             private Color arrowShadow;
             public Color ArrowShadow => NonTransparent(arrowShadow);
+
             [SerializeField]
             [ColorUsage(false, false)]
             private Color arrowAlternateSurface;
             public Color ArrowAlternateSurface => NonTransparent(arrowAlternateSurface);
+
             [SerializeField]
             [ColorUsage(false, false)]
             private Color arrowAlternateShadow;
             public Color ArrowAlternateShadow => NonTransparent(arrowAlternateShadow);
+
+            [SerializeField]
+            [ColorUsage(false, false)]
+            private Color arrowWithDecor;
+            public Color ArrowWithDecor => NonTransparent(arrowWithDecor);
+
             [SerializeField]
             [ColorUsage(false, false)]
             private Color slideBar;

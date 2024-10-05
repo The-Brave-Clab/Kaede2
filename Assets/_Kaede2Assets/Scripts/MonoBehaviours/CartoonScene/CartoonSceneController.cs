@@ -54,7 +54,7 @@ namespace Kaede2
 
         private IEnumerator Start()
         {
-            var cartoonChapters = MasterCartoonInfo.Instance.cartoonInfo
+            var cartoonChapters = MasterCartoonInfo.Instance.Data
                 .Distinct(new CartoonInfoGroupIdComparer())
                 .OrderBy(ci => ci.No)
                 .ToList();

@@ -1,9 +1,11 @@
 ﻿using System;
+using UnityEngine;
+
 // ReSharper disable IdentifierTypo InconsistentNaming
 
 namespace Kaede2.ScriptableObjects
 {
-    public class MasterBgmData : BaseMasterData<MasterBgmData>
+    public class MasterBgmData : BaseMasterData<MasterBgmData, MasterBgmData.BgmData>
     {
         [Serializable]
         public class BgmData
@@ -13,6 +15,8 @@ namespace Kaede2.ScriptableObjects
             public string bgmTitle;
         }
 
-        public BgmData[] masterBgms;
+        [SerializeField]
+        private BgmData[] masterBgms;
+        public override BgmData[] Data => masterBgms;
     }
 }

@@ -70,7 +70,7 @@ namespace Kaede2
             newColor.a = 0;
             selectionFrame.color = newColor;
 
-            cartoonChapter = MasterCartoonInfo.Instance.cartoonInfo
+            cartoonChapter = MasterCartoonInfo.Instance.Data
                 .OrderBy(ci => ci.No)
                 .FirstOrDefault(ci => ci.GroupId == $"#{cartoonChapterNumber}");
 

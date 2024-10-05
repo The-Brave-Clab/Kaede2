@@ -1,10 +1,14 @@
 ﻿
 // ReSharper disable IdentifierTypo InconsistentNaming
 
+using UnityEngine;
+
 namespace Kaede2.ScriptableObjects
 {
-    public class MasterZukanStardustProfile : BaseMasterData<MasterZukanStardustProfile>
+    public class MasterZukanStardustProfile : BaseMasterData<MasterZukanStardustProfile, ZukanProfile>
     {
-        public ZukanProfile[] zukanProfile;
+        [SerializeField]
+        private ZukanProfile[] zukanProfile;
+        public override ZukanProfile[] Data => zukanProfile;
     }
 }

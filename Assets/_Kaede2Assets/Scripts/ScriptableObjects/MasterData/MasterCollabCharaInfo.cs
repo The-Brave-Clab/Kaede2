@@ -1,11 +1,12 @@
 ﻿using System;
 using Kaede2.Scenario.Framework;
+using UnityEngine;
 
 // ReSharper disable IdentifierTypo InconsistentNaming
 
 namespace Kaede2.ScriptableObjects
 {
-    public class MasterCollabCharaInfo : BaseMasterData<MasterCollabCharaInfo>
+    public class MasterCollabCharaInfo : BaseMasterData<MasterCollabCharaInfo, MasterCollabCharaInfo.CollabCharaInfo>
     {
         [Serializable]
         public class CollabCharaInfo
@@ -28,6 +29,8 @@ namespace Kaede2.ScriptableObjects
             public string Sleep_Voice;
         }
 
-        public CollabCharaInfo[] collabCharaInfo;
+        [SerializeField]
+        private CollabCharaInfo[] collabCharaInfo;
+        public override CollabCharaInfo[] Data => collabCharaInfo;
     }
 }

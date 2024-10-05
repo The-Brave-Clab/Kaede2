@@ -1,19 +1,28 @@
-using Kaede2.Utils;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Kaede2.ScriptableObjects
 {
-    public abstract class BaseMasterData<T> : ScriptableObject where T : BaseMasterData<T>
+    public abstract class BaseMasterData<TSelf, TData> : ScriptableObject
+        where TSelf : BaseMasterData<TSelf, TData>
+        where TData : class, new()
     {
-        private static T instance = null;
-        public static T Instance
+        private static TSelf instance = null;
+        public static TSelf Instance
         {
             get
             {
                 if (instance != null) return instance;
-                instance = Resources.Load<T>($"master_data/{typeof(T).Name}");
+                instance = Resources.Load<TSelf>($"master_data/{typeof(TSelf).Name}");
                 return instance;
             }
+        }
+
+        public abstract TData[] Data { get; }
+
+        public interface IProvider
+        {
+            IEnumerable<TData> Provide();
         }
     }
 }

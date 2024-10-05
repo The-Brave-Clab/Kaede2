@@ -20,6 +20,9 @@ namespace Kaede2.UI
         [SerializeField]
         private bool ignoreSafeAreaBottom = false;
 
+        [SerializeField]
+        private bool ignoreSafeAreaSide = false;
+
         private void Awake()
         {
             driving = false;
@@ -96,6 +99,13 @@ namespace Kaede2.UI
                     // bottom on the left side
                     safeAreaRect.xMin = fullRect.xMin;
                 }
+            }
+
+            if (ignoreSafeAreaSide)
+            {
+                // ignore both sides
+                safeAreaRect.yMin = fullRect.yMin;
+                safeAreaRect.yMax = fullRect.yMax;
             }
 
             return safeAreaRect;

@@ -201,9 +201,9 @@ namespace Kaede2.Editor.Windows
             EditorGUILayout.LabelField("Album Info", EditorStyles.boldLabel);
 
             var originalIndex = -1;
-            for (var i = 0; i < MasterAlbumInfo.Instance.albumInfo.Length; i++)
+            for (var i = 0; i < MasterAlbumInfo.Instance.Data.Length; i++)
             {
-                if (MasterAlbumInfo.Instance.albumInfo[i].AlbumName == MasterAlbumInfo.Sorted[index].AlbumName)
+                if (MasterAlbumInfo.Instance.Data[i].AlbumName == MasterAlbumInfo.Sorted[index].AlbumName)
                 {
                     originalIndex = i;
                     break;
@@ -216,7 +216,7 @@ namespace Kaede2.Editor.Windows
                 return;
             }
 
-            var infoListSerialized = infoSerializedObject.FindProperty(nameof(MasterAlbumInfo.Instance.albumInfo));
+            var infoListSerialized = infoSerializedObject.FindProperty("albumInfo");
             var infoSerialized = infoListSerialized.GetArrayElementAtIndex(originalIndex);
             iterator = infoSerialized.Copy();
             iterator.NextVisible(true);

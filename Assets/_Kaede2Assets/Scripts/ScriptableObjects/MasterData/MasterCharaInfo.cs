@@ -1,11 +1,12 @@
 ﻿using System;
 using Kaede2.Scenario.Framework;
+using UnityEngine;
 
 // ReSharper disable IdentifierTypo InconsistentNaming
 
 namespace Kaede2.ScriptableObjects
 {
-    public class MasterCharaInfo : BaseMasterData<MasterCharaInfo>
+    public class MasterCharaInfo : BaseMasterData<MasterCharaInfo, MasterCharaInfo.CharacterInfo>
     {
         [Serializable]
         public class CharacterInfo
@@ -26,6 +27,8 @@ namespace Kaede2.ScriptableObjects
             public int Collabo; // could be boolean?
         }
 
-        public CharacterInfo[] charaInfo;
+        [SerializeField]
+        private CharacterInfo[] charaInfo;
+        public override CharacterInfo[] Data => charaInfo;
     }
 }

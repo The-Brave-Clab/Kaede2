@@ -76,13 +76,11 @@ namespace Kaede2
             onSelected.AddListener(() =>
             {
                 UpdateSelectedStatus(true);
-                // selectedOutline.SetActive(true);
             });
 
             onDeselected.AddListener(() =>
             {
                 UpdateSelectedStatus(false);
-                // selectedOutline.SetActive(false);
             });
         }
 

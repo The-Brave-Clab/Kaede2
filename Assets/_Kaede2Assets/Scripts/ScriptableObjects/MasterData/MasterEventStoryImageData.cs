@@ -1,9 +1,11 @@
 ﻿using System;
+using UnityEngine;
+
 // ReSharper disable IdentifierTypo InconsistentNaming
 
 namespace Kaede2.ScriptableObjects
 {
-    public class MasterEventStoryImageData : BaseMasterData<MasterEventStoryImageData>
+    public class MasterEventStoryImageData : BaseMasterData<MasterEventStoryImageData, MasterEventStoryImageData.EventStoryImage>
     {
         [Serializable]
         public class EventStoryImage
@@ -17,6 +19,8 @@ namespace Kaede2.ScriptableObjects
             public string FileName;
         }
 
-        public EventStoryImage[] eventStoryImages;
+        [SerializeField]
+        private EventStoryImage[] eventStoryImages;
+        public override EventStoryImage[] Data => eventStoryImages;
     }
 }

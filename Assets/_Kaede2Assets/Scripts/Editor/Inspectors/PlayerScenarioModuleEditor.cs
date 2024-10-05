@@ -86,7 +86,7 @@ namespace Kaede2.Editor.Inspectors
             }
 
             // draw popup
-            sortedScenarioInfo ??= masterData.scenarioInfo
+            sortedScenarioInfo ??= masterData.Data
                 .OrderBy(si => si.Id)
                 .ToList();
 

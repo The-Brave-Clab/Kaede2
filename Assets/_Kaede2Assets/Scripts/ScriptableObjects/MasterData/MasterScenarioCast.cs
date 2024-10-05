@@ -1,11 +1,12 @@
 ﻿using System;
 using Kaede2.Scenario.Framework;
+using UnityEngine;
 
 // ReSharper disable IdentifierTypo InconsistentNaming
 
 namespace Kaede2.ScriptableObjects
 {
-    public class MasterScenarioCast : BaseMasterData<MasterScenarioCast>
+    public class MasterScenarioCast : BaseMasterData<MasterScenarioCast, MasterScenarioCast.ScenarioCast>
     {
         [Serializable]
         public class ScenarioCast
@@ -15,6 +16,8 @@ namespace Kaede2.ScriptableObjects
             public CharacterId[] CastCharaIds;
         }
 
-        public ScenarioCast[] scenarioCast;
+        [SerializeField]
+        private ScenarioCast[] scenarioCast;
+        public override ScenarioCast[] Data => scenarioCast;
     }
 }

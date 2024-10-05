@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Kaede2.ScriptableObjects
 {
-    public class MasterAlbumInfo : BaseMasterData<MasterAlbumInfo>
+    public class MasterAlbumInfo : BaseMasterData<MasterAlbumInfo, MasterAlbumInfo.AlbumInfo>
     {
         [Serializable]
         public class AlbumInfo
@@ -22,7 +22,9 @@ namespace Kaede2.ScriptableObjects
             public CharacterId[] CastCharaIds;
         }
 
-        public AlbumInfo[] albumInfo;
+        [SerializeField]
+        private AlbumInfo[] albumInfo;
+        public override AlbumInfo[] Data => albumInfo;
 
         private List<AlbumInfo> sorted;
 

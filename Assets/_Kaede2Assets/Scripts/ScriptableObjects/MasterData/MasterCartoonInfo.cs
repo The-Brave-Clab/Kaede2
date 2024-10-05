@@ -1,9 +1,11 @@
 ﻿using System;
+using UnityEngine;
+
 // ReSharper disable IdentifierTypo InconsistentNaming
 
 namespace Kaede2.ScriptableObjects
 {
-    public class MasterCartoonInfo : BaseMasterData<MasterCartoonInfo>
+    public class MasterCartoonInfo : BaseMasterData<MasterCartoonInfo, MasterCartoonInfo.CartoonInfo>
     {
         [Serializable]
         public class CartoonInfo
@@ -16,6 +18,8 @@ namespace Kaede2.ScriptableObjects
             public string[] ImageNames;
         }
 
-        public CartoonInfo[] cartoonInfo;
+        [SerializeField]
+        private CartoonInfo[] cartoonInfo;
+        public override CartoonInfo[] Data => cartoonInfo;
     }
 }

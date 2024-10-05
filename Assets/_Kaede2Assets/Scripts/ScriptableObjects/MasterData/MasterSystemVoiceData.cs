@@ -1,9 +1,11 @@
 ﻿using System;
+using UnityEngine;
+
 // ReSharper disable IdentifierTypo InconsistentNaming
 
 namespace Kaede2.ScriptableObjects
 {
-    public class MasterSystemVoiceData : BaseMasterData<MasterSystemVoiceData>
+    public class MasterSystemVoiceData : BaseMasterData<MasterSystemVoiceData, MasterSystemVoiceData.SystemVoiceData>
     {
         [Serializable]
         public class SystemVoiceData
@@ -13,6 +15,8 @@ namespace Kaede2.ScriptableObjects
             public string cueName;
         }
 
-        public SystemVoiceData[] masterSystemVoices;
+        [SerializeField]
+        private SystemVoiceData[] masterSystemVoices;
+        public override SystemVoiceData[] Data => masterSystemVoices;
     }
 }

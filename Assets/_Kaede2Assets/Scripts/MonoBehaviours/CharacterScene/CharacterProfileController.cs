@@ -94,11 +94,13 @@ namespace Kaede2
         public void Enter(MasterCharaProfile.CharacterProfile profile)
         {
             this.profile = profile;
-            info = MasterCharaInfo.Instance.charaInfo.FirstOrDefault(ci => ci.Id == this.profile.Id);
-            voice = MasterCharaVoice.Instance.charaVoice.FirstOrDefault(cv => cv.Id == this.profile.Id);
+            info = MasterCharaInfo.Instance.Data.FirstOrDefault(ci => ci.Id == this.profile.Id);
+            voice = MasterCharaVoice.Instance.Data.FirstOrDefault(cv => cv.Id == this.profile.Id);
 
-            selfIntroScenarioName = MasterScenarioCast.Instance.scenarioCast
-                .Where(c => c.ScenarioName.StartsWith("os001_")) // indicates self intro scenario
+            selfIntroScenarioName = MasterScenarioCast.Instance.Data
+                .Where(c => MasterScenarioInfo.Instance.Data
+                    .Where(i => i.ChapterId == 305) // indicates self intro scenario
+                    .Any(i => i.ScenarioName == c.ScenarioName)) // convert from scenario info to scenario cast
                 .Where(c => c.CastCharaIds.Contains(profile.Id)) // the character is the one we're looking for
                 .Select(c => c.ScenarioName)
                 .FirstOrDefault();

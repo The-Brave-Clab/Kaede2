@@ -31,7 +31,7 @@ namespace Kaede2
             images = new ImageInfo[count];
             handles = new AsyncOperationHandle<Sprite>[count];
 
-            var allFrames = MasterCartoonInfo.Instance.cartoonInfo
+            var allFrames = MasterCartoonInfo.Instance.Data
                 .SelectMany(c => c.ImageNames)
                 .OrderBy(_ => Random.value)
                 .ToArray();

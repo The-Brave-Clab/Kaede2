@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Linq;
+using UnityEngine;
 
 // ReSharper disable IdentifierTypo InconsistentNaming
 
 namespace Kaede2.ScriptableObjects
 {
-    public class MasterScenarioInfo : BaseMasterData<MasterScenarioInfo>
+    public class MasterScenarioInfo : BaseMasterData<MasterScenarioInfo, MasterScenarioInfo.ScenarioInfo>
     {
         public enum Kind
         {
@@ -35,7 +36,9 @@ namespace Kaede2.ScriptableObjects
             public int VolumeNumber;
         }
 
-        public ScenarioInfo[] scenarioInfo;
+        [SerializeField]
+        private ScenarioInfo[] scenarioInfo;
+        public override ScenarioInfo[] Data => scenarioInfo;
 
         public static ScenarioInfo GetScenarioInfo(string scenarioName)
         {

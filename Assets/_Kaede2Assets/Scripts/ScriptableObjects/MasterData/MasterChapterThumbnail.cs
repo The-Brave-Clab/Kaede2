@@ -1,9 +1,11 @@
 ﻿using System;
+using UnityEngine;
+
 // ReSharper disable IdentifierTypo InconsistentNaming
 
 namespace Kaede2.ScriptableObjects
 {
-    public class MasterChapterThumbnail : BaseMasterData<MasterChapterThumbnail>
+    public class MasterChapterThumbnail : BaseMasterData<MasterChapterThumbnail, MasterChapterThumbnail.ChapterThumbnail>
     {
         [Serializable]
         public class ChapterThumbnail
@@ -17,6 +19,8 @@ namespace Kaede2.ScriptableObjects
             public int VolumeNumber;
         }
 
-        public ChapterThumbnail[] chapterThumb;
+        [SerializeField]
+        private ChapterThumbnail[] chapterThumb;
+        public override ChapterThumbnail[] Data => chapterThumb;
     }
 }
