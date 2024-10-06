@@ -100,6 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2858731356720201124}
   - component: {fileID: 1265593624237616034}
+  - component: {fileID: 841091872736200397}
   - component: {fileID: 7444277127622413579}
   - component: {fileID: 4191117653647919120}
   - component: {fileID: 8199494165324294183}
@@ -160,12 +161,29 @@ MonoBehaviour:
   imageContainer: {fileID: 1415247018206580037}
   textOutlineActivatedColor: {r: 1, g: 0.3764045, b: 0.14606738, a: 1}
   textOutlineDeactivatedColor: {r: 0.69803923, g: 0.2627451, b: 0.101960786, a: 1}
+  deactivatedHueAdjustment: 0
+  deactivatedSaturationAdjustment: -0.5
+  deactivatedValueAdjustment: 0
   activated: 0
   notActivatedColorAdjuster: {fileID: 7564995921081174185}
   selectedOutline: {fileID: 6937809904065420790}
   textOutline: {fileID: 6036293736977589341}
-  albumExtraInfo: {fileID: 11400000, guid: 0ee1a8f89f8d84810b490a681f77ed3d, type: 2}
-  loadFilter: 1
+  imageProvider: {fileID: 841091872736200397}
+--- !u!114 &841091872736200397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5274065130193915596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 502b3d369db745f4b568ddfaaf916731, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  availableImages: {fileID: 11400000, guid: 0ee1a8f89f8d84810b490a681f77ed3d, type: 2}
+  filter: 1
+  useThumbnail: 0
 --- !u!114 &7444277127622413579
 MonoBehaviour:
   m_ObjectHideFlags: 0

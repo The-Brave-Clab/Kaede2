@@ -20,6 +20,9 @@ namespace Kaede2
         [SerializeField]
         private AlbumExtraInfo.ImageFilter filter = AlbumExtraInfo.ImageFilter.Is16By9;
 
+        [SerializeField]
+        private bool useThumbnail = true;
+
         private AsyncOperationHandle<Sprite>[] handles;
 
         public override Vector2 ImageSize => new(1920, 1080);
@@ -55,7 +58,7 @@ namespace Kaede2
             var group = new CoroutineGroup();
             for (var i = 0; i < count; i++)
             {
-                handles[i] = ResourceLoader.LoadIllustration(info[i].AlbumName, true);
+                handles[i] = ResourceLoader.LoadIllustration(info[i].AlbumName, useThumbnail);
                 group.Add(handles[i]);
             }
 

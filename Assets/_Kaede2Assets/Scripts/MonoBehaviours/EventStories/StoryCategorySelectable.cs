@@ -3,6 +3,7 @@ using System.Linq;
 using DG.Tweening;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
+using Kaede2.UI;
 using Kaede2.UI.Framework;
 using Kaede2.Utils;
 using TMPro;
@@ -16,7 +17,9 @@ namespace Kaede2
 {
     class StoryCategorySelectable : SelectableItem
     {
+        private static readonly int HueAdjustment = Shader.PropertyToID("_HueAdjustment");
         private static readonly int SaturationAdjustment = Shader.PropertyToID("_SaturationAdjustment");
+        private static readonly int ValueAdjustment = Shader.PropertyToID("_ValueAdjustment");
 
         [SerializeField]
         private Image image;
@@ -31,6 +34,18 @@ namespace Kaede2
         private Color textOutlineDeactivatedColor;
 
         [SerializeField]
+        [Range(-1, 1)]
+        private float deactivatedHueAdjustment;
+
+        [SerializeField]
+        [Range(-1, 1)]
+        private float deactivatedSaturationAdjustment;
+
+        [SerializeField]
+        [Range(-1, 1)]
+        private float deactivatedValueAdjustment;
+
+        [SerializeField]
         private bool activated;
 
         [SerializeField]
@@ -41,12 +56,9 @@ namespace Kaede2
 
         [SerializeField]
         private TextMeshProUGUI textOutline;
-        
-        [SerializeField]
-        private AlbumExtraInfo albumExtraInfo;
 
         [SerializeField]
-        private AlbumExtraInfo.ImageFilter loadFilter = AlbumExtraInfo.ImageFilter.Is16By9;
+        private RandomizedImageProvider imageProvider;
 
         private bool lastActivated;
         private AsyncOperationHandle<Sprite> handle;
@@ -70,7 +82,9 @@ namespace Kaede2
             base.Awake();
             selectedOutline.SetActive(false);
             lastActivated = activated;
-            notActivatedColorAdjuster.material.SetFloat(SaturationAdjustment, activated ? 0 : -0.5f);
+            notActivatedColorAdjuster.material.SetFloat(HueAdjustment, activated ? 0 : deactivatedHueAdjustment);
+            notActivatedColorAdjuster.material.SetFloat(SaturationAdjustment, activated ? 0 : deactivatedSaturationAdjustment);
+            notActivatedColorAdjuster.material.SetFloat(ValueAdjustment, activated ? 0 : deactivatedValueAdjustment);
             textOutline.color = activated ? textOutlineActivatedColor : textOutlineDeactivatedColor;
 
             onSelected.AddListener(() =>
@@ -86,13 +100,15 @@ namespace Kaede2
 
         private IEnumerator Start()
         {
-            var extraInfo = albumExtraInfo.list.Where(i => i.Passes(loadFilter)).OrderBy(_ => Random.value).FirstOrDefault();
-            // var info = MasterAlbumInfo.FromAlbumName(extraInfo.name);
-            handle = ResourceLoader.LoadIllustration(extraInfo.name);
-
-            yield return handle;
-
-            image.sprite = handle.Result;
+            yield return imageProvider.Provide(1, infos =>
+            {
+                if (infos.Length == 0)
+                {
+                    this.LogError("No images available for event story");
+                    return;
+                }
+                image.sprite = infos[0].Sprite;
+            });
             Loaded = true;
         }
 
@@ -163,18 +179,26 @@ namespace Kaede2
 
         private IEnumerator ChangeActivatedStatus()
         {
+            var startHue = notActivatedColorAdjuster.material.GetFloat(HueAdjustment);
             var startSaturation = notActivatedColorAdjuster.material.GetFloat(SaturationAdjustment);
+            var startValue = notActivatedColorAdjuster.material.GetFloat(ValueAdjustment);
             var startOutlineColor = textOutline.color;
 
-            var targetSaturation = activated ? 0 : -0.5f;
+            var targetHue = activated ? 0 : deactivatedHueAdjustment;
+            var targetSaturation = activated ? 0 : deactivatedSaturationAdjustment;
+            var targetValue = activated ? 0 : deactivatedValueAdjustment;
             var targetOutlineColor = activated ? textOutlineActivatedColor : textOutlineDeactivatedColor;
 
             activatedSequence = DOTween.Sequence();
             activatedSequence.Append(DOVirtual.Float(0, 1, 0.2f,
                 value =>
                 {
+                    notActivatedColorAdjuster.material.SetFloat(HueAdjustment,
+                        Mathf.Lerp(startHue, targetHue, value));
                     notActivatedColorAdjuster.material.SetFloat(SaturationAdjustment,
                         Mathf.Lerp(startSaturation, targetSaturation, value));
+                    notActivatedColorAdjuster.material.SetFloat(ValueAdjustment,
+                        Mathf.Lerp(startValue, targetValue, value));
                     textOutline.color = Color.Lerp(startOutlineColor, targetOutlineColor, value);
                 }));
 
