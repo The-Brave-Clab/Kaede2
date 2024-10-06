@@ -64,6 +64,7 @@ namespace Kaede2
         private AsyncOperationHandle<Sprite> handle;
 
         public bool Loaded { get; private set; } = false;
+        public string Text => textOutline.text;
 
         public bool Activated
         {

@@ -43,7 +43,8 @@ namespace Kaede2
         protected virtual void InitialSetup()
         {
             selectionCanvas.gameObject.SetActive(false);
-            episodeSelectableGroup.transform.parent.gameObject.SetActive(true);
+            if (episodeSelectableGroup != null)
+                episodeSelectableGroup.transform.parent.gameObject.SetActive(true);
             storySelectableGroup.transform.parent.gameObject.SetActive(false);
         }
 
@@ -53,6 +54,11 @@ namespace Kaede2
         }
 
         protected virtual void OnEpisodeItemSelected(MasterScenarioInfo.ScenarioInfo scenarioInfo)
+        {
+            
+        }
+
+        protected virtual void OnEnterStorySelection(MasterScenarioInfo.IProvider provider)
         {
             
         }
@@ -67,54 +73,60 @@ namespace Kaede2
             yield return SceneTransition.Fade(1);
 
             gameObject.SetActive(false);
+            if (episodeSelectableGroup != null)
+                episodeSelectableGroup.transform.parent.gameObject.SetActive(true);
+            storySelectableGroup.transform.parent.gameObject.SetActive(false);
             OnEnterEpisodeSelection(provider);
             selectionCanvas.gameObject.SetActive(true);
 
-            var scenarioChapterInfos = provider.Provide()
-                .OrderBy(si => si.ChapterId)
-                .ThenBy(si => si.EpisodeId)
-                .GroupBy(si => si.EpisodeId)
-                .Select(group => group.First())
-                .ToList();
-
-            episodeSelectableGroup.Clear();
-            foreach (var info in scenarioChapterInfos)
+            if (episodeSelectableGroup != null)
             {
-                var item = episodeSelectableGroup.Add(info.EpisodeNumber, info.EpisodeName);
-                item.onSelected.AddListener(() =>
-                {
-                    OnEpisodeItemSelected(info);
-                });
-                item.onConfirmed.AddListener(() =>
-                {
-                    EnterStorySelection(info);
-                });
-            }
-            episodeSelectableGroup.Initialize();
+                var scenarioChapterInfos = provider.Provide()
+                    .OrderBy(si => si.ChapterId)
+                    .ThenBy(si => si.EpisodeId)
+                    .GroupBy(si => si.EpisodeId)
+                    .Select(group => group.First())
+                    .ToList();
 
-            yield return null;
-            yield return null;
+                episodeSelectableGroup.Clear();
+                foreach (var info in scenarioChapterInfos)
+                {
+                    var item = episodeSelectableGroup.Add(info.EpisodeNumber, info.EpisodeName);
+                    item.onSelected.AddListener(() => { OnEpisodeItemSelected(info); });
+                    item.onConfirmed.AddListener(() =>
+                    {
+                        EnterStorySelection(new SameEpisodeProvider(info), info.EpisodeNumber, info.EpisodeName);
+                    });
+                }
+
+                episodeSelectableGroup.Initialize();
+
+                yield return null;
+                yield return null;
+            }
 
             yield return SceneTransition.Fade(0);
         }
 
-        private void EnterStorySelection(MasterScenarioInfo.ScenarioInfo scenarioInfo)
+        public void EnterStorySelection(MasterScenarioInfo.IProvider provider, string titleLabel, string titleText)
         {
-            CoroutineProxy.Start(EnterStorySelectionCoroutine(scenarioInfo));
+            CoroutineProxy.Start(EnterStorySelectionCoroutine(provider, titleLabel, titleText));
         }
 
-        private IEnumerator EnterStorySelectionCoroutine(MasterScenarioInfo.ScenarioInfo scenarioInfo)
+        private IEnumerator EnterStorySelectionCoroutine(MasterScenarioInfo.IProvider provider, string titleLabel, string titleText)
         {
             yield return SceneTransition.Fade(1);
 
-            episodeTitle.Label = scenarioInfo.EpisodeNumber;
-            episodeTitle.Text = scenarioInfo.EpisodeName;
+            episodeTitle.Label = titleLabel;
+            episodeTitle.Text = titleText;
 
-            episodeSelectableGroup.transform.parent.gameObject.SetActive(false);
+            if (episodeSelectableGroup != null)
+                episodeSelectableGroup.transform.parent.gameObject.SetActive(false);
             storySelectableGroup.transform.parent.gameObject.SetActive(true);
+            OnEnterStorySelection(provider);
+            selectionCanvas.gameObject.SetActive(true);
 
-            var storyInfos = MasterScenarioInfo.Instance.Data
-                .Where(si => si.EpisodeId == scenarioInfo.EpisodeId)
+            var storyInfos = provider.Provide()
                 .OrderBy(si => si.StoryId)
                 .ToList();
 
@@ -168,6 +180,22 @@ namespace Kaede2
             sceneRoot.SetActive(true);
 
             yield return SceneTransition.Fade(0);
+        }
+
+        public class SameEpisodeProvider : MasterScenarioInfo.IProvider
+        {
+            private MasterScenarioInfo.ScenarioInfo scenarioInfo;
+
+            public SameEpisodeProvider(MasterScenarioInfo.ScenarioInfo info)
+            {
+                scenarioInfo = info;
+            }
+
+            public IEnumerable<MasterScenarioInfo.ScenarioInfo> Provide()
+            {
+                return MasterScenarioInfo.Instance.Data
+                    .Where(si => si.EpisodeId == scenarioInfo.EpisodeId);
+            }
         }
     }
 }
