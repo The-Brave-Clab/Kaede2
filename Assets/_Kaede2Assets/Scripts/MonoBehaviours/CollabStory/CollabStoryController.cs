@@ -53,12 +53,12 @@ namespace Kaede2
             yield return SceneTransition.Fade(0);
         }
 
-        public void EnterCollabContent(CollabProvider collab)
+        public void EnterCollabContent(CollabImageProvider collab)
         {
             CoroutineProxy.Start(EnterCollabContentCoroutine(collab));
         }
 
-        private IEnumerator EnterCollabContentCoroutine(CollabProvider collab)
+        private IEnumerator EnterCollabContentCoroutine(CollabImageProvider collab)
         {
             yield return SceneTransition.Fade(1);
 
@@ -68,7 +68,7 @@ namespace Kaede2
             storySelectableGroup.transform.parent.gameObject.SetActive(false);
             selectionCanvas.gameObject.SetActive(true);
 
-            collabContent.Initialize(collab);
+            yield return collabContent.Initialize(collab);
 
             yield return SceneTransition.Fade(0);
         }
@@ -89,6 +89,17 @@ namespace Kaede2
             yield return SceneTransition.Fade(0);
         }
 
+        public void EnterStorySelection(MasterCollabInfo.CollabType collabType, bool selfIntro)
+        {
+            var provider = new CollabStoryProvider(collabType, selfIntro);
+            EnterStorySelection(provider, provider.Label, provider.Title);
+        }
+
+        protected override void OnEnterStorySelection(MasterScenarioInfo.IProvider provider)
+        {
+            collabContent.gameObject.SetActive(false);
+        }
+
         protected override void InitialSetup()
         {
             base.InitialSetup();
@@ -99,24 +110,26 @@ namespace Kaede2
         {
             private readonly MasterCollabInfo.CollabType collabType;
             private readonly MasterCollabInfo.CollabInfo collabInfo;
+            private readonly bool selfIntro;
 
-            public string Label => "コラボ"; // just hardcode it, it's fine
+            public string Label => selfIntro ? "自己紹介" : "コラボ"; // just hardcode it, it's fine before we add localization to this part
             public string Title => collabInfo?.CollabName;
 
-            public CollabStoryProvider(MasterCollabInfo.CollabType type)
+            public CollabStoryProvider(MasterCollabInfo.CollabType type, bool selfIntro)
             {
                 collabType = type;
                 collabInfo = MasterCollabInfo.Instance.Data
                     .FirstOrDefault(ci => ci.CollabType == collabType);
+                this.selfIntro = selfIntro;
             }
 
             public IEnumerable<MasterScenarioInfo.ScenarioInfo> Provide()
             {
                 if (collabInfo != null)
                     return MasterScenarioInfo.Instance.Data
-                        .Where(si => si.EpisodeId == collabInfo.StoryEpisodeId);
+                        .Where(si => si.EpisodeId == (selfIntro ? collabInfo.SelfIntroEpisodeId : collabInfo.StoryEpisodeId));
 
-                // this should not happen but just in case
+                // this should never happen but just in case
                 this.LogError($"Collab info not found for {collabType:G}");
                 return Array.Empty<MasterScenarioInfo.ScenarioInfo>();
             }

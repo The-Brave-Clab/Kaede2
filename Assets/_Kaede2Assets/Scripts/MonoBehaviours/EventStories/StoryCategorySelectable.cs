@@ -1,21 +1,19 @@
 using System.Collections;
-using System.Linq;
 using DG.Tweening;
 using Kaede2.Scenario.Framework.Utils;
-using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using Kaede2.UI.Framework;
 using Kaede2.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Events;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 namespace Kaede2
 {
-    class StoryCategorySelectable : SelectableItem
+    public class StoryCategorySelectable : SelectableItem
     {
         private static readonly int HueAdjustment = Shader.PropertyToID("_HueAdjustment");
         private static readonly int SaturationAdjustment = Shader.PropertyToID("_SaturationAdjustment");
@@ -60,6 +58,9 @@ namespace Kaede2
         [SerializeField]
         private RandomizedImageProvider imageProvider;
 
+        [SerializeField]
+        private UnityEvent<Color> onTextOutlineColorChanged;
+
         private bool lastActivated;
         private AsyncOperationHandle<Sprite> handle;
 
@@ -86,7 +87,9 @@ namespace Kaede2
             notActivatedColorAdjuster.material.SetFloat(HueAdjustment, activated ? 0 : deactivatedHueAdjustment);
             notActivatedColorAdjuster.material.SetFloat(SaturationAdjustment, activated ? 0 : deactivatedSaturationAdjustment);
             notActivatedColorAdjuster.material.SetFloat(ValueAdjustment, activated ? 0 : deactivatedValueAdjustment);
-            textOutline.color = activated ? textOutlineActivatedColor : textOutlineDeactivatedColor;
+            var initialOutlineColor = activated ? textOutlineActivatedColor : textOutlineDeactivatedColor;
+            textOutline.color = initialOutlineColor;
+            onTextOutlineColorChanged.Invoke(initialOutlineColor);
 
             onSelected.AddListener(() =>
             {
@@ -101,6 +104,12 @@ namespace Kaede2
 
         private IEnumerator Start()
         {
+            yield return Refresh();
+            Loaded = true;
+        }
+
+        public IEnumerator Refresh()
+        {
             yield return imageProvider.Provide(1, infos =>
             {
                 if (infos.Length == 0)
@@ -110,7 +119,6 @@ namespace Kaede2
                 }
                 image.sprite = infos[0].Sprite;
             });
-            Loaded = true;
         }
 
         protected override void Update()
@@ -200,7 +208,9 @@ namespace Kaede2
                         Mathf.Lerp(startSaturation, targetSaturation, value));
                     notActivatedColorAdjuster.material.SetFloat(ValueAdjustment,
                         Mathf.Lerp(startValue, targetValue, value));
-                    textOutline.color = Color.Lerp(startOutlineColor, targetOutlineColor, value);
+                    Color outlineColor = Color.Lerp(startOutlineColor, targetOutlineColor, value);
+                    textOutline.color = outlineColor;
+                    onTextOutlineColorChanged.Invoke(outlineColor);
                 }));
 
             yield return activatedSequence.WaitForCompletion();
