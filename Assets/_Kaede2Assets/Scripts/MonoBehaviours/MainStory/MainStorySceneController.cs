@@ -1,16 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using Kaede2.Scenario;
-using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
-using Kaede2.UI.Framework;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.PlayerLoop;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Kaede2
@@ -21,13 +14,19 @@ namespace Kaede2
         private AssetReferenceSprite backgroundSprite;
 
         [SerializeField]
-        private Image backgroundImage;
+        private List<Image> backgroundImage;
 
         [SerializeField]
         private ChapterSelector chapterSelector;
 
         [SerializeField]
         private InterfaceTitle episodeSelectionTitle;
+
+        [SerializeField]
+        private OverlayBlend mainOverlay;
+
+        [SerializeField]
+        private OverlayBlend subOverlay;
 
         private IEnumerator Start()
         {
@@ -36,7 +35,10 @@ namespace Kaede2
             chapterSelector.SetSceneController(this);
             
             yield return handle;
-            backgroundImage.sprite = handle.Result;
+            foreach (var image in backgroundImage)
+            {
+                image.sprite = handle.Result;
+            }
 
             InitialSetup();
 
@@ -54,7 +56,9 @@ namespace Kaede2
             if (provider is not MainStoryChapter chapter)
                 return;
 
-            episodeSelectionTitle.Text = chapter.Text;
+            episodeSelectionTitle.Text = chapter.Text.Replace('\n', ' ');
+            mainOverlay.gameObject.SetActive(!chapter.IsSub);
+            subOverlay.gameObject.SetActive(chapter.IsSub);
         }
     }
 }

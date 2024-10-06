@@ -41,23 +41,27 @@ namespace Kaede2
             Addressables.Release(handle);
         }
 
-        public void StartScenario(string scenarioName)
+        // public void StartScenario(string scenarioName)
+        // {
+        //     StartCoroutine(StartScenarioCoroutine(scenarioName));
+        // }
+        //
+        // private IEnumerator StartScenarioCoroutine(string scenarioName)
+        // {
+        //     yield return SceneTransition.Fade(1);
+        //     yield return PlayerScenarioModule.Play(scenarioName,
+        //         LocalizationManager.CurrentLocale,
+        //         // LocalizationSettings.AvailableLocales.GetLocale(new("ja")),
+        //         LoadSceneMode.Single,
+        //         null,
+        //         () =>
+        //         {
+        //             this.Log("Scenario finished.");
+        //         });
+        // }
+        public void GoToMainStory()
         {
-            StartCoroutine(StartScenarioCoroutine(scenarioName));
-        }
-
-        private IEnumerator StartScenarioCoroutine(string scenarioName)
-        {
-            yield return SceneTransition.Fade(1);
-            yield return PlayerScenarioModule.Play(scenarioName,
-                LocalizationManager.CurrentLocale,
-                // LocalizationSettings.AvailableLocales.GetLocale(new("ja")),
-                LoadSceneMode.Single,
-                null,
-                () =>
-                {
-                    this.Log("Scenario finished.");
-                });
+            CommonUtils.LoadNextScene("MainStoryScene", LoadSceneMode.Single);
         }
 
         public void GoToEventStory()

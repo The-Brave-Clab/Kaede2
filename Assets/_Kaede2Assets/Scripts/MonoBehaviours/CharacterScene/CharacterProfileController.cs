@@ -27,6 +27,9 @@ namespace Kaede2
         private CharacterSceneController sceneController;
 
         [SerializeField]
+        private GameObject parentObject;
+
+        [SerializeField]
         private CharacterNames characterNames;
 
         [SerializeField]
@@ -142,7 +145,7 @@ namespace Kaede2
             nightVoiceButton.SetVoice(voice.Sleep_Voice);
 
             sceneController.gameObject.SetActive(false);
-            gameObject.SetActive(true);
+            parentObject.SetActive(true);
 
             if (!characterImageHandle.IsDone)
                 yield return characterImageHandle;
@@ -161,7 +164,7 @@ namespace Kaede2
         {
             yield return SceneTransition.Fade(1);
 
-            gameObject.SetActive(false);
+            parentObject.SetActive(false);
             sceneController.gameObject.SetActive(true);
 
             yield return SceneTransition.Fade(0);

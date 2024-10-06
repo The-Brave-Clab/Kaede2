@@ -112,6 +112,15 @@ namespace Kaede2.ScriptableObjects
             private Color mainMenuLeftDecorColor;
             public Color MainMenuLeftDecorColor => mainMenuLeftDecorColor;
 
+            [Header("Main Story")]
+            [SerializeField]
+            private AdjustHSV.Adjustment mainOverlay;
+            public AdjustHSV.Adjustment MainOverlay => mainOverlay;
+
+            [SerializeField]
+            private AdjustHSV.Adjustment subOverlay;
+            public AdjustHSV.Adjustment SubOverlay => subOverlay;
+
             [Header("Settings")]
             [SerializeField]
             private CommonButtonColor settingsItemColor;

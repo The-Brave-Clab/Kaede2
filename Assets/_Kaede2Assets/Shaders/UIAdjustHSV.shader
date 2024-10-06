@@ -85,25 +85,6 @@ Shader "UI/HSV Adjustable"
             float4 _ClipRect;
             float4 _MainTex_ST;
 
-            fixed3 CalculateHSVAdjustment(fixed3 referenceColor, fixed3 targetColor)
-            {
-                const fixed3 hsv1 = RgbToHsv(referenceColor);
-                const fixed3 hsv2 = RgbToHsv(targetColor);
-
-                fixed3 hsv = hsv2 - hsv1;
-
-                return hsv;
-            }
-
-            fixed4 AdjustHSV(fixed4 rgba, fixed3 hsvAdjustment)
-            {
-                fixed3 hsv = RgbToHsv(rgba.rgb);
-                hsv.x = RotateHue(hsv.x + hsvAdjustment.x, 0, 1);
-                hsv.y = clamp(hsv.y + hsvAdjustment.y, 0, 1);
-                hsv.z = clamp(hsv.z + hsvAdjustment.z, 0, 1);
-                return fixed4(HsvToRgb(hsv), rgba.a);
-            }
-
             v2f vert(appdata_t v)
             {
                 v2f OUT;

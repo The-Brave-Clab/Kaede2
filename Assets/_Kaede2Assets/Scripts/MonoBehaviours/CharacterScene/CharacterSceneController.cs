@@ -30,6 +30,9 @@ namespace Kaede2
         private CharacterProfileController characterProfileController;
         public CharacterProfileController CharacterProfileController => characterProfileController;
 
+        [SerializeField]
+        private GameObject characterProfileObject;
+
         [Header("Fairy Selection")]
         [SerializeField]
         private FairySelection fairySelectionPrefab;
@@ -77,7 +80,7 @@ namespace Kaede2
         private void Awake()
         {
             zukanViewWindow.gameObject.SetActive(false);
-            characterProfileController.gameObject.SetActive(false);
+            characterProfileObject.SetActive(false);
         }
 
         private IEnumerator Start()

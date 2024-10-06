@@ -28,14 +28,7 @@ namespace Kaede2
 
         private void Update()
         {
-            if (text.Length > 1)
-            {
-                tmpText.text = $"{text[..1]}<color=black>{text[1..]}</color>";
-            }
-            else
-            {
-                tmpText.text = "";
-            }
+            tmpText.text = text.Length > 1 ? $"{text[..1]}<color=black>{text[1..]}</color>" : text;
         }
 
         public void OnThemeChange(Theme.VolumeTheme theme)
