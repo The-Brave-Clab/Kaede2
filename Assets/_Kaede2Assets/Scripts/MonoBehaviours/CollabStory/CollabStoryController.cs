@@ -34,6 +34,9 @@ namespace Kaede2
         [SerializeField]
         private CollabCharacterSelectionController characterSelection;
 
+        [SerializeField]
+        private CollabCharacterVoiceController characterVoiceController;
+
         private IEnumerator Start()
         {
             IEnumerator WaitForCondition(Func<bool> condition)
@@ -71,6 +74,7 @@ namespace Kaede2
             collabContent.gameObject.SetActive(true);
             storySelectableGroup.transform.parent.gameObject.SetActive(false);
             characterSelection.gameObject.SetActive(false);
+            characterVoiceController.gameObject.SetActive(false);
             selectionCanvas.gameObject.SetActive(true);
 
             yield return collabContent.Initialize(collab);
@@ -90,6 +94,7 @@ namespace Kaede2
             collabContent.gameObject.SetActive(false);
             storySelectableGroup.transform.parent.gameObject.SetActive(false);
             characterSelection.gameObject.SetActive(false);
+            characterVoiceController.gameObject.SetActive(false);
             selectionCanvas.gameObject.SetActive(false);
             gameObject.SetActive(true);
             randomizedImageBackgroundCanvas.gameObject.SetActive(true);
@@ -122,6 +127,7 @@ namespace Kaede2
             collabContent.gameObject.SetActive(false);
             storySelectableGroup.transform.parent.gameObject.SetActive(false);
             characterSelection.gameObject.SetActive(true);
+            characterVoiceController.gameObject.SetActive(false);
             selectionCanvas.gameObject.SetActive(true);
 
             yield return characterSelection.Initialize(provider.Provider);
@@ -138,7 +144,16 @@ namespace Kaede2
         {
             yield return SceneTransition.Fade(1);
 
-            // TODO
+
+            gameObject.SetActive(false);
+            randomizedImageBackgroundCanvas.gameObject.SetActive(false);
+            collabContent.gameObject.SetActive(false);
+            storySelectableGroup.transform.parent.gameObject.SetActive(false);
+            characterSelection.gameObject.SetActive(false);
+            characterVoiceController.gameObject.SetActive(true);
+            selectionCanvas.gameObject.SetActive(true);
+
+            yield return characterVoiceController.Initialize(characterId);
 
             yield return SceneTransition.Fade(0);
         }
