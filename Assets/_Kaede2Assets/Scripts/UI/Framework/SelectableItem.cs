@@ -7,6 +7,9 @@ namespace Kaede2.UI.Framework
 {
     public class SelectableItem : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
     {
+        [SerializeField]
+        private bool useTouchClickProtection = true;
+
         public bool selected;
         private bool lastSelected;
 
@@ -50,7 +53,7 @@ namespace Kaede2.UI.Framework
         public virtual void OnPointerClick(PointerEventData eventData)
         {
             // for touch devices, treat first click as hover
-            if (InputManager.CurrentDeviceType == InputDeviceType.Touchscreen && Time.time - lastSelectedTime < 0.5f)
+            if (useTouchClickProtection && InputManager.CurrentDeviceType == InputDeviceType.Touchscreen && Time.time - lastSelectedTime < 0.5f)
                 return;
             Confirm();
         }

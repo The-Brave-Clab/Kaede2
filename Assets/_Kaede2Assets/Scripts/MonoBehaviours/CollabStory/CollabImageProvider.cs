@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
+using Kaede2.Utils;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Kaede2
 {
@@ -13,30 +15,41 @@ namespace Kaede2
         private MasterCollabInfo.CollabType collabType;
 
         [SerializeField]
-        private AssetReferenceSprite categoryReference;
+        private string categoryImageName;
 
         [SerializeField]
-        private AssetReferenceSprite backgroundReference;
+        private string backgroundImageName;
 
         [SerializeField]
-        private AssetReferenceSprite storyReference;
+        private string storyImageName;
 
         [SerializeField]
-        private AssetReferenceSprite selfIntroReference;
+        private string selfIntroImageName;
 
         [SerializeField]
-        private AssetReferenceSprite characterVoiceReference;
+        private string characterVoiceImageName;
 
         [SerializeField]
-        private AssetReferenceSprite characterVoiceBackgroundReference;
+        private string characterVoiceBackgroundImageName;
 
         public override Vector2 ImageSize => new(1920, 1080);
 
         public MasterCollabInfo.CollabType CollabType => collabType;
 
+        private AsyncOperationHandle<Sprite> categoryImageHandle;
+        private AsyncOperationHandle<Sprite> backgroundImageHandle;
+        private AsyncOperationHandle<Sprite> storyImageHandle;
+        private AsyncOperationHandle<Sprite> selfIntroImageHandle;
+        private AsyncOperationHandle<Sprite> characterVoiceImageHandle;
+        private AsyncOperationHandle<Sprite> characterVoiceBackgroundImageHandle;
+
         public override IEnumerator Provide(int count, Action<ImageInfo[]> onProvided)
         {
-            yield return categoryReference.LoadAssetAsync();
+            if (!categoryImageHandle.IsValid())
+            {
+                categoryImageHandle = ResourceLoader.LoadIllustration(categoryImageName);
+                yield return categoryImageHandle;
+            }
 
             ImageInfo[] images = new ImageInfo[count];
             for (int i = 0; i < count; i++)
@@ -44,7 +57,7 @@ namespace Kaede2
                 images[i] = new ImageInfo
                 {
                     Name = collabType.ToString(),
-                    Sprite = categoryReference.Asset as Sprite
+                    Sprite = categoryImageHandle.Result
                 };
             }
 
@@ -53,52 +66,73 @@ namespace Kaede2
 
         public IEnumerator LoadBackground(Action<Sprite> onLoaded)
         {
-            if (!backgroundReference.IsValid())
-                yield return backgroundReference.LoadAssetAsync();
-            onLoaded?.Invoke(backgroundReference.Asset as Sprite);
+            if (!backgroundImageHandle.IsValid())
+            {
+                backgroundImageHandle = ResourceLoader.LoadIllustration(backgroundImageName);
+                yield return backgroundImageHandle;
+            }
+            onLoaded?.Invoke(backgroundImageHandle.Result);
         }
 
         public IEnumerator LoadStory(Action<Sprite> onLoaded)
         {
-            if (!storyReference.IsValid())
-                yield return storyReference.LoadAssetAsync();
-            onLoaded?.Invoke(storyReference.Asset as Sprite);
+            if (!storyImageHandle.IsValid())
+            {
+                storyImageHandle = ResourceLoader.LoadIllustration(storyImageName);
+                yield return storyImageHandle;
+            }
+            onLoaded?.Invoke(storyImageHandle.Result);
         }
 
         public IEnumerator LoadSelfIntro(Action<Sprite> onLoaded)
         {
-            if (!selfIntroReference.IsValid())
-                yield return selfIntroReference.LoadAssetAsync();
-            onLoaded?.Invoke(selfIntroReference.Asset as Sprite);
+            if (!selfIntroImageHandle.IsValid())
+            {
+                selfIntroImageHandle = ResourceLoader.LoadIllustration(selfIntroImageName);
+                yield return selfIntroImageHandle;
+            }
+            onLoaded?.Invoke(selfIntroImageHandle.Result);
         }
 
         public IEnumerator LoadCharacterVoice(Action<Sprite> onLoaded)
         {
-            if (!characterVoiceReference.IsValid())
-                yield return characterVoiceReference.LoadAssetAsync();
-            onLoaded?.Invoke(characterVoiceReference.Asset as Sprite);
+            if (!characterVoiceImageHandle.IsValid())
+            {
+                characterVoiceImageHandle = ResourceLoader.LoadIllustration(characterVoiceImageName);
+                yield return characterVoiceImageHandle;
+            }
+            onLoaded?.Invoke(characterVoiceImageHandle.Result);
         }
 
         public IEnumerator LoadCharacterVoiceBackground(Action<Sprite> onLoaded)
         {
-            if (!characterVoiceBackgroundReference.IsValid())
-                yield return characterVoiceBackgroundReference.LoadAssetAsync();
-            onLoaded?.Invoke(characterVoiceBackgroundReference.Asset as Sprite);
+            if (!characterVoiceBackgroundImageHandle.IsValid())
+            {
+                characterVoiceBackgroundImageHandle = ResourceLoader.LoadIllustration(characterVoiceBackgroundImageName);
+                yield return characterVoiceBackgroundImageHandle;
+            }
+            onLoaded?.Invoke(characterVoiceBackgroundImageHandle.Result);
         }
 
         private void OnDestroy()
         {
-            if (categoryReference.IsValid())
-                categoryReference.ReleaseAsset();
+            if (categoryImageHandle.IsValid())
+                Addressables.Release(categoryImageHandle);
 
-            if (storyReference.IsValid())
-                storyReference.ReleaseAsset();
+            if (backgroundImageHandle.IsValid())
+                Addressables.Release(backgroundImageHandle);
 
-            if (selfIntroReference.IsValid())
-                selfIntroReference.ReleaseAsset();
+            if (storyImageHandle.IsValid())
+                Addressables.Release(storyImageHandle);
 
-            if (characterVoiceReference.IsValid())
-                characterVoiceReference.ReleaseAsset();
+            if (selfIntroImageHandle.IsValid())
+                Addressables.Release(selfIntroImageHandle);
+    
+            if (characterVoiceImageHandle.IsValid())
+                Addressables.Release(characterVoiceImageHandle);
+
+            if (characterVoiceBackgroundImageHandle.IsValid())
+                Addressables.Release(characterVoiceBackgroundImageHandle);
         }
     }
 }

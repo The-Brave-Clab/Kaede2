@@ -337,6 +337,49 @@ MonoBehaviour:
   textComponent: {fileID: 16517119}
   text: "\u623B\u308B"
   primaryOnly: 0
+--- !u!21 &68116131
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Color Adjustment
+  m_Shader: {fileID: 4800000, guid: 79c52d6660bbc41569ed8dc8194efa8c, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _HueAdjustment: 0
+    - _LightnessAdjustment: 0
+    - _SaturationAdjustment: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ColorTint: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1001 &69321564
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -566,19 +609,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 367920284368181460, guid: dd883f9efa4f84413a980a11047eb04f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -960
       objectReference: {fileID: 0}
     - target: {fileID: 367920284368181460, guid: dd883f9efa4f84413a980a11047eb04f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -540
       objectReference: {fileID: 0}
     - target: {fileID: 842155147821599389, guid: dd883f9efa4f84413a980a11047eb04f, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 842155147821599389, guid: dd883f9efa4f84413a980a11047eb04f, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 842155147821599389, guid: dd883f9efa4f84413a980a11047eb04f, type: 3}
       propertyPath: m_AnchorMin.y
@@ -686,7 +729,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7525076749077363225, guid: dd883f9efa4f84413a980a11047eb04f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.00005340576
       objectReference: {fileID: 0}
     - target: {fileID: 7525076749077363225, guid: dd883f9efa4f84413a980a11047eb04f, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -751,101 +794,28 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: imageReference.m_AssetGUID
-      value: 98141081e451e5a4297870888d2b2740
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: storyReference.m_AssetGUID
-      value: 98141081e451e5a4297870888d2b2740
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: categoryReference.m_AssetGUID
-      value: 98141081e451e5a4297870888d2b2740
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: imageReference.m_SubObjectName
+      propertyPath: storyImageName
       value: card_image_500070
       objectReference: {fileID: 0}
     - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: selfIntroReference.m_AssetGUID
-      value: 0bf93fdfa5db7624585f3373b5869cc8
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: storyReference.m_SubObjectName
+      propertyPath: categoryImageName
       value: card_image_500070
       objectReference: {fileID: 0}
     - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: storyReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: backgroundReference.m_AssetGUID
-      value: 0f9f9062c8f877c4994b3ff5f9556163
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: categoryReference.m_SubObjectName
-      value: card_image_500070
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: selfIntroReference.m_SubObjectName
+      propertyPath: selfIntroImageName
       value: card_image_500080
       objectReference: {fileID: 0}
     - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: selfIntroReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: backgroundReference.m_SubObjectName
+      propertyPath: backgroundImageName
       value: card_image_500071
       objectReference: {fileID: 0}
     - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: backgroundReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: characterVoiceReference.m_AssetGUID
-      value: 3f9f674af16d05741a98df60d4da4f24
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: imageReference.m_EditorAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: characterVoiceReference.m_SubObjectName
+      propertyPath: characterVoiceImageName
       value: card_image_500090
       objectReference: {fileID: 0}
     - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: characterVoiceReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: selfIntroReference.m_EditorAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: backgroundReference.m_EditorAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: characterVoiceReference.m_EditorAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: characterVoiceBackgroundReference.m_AssetGUID
-      value: 98141081e451e5a4297870888d2b2740
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: characterVoiceBackgroundReference.m_SubObjectName
+      propertyPath: characterVoiceBackgroundImageName
       value: card_image_500070
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: characterVoiceBackgroundReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
       objectReference: {fileID: 0}
     - target: {fileID: 933957389362558446, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
       propertyPath: m_AnchorMax.x
@@ -869,7 +839,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 933957389362558446, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 315
       objectReference: {fileID: 0}
     - target: {fileID: 933957389362558446, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
       propertyPath: m_LocalScale.x
@@ -885,11 +855,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 933957389362558446, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 933957389362558446, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -111
       objectReference: {fileID: 0}
     - target: {fileID: 933957389362558446, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1468,25 +1438,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: characterId
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_AssetGUID
-      value: d7de626a312e5d049931b58600e2d2d1
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_SubObjectName
+      propertyPath: spriteName
       value: card_image_500010
       objectReference: {fileID: 0}
     - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_EditorAssetChanged
-      value: 1
+      propertyPath: characterId
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1510,15 +1467,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 376.875
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 7.2
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -73.3
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1564,17 +1521,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df9de592cd9914c9ab5e7a98dd7b93bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &117646553 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-  m_PrefabInstance: {fileID: 117646551}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98a82bb5fbc34c4aaad974916abe15f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &117646554 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 362257968615444354, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
@@ -1616,6 +1562,48 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!21 &130122761
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Remap Color
+  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _BlueTargetColor: {r: 0.003921569, g: 0.003921569, b: 0.003921569, a: 1}
+    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
+    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &142510874
 GameObject:
   m_ObjectHideFlags: 0
@@ -2250,25 +2238,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: characterId
-      value: 51
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_AssetGUID
-      value: db95c48d5f0e46a4daa939c201d64ecb
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_SubObjectName
+      propertyPath: spriteName
       value: card_image_500060
       objectReference: {fileID: 0}
     - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_EditorAssetChanged
-      value: 1
+      propertyPath: characterId
+      value: 51
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2292,15 +2267,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 382.5
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 23.6
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -90.3
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -3197,6 +3172,49 @@ Material:
     - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
+--- !u!21 &349270375
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Color Adjustment
+  m_Shader: {fileID: 4800000, guid: 79c52d6660bbc41569ed8dc8194efa8c, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _HueAdjustment: 0
+    - _LightnessAdjustment: 0
+    - _SaturationAdjustment: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ColorTint: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!21 &358429304
 Material:
   serializedVersion: 8
@@ -3380,15 +3398,15 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!21 &394477036
+--- !u!21 &409739369
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UI/HSV Adjustable
-  m_Shader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
+  m_Name: UI/UI Color Adjustment
+  m_Shader: {fileID: 4800000, guid: 79c52d6660bbc41569ed8dc8194efa8c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -3410,6 +3428,9 @@ Material:
     m_Ints: []
     m_Floats:
     - _ColorMask: 15
+    - _HueAdjustment: 0
+    - _LightnessAdjustment: 0
+    - _SaturationAdjustment: 0
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
@@ -3417,8 +3438,7 @@ Material:
     - _StencilWriteMask: 255
     - _UseUIAlphaClip: 0
     m_Colors:
-    - _ReferenceColor: {r: 0.98039216, g: 0.59607846, b: 0.59607846, a: 1}
-    - _TargetColor: {r: 1, g: 0, b: 0, a: 1}
+    - _ColorTint: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!21 &435770577
@@ -3600,47 +3620,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2026390598470142038, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
   m_PrefabInstance: {fileID: 5631354125533392173}
   m_PrefabAsset: {fileID: 0}
---- !u!21 &447076246
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/HSV Adjustable
-  m_Shader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _ReferenceColor: {r: 0.98039216, g: 0.59607846, b: 0.59607846, a: 1}
-    - _TargetColor: {r: 1, g: 0, b: 0, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1 &460781226
 GameObject:
   m_ObjectHideFlags: 0
@@ -4195,6 +4174,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93e6e0e4a26e486cb6753fe3bd8b9414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!21 &544237925
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Remap Color
+  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _BlueTargetColor: {r: 0.003921569, g: 0.003921569, b: 0.003921569, a: 1}
+    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
+    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1001 &564879689
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4284,25 +4305,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: characterId
-      value: 53
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_AssetGUID
-      value: 4277d6ba90f92104e8ac542d1bfcccac
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_SubObjectName
+      propertyPath: spriteName
       value: card_image_500020
       objectReference: {fileID: 0}
     - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_EditorAssetChanged
-      value: 1
+      propertyPath: characterId
+      value: 53
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_AnchorMax.x
@@ -4326,15 +4334,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 376.875
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -82.4
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -65.8
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -4619,25 +4627,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: characterId
-      value: 62
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_AssetGUID
-      value: 3e0e93e92793b9d419bf000dd293c314
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_SubObjectName
+      propertyPath: spriteName
       value: card_image_500111
       objectReference: {fileID: 0}
     - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_EditorAssetChanged
-      value: 1
+      propertyPath: characterId
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_AnchorMax.x
@@ -4661,7 +4656,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 393.75
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalScale.x
@@ -4677,11 +4672,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 8.9
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -77
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -4818,25 +4813,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: characterId
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_AssetGUID
-      value: d8dc6fbc623b2d245aae182c7f61310c
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_SubObjectName
+      propertyPath: spriteName
       value: card_image_530011
       objectReference: {fileID: 0}
     - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_EditorAssetChanged
-      value: 1
+      propertyPath: characterId
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_AnchorMax.x
@@ -4860,15 +4842,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 371.25
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -20.2
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -65.6
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -4911,6 +4893,49 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 362257968615444354, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
   m_PrefabInstance: {fileID: 689414907}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &718219440
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Color Adjustment
+  m_Shader: {fileID: 4800000, guid: 79c52d6660bbc41569ed8dc8194efa8c, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _HueAdjustment: 0
+    - _LightnessAdjustment: 0
+    - _SaturationAdjustment: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ColorTint: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1001 &720048440
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5000,25 +5025,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: characterId
-      value: 52
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_AssetGUID
-      value: 66826df6831088f4cb0676fdc52b5b11
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_SubObjectName
+      propertyPath: spriteName
       value: card_image_500030
       objectReference: {fileID: 0}
     - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_EditorAssetChanged
-      value: 1
+      propertyPath: characterId
+      value: 52
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_AnchorMax.x
@@ -5042,15 +5054,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 382.5
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 23.6
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -71
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -5093,6 +5105,49 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 362257968615444354, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
   m_PrefabInstance: {fileID: 720048440}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &726938009
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Color Adjustment
+  m_Shader: {fileID: 4800000, guid: 79c52d6660bbc41569ed8dc8194efa8c, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _HueAdjustment: 0
+    - _LightnessAdjustment: 0
+    - _SaturationAdjustment: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ColorTint: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &747057716
 GameObject:
   m_ObjectHideFlags: 0
@@ -5183,6 +5238,91 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 747057716}
   m_CullTransparentMesh: 1
+--- !u!21 &794641824
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Remap Color
+  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _BlueTargetColor: {r: 0.003921569, g: 0.003921569, b: 0.003921569, a: 1}
+    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
+    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
+--- !u!21 &804661372
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Color Adjustment
+  m_Shader: {fileID: 4800000, guid: 79c52d6660bbc41569ed8dc8194efa8c, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _HueAdjustment: 0
+    - _LightnessAdjustment: 0
+    - _SaturationAdjustment: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ColorTint: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1001 &807894673
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5989,101 +6129,28 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: imageReference.m_AssetGUID
-      value: d7de626a312e5d049931b58600e2d2d1
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: storyReference.m_AssetGUID
-      value: db95c48d5f0e46a4daa939c201d64ecb
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: categoryReference.m_AssetGUID
-      value: d7de626a312e5d049931b58600e2d2d1
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: imageReference.m_SubObjectName
-      value: card_image_500010
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: selfIntroReference.m_AssetGUID
-      value: 16c8eca5c9980ed438f1f124ac463952
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: storyReference.m_SubObjectName
+      propertyPath: storyImageName
       value: card_image_500060
       objectReference: {fileID: 0}
     - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: storyReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: backgroundReference.m_AssetGUID
-      value: d7de626a312e5d049931b58600e2d2d1
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: categoryReference.m_SubObjectName
+      propertyPath: categoryImageName
       value: card_image_500010
       objectReference: {fileID: 0}
     - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: selfIntroReference.m_SubObjectName
+      propertyPath: selfIntroImageName
       value: card_image_500040
       objectReference: {fileID: 0}
     - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: selfIntroReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: backgroundReference.m_SubObjectName
+      propertyPath: backgroundImageName
       value: card_image_500010
       objectReference: {fileID: 0}
     - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: backgroundReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: characterVoiceReference.m_AssetGUID
-      value: 66826df6831088f4cb0676fdc52b5b11
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: imageReference.m_EditorAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: storyReference.m_EditorAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: characterVoiceReference.m_SubObjectName
+      propertyPath: characterVoiceImageName
       value: card_image_500030
       objectReference: {fileID: 0}
     - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: characterVoiceReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: selfIntroReference.m_EditorAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: characterVoiceReference.m_EditorAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: characterVoiceBackgroundReference.m_AssetGUID
-      value: 4277d6ba90f92104e8ac542d1bfcccac
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: characterVoiceBackgroundReference.m_SubObjectName
+      propertyPath: characterVoiceBackgroundImageName
       value: card_image_500020
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: characterVoiceBackgroundReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
       objectReference: {fileID: 0}
     - target: {fileID: 933957389362558446, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
       propertyPath: m_AnchorMax.x
@@ -6107,7 +6174,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 933957389362558446, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 315
       objectReference: {fileID: 0}
     - target: {fileID: 933957389362558446, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
       propertyPath: m_LocalScale.x
@@ -6123,11 +6190,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 933957389362558446, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 933957389362558446, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -141
       objectReference: {fileID: 0}
     - target: {fileID: 933957389362558446, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -6262,15 +6329,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
---- !u!21 &991785678
+--- !u!21 &946571095
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UI/UI Remap Color
-  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
+  m_Name: UI/UI Color Adjustment
+  m_Shader: {fileID: 4800000, guid: 79c52d6660bbc41569ed8dc8194efa8c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -6292,6 +6359,9 @@ Material:
     m_Ints: []
     m_Floats:
     - _ColorMask: 15
+    - _HueAdjustment: 0
+    - _LightnessAdjustment: 0
+    - _SaturationAdjustment: 0
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
@@ -6299,9 +6369,7 @@ Material:
     - _StencilWriteMask: 255
     - _UseUIAlphaClip: 0
     m_Colors:
-    - _BlueTargetColor: {r: 0.003921569, g: 0.003921569, b: 0.003921569, a: 1}
-    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
-    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
+    - _ColorTint: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!21 &994856866
@@ -6435,25 +6503,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: characterId
-      value: 61
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_AssetGUID
-      value: 559fddab5218b734cabc4591c10a65f4
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_SubObjectName
+      propertyPath: spriteName
       value: card_image_500101
       objectReference: {fileID: 0}
     - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_EditorAssetChanged
-      value: 1
+      propertyPath: characterId
+      value: 61
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_AnchorMax.x
@@ -6477,7 +6532,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 371.25
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalScale.x
@@ -6493,11 +6548,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -14
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -63.7
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -6704,25 +6759,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: characterId
-      value: 55
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_AssetGUID
-      value: 16c8eca5c9980ed438f1f124ac463952
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_SubObjectName
+      propertyPath: spriteName
       value: card_image_500040
       objectReference: {fileID: 0}
     - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_EditorAssetChanged
-      value: 1
+      propertyPath: characterId
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_AnchorMax.x
@@ -6746,15 +6788,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 376.875
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 10.8
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -78.9
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -7032,15 +7074,15 @@ MonoBehaviour:
   - {fileID: 108393629}
   selectedIndex: -1
   loop: 1
---- !u!21 &1117357652
+--- !u!21 &1098749787
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UI/UI Remap Color
-  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
+  m_Name: UI/UI Color Adjustment
+  m_Shader: {fileID: 4800000, guid: 79c52d6660bbc41569ed8dc8194efa8c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -7062,6 +7104,9 @@ Material:
     m_Ints: []
     m_Floats:
     - _ColorMask: 15
+    - _HueAdjustment: 0
+    - _LightnessAdjustment: 0
+    - _SaturationAdjustment: 0
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
@@ -7069,9 +7114,7 @@ Material:
     - _StencilWriteMask: 255
     - _UseUIAlphaClip: 0
     m_Colors:
-    - _BlueTargetColor: {r: 0.003921569, g: 0.003921569, b: 0.003921569, a: 1}
-    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
-    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
+    - _ColorTint: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1001 &1144003223
@@ -7459,25 +7502,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: characterId
-      value: 56
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_AssetGUID
-      value: 0f9f9062c8f877c4994b3ff5f9556163
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_SubObjectName
+      propertyPath: spriteName
       value: card_image_500071
       objectReference: {fileID: 0}
     - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_EditorAssetChanged
-      value: 1
+      propertyPath: characterId
+      value: 56
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_AnchorMax.x
@@ -7501,15 +7531,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 376.875
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 36.5
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -54.2
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -7535,10 +7565,6 @@ PrefabInstance:
       propertyPath: onConfirmed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2143078662}
-    - target: {fileID: 3691531142388619652, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: onConfirmed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
-      value: 
-      objectReference: {fileID: 117646553}
     - target: {fileID: 7753933000022736106, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_Name
       value: EtouKanami
@@ -7700,15 +7726,15 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1179263961}
   m_CullTransparentMesh: 1
---- !u!21 &1180784262
+--- !u!21 &1200118670
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UI/HSV Adjustable
-  m_Shader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
+  m_Name: UI/UI Color Adjustment
+  m_Shader: {fileID: 4800000, guid: 79c52d6660bbc41569ed8dc8194efa8c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -7730,6 +7756,9 @@ Material:
     m_Ints: []
     m_Floats:
     - _ColorMask: 15
+    - _HueAdjustment: 0
+    - _LightnessAdjustment: 0
+    - _SaturationAdjustment: 0
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
@@ -7737,8 +7766,7 @@ Material:
     - _StencilWriteMask: 255
     - _UseUIAlphaClip: 0
     m_Colors:
-    - _ReferenceColor: {r: 0.98039216, g: 0.84313726, b: 0.9098039, a: 0.8823529}
-    - _TargetColor: {r: 0.98039216, g: 0.84313726, b: 0.84313726, a: 0.8823529}
+    - _ColorTint: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1 &1203696966
@@ -7918,15 +7946,15 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1217096169}
   m_CullTransparentMesh: 1
---- !u!21 &1220858604
+--- !u!21 &1281523655
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UI/UI Remap Color
-  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
+  m_Name: UI/UI Color Adjustment
+  m_Shader: {fileID: 4800000, guid: 79c52d6660bbc41569ed8dc8194efa8c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -7948,6 +7976,9 @@ Material:
     m_Ints: []
     m_Floats:
     - _ColorMask: 15
+    - _HueAdjustment: 0
+    - _LightnessAdjustment: 0
+    - _SaturationAdjustment: 0
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
@@ -7955,9 +7986,7 @@ Material:
     - _StencilWriteMask: 255
     - _UseUIAlphaClip: 0
     m_Colors:
-    - _BlueTargetColor: {r: 0.003921569, g: 0.003921569, b: 0.003921569, a: 1}
-    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
-    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
+    - _ColorTint: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1 &1283901375
@@ -8133,6 +8162,47 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!21 &1297130569
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/HSV Adjustable
+  m_Shader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ReferenceColor: {r: 0.98039216, g: 0.59607846, b: 0.59607846, a: 1}
+    - _TargetColor: {r: 1, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &1300522654
 GameObject:
   m_ObjectHideFlags: 0
@@ -8364,25 +8434,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: characterId
-      value: 58
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_AssetGUID
-      value: 85901284f068de34383933c3383d2732
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_SubObjectName
+      propertyPath: spriteName
       value: card_image_500091
       objectReference: {fileID: 0}
     - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_EditorAssetChanged
-      value: 1
+      propertyPath: characterId
+      value: 58
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_AnchorMax.x
@@ -8406,7 +8463,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 376.875
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalScale.x
@@ -8422,11 +8479,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 41.3
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -63.1
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -8469,48 +8526,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df9de592cd9914c9ab5e7a98dd7b93bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!21 &1335904390
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/UI Remap Color
-  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _BlueTargetColor: {r: 0.003921569, g: 0.003921569, b: 0.003921569, a: 1}
-    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
-    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1001 &1353717962
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8680,48 +8695,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bff340307a59b4886b56cc3849a86978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!21 &1355054556
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/UI Remap Color
-  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _BlueTargetColor: {r: 0.003921569, g: 0.003921569, b: 0.003921569, a: 1}
-    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
-    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!21 &1398861070
 Material:
   serializedVersion: 8
@@ -9106,6 +9079,47 @@ Material:
     - _TargetColor: {r: 0.98039216, g: 0.84313726, b: 0.84313726, a: 0.8823529}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
+--- !u!21 &1622814794
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/HSV Adjustable
+  m_Shader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ReferenceColor: {r: 0.98039216, g: 0.84313726, b: 0.9098039, a: 0.8823529}
+    - _TargetColor: {r: 0.98039216, g: 0.84313726, b: 0.84313726, a: 0.8823529}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &1647600319 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3691531142388619652, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
@@ -9286,6 +9300,91 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bff340307a59b4886b56cc3849a86978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!21 &1691463650
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Color Adjustment
+  m_Shader: {fileID: 4800000, guid: 79c52d6660bbc41569ed8dc8194efa8c, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _HueAdjustment: 0
+    - _LightnessAdjustment: 0
+    - _SaturationAdjustment: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ColorTint: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
+--- !u!21 &1717141326
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Remap Color
+  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _BlueTargetColor: {r: 0.003921569, g: 0.003921569, b: 0.003921569, a: 1}
+    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
+    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &1724348239
 GameObject:
   m_ObjectHideFlags: 0
@@ -9416,6 +9515,92 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2026390598470142038, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
   m_PrefabInstance: {fileID: 100378122}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &1768902583
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Color Adjustment
+  m_Shader: {fileID: 4800000, guid: 79c52d6660bbc41569ed8dc8194efa8c, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _HueAdjustment: 0
+    - _LightnessAdjustment: 0
+    - _SaturationAdjustment: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ColorTint: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
+--- !u!21 &1787275128
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Color Adjustment
+  m_Shader: {fileID: 4800000, guid: 79c52d6660bbc41569ed8dc8194efa8c, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _HueAdjustment: 0
+    - _LightnessAdjustment: 0
+    - _SaturationAdjustment: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ColorTint: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1001 &1802381885
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9505,25 +9690,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: characterId
-      value: 57
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_AssetGUID
-      value: 5d0fe0f78eec46b4a9ed235a84a753be
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_SubObjectName
+      propertyPath: spriteName
       value: card_image_500081
       objectReference: {fileID: 0}
     - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_EditorAssetChanged
-      value: 1
+      propertyPath: characterId
+      value: 57
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_AnchorMax.x
@@ -9547,15 +9719,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 376.875
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 2.3
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -79.43
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -9754,6 +9926,221 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!21 &1854112594
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Color Adjustment
+  m_Shader: {fileID: 4800000, guid: 79c52d6660bbc41569ed8dc8194efa8c, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _HueAdjustment: 0
+    - _LightnessAdjustment: 0
+    - _SaturationAdjustment: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ColorTint: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
+--- !u!21 &1870268428
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Color Adjustment
+  m_Shader: {fileID: 4800000, guid: 79c52d6660bbc41569ed8dc8194efa8c, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _HueAdjustment: 0
+    - _LightnessAdjustment: 0
+    - _SaturationAdjustment: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ColorTint: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
+--- !u!21 &1870676408
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Color Adjustment
+  m_Shader: {fileID: 4800000, guid: 79c52d6660bbc41569ed8dc8194efa8c, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _HueAdjustment: 0
+    - _LightnessAdjustment: 0
+    - _SaturationAdjustment: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ColorTint: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
+--- !u!21 &1907044921
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Color Adjustment
+  m_Shader: {fileID: 4800000, guid: 79c52d6660bbc41569ed8dc8194efa8c, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _HueAdjustment: 0
+    - _LightnessAdjustment: 0
+    - _SaturationAdjustment: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ColorTint: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
+--- !u!21 &1908842052
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Color Adjustment
+  m_Shader: {fileID: 4800000, guid: 79c52d6660bbc41569ed8dc8194efa8c, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _HueAdjustment: 0
+    - _LightnessAdjustment: 0
+    - _SaturationAdjustment: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ColorTint: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &1916210454
 GameObject:
   m_ObjectHideFlags: 0
@@ -9860,6 +10247,48 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1916210454}
   m_CullTransparentMesh: 1
+--- !u!21 &1925161893
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Remap Color
+  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _BlueTargetColor: {r: 0.003921569, g: 0.003921569, b: 0.003921569, a: 1}
+    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
+    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1001 &1929692735
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10013,6 +10442,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1961036c2164e089d698d1765b3ec9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!21 &1932167053
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Remap Color
+  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _BlueTargetColor: {r: 0.003921569, g: 0.003921569, b: 0.003921569, a: 1}
+    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
+    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1001 &1948492444
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10182,6 +10653,90 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bff340307a59b4886b56cc3849a86978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!21 &1956114291
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Color Adjustment
+  m_Shader: {fileID: 4800000, guid: 79c52d6660bbc41569ed8dc8194efa8c, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _HueAdjustment: 0
+    - _LightnessAdjustment: 0
+    - _SaturationAdjustment: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ColorTint: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
+--- !u!21 &1964477278
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/HSV Adjustable
+  m_Shader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ReferenceColor: {r: 0.98039216, g: 0.59607846, b: 0.59607846, a: 1}
+    - _TargetColor: {r: 1, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1001 &1972602846
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10271,25 +10826,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: characterId
-      value: 54
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_AssetGUID
-      value: 829c8342ee607604b9c3fd06f70b8887
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_SubObjectName
+      propertyPath: spriteName
       value: card_image_500050
       objectReference: {fileID: 0}
     - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_EditorAssetChanged
-      value: 1
+      propertyPath: characterId
+      value: 54
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_AnchorMax.x
@@ -10313,15 +10855,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 376.875
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -73.4
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -10364,48 +10906,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df9de592cd9914c9ab5e7a98dd7b93bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!21 &1983176950
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/UI Remap Color
-  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _BlueTargetColor: {r: 0.003921569, g: 0.003921569, b: 0.003921569, a: 1}
-    - _GreenTargetColor: {r: 0.7411765, g: 0.75686276, b: 0.78039217, a: 1}
-    - _RedTargetColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1 &2051586196
 GameObject:
   m_ObjectHideFlags: 0
@@ -10973,25 +11473,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: characterId
-      value: 59
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_AssetGUID
-      value: 30b25466eb704b44790494fc498292af
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_SubObjectName
+      propertyPath: spriteName
       value: card_image_530001
       objectReference: {fileID: 0}
     - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 436449442041396374, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
-      propertyPath: spriteReference.m_EditorAssetChanged
-      value: 1
+      propertyPath: characterId
+      value: 59
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_AnchorMax.x
@@ -11015,7 +11502,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 371.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -35.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -52.2
       objectReference: {fileID: 0}
     - target: {fileID: 1580699127546622522, guid: 76e9aa0b1681c440988aaee978e12b81, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -11075,106 +11570,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: storyReference.m_AssetGUID
-      value: d8dc6fbc623b2d245aae182c7f61310c
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: categoryReference.m_AssetGUID
-      value: 30b25466eb704b44790494fc498292af
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: selfIntroReference.m_AssetGUID
-      value: 28b85d992e4d9414a9ada7f85135cbf1
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: storyReference.m_SubObjectName
+      propertyPath: storyImageName
       value: card_image_530011
       objectReference: {fileID: 0}
     - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: storyReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: backgroundReference.m_AssetGUID
-      value: 30b25466eb704b44790494fc498292af
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: categoryReference.m_SubObjectName
+      propertyPath: categoryImageName
       value: card_image_530001
       objectReference: {fileID: 0}
     - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: categoryReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: selfIntroReference.m_SubObjectName
+      propertyPath: selfIntroImageName
       value: card_image_500120
       objectReference: {fileID: 0}
     - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: selfIntroReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: backgroundReference.m_SubObjectName
+      propertyPath: backgroundImageName
       value: card_image_530001
       objectReference: {fileID: 0}
     - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: backgroundReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: characterVoiceReference.m_AssetGUID
-      value: 5e4c070e7a8232f49a7d7ab25226fc50
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: storyReference.m_EditorAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: categoryReference.m_EditorAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: characterVoiceReference.m_SubObjectName
+      propertyPath: characterVoiceImageName
       value: card_image_500110
       objectReference: {fileID: 0}
     - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: characterVoiceReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: selfIntroReference.m_EditorAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: backgroundReference.m_EditorAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: characterVoiceReference.m_EditorAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: characterVoiceBackgroundReference.m_AssetGUID
-      value: 28b85d992e4d9414a9ada7f85135cbf1
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: characterVoiceBackgroundReference.m_SubObjectName
+      propertyPath: characterVoiceBackgroundImageName
       value: card_image_500120
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: characterVoiceBackgroundReference.m_SubObjectType
-      value: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 740493334336333642, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
-      propertyPath: characterVoiceBackgroundReference.m_EditorAssetChanged
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 933957389362558446, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
       propertyPath: m_AnchorMax.x
@@ -11198,7 +11615,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 933957389362558446, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 315
       objectReference: {fileID: 0}
     - target: {fileID: 933957389362558446, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
       propertyPath: m_LocalScale.x
@@ -11210,11 +11627,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 933957389362558446, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -40
       objectReference: {fileID: 0}
     - target: {fileID: 933957389362558446, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -70
       objectReference: {fileID: 0}
     - target: {fileID: 933957389362558446, guid: 81c1aab0f29d94ab386cf5e1a91f6bfc, type: 3}
       propertyPath: m_AnchoredPosition.x

@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
+using Kaede2.Utils;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
 namespace Kaede2
@@ -11,7 +13,7 @@ namespace Kaede2
     public class MainStorySceneController : StorySelectionSceneController
     {
         [SerializeField]
-        private AssetReferenceSprite backgroundSprite;
+        private string backgroundSpriteName;
 
         [SerializeField]
         private List<Image> backgroundImage;
@@ -28,16 +30,18 @@ namespace Kaede2
         [SerializeField]
         private OverlayBlend subOverlay;
 
+        private AsyncOperationHandle<Sprite> backgroundHandle;
+
         private IEnumerator Start()
         {
-            var handle = backgroundSprite.LoadAssetAsync<Sprite>();
+            backgroundHandle = ResourceLoader.LoadIllustration(backgroundSpriteName);
 
             chapterSelector.SetSceneController(this);
             
-            yield return handle;
+            yield return backgroundHandle;
             foreach (var image in backgroundImage)
             {
-                image.sprite = handle.Result;
+                image.sprite = backgroundHandle.Result;
             }
 
             InitialSetup();
@@ -47,8 +51,8 @@ namespace Kaede2
 
         private void OnDestroy()
         {
-            if (backgroundSprite.IsValid())
-                backgroundSprite.ReleaseAsset();
+            if (backgroundHandle.IsValid())
+                Addressables.Release(backgroundHandle);
         }
 
         protected override void OnEnterEpisodeSelection(MasterScenarioInfo.IProvider provider)

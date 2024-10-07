@@ -3,9 +3,11 @@ using System.Collections;
 using Kaede2.Scenario.Framework;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
+using Kaede2.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Kaede2
 {
@@ -15,7 +17,7 @@ namespace Kaede2
         private CharacterNames characterNames;
 
         [SerializeField]
-        private AssetReferenceSprite spriteReference;
+        private string spriteName;
 
         [SerializeField]
         private CharacterId characterId;
@@ -23,20 +25,25 @@ namespace Kaede2
         [SerializeField]
         private TextMeshProUGUI[] characterNameTexts;
 
+        private AsyncOperationHandle<Sprite> spriteHandle;
+
         public CharacterId CharacterId => characterId;
         public override Vector2 ImageSize => new(1920, 1080);
         public override IEnumerator Provide(int count, Action<ImageInfo[]> onProvided)
         {
-            if (!spriteReference.IsValid())
-                yield return spriteReference.LoadAssetAsync();
+            if (!spriteHandle.IsValid())
+            {
+                spriteHandle = ResourceLoader.LoadIllustration(spriteName);
+                yield return spriteHandle;
+            }
 
             ImageInfo[] images = new ImageInfo[count];
             for (int i = 0; i < count; i++)
             {
                 images[i] = new ImageInfo
                 {
-                    Name = spriteReference.Asset.name,
-                    Sprite = spriteReference.Asset as Sprite
+                    Name = spriteHandle.Result.name,
+                    Sprite = spriteHandle.Result
                 };
             }
 
@@ -54,9 +61,9 @@ namespace Kaede2
 
         private void OnDestroy()
         {
-            if (spriteReference.IsValid())
+            if (spriteHandle.IsValid())
             {
-                spriteReference.ReleaseAsset();
+                Addressables.Release(spriteHandle);
             }
         }
     }
