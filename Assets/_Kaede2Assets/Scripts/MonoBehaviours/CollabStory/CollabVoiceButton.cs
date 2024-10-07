@@ -23,10 +23,15 @@ namespace Kaede2
         [SerializeField]
         private RemapRGB colorComponent;
 
+        [SerializeField]
+        private CollabCharacterVoiceController controller;
+
         private CommonButtonColor highlightedColor;
 
         private Coroutine changeColorCoroutine;
         private Sequence changeColorSequence;
+
+        private string voiceName;
 
         protected override void Awake()
         {
@@ -34,6 +39,7 @@ namespace Kaede2
 
             onSelected.AddListener(() => ChangeColor(true));
             onDeselected.AddListener(() => ChangeColor(false));
+            onConfirmed.AddListener(() => controller.PlayVoice(voiceName));
             
             base.Awake();
         }
@@ -107,6 +113,11 @@ namespace Kaede2
 
             changeColorSequence = null;
             changeColorCoroutine = null;
+        }
+
+        public void SetVoice(string voice)
+        {
+            voiceName = voice;
         }
     }
 }

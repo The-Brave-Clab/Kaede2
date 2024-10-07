@@ -1,9 +1,4 @@
-using System;
 using System.Collections;
-using System.Linq;
-using Kaede2.Localization;
-using Kaede2.Scenario;
-using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using Kaede2.Utils;
 using UnityEngine;
@@ -67,6 +62,11 @@ namespace Kaede2
         public void GoToEventStory()
         {
             CommonUtils.LoadNextScene("EventStoryScene", LoadSceneMode.Single);
+        }
+
+        public void GoToCollabStory()
+        {
+            CommonUtils.LoadNextScene("CollabStoryScene", LoadSceneMode.Single);
         }
 
         public void GoToCharacter()

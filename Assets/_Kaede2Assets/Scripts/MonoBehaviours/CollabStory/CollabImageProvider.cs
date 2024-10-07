@@ -53,31 +53,36 @@ namespace Kaede2
 
         public IEnumerator LoadBackground(Action<Sprite> onLoaded)
         {
-            yield return backgroundReference.LoadAssetAsync();
+            if (!backgroundReference.IsValid())
+                yield return backgroundReference.LoadAssetAsync();
             onLoaded?.Invoke(backgroundReference.Asset as Sprite);
         }
 
         public IEnumerator LoadStory(Action<Sprite> onLoaded)
         {
-            yield return storyReference.LoadAssetAsync();
+            if (!storyReference.IsValid())
+                yield return storyReference.LoadAssetAsync();
             onLoaded?.Invoke(storyReference.Asset as Sprite);
         }
 
         public IEnumerator LoadSelfIntro(Action<Sprite> onLoaded)
         {
-            yield return selfIntroReference.LoadAssetAsync();
+            if (!selfIntroReference.IsValid())
+                yield return selfIntroReference.LoadAssetAsync();
             onLoaded?.Invoke(selfIntroReference.Asset as Sprite);
         }
 
         public IEnumerator LoadCharacterVoice(Action<Sprite> onLoaded)
         {
-            yield return characterVoiceReference.LoadAssetAsync();
+            if (!characterVoiceReference.IsValid())
+                yield return characterVoiceReference.LoadAssetAsync();
             onLoaded?.Invoke(characterVoiceReference.Asset as Sprite);
         }
 
         public IEnumerator LoadCharacterVoiceBackground(Action<Sprite> onLoaded)
         {
-            yield return characterVoiceBackgroundReference.LoadAssetAsync();
+            if (!characterVoiceBackgroundReference.IsValid())
+                yield return characterVoiceBackgroundReference.LoadAssetAsync();
             onLoaded?.Invoke(characterVoiceBackgroundReference.Asset as Sprite);
         }
 

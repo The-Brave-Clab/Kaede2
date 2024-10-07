@@ -63,18 +63,18 @@ namespace Kaede2
                 characterName = characterName.ToUpper().Replace(" ", "\n");
             }
             characterNameText.text = characterName;
-            selfIntroButton.onConfirmed.AddListener(() => PlayVoice(collabCharaInfo.Self_Voice));
-            commonWordButton.onConfirmed.AddListener(() => PlayVoice(collabCharaInfo.A_Word_Voice));
-            morningButton.onConfirmed.AddListener(() => PlayVoice(collabCharaInfo.Morning_Voice));
-            daytimeButton.onConfirmed.AddListener(() => PlayVoice(collabCharaInfo.Daytime_Voice));
-            eveningButton.onConfirmed.AddListener(() => PlayVoice(collabCharaInfo.Night_Voice));
-            nightButton.onConfirmed.AddListener(() => PlayVoice(collabCharaInfo.Sleep_Voice));
+            selfIntroButton.SetVoice(collabCharaInfo.Self_Voice);
+            commonWordButton.SetVoice(collabCharaInfo.A_Word_Voice);
+            morningButton.SetVoice(collabCharaInfo.Morning_Voice);
+            daytimeButton.SetVoice(collabCharaInfo.Daytime_Voice);
+            eveningButton.SetVoice(collabCharaInfo.Night_Voice);
+            nightButton.SetVoice(collabCharaInfo.Sleep_Voice);
 
             yield return standingImageHandle;
             characterStandingImage.sprite = standingImageHandle.Result;
         }
 
-        private void PlayVoice(string voiceName)
+        public void PlayVoice(string voiceName)
         {
             // TODO
             this.Log($"Play voice: {voiceName}");

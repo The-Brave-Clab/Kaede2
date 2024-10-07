@@ -144,7 +144,6 @@ namespace Kaede2
         {
             yield return SceneTransition.Fade(1);
 
-
             gameObject.SetActive(false);
             randomizedImageBackgroundCanvas.gameObject.SetActive(false);
             collabContent.gameObject.SetActive(false);
@@ -158,10 +157,53 @@ namespace Kaede2
             yield return SceneTransition.Fade(0);
         }
 
+        public void ExitCharacterVoice()
+        {
+            CoroutineProxy.Start(ExitCharacterVoiceCoroutine());
+        }
+
+        private IEnumerator ExitCharacterVoiceCoroutine()
+        {
+            yield return SceneTransition.Fade(1);
+
+            gameObject.SetActive(false);
+            randomizedImageBackgroundCanvas.gameObject.SetActive(false);
+            collabContent.gameObject.SetActive(false);
+            storySelectableGroup.transform.parent.gameObject.SetActive(false);
+            characterSelection.gameObject.SetActive(true);
+            characterVoiceController.gameObject.SetActive(false);
+            selectionCanvas.gameObject.SetActive(true);
+
+            yield return SceneTransition.Fade(0);
+        }
+
+        public void ExitCharacterVoiceCharacterSelection()
+        {
+            CoroutineProxy.Start(ExitCharacterVoiceCharacterSelectionCoroutine());
+        }
+
+        private IEnumerator ExitCharacterVoiceCharacterSelectionCoroutine()
+        {
+            yield return SceneTransition.Fade(1);
+
+            gameObject.SetActive(false);
+            randomizedImageBackgroundCanvas.gameObject.SetActive(false);
+            collabContent.gameObject.SetActive(true);
+            storySelectableGroup.transform.parent.gameObject.SetActive(false);
+            characterSelection.gameObject.SetActive(false);
+            characterVoiceController.gameObject.SetActive(false);
+            selectionCanvas.gameObject.SetActive(true);
+
+            yield return SceneTransition.Fade(0);
+        }
+
         protected override void InitialSetup()
         {
             base.InitialSetup();
-            collabContent.gameObject.SetActive(true);
+            collabContent.gameObject.SetActive(false);
+            characterSelection.gameObject.SetActive(false);
+            characterVoiceController.gameObject.SetActive(false);
+            selectionCanvas.gameObject.SetActive(false);
         }
 
         private class CollabStoryProvider : MasterScenarioInfo.IProvider
