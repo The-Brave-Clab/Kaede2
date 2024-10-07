@@ -11,7 +11,8 @@ namespace Kaede2.UI
 
         private static readonly int HueAdjustment = Shader.PropertyToID("_HueAdjustment");
         private static readonly int SaturationAdjustment = Shader.PropertyToID("_SaturationAdjustment");
-        private static readonly int ValueAdjustment = Shader.PropertyToID("_ValueAdjustment");
+        private static readonly int LightnessAdjustment = Shader.PropertyToID("_LightnessAdjustment");
+        private static readonly int ColorTintAdjustment = Shader.PropertyToID("_ColorTint");
 
         [SerializeField]
         private Image image;
@@ -39,10 +40,16 @@ namespace Kaede2.UI
             set => image.material.SetFloat(SaturationAdjustment, Mathf.Clamp(value, -1, 1));
         }
 
-        public float Value
+        public float Lightness
         {
-            get => image.material.GetFloat(ValueAdjustment);
-            set => image.material.SetFloat(ValueAdjustment, Mathf.Clamp(value, -1, 1));
+            get => image.material.GetFloat(LightnessAdjustment);
+            set => image.material.SetFloat(LightnessAdjustment, Mathf.Clamp(value, -1, 1));
+        }
+
+        public Color Color
+        {
+            get => image.material.GetColor(ColorTintAdjustment).NoAlpha();
+            set => image.material.SetColor(ColorTintAdjustment, value.NoAlpha());
         }
 
         private bool CheckImage()

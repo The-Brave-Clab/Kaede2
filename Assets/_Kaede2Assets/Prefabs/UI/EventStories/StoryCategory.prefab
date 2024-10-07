@@ -171,13 +171,14 @@ MonoBehaviour:
         m_CallState: 2
   image: {fileID: 1161668450045443379}
   imageContainer: {fileID: 1415247018206580037}
+  notActivatedColorAdjuster: {fileID: 8406111039399795346}
   textOutlineActivatedColor: {r: 1, g: 0.3764045, b: 0.14606738, a: 1}
   textOutlineDeactivatedColor: {r: 0.69803923, g: 0.2627451, b: 0.101960786, a: 1}
   deactivatedHueAdjustment: 0
   deactivatedSaturationAdjustment: -0.5
-  deactivatedValueAdjustment: 0
+  deactivatedLightnessAdjustment: 0
+  deactivatedColorTintAdjustment: {r: 1, g: 1, b: 1, a: 1}
   activated: 0
-  notActivatedColorAdjuster: {fileID: 7564995921081174185}
   selectedOutline: {fileID: 6937809904065420790}
   textOutline: {fileID: 6036293736977589341}
   imageProvider: {fileID: 841091872736200397}
@@ -942,14 +943,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 669400644311638585, guid: 241a481c4035f41f7a8543f05c3061d3, type: 3}
   m_PrefabInstance: {fileID: 2102253143622232497}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7564995921081174185 stripped
+--- !u!114 &8406111039399795346 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8489557620110106904, guid: 241a481c4035f41f7a8543f05c3061d3, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7603260806203388707, guid: 241a481c4035f41f7a8543f05c3061d3, type: 3}
   m_PrefabInstance: {fileID: 2102253143622232497}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: df913ce1ebc145fe9ba498b2cad3e402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -5,7 +5,8 @@ Shader "UI/UI Color Adjustment"
     {
         _HueAdjustment("Hue", Range(-1, 1)) = 0
         _SaturationAdjustment("Saturation", Range(-1, 1)) = 0
-        _ValueAdjustment("Value", Range(-1, 1)) = 0
+        _LightnessAdjustment("Lightness", Range(-1, 1)) = 0
+        _ColorTint("Color Tint", Color) = (1, 1, 1, 1)
 
         // see Stencil in UI/Default
         [HideInInspector][PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
@@ -115,19 +116,21 @@ Shader "UI/UI Color Adjustment"
 
                 fixed _HueAdjustment;
                 fixed _SaturationAdjustment;
-                fixed _ValueAdjustment;
+                fixed _LightnessAdjustment;
+                fixed4 _ColorTint;
 
                 fixed4 frag(v2f IN) : SV_Target
                 {
                     half4 pixel = tex2Dproj(_GrabTexture, UNITY_PROJ_COORD(IN.uvgrab));
-                    half3 hsv = RgbToHsv(pixel.rgb);
-                    hsv.x += _HueAdjustment;
-                    hsv.y += _SaturationAdjustment;
-                    hsv.z += _ValueAdjustment;
+                    half3 hsl = RgbToHsl(pixel.rgb);
+                    hsl.x += _HueAdjustment;
+                    hsl.y += _SaturationAdjustment;
+                    hsl.z += _LightnessAdjustment;
 
-                    hsv.yz = saturate(hsv.yz);
+                    hsl.yz = saturate(hsl.yz);
 
-                    half3 rgb = HsvToRgb(hsv);
+                    half3 rgb = HslToRgb(hsl);
+                    rgb *= _ColorTint.rgb;
                     return half4(rgb, pixel.a);
                 }
             ENDCG

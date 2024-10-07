@@ -55,6 +55,13 @@ namespace Kaede2.UI.Framework
             }
         }
 
+        public void Select(SelectableItem item)
+        {
+            var index = items.IndexOf(item);
+            if (index >= 0)
+                Select(index);
+        }
+
         public virtual void Next()
         {
             var nextAvailable = NextAvailable(1);

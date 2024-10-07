@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Kaede2.Scenario.Framework;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
@@ -29,6 +30,9 @@ namespace Kaede2
 
         [SerializeField]
         private CollabContentController collabContent;
+
+        [SerializeField]
+        private CollabCharacterSelectionController characterSelection;
 
         private IEnumerator Start()
         {
@@ -66,6 +70,7 @@ namespace Kaede2
             randomizedImageBackgroundCanvas.gameObject.SetActive(false);
             collabContent.gameObject.SetActive(true);
             storySelectableGroup.transform.parent.gameObject.SetActive(false);
+            characterSelection.gameObject.SetActive(false);
             selectionCanvas.gameObject.SetActive(true);
 
             yield return collabContent.Initialize(collab);
@@ -83,6 +88,9 @@ namespace Kaede2
             yield return SceneTransition.Fade(1);
 
             collabContent.gameObject.SetActive(false);
+            storySelectableGroup.transform.parent.gameObject.SetActive(false);
+            characterSelection.gameObject.SetActive(false);
+            selectionCanvas.gameObject.SetActive(false);
             gameObject.SetActive(true);
             randomizedImageBackgroundCanvas.gameObject.SetActive(true);
 
@@ -98,6 +106,41 @@ namespace Kaede2
         protected override void OnEnterStorySelection(MasterScenarioInfo.IProvider provider)
         {
             collabContent.gameObject.SetActive(false);
+        }
+
+        public void EnterCharacterVoiceCharacterSelection(ContentSubProvider provider)
+        {
+            CoroutineProxy.Start(EnterCharacterVoiceCharacterSelectionCoroutine(provider));
+        }
+
+        private IEnumerator EnterCharacterVoiceCharacterSelectionCoroutine(ContentSubProvider provider)
+        {
+            yield return SceneTransition.Fade(1);
+
+            gameObject.SetActive(false);
+            randomizedImageBackgroundCanvas.gameObject.SetActive(false);
+            collabContent.gameObject.SetActive(false);
+            storySelectableGroup.transform.parent.gameObject.SetActive(false);
+            characterSelection.gameObject.SetActive(true);
+            selectionCanvas.gameObject.SetActive(true);
+
+            yield return characterSelection.Initialize(provider.Provider);
+
+            yield return SceneTransition.Fade(0);
+        }
+
+        public void EnterCharacterVoice(CollabCharacterSelectionImageProvider provider)
+        {
+            CoroutineProxy.Start(EnterCharacterVoiceCoroutine(provider.CharacterId));
+        }
+
+        private IEnumerator EnterCharacterVoiceCoroutine(CharacterId characterId)
+        {
+            yield return SceneTransition.Fade(1);
+
+            // TODO
+
+            yield return SceneTransition.Fade(0);
         }
 
         protected override void InitialSetup()

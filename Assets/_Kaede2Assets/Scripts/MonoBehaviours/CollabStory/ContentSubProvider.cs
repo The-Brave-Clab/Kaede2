@@ -17,6 +17,7 @@ namespace Kaede2
         private CollabImageProvider provider;
 
         public StoryCategorySelectable Selectable => selectableItem;
+        public CollabImageProvider Provider => provider;
 
         public override Vector2 ImageSize => new(1920, 1080);
         public override IEnumerator Provide(int count, Action<ImageInfo[]> onProvided)

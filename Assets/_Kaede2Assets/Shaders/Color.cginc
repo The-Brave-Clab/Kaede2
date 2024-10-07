@@ -35,6 +35,50 @@ float RotateHue(float value, float low, float hi)
 }
 // -------------------------------------------
 
+fixed3 HsvToHsl(fixed3 hsv)
+{
+    fixed3 hsl;
+    hsl.x = hsv.x;
+    hsl.z = hsv.z * 0.5 * (2.0 - hsv.y);
+    float denominator = 1.0 - abs(2.0 * hsl.z - 1.0);
+    if (denominator != 0.0)
+    {
+        hsl.y = hsv.z * hsv.y / denominator;
+    }
+    else
+    {
+        hsl.y = 0.0;
+    }
+    return hsl;
+}
+
+fixed3 HslToHsv(fixed3 hsl)
+{
+    fixed3 hsv;
+    hsv.x = hsl.x;
+    hsv.z = hsl.z + hsl.y * (0.5 - abs(hsl.z - 0.5));
+    if (hsv.z == 0.0)
+    {
+        hsv.y = 0.0;
+    }
+    else
+    {
+        hsv.y = 2.0 * (1.0 - hsl.z / hsv.z);
+    }
+    return hsv;
+}
+
+fixed3 RgbToHsl(fixed3 rgb)
+{
+    return HsvToHsl(RgbToHsv(rgb));
+}
+
+fixed3 HslToRgb(fixed3 hsl)
+{
+    return HsvToRgb(HslToHsv(hsl));
+}
+
+
 fixed3 CalculateHSVAdjustment(fixed3 referenceColor, fixed3 targetColor)
 {
     const fixed3 hsv1 = RgbToHsv(referenceColor);

@@ -15,15 +15,14 @@ namespace Kaede2
 {
     public class StoryCategorySelectable : SelectableItem
     {
-        private static readonly int HueAdjustment = Shader.PropertyToID("_HueAdjustment");
-        private static readonly int SaturationAdjustment = Shader.PropertyToID("_SaturationAdjustment");
-        private static readonly int ValueAdjustment = Shader.PropertyToID("_ValueAdjustment");
-
         [SerializeField]
         private Image image;
 
         [SerializeField]
         private RectTransform imageContainer;
+
+        [SerializeField]
+        private ColorAdjustmentMask notActivatedColorAdjuster;
 
         [SerializeField]
         private Color textOutlineActivatedColor;
@@ -41,13 +40,14 @@ namespace Kaede2
 
         [SerializeField]
         [Range(-1, 1)]
-        private float deactivatedValueAdjustment;
+        private float deactivatedLightnessAdjustment;
+
+        [SerializeField]
+        [ColorUsage(false)]
+        private Color deactivatedColorTintAdjustment = Color.white;
 
         [SerializeField]
         private bool activated;
-
-        [SerializeField]
-        private Image notActivatedColorAdjuster;
 
         [SerializeField]
         private GameObject selectedOutline;
@@ -84,9 +84,10 @@ namespace Kaede2
             base.Awake();
             selectedOutline.SetActive(false);
             lastActivated = activated;
-            notActivatedColorAdjuster.material.SetFloat(HueAdjustment, activated ? 0 : deactivatedHueAdjustment);
-            notActivatedColorAdjuster.material.SetFloat(SaturationAdjustment, activated ? 0 : deactivatedSaturationAdjustment);
-            notActivatedColorAdjuster.material.SetFloat(ValueAdjustment, activated ? 0 : deactivatedValueAdjustment);
+            notActivatedColorAdjuster.Hue = activated ? 0 : deactivatedHueAdjustment;
+            notActivatedColorAdjuster.Saturation = activated ? 0 : deactivatedSaturationAdjustment;
+            notActivatedColorAdjuster.Lightness = activated ? 0 : deactivatedLightnessAdjustment;
+            notActivatedColorAdjuster.Color = activated ? Color.white : deactivatedColorTintAdjustment;
             var initialOutlineColor = activated ? textOutlineActivatedColor : textOutlineDeactivatedColor;
             textOutline.color = initialOutlineColor;
             onTextOutlineColorChanged.Invoke(initialOutlineColor);
@@ -188,26 +189,26 @@ namespace Kaede2
 
         private IEnumerator ChangeActivatedStatus()
         {
-            var startHue = notActivatedColorAdjuster.material.GetFloat(HueAdjustment);
-            var startSaturation = notActivatedColorAdjuster.material.GetFloat(SaturationAdjustment);
-            var startValue = notActivatedColorAdjuster.material.GetFloat(ValueAdjustment);
+            var startHue = notActivatedColorAdjuster.Hue;
+            var startSaturation = notActivatedColorAdjuster.Saturation;
+            var startLightness = notActivatedColorAdjuster.Lightness;
+            var startColor = notActivatedColorAdjuster.Color;
             var startOutlineColor = textOutline.color;
 
             var targetHue = activated ? 0 : deactivatedHueAdjustment;
             var targetSaturation = activated ? 0 : deactivatedSaturationAdjustment;
-            var targetValue = activated ? 0 : deactivatedValueAdjustment;
+            var targetLightness = activated ? 0 : deactivatedLightnessAdjustment;
+            var targetColor = activated ? Color.white : deactivatedColorTintAdjustment;
             var targetOutlineColor = activated ? textOutlineActivatedColor : textOutlineDeactivatedColor;
 
             activatedSequence = DOTween.Sequence();
             activatedSequence.Append(DOVirtual.Float(0, 1, 0.2f,
                 value =>
                 {
-                    notActivatedColorAdjuster.material.SetFloat(HueAdjustment,
-                        Mathf.Lerp(startHue, targetHue, value));
-                    notActivatedColorAdjuster.material.SetFloat(SaturationAdjustment,
-                        Mathf.Lerp(startSaturation, targetSaturation, value));
-                    notActivatedColorAdjuster.material.SetFloat(ValueAdjustment,
-                        Mathf.Lerp(startValue, targetValue, value));
+                    notActivatedColorAdjuster.Hue = Mathf.Lerp(startHue, targetHue, value);
+                    notActivatedColorAdjuster.Saturation = Mathf.Lerp(startSaturation, targetSaturation, value);
+                    notActivatedColorAdjuster.Lightness = Mathf.Lerp(startLightness, targetLightness, value);
+                    notActivatedColorAdjuster.Color = Color.Lerp(startColor, targetColor, value);
                     Color outlineColor = Color.Lerp(startOutlineColor, targetOutlineColor, value);
                     textOutline.color = outlineColor;
                     onTextOutlineColorChanged.Invoke(outlineColor);

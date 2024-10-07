@@ -4,7 +4,6 @@ using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Serialization;
 
 namespace Kaede2
 {
@@ -27,6 +26,9 @@ namespace Kaede2
 
         [SerializeField]
         private AssetReferenceSprite characterVoiceReference;
+
+        [SerializeField]
+        private AssetReferenceSprite characterVoiceBackgroundReference;
 
         public override Vector2 ImageSize => new(1920, 1080);
 
@@ -71,6 +73,12 @@ namespace Kaede2
         {
             yield return characterVoiceReference.LoadAssetAsync();
             onLoaded?.Invoke(characterVoiceReference.Asset as Sprite);
+        }
+
+        public IEnumerator LoadCharacterVoiceBackground(Action<Sprite> onLoaded)
+        {
+            yield return characterVoiceBackgroundReference.LoadAssetAsync();
+            onLoaded?.Invoke(characterVoiceBackgroundReference.Asset as Sprite);
         }
 
         private void OnDestroy()
