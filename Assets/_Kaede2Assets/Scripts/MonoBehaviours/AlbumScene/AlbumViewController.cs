@@ -5,6 +5,8 @@ using System.Linq;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
+using Kaede2.Utils;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,6 +25,12 @@ namespace Kaede2
 
         [SerializeField]
         private ScrollRect scroll;
+
+        [SerializeField]
+        private LabeledListSelectableGroup bgmSelectableGroup;
+
+        [SerializeField]
+        private TMP_FontAsset bgmTitleFont;
 
         private MasterAlbumInfo masterData;
 
@@ -58,12 +66,33 @@ namespace Kaede2
             }
 
             unloadAssetTimer = unloadAssetInterval;
+
+            foreach (var bgmData in MasterBgmData.Instance.Data.OrderBy(bd => bd.id))
+            {
+                var bgmItem = bgmSelectableGroup.Add("", bgmData.bgmTitle);
+                bgmItem.onSelected.AddListener(() =>
+                {
+                    AlbumTitle.Text = bgmData.bgmTitle;
+                    AlbumTitle.Font = bgmTitleFont;
+                });
+                bgmItem.onConfirmed.AddListener(() =>
+                {
+                    // TODO: play bgm
+                    // AudioManager.Instance.PlayBgm(bgmData.cueName);
+                    this.Log($"Play BGM: {bgmData.cueName}");
+                });
+            }
+
+            bgmSelectableGroup.Initialize();
         }
 
         private IEnumerator Start()
         {
             yield return null;
             scroll.verticalNormalizedPosition = 1;
+
+            yield return null;
+
             yield return SceneTransition.Fade(0);
         }
 

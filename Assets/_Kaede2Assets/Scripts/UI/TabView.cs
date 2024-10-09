@@ -21,7 +21,7 @@ namespace Kaede2.UI
         protected Coroutine activateViewCoroutine;
         protected Sequence activateViewSequence;
 
-        private void Awake()
+        private void Start()
         {
             // by default, active the first tab
             currentViewIndex = 0;
