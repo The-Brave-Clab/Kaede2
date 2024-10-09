@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Kaede2.UI.Framework;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using TextMeshProUGUI = TMPro.TextMeshProUGUI;
 
 namespace Kaede2.UI
 {
@@ -56,9 +56,10 @@ namespace Kaede2.UI
 
         public string Label
         {
-            get => mainLabel.text;
+            get => mainLabel == null ? "" : mainLabel.text;
             set
             {
+                if (mainLabel == null) return;
                 mainLabel.text = value;
                 notSelectedLabel.text = value;
                 selectedLabel.text = value;
@@ -88,15 +89,16 @@ namespace Kaede2.UI
             layoutGroup = rt.parent.GetComponent<VerticalLayoutGroup>();
             selectedLayoutGroup = selectedParent.GetComponent<LayoutGroup>();
             notSelectedLayoutGroup = notSelectedParent.GetComponent<LayoutGroup>();
-            textRectTransforms = new Dictionary<TextMeshProUGUI, RectTransform>
+            textRectTransforms = new Dictionary<TextMeshProUGUI, RectTransform>();
+            if (mainLabel != null)
             {
-                { mainLabel, mainLabel.GetComponent<RectTransform>() },
-                { mainText, mainText.GetComponent<RectTransform>() },
-                { notSelectedLabel, notSelectedLabel.GetComponent<RectTransform>() },
-                { notSelectedText, notSelectedText.GetComponent<RectTransform>() },
-                { selectedLabel, selectedLabel.GetComponent<RectTransform>() },
-                { selectedText, selectedText.GetComponent<RectTransform>() },
-            };
+                textRectTransforms.Add(mainLabel, mainLabel.GetComponent<RectTransform>());
+                textRectTransforms.Add(notSelectedLabel, notSelectedLabel.GetComponent<RectTransform>());
+                textRectTransforms.Add(selectedLabel, selectedLabel.GetComponent<RectTransform>());
+            }
+            textRectTransforms.Add(mainText, mainText.GetComponent<RectTransform>());
+            textRectTransforms.Add(notSelectedText, notSelectedText.GetComponent<RectTransform>());
+            textRectTransforms.Add(selectedText, selectedText.GetComponent<RectTransform>());
 
             onSelected.AddListener(() => OnSelected(true));
             onDeselected.AddListener(() => OnSelected(false));
@@ -113,26 +115,33 @@ namespace Kaede2.UI
 
             // set initial state
             RectTransform mainTextRectTransform = textRectTransforms[mainText];
-            RectTransform mainLabelRectTransform = textRectTransforms[mainLabel];
 
             var layoutText = selected ? selectedText : notSelectedText;
-            var layoutLabel = selected ? selectedLabel : notSelectedLabel;
             var targetParent = selected ? selectedParent : notSelectedParent;
 
             var targetTransform = GetLayoutObjectTransform(layoutText);
-            var targetLabelTransform = GetLayoutObjectTransform(layoutLabel);
             var targetHeight = targetParent.rect.height;
             var targetTextColor = selected ? Color.white : notSelectedTextColor;
-            var targetLabelFontSize = layoutLabel.fontSize;
 
             rt.sizeDelta = new Vector2(rt.sizeDelta.x, targetHeight);
             mainTextRectTransform.anchoredPosition = targetTransform.position;
             mainTextRectTransform.sizeDelta = targetTransform.size;
-            mainLabelRectTransform.anchoredPosition = targetLabelTransform.position;
-            mainLabelRectTransform.sizeDelta = targetLabelTransform.size;
             mainText.color = targetTextColor;
-            mainLabel.color = targetTextColor;
-            mainLabel.fontSize = targetLabelFontSize;
+
+            if (mainLabel != null)
+            {
+                RectTransform mainLabelRectTransform = textRectTransforms[mainLabel];
+
+                var layoutLabel = selected ? selectedLabel : notSelectedLabel;
+
+                var targetLabelTransform = GetLayoutObjectTransform(layoutLabel);
+                var targetLabelFontSize = layoutLabel.fontSize;
+
+                mainLabelRectTransform.anchoredPosition = targetLabelTransform.position;
+                mainLabelRectTransform.sizeDelta = targetLabelTransform.size;
+                mainLabel.color = targetTextColor;
+                mainLabel.fontSize = targetLabelFontSize;
+            }
 
             ForceUpdate();
         }
@@ -195,39 +204,56 @@ namespace Kaede2.UI
             UpdateSafeArea();
 
             RectTransform mainTextRectTransform = textRectTransforms[mainText];
-            RectTransform mainLabelRectTransform = textRectTransforms[mainLabel];
 
             var layoutText = isSelected ? selectedText : notSelectedText;
-            var layoutLabel = isSelected ? selectedLabel : notSelectedLabel;
             var targetParent = isSelected ? selectedParent : notSelectedParent;
 
             var currentHeight = rt.rect.height;
             var currentTextPosition = mainTextRectTransform.anchoredPosition;
             var currentTextSize = mainTextRectTransform.sizeDelta;
-            var currentLabelPosition = mainLabelRectTransform.anchoredPosition;
-            var currentLabelSize = mainLabelRectTransform.sizeDelta;
             var currentTextColor = mainText.color;
-            var currentLabelFontSize = mainLabel.fontSize;
 
             var targetHeight = targetParent.rect.height;
             var targetTextColor = isSelected ? Color.white : notSelectedTextColor;
-            var targetLabelFontSize = layoutLabel.fontSize;
+
+            RectTransform mainLabelRectTransform = null;
+            TextMeshProUGUI layoutLabel = null;
+            Vector2 currentLabelPosition = Vector2.zero;
+            Vector2 currentLabelSize = Vector2.zero;
+            float currentLabelFontSize = 0;
+            float targetLabelFontSize = 0;
+
+            if (mainLabel != null)
+            {
+                mainLabelRectTransform = textRectTransforms[mainLabel];
+
+                layoutLabel = isSelected ? selectedLabel : notSelectedLabel;
+
+                currentLabelPosition = mainLabelRectTransform.anchoredPosition;
+                currentLabelSize = mainLabelRectTransform.sizeDelta;
+                currentLabelFontSize = mainLabel.fontSize;
+                targetLabelFontSize = layoutLabel.fontSize;
+            }
 
             selectSequence = DOTween.Sequence();
             selectSequence.Append(DOVirtual.Float(0, 1, 0.1f, value =>
             {
                 // we do this every frame since it might move during the animation
                 var targetTransform = GetLayoutObjectTransform(layoutText);
-                var targetLabelTransform = GetLayoutObjectTransform(layoutLabel);
 
                 rt.sizeDelta = new Vector2(rt.sizeDelta.x, Mathf.Lerp(currentHeight, targetHeight, value));
                 mainTextRectTransform.anchoredPosition = Vector2.Lerp(currentTextPosition, targetTransform.position, value);
                 mainTextRectTransform.sizeDelta = Vector2.Lerp(currentTextSize, targetTransform.size, value);
-                mainLabelRectTransform.anchoredPosition = Vector2.Lerp(currentLabelPosition, targetLabelTransform.position, value);
-                mainLabelRectTransform.sizeDelta = Vector2.Lerp(currentLabelSize, targetLabelTransform.size, value);
                 mainText.color = Color.Lerp(currentTextColor, targetTextColor, value);
-                mainLabel.color = Color.Lerp(currentTextColor, targetTextColor, value);
-                mainLabel.fontSize = Mathf.RoundToInt(Mathf.Lerp(currentLabelFontSize, targetLabelFontSize, value));
+
+                if (mainLabel != null)
+                {
+                    var targetLabelTransform = GetLayoutObjectTransform(layoutLabel);
+                    mainLabelRectTransform.anchoredPosition = Vector2.Lerp(currentLabelPosition, targetLabelTransform.position, value);
+                    mainLabelRectTransform.sizeDelta = Vector2.Lerp(currentLabelSize, targetLabelTransform.size, value);
+                    mainLabel.color = Color.Lerp(currentTextColor, targetTextColor, value);
+                    mainLabel.fontSize = Mathf.RoundToInt(Mathf.Lerp(currentLabelFontSize, targetLabelFontSize, value));
+                }
 
                 ForceUpdate();
             }));
@@ -266,7 +292,7 @@ namespace Kaede2.UI
             notSelectedLayoutGroup.SetLayoutHorizontal();
             // force text update
             mainText.UpdateFontAsset();
-            mainLabel.UpdateFontAsset();
+            if (mainLabel != null) mainLabel.UpdateFontAsset();
         }
 
         private void UpdateSafeArea()

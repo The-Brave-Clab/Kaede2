@@ -1,8 +1,5 @@
-using System;
 using System.Collections;
-using System.Linq;
 using DG.Tweening;
-using Kaede2.ScriptableObjects;
 using Kaede2.UI.Framework;
 using UnityEngine;
 

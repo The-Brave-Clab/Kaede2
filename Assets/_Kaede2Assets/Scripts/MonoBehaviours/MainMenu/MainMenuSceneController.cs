@@ -69,6 +69,11 @@ namespace Kaede2
             CommonUtils.LoadNextScene("CollabStoryScene", LoadSceneMode.Single);
         }
 
+        public void GoToFavoriteStory()
+        {
+            CommonUtils.LoadNextScene("FavoriteStoryScene", LoadSceneMode.Single);
+        }
+
         public void GoToCharacter()
         {
             CommonUtils.LoadNextScene("CharacterScene", LoadSceneMode.Single);

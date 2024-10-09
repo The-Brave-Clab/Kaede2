@@ -127,6 +127,7 @@ namespace Kaede2
             selectionCanvas.gameObject.SetActive(true);
 
             var storyInfos = provider.Provide()
+                .Where(AdditionalStoryFilter)
                 .OrderBy(si => si.StoryId)
                 .ToList();
 
@@ -145,6 +146,11 @@ namespace Kaede2
             yield return null;
 
             yield return SceneTransition.Fade(0);
+        }
+
+        protected virtual bool AdditionalStoryFilter(MasterScenarioInfo.ScenarioInfo scenario)
+        {
+            return true;
         }
 
         public IEnumerator EnterScenario(MasterScenarioInfo.ScenarioInfo scenario, CultureInfo language)
