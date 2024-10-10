@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Kaede2.Input;
 using Kaede2.Scenario;
 using Kaede2.Scenario.Framework.Utils;
@@ -23,6 +24,8 @@ namespace Kaede2
         private void Awake()
         {
             OnThemeChange(Theme.Current);
+
+            InputManager.InputAction.TitleScreen.Enable();
         }
 
         private IEnumerator Start()
@@ -32,12 +35,20 @@ namespace Kaede2
 
         private void Update()
         {
-            if (InputManager.InputAction.GeneralUI.NavigateDown.triggered)
+            if (InputManager.InputAction.TitleScreen.Down.triggered)
                 selectableGroup.Next();
-            if (InputManager.InputAction.GeneralUI.NavigateUp.triggered)
+            if (InputManager.InputAction.TitleScreen.Up.triggered)
                 selectableGroup.Previous();
-            if (InputManager.InputAction.GeneralUI.Confirm.triggered)
+            if (InputManager.InputAction.TitleScreen.Confirm.triggered)
                 selectableGroup.SelectedItem.Confirm();
+        }
+
+        private void OnDestroy()
+        {
+            if (InputManager.InputAction != null)
+            {
+                InputManager.InputAction.TitleScreen.Disable();
+            }
         }
 
         public void MainMenuConfirm()

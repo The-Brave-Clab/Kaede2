@@ -13,13 +13,17 @@ namespace Kaede2
 
         private void OnEnable()
         {
-            InputManager.InputAction.GeneralUI.Cancel.performed += GoBack;
+            InputManager.InputAction.Setting.Enable();
+
+            InputManager.InputAction.Setting.Cancel.performed += GoBack;
         }
 
         private void OnDisable()
         {
             if (InputManager.InputAction == null) return;
-            InputManager.InputAction.GeneralUI.Cancel.performed -= GoBack;
+            InputManager.InputAction.Setting.Cancel.performed -= GoBack;
+
+            InputManager.InputAction.Setting.Disable();
         }
 
         private void GoBack(InputAction.CallbackContext obj)

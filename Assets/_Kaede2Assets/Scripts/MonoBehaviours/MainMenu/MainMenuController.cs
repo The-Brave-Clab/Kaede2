@@ -83,10 +83,12 @@ namespace Kaede2
         {
             if (!Application.isPlaying) return;
 
-            InputManager.InputAction.GeneralUI.NavigateUp.performed += Previous;
-            InputManager.InputAction.GeneralUI.NavigateDown.performed += Next;
-            InputManager.InputAction.GeneralUI.Confirm.performed += Confirm;
-            InputManager.InputAction.GeneralUI.Cancel.performed += GoBack;
+            InputManager.InputAction.MainMenu.Enable();
+
+            InputManager.InputAction.MainMenu.Up.performed += Previous;
+            InputManager.InputAction.MainMenu.Down.performed += Next;
+            InputManager.InputAction.MainMenu.Confirm.performed += Confirm;
+            InputManager.InputAction.MainMenu.Cancel.performed += GoBack;
         }
 
         private void OnDisable()
@@ -94,10 +96,12 @@ namespace Kaede2
             if (!Application.isPlaying) return;
             if (InputManager.InputAction != null)
             {
-                InputManager.InputAction.GeneralUI.NavigateUp.performed -= Previous;
-                InputManager.InputAction.GeneralUI.NavigateDown.performed -= Next;
-                InputManager.InputAction.GeneralUI.Confirm.performed -= Confirm;
-                InputManager.InputAction.GeneralUI.Cancel.performed -= GoBack;
+                InputManager.InputAction.MainMenu.Up.performed -= Previous;
+                InputManager.InputAction.MainMenu.Down.performed -= Next;
+                InputManager.InputAction.MainMenu.Confirm.performed -= Confirm;
+                InputManager.InputAction.MainMenu.Cancel.performed -= GoBack;
+
+                InputManager.InputAction.MainMenu.Disable();
             }
         }
 

@@ -42,8 +42,6 @@ namespace Kaede2.Input
             inputAction ??= new();
             ChangeInputDevice(defaultDevice);
 
-            inputAction.GeneralUI.Enable();
-
             InputUser.listenForUnpairedDeviceActivity = 1;
             InputUser.onUnpairedDeviceUsed += OnUnpairedDeviceUsed;
         }
