@@ -32,12 +32,21 @@ namespace Kaede2
         {
             InitialSetup();
 
+            InitializeCategorySelection();
+
+            yield return null;
+            yield return null;
+
+            yield return SceneTransition.Fade(0);
+        }
+
+        private void InitializeCategorySelection()
+        {
             if (SaveData.FavoriteScenarioNames.Count == 0)
             {
                 noFavoriteMessage.gameObject.SetActive(true);
                 categorySelectableGroup.transform.parent.gameObject.SetActive(false);
-                yield return SceneTransition.Fade(0);
-                yield break;
+                return;
             }
 
             noFavoriteMessage.gameObject.SetActive(false);
@@ -81,11 +90,6 @@ namespace Kaede2
             }
 
             categorySelectableGroup.Initialize();
-
-            yield return null;
-            yield return null;
-
-            yield return SceneTransition.Fade(0);
         }
 
         protected override void InitialSetup()
@@ -96,8 +100,12 @@ namespace Kaede2
 
         protected override void OnEnterEpisodeSelection(MasterScenarioInfo.IProvider provider)
         {
-            base.OnEnterEpisodeSelection(provider);
             categorySelectableGroup.transform.parent.gameObject.SetActive(false);
+        }
+
+        protected override void OnExitEpisodeSelection()
+        {
+            InitializeCategorySelection();
         }
 
         protected override bool AdditionalStoryFilter(MasterScenarioInfo.ScenarioInfo scenario)

@@ -292,6 +292,12 @@ namespace Kaede2.Scenario
 
             InputManager.InputAction?.Scenario.Disable();
 
+            if (backupLocale != null)
+            {
+                LocalizationManager.CurrentLocale = backupLocale;
+                this.Log($"Restored locale to {backupLocale.EnglishName}");
+            }
+
 #if UNITY_IOS
             UnityEngine.iOS.Device.hideHomeButton = false;
 #endif
@@ -395,12 +401,6 @@ namespace Kaede2.Scenario
                 // this.Log("Unfinished state saved");
             }
 
-            if (backupLocale != null)
-            {
-                LocalizationManager.CurrentLocale = backupLocale;
-                this.Log($"Restored locale to {backupLocale.EnglishName}");
-            }
-
             exitCallback?.Invoke();
         }
 
@@ -413,8 +413,8 @@ namespace Kaede2.Scenario
             yield return Play(scenarioName, scenarioLanguage, LoadSceneMode.Single, scenarioStateToBeRestored, exitCallback);
 #else
             // on other platforms the scene is loaded additively, so we need to unload the old one
-            yield return Play(scenarioName, scenarioLanguage, LoadSceneMode.Additive, scenarioStateToBeRestored, exitCallback);
             yield return SceneManager.UnloadSceneAsync(gameObject.scene);
+            yield return Play(scenarioName, scenarioLanguage, LoadSceneMode.Additive, scenarioStateToBeRestored, exitCallback);
 #endif
         }
 

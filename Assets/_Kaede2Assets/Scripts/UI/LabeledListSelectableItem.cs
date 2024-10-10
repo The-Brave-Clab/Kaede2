@@ -45,7 +45,6 @@ namespace Kaede2.UI
 
         private RectTransform rt;
         private Dictionary<TextMeshProUGUI, RectTransform> textRectTransforms;
-        private VerticalLayoutGroup layoutGroup;
         private LayoutGroup selectedLayoutGroup;
         private LayoutGroup notSelectedLayoutGroup;
 
@@ -86,7 +85,6 @@ namespace Kaede2.UI
             needRefresh = false;
 
             rt = GetComponent<RectTransform>();
-            layoutGroup = rt.parent.GetComponent<VerticalLayoutGroup>();
             selectedLayoutGroup = selectedParent.GetComponent<LayoutGroup>();
             notSelectedLayoutGroup = notSelectedParent.GetComponent<LayoutGroup>();
             textRectTransforms = new Dictionary<TextMeshProUGUI, RectTransform>();
@@ -110,6 +108,10 @@ namespace Kaede2.UI
         {
             // wait for layout to be calculated
             ForceUpdate();
+            
+            selectedLayoutGroup.SetLayoutHorizontal();
+            notSelectedLayoutGroup.SetLayoutHorizontal();
+
             yield return null;
             UpdateSafeArea();
 
@@ -144,6 +146,9 @@ namespace Kaede2.UI
             }
 
             ForceUpdate();
+            
+            selectedLayoutGroup.SetLayoutHorizontal();
+            notSelectedLayoutGroup.SetLayoutHorizontal();
         }
 
         protected override void Update()
@@ -286,10 +291,6 @@ namespace Kaede2.UI
 
         private void ForceUpdate()
         {
-            // force layout update
-            layoutGroup.SetLayoutVertical();
-            selectedLayoutGroup.SetLayoutHorizontal();
-            notSelectedLayoutGroup.SetLayoutHorizontal();
             // force text update
             mainText.UpdateFontAsset();
             if (mainLabel != null) mainLabel.UpdateFontAsset();

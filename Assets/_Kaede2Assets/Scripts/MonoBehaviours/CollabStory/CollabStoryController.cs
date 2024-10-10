@@ -113,6 +113,11 @@ namespace Kaede2
             collabContent.gameObject.SetActive(false);
         }
 
+        protected override void OnExitStorySelection()
+        {
+            collabContent.gameObject.SetActive(true);
+        }
+
         public void EnterCharacterVoiceCharacterSelection(ContentSubProvider provider)
         {
             CoroutineProxy.Start(EnterCharacterVoiceCharacterSelectionCoroutine(provider));

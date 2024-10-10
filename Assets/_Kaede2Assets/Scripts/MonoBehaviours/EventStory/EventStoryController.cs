@@ -79,6 +79,13 @@ namespace Kaede2
             }
         }
 
+        protected override void OnExitEpisodeSelection()
+        {
+            randomizedImageBackgroundCanvas.gameObject.SetActive(true);
+            birthdayTitle.gameObject.SetActive(false);
+            eventTitle.gameObject.SetActive(false);
+        }
+
         protected override void OnEpisodeItemSelected(MasterScenarioInfo.ScenarioInfo scenarioInfo)
         {
             string illust = GetCardIllustFromScenarioInfo(scenarioInfo);

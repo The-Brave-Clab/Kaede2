@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using Kaede2.UI.Framework;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Kaede2.UI
 {
@@ -15,6 +17,9 @@ namespace Kaede2.UI
 
         [SerializeField]
         private RectTransform contentGroup;
+
+        [SerializeField]
+        private LayoutGroup layoutGroup;
 
         private RectTransform highlightRT;
 
@@ -59,6 +64,8 @@ namespace Kaede2.UI
                 var targetPos = highlight.parent.InverseTransformPoint(worldPos);
 
                 highlightRT.anchoredPosition = Vector2.Lerp(startPos, targetPos, value);
+
+                layoutGroup.SetLayoutVertical();
             }));
 
             yield return sequence.WaitForCompletion();

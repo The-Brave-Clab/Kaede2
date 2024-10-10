@@ -50,9 +50,10 @@ namespace Kaede2.Localization
 
         public static CultureInfo CurrentLocale
         {
-            get => Instance.currentLocale;
+            get => Instance?.currentLocale;
             set
             {
+                if (Instance == null) return;
                 if (Equals(Instance.currentLocale, value)) return;
                 Instance.currentLocale = value;
                 Instance.onLocaleChanged?.Invoke(value);
