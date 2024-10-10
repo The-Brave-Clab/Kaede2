@@ -2,10 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Kaede2.Input;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
+using Kaede2.UI.Framework;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using CommonUtils = Kaede2.Utils.CommonUtils;
 
 namespace Kaede2
 {
@@ -32,6 +37,15 @@ namespace Kaede2
         [SerializeField]
         private AlbumExtraInfo albumExtraInfo;
 
+        [SerializeField]
+        private SelectableGroup selectableGroup;
+
+        [SerializeField]
+        private StoryCategorySelectable eventStoryItem;
+
+        [SerializeField]
+        private StoryCategorySelectable birthdayStoryItem;
+
         private IEnumerator Start()
         {
             IEnumerator WaitForCondition(Func<bool> condition)
@@ -53,6 +67,32 @@ namespace Kaede2
             InitialSetup();
 
             yield return SceneTransition.Fade(0);
+        }
+
+        private void OnEnable()
+        {
+            InputManager.InputAction.EventStory.Enable();
+
+            InputManager.InputAction.EventStory.Confirm.performed += Confirm;
+            InputManager.InputAction.EventStory.Cancel.performed += BackToMainScene;
+            InputManager.InputAction.EventStory.Up.performed += NavigateUp;
+            InputManager.InputAction.EventStory.Down.performed += NavigateDown;
+            InputManager.InputAction.EventStory.Left.performed += NavigateLeft;
+            InputManager.InputAction.EventStory.Right.performed += NavigateRight;
+        }
+
+        private void OnDisable()
+        {
+            if (InputManager.InputAction == null) return;
+
+            InputManager.InputAction.EventStory.Confirm.performed -= Confirm;
+            InputManager.InputAction.EventStory.Cancel.performed -= BackToMainScene;
+            InputManager.InputAction.EventStory.Up.performed -= NavigateUp;
+            InputManager.InputAction.EventStory.Down.performed -= NavigateDown;
+            InputManager.InputAction.EventStory.Left.performed -= NavigateLeft;
+            InputManager.InputAction.EventStory.Right.performed -= NavigateRight;
+
+            InputManager.InputAction.EventStory.Disable();
         }
 
         public void EnterEpisodeSelection(bool isBirthday)
@@ -112,6 +152,56 @@ namespace Kaede2
             }
 
             return result;
+        }
+
+        private void Confirm(InputAction.CallbackContext obj)
+        {
+            selectableGroup.Confirm();
+        }
+
+        private void BackToMainScene(InputAction.CallbackContext obj)
+        {
+            BackToMainScene();
+        }
+
+        public void BackToMainScene()
+        {
+            CommonUtils.LoadNextScene("MainMenuScene", LoadSceneMode.Single);
+        }
+
+        private void NavigateUp(InputAction.CallbackContext obj)
+        {
+            if (selectableGroup.SelectedIndex is 0 or 1) return; // when the first or second item is selected
+            if (selectableGroup.SelectedIndex != 2) // common up
+            {
+                selectableGroup.Previous();
+                return;
+            }
+
+            selectableGroup.Select(eventStoryItem.Activated ? eventStoryItem : birthdayStoryItem);
+        }
+
+        private void NavigateDown(InputAction.CallbackContext obj)
+        {
+            if (selectableGroup.SelectedIndex is 0 or 1)
+            {
+                selectableGroup.Select(2);
+                return;
+            }
+
+            selectableGroup.Next();
+        }
+
+        private void NavigateLeft(InputAction.CallbackContext obj)
+        {
+            if (selectableGroup.SelectedIndex != 1) return;
+            selectableGroup.Select(0);
+        }
+
+        private void NavigateRight(InputAction.CallbackContext obj)
+        {
+            if (selectableGroup.SelectedIndex != 0) return;
+            selectableGroup.Select(1);
         }
 
         private class EventStoryProvider : MasterScenarioInfo.IProvider
