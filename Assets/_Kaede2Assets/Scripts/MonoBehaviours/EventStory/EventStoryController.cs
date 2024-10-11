@@ -12,7 +12,7 @@ using UnityEngine.InputSystem;
 
 namespace Kaede2
 {
-    public class EventStoryController : StorySelectionSceneController
+    public class EventStoryController : StorySelectionSceneController, Kaede2InputAction.IEventStoryActions
     {
         [SerializeField]
         private RandomizeScatterImages randomizeScatterImages;
@@ -70,26 +70,14 @@ namespace Kaede2
         private void OnEnable()
         {
             InputManager.InputAction.EventStory.Enable();
-
-            InputManager.InputAction.EventStory.Confirm.performed += Confirm;
-            InputManager.InputAction.EventStory.Cancel.performed += BackToMainScene;
-            InputManager.InputAction.EventStory.Up.performed += NavigateUp;
-            InputManager.InputAction.EventStory.Down.performed += NavigateDown;
-            InputManager.InputAction.EventStory.Left.performed += NavigateLeft;
-            InputManager.InputAction.EventStory.Right.performed += NavigateRight;
+            InputManager.InputAction.EventStory.AddCallbacks(this);
         }
 
         private void OnDisable()
         {
             if (InputManager.InputAction == null) return;
 
-            InputManager.InputAction.EventStory.Confirm.performed -= Confirm;
-            InputManager.InputAction.EventStory.Cancel.performed -= BackToMainScene;
-            InputManager.InputAction.EventStory.Up.performed -= NavigateUp;
-            InputManager.InputAction.EventStory.Down.performed -= NavigateDown;
-            InputManager.InputAction.EventStory.Left.performed -= NavigateLeft;
-            InputManager.InputAction.EventStory.Right.performed -= NavigateRight;
-
+            InputManager.InputAction.EventStory.RemoveCallbacks(this);
             InputManager.InputAction.EventStory.Disable();
         }
 
@@ -152,51 +140,6 @@ namespace Kaede2
             return result;
         }
 
-        private void Confirm(InputAction.CallbackContext obj)
-        {
-            selectableGroup.Confirm();
-        }
-
-        private void BackToMainScene(InputAction.CallbackContext obj)
-        {
-            BackToMainScene();
-        }
-
-        private void NavigateUp(InputAction.CallbackContext obj)
-        {
-            if (selectableGroup.SelectedIndex is 0 or 1) return; // when the first or second item is selected
-            if (selectableGroup.SelectedIndex != 2) // common up
-            {
-                selectableGroup.Previous();
-                return;
-            }
-
-            selectableGroup.Select(eventStoryItem.Activated ? eventStoryItem : birthdayStoryItem);
-        }
-
-        private void NavigateDown(InputAction.CallbackContext obj)
-        {
-            if (selectableGroup.SelectedIndex is 0 or 1)
-            {
-                selectableGroup.Select(2);
-                return;
-            }
-
-            selectableGroup.Next();
-        }
-
-        private void NavigateLeft(InputAction.CallbackContext obj)
-        {
-            if (selectableGroup.SelectedIndex != 1) return;
-            selectableGroup.Select(0);
-        }
-
-        private void NavigateRight(InputAction.CallbackContext obj)
-        {
-            if (selectableGroup.SelectedIndex != 0) return;
-            selectableGroup.Select(1);
-        }
-
         private class EventStoryProvider : MasterScenarioInfo.IProvider
         {
             public bool IsBirthday { get; }
@@ -212,6 +155,63 @@ namespace Kaede2
                 return MasterScenarioInfo.Instance.Data
                     .Where(si => si.KindId == kindId);
             }
+        }
+
+        public void OnUp(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            if (selectableGroup.SelectedIndex is 0 or 1) return; // when the first or second item is selected
+            if (selectableGroup.SelectedIndex != 2) // common up
+            {
+                selectableGroup.Previous();
+                return;
+            }
+
+            selectableGroup.Select(eventStoryItem.Activated ? eventStoryItem : birthdayStoryItem);
+        }
+
+        public void OnDown(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            if (selectableGroup.SelectedIndex is 0 or 1)
+            {
+                selectableGroup.Select(2);
+                return;
+            }
+
+            selectableGroup.Next();
+        }
+
+        public void OnLeft(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            if (selectableGroup.SelectedIndex != 1) return;
+            selectableGroup.Select(0);
+        }
+
+        public void OnRight(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            if (selectableGroup.SelectedIndex != 0) return;
+            selectableGroup.Select(1);
+        }
+
+        public void OnConfirm(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            selectableGroup.Confirm();
+        }
+
+        public void OnCancel(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            BackToMainScene();
         }
     }
 

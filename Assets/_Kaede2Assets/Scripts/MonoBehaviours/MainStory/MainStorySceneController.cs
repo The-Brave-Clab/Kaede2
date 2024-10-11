@@ -13,7 +13,7 @@ using UnityEngine.UI;
 
 namespace Kaede2
 {
-    public class MainStorySceneController : StorySelectionSceneController
+    public class MainStorySceneController : StorySelectionSceneController, Kaede2InputAction.IMainStoryActions
     {
         [SerializeField]
         private string backgroundSpriteName;
@@ -68,47 +68,19 @@ namespace Kaede2
         {
             if (backgroundHandle.IsValid())
                 Addressables.Release(backgroundHandle);
-
-            if (InputManager.InputAction != null)
-            {
-                InputManager.InputAction.MainStory.Cancel.performed -= BackToMainScene;
-                InputManager.InputAction.MainStory.Down.performed -= Next;
-                InputManager.InputAction.MainStory.Up.performed -= Previous;
-                InputManager.InputAction.MainStory.LeftShoulder.performed -= PreviousChapter;
-                InputManager.InputAction.MainStory.RightShoulder.performed -= NextChapter;
-                InputManager.InputAction.MainStory.Confirm.performed -= Confirm;
-    
-                InputManager.InputAction.MainStory.Disable();
-            }
         }
 
         private void OnEnable()
         {
             InputManager.InputAction.MainStory.Enable();
-
-            InputManager.InputAction.MainStory.Cancel.performed += BackToMainScene;
-            InputManager.InputAction.MainStory.Down.performed += Next;
-            InputManager.InputAction.MainStory.Up.performed += Previous;
-            InputManager.InputAction.MainStory.LeftShoulder.performed += PreviousChapter;
-            InputManager.InputAction.MainStory.RightShoulder.performed += NextChapter;
-            InputManager.InputAction.MainStory.Confirm.performed += Confirm;
-            chapterSelectable.onSelected.AddListener(ChapterSelectableSelected);
-            chapterSelectable.onDeselected.AddListener(ChapterSelectableDeselected);
+            InputManager.InputAction.MainStory.AddCallbacks(this);
         }
 
         private void OnDisable()
         {
             if (InputManager.InputAction == null) return;
 
-            InputManager.InputAction.MainStory.Cancel.performed -= BackToMainScene;
-            InputManager.InputAction.MainStory.Down.performed -= Next;
-            InputManager.InputAction.MainStory.Up.performed -= Previous;
-            InputManager.InputAction.MainStory.LeftShoulder.performed -= PreviousChapter;
-            InputManager.InputAction.MainStory.RightShoulder.performed -= NextChapter;
-            InputManager.InputAction.MainStory.Confirm.performed -= Confirm;
-            chapterSelectable.onSelected.RemoveListener(ChapterSelectableSelected);
-            chapterSelectable.onDeselected.RemoveListener(ChapterSelectableDeselected);
-
+            InputManager.InputAction.MainStory.RemoveCallbacks(this);
             InputManager.InputAction.MainStory.Disable();
         }
 
@@ -129,48 +101,62 @@ namespace Kaede2
             subOverlay.gameObject.SetActive(false);
         }
 
-        private void BackToMainScene(InputAction.CallbackContext obj)
+        public void OnUp(InputAction.CallbackContext context)
         {
-            BackToMainScene();
-        }
+            if (!context.performed) return;
 
-        private void Next(InputAction.CallbackContext obj)
-        {
-            selectableGroup.Next();
-        }
-
-        private void Previous(InputAction.CallbackContext obj)
-        {
             selectableGroup.Previous();
         }
 
-        private void NextChapter(InputAction.CallbackContext obj)
+        public void OnDown(InputAction.CallbackContext context)
         {
-            chapterSelector.SelectNext();
+            if (!context.performed) return;
+
+            selectableGroup.Next();
         }
 
-        private void PreviousChapter(InputAction.CallbackContext obj)
+        public void OnLeft(InputAction.CallbackContext context)
         {
+            if (!context.performed) return;
+
+            if (!chapterSelectable.selected) return;
             chapterSelector.SelectPrevious();
         }
 
-        private void Confirm(InputAction.CallbackContext obj)
+        public void OnRight(InputAction.CallbackContext context)
         {
+            if (!context.performed) return;
+
+            if (!chapterSelectable.selected) return;
+            chapterSelector.SelectNext();
+        }
+
+        public void OnLeftShoulder(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            chapterSelector.SelectPrevious();
+        }
+
+        public void OnRightShoulder(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            chapterSelector.SelectNext();
+        }
+
+        public void OnConfirm(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
             selectableGroup.Confirm();
         }
 
-        private void ChapterSelectableSelected()
+        public void OnCancel(InputAction.CallbackContext context)
         {
-            InputManager.InputAction.MainStory.Left.performed += PreviousChapter;
-            InputManager.InputAction.MainStory.Right.performed += NextChapter;
-        }
+            if (!context.performed) return;
 
-        private void ChapterSelectableDeselected()
-        {
-            if (InputManager.InputAction == null) return;
-
-            InputManager.InputAction.MainStory.Left.performed -= PreviousChapter;
-            InputManager.InputAction.MainStory.Right.performed -= NextChapter;
+            BackToMainScene();
         }
     }
 }

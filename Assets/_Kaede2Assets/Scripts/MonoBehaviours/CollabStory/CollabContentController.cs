@@ -12,7 +12,7 @@ using UnityEngine.UI;
 
 namespace Kaede2
 {
-    public class CollabContentController : StoryCategorySelectableGroup
+    public class CollabContentController : StoryCategorySelectableGroup, Kaede2InputAction.ICollabStoryContentActions
     {
         [SerializeField]
         private InterfaceTitle interfaceTitle;
@@ -41,69 +41,15 @@ namespace Kaede2
         private void OnEnable()
         {
             InputManager.InputAction.CollabStoryContent.Enable();
-
-            InputManager.InputAction.CollabStoryContent.Confirm.performed += Confirm;
-            InputManager.InputAction.CollabStoryContent.Cancel.performed += BackToStoryController;
-            InputManager.InputAction.CollabStoryContent.Up.performed += NavigateUp;
-            InputManager.InputAction.CollabStoryContent.Down.performed += NavigateDown;
-            InputManager.InputAction.CollabStoryContent.Left.performed += NavigateLeft;
-            InputManager.InputAction.CollabStoryContent.Right.performed += NavigateRight;
+            InputManager.InputAction.CollabStoryContent.AddCallbacks(this);
         }
 
         private void OnDisable()
         {
             if (InputManager.InputAction == null) return;
 
-            InputManager.InputAction.CollabStoryContent.Confirm.performed -= Confirm;
-            InputManager.InputAction.CollabStoryContent.Cancel.performed -= BackToStoryController;
-            InputManager.InputAction.CollabStoryContent.Up.performed -= NavigateUp;
-            InputManager.InputAction.CollabStoryContent.Down.performed -= NavigateDown;
-            InputManager.InputAction.CollabStoryContent.Left.performed -= NavigateLeft;
-            InputManager.InputAction.CollabStoryContent.Right.performed -= NavigateRight;
-
+            InputManager.InputAction.CollabStoryContent.RemoveCallbacks(this);
             InputManager.InputAction.CollabStoryContent.Disable();
-        }
-
-        private void Confirm(InputAction.CallbackContext obj)
-        {
-            Confirm();
-        }
-
-        private void BackToStoryController(InputAction.CallbackContext obj)
-        {
-            storyController.ExitCollabContent();
-        }
-
-        private void NavigateUp(InputAction.CallbackContext obj)
-        {
-            if (selectedIndex % 2 != 1) return;
-            var targetIndex = selectedIndex - 1;
-            if (!items[targetIndex].gameObject.activeSelf) return;
-            Select(selectedIndex - 1);
-        }
-
-        private void NavigateDown(InputAction.CallbackContext obj)
-        {
-            if (selectedIndex % 2 != 0) return;
-            var targetIndex = selectedIndex + 1;
-            if (!items[targetIndex].gameObject.activeSelf) return;
-            Select(selectedIndex + 1);
-        }
-
-        private void NavigateLeft(InputAction.CallbackContext obj)
-        {
-            if (selectedIndex < 2) return;
-            var targetIndex = selectedIndex - 2;
-            if (!items[targetIndex].gameObject.activeSelf) return;
-            Select(selectedIndex - 2);
-        }
-
-        private void NavigateRight(InputAction.CallbackContext obj)
-        {
-            if (selectedIndex >= 2) return;
-            var targetIndex = selectedIndex + 2;
-            if (!items[targetIndex].gameObject.activeSelf) return;
-            Select(selectedIndex + 2);
         }
 
         public IEnumerator Initialize(CollabImageProvider provider)
@@ -147,6 +93,60 @@ namespace Kaede2
         public void SetAdditionalTextOutlineColor(Color color)
         {
             storyTitleOutline.color = color;
+        }
+
+        public void OnUp(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            if (selectedIndex % 2 != 1) return;
+            var targetIndex = selectedIndex - 1;
+            if (!items[targetIndex].gameObject.activeSelf) return;
+            Select(selectedIndex - 1);
+        }
+
+        public void OnDown(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            if (selectedIndex % 2 != 0) return;
+            var targetIndex = selectedIndex + 1;
+            if (!items[targetIndex].gameObject.activeSelf) return;
+            Select(selectedIndex + 1);
+        }
+
+        public void OnLeft(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            if (selectedIndex < 2) return;
+            var targetIndex = selectedIndex - 2;
+            if (!items[targetIndex].gameObject.activeSelf) return;
+            Select(selectedIndex - 2);
+        }
+
+        public void OnRight(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            if (selectedIndex >= 2) return;
+            var targetIndex = selectedIndex + 2;
+            if (!items[targetIndex].gameObject.activeSelf) return;
+            Select(selectedIndex + 2);
+        }
+
+        public void OnConfirm(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            Confirm();
+        }
+
+        public void OnCancel(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            storyController.ExitCollabContent();
         }
     }
 }

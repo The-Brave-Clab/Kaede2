@@ -38,9 +38,14 @@ namespace Kaede2
 
         public CharacterWindow CharacterWindow => characterWindow;
 
+        private EpisodeSelectionControl episodeSelectionControl;
+        private StorySelectionControl storySelectionControl;
+
         protected virtual void Awake()
         {
             storySelectionItems = new List<StorySelectionItem>();
+            episodeSelectionControl = new(this);
+            storySelectionControl = new(this);
         }
 
         protected virtual void InitialSetup()
@@ -124,7 +129,7 @@ namespace Kaede2
             yield return SceneTransition.Fade(0);
 
             if (episodeSelectableGroup != null)
-                EnableEpisodeSelectionControl();
+                episodeSelectionControl.Enable();
         }
 
         public void ExitEpisodeSelection()
@@ -140,7 +145,7 @@ namespace Kaede2
             {
                 episodeSelectableGroup.Clear();
                 episodeSelectableGroup.transform.parent.gameObject.SetActive(false);
-                DisableEpisodeSelectionControl();
+                episodeSelectionControl.Disable();
             }
             storySelectableGroup.transform.parent.gameObject.SetActive(false);
             OnExitEpisodeSelection();
@@ -158,7 +163,7 @@ namespace Kaede2
         private IEnumerator EnterStorySelectionCoroutine(MasterScenarioInfo.IProvider provider, string titleLabel, string titleText)
         {
             if (episodeSelectableGroup != null)
-                DisableEpisodeSelectionControl();
+                episodeSelectionControl.Disable();
 
             yield return SceneTransition.Fade(1);
 
@@ -194,7 +199,7 @@ namespace Kaede2
 
             yield return SceneTransition.Fade(0);
 
-            EnableStorySelectionControl();
+            storySelectionControl.Enable();
         }
 
         public void ExitStorySelection()
@@ -204,7 +209,7 @@ namespace Kaede2
 
         private IEnumerator ExitStorySelectionCoroutine()
         {
-            DisableStorySelectionControl();
+            storySelectionControl.Disable();
     
             yield return SceneTransition.Fade(1);
 
@@ -219,7 +224,7 @@ namespace Kaede2
             yield return SceneTransition.Fade(0);
 
             if (episodeSelectableGroup != null)
-                EnableEpisodeSelectionControl();
+                episodeSelectionControl.Enable();
         }
 
         protected virtual bool AdditionalStoryFilter(MasterScenarioInfo.ScenarioInfo scenario)
@@ -229,7 +234,7 @@ namespace Kaede2
 
         public IEnumerator EnterScenario(MasterScenarioInfo.ScenarioInfo scenario, CultureInfo language)
         {
-            DisableStorySelectionControl();
+            storySelectionControl.Disable();
             yield return SceneTransition.Fade(1);
 
             sceneRoot.SetActive(false);
@@ -262,94 +267,7 @@ namespace Kaede2
 
             yield return SceneTransition.Fade(0);
 
-            EnableStorySelectionControl();
-        }
-
-        private void EnableEpisodeSelectionControl()
-        {
-            InputManager.InputAction.StoryEpisodeSelection.Enable();
-
-            InputManager.InputAction.StoryEpisodeSelection.Up.performed += PreviousEpisode;
-            InputManager.InputAction.StoryEpisodeSelection.Down.performed += NextEpisode;
-            InputManager.InputAction.StoryEpisodeSelection.Confirm.performed += ConfirmEpisode;
-            InputManager.InputAction.StoryEpisodeSelection.Cancel.performed += ExitEpisode;
-        }
-
-        private void DisableEpisodeSelectionControl()
-        {
-            if (InputManager.InputAction == null) return;
-
-            InputManager.InputAction.StoryEpisodeSelection.Up.performed -= PreviousEpisode;
-            InputManager.InputAction.StoryEpisodeSelection.Down.performed -= NextEpisode;
-            InputManager.InputAction.StoryEpisodeSelection.Confirm.performed -= ConfirmEpisode;
-            InputManager.InputAction.StoryEpisodeSelection.Cancel.performed -= ExitEpisode;
-
-            InputManager.InputAction.StoryEpisodeSelection.Disable();
-        }
-
-        private void PreviousEpisode(InputAction.CallbackContext obj)
-        {
-            if (episodeSelectableGroup == null) return;
-            episodeSelectableGroup.Previous();
-        }
-
-        private void NextEpisode(InputAction.CallbackContext obj)
-        {
-            if (episodeSelectableGroup == null) return;
-            episodeSelectableGroup.Next();
-        }
-
-        private void ConfirmEpisode(InputAction.CallbackContext obj)
-        {
-            if (episodeSelectableGroup == null) return;
-            episodeSelectableGroup.Confirm();
-        }
-
-        private void ExitEpisode(InputAction.CallbackContext obj)
-        {
-            ExitEpisodeSelection();
-        }
-
-        private void EnableStorySelectionControl()
-        {
-            InputManager.InputAction.StorySelection.Enable();
-
-            InputManager.InputAction.StorySelection.Up.performed += PreviousStory;
-            InputManager.InputAction.StorySelection.Down.performed += NextStory;
-            InputManager.InputAction.StorySelection.Confirm.performed += ConfirmStory;
-            InputManager.InputAction.StorySelection.Cancel.performed += ExitStory;
-        }
-
-        private void DisableStorySelectionControl()
-        {
-            if (InputManager.InputAction == null) return;
-
-            InputManager.InputAction.StorySelection.Up.performed -= PreviousStory;
-            InputManager.InputAction.StorySelection.Down.performed -= NextStory;
-            InputManager.InputAction.StorySelection.Confirm.performed -= ConfirmStory;
-            InputManager.InputAction.StorySelection.Cancel.performed -= ExitStory;
-
-            InputManager.InputAction.StorySelection.Disable();
-        }
-
-        private void PreviousStory(InputAction.CallbackContext obj)
-        {
-            storySelectableGroup.Previous();
-        }
-
-        private void NextStory(InputAction.CallbackContext obj)
-        {
-            storySelectableGroup.Next();
-        }
-
-        private void ConfirmStory(InputAction.CallbackContext obj)
-        {
-            storySelectableGroup.Confirm();
-        }
-
-        private void ExitStory(InputAction.CallbackContext obj)
-        {
-            ExitStorySelection();
+            storySelectionControl.Enable();
         }
 
         public void BackToMainScene()
@@ -377,7 +295,7 @@ namespace Kaede2
             CommonUtils.LoadNextScene("FavoriteStoryScene", LoadSceneMode.Single);
         }
 
-        public class SameEpisodeProvider : MasterScenarioInfo.IProvider
+        private class SameEpisodeProvider : MasterScenarioInfo.IProvider
         {
             private MasterScenarioInfo.ScenarioInfo scenarioInfo;
 
@@ -390,6 +308,113 @@ namespace Kaede2
             {
                 return MasterScenarioInfo.Instance.Data
                     .Where(si => si.EpisodeId == scenarioInfo.EpisodeId);
+            }
+        }
+
+        private class EpisodeSelectionControl : Kaede2InputAction.IStoryEpisodeSelectionActions
+        {
+            private readonly StorySelectionSceneController self;
+
+            public EpisodeSelectionControl(StorySelectionSceneController self)
+            {
+                this.self = self;
+            }
+
+            public void Enable()
+            {
+                InputManager.InputAction.StoryEpisodeSelection.Enable();
+                InputManager.InputAction.StoryEpisodeSelection.AddCallbacks(this);
+            }
+
+            public void Disable()
+            {
+                if (InputManager.InputAction == null) return;
+
+                InputManager.InputAction.StoryEpisodeSelection.RemoveCallbacks(this);
+                InputManager.InputAction.StoryEpisodeSelection.Disable();
+            }
+
+            public void OnUp(InputAction.CallbackContext context)
+            {
+                if (!context.performed) return;
+
+                if (self.episodeSelectableGroup == null) return;
+                self.episodeSelectableGroup.Previous();
+            }
+
+            public void OnDown(InputAction.CallbackContext context)
+            {
+                if (!context.performed) return;
+
+                if (self.episodeSelectableGroup == null) return;
+                self.episodeSelectableGroup.Next();
+            }
+
+            public void OnConfirm(InputAction.CallbackContext context)
+            {
+                if (!context.performed) return;
+
+                if (self.episodeSelectableGroup == null) return;
+                self.episodeSelectableGroup.Confirm();
+            }
+
+            public void OnCancel(InputAction.CallbackContext context)
+            {
+                if (!context.performed) return;
+
+                self.ExitEpisodeSelection();
+            }
+        }
+
+        private class StorySelectionControl : Kaede2InputAction.IStorySelectionActions
+        {
+            private readonly StorySelectionSceneController self;
+
+            public StorySelectionControl(StorySelectionSceneController self)
+            {
+                this.self = self;
+            }
+
+            public void Enable()
+            {
+                InputManager.InputAction.StorySelection.Enable();
+                InputManager.InputAction.StorySelection.AddCallbacks(this);
+            }
+
+            public void Disable()
+            {
+                if (InputManager.InputAction == null) return;
+
+                InputManager.InputAction.StorySelection.RemoveCallbacks(this);
+                InputManager.InputAction.StorySelection.Disable();
+            }
+
+            public void OnUp(InputAction.CallbackContext context)
+            {
+                if (!context.performed) return;
+
+                self.storySelectableGroup.Previous();
+            }
+
+            public void OnDown(InputAction.CallbackContext context)
+            {
+                if (!context.performed) return;
+
+                self.storySelectableGroup.Next();
+            }
+
+            public void OnConfirm(InputAction.CallbackContext context)
+            {
+                if (!context.performed) return;
+
+                self.storySelectableGroup.Confirm();
+            }
+
+            public void OnCancel(InputAction.CallbackContext context)
+            {
+                if (!context.performed) return;
+
+                self.ExitStorySelection();
             }
         }
     }

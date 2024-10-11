@@ -7,13 +7,14 @@ using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using Kaede2.UI.Framework;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using CommonUtils = Kaede2.Utils.CommonUtils;
 
 namespace Kaede2
 {
-    public class TitleScreen : MonoBehaviour, IThemeChangeObserver
+    public class TitleScreen : MonoBehaviour, IThemeChangeObserver, Kaede2InputAction.ITitleScreenActions
     {
         [SerializeField]
         private Image background;
@@ -26,6 +27,7 @@ namespace Kaede2
             OnThemeChange(Theme.Current);
 
             InputManager.InputAction.TitleScreen.Enable();
+            InputManager.InputAction.TitleScreen.AddCallbacks(this);
         }
 
         private IEnumerator Start()
@@ -33,20 +35,11 @@ namespace Kaede2
             yield return SceneTransition.Fade(0);
         }
 
-        private void Update()
-        {
-            if (InputManager.InputAction.TitleScreen.Down.triggered)
-                selectableGroup.Next();
-            if (InputManager.InputAction.TitleScreen.Up.triggered)
-                selectableGroup.Previous();
-            if (InputManager.InputAction.TitleScreen.Confirm.triggered)
-                selectableGroup.SelectedItem.Confirm();
-        }
-
         private void OnDestroy()
         {
             if (InputManager.InputAction != null)
             {
+                InputManager.InputAction.TitleScreen.RemoveCallbacks(this);
                 InputManager.InputAction.TitleScreen.Disable();
             }
         }
@@ -69,6 +62,27 @@ namespace Kaede2
         public void OnThemeChange(Theme.VolumeTheme theme)
         {
             background.sprite = Theme.Current.titleBackground;
+        }
+
+        public void OnUp(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            selectableGroup.Previous();
+        }
+
+        public void OnDown(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            selectableGroup.Next();
+        }
+
+        public void OnConfirm(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            selectableGroup.SelectedItem.Confirm();
         }
     }
 }

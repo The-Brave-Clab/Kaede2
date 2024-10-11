@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using DG.Tweening;
 using Kaede2.Input;
@@ -9,7 +8,7 @@ using UnityEngine.UI;
 
 namespace Kaede2
 {
-    public class AlbumItemViewCanvas : MonoBehaviour
+    public class AlbumItemViewCanvas : MonoBehaviour, Kaede2InputAction.IAlbumViewActions
     {
         private static AlbumItemViewCanvas instance;
         public static AlbumItemViewCanvas Instance => instance;
@@ -79,15 +78,7 @@ namespace Kaede2
 
             ResetDragStatus();
 
-            InputManager.InputAction.AlbumView.PrimaryPointerContact.started += StartPointerHandler;
-            InputManager.InputAction.AlbumView.PrimaryPointerContact.canceled += EndPointerHandler;
-            InputManager.InputAction.AlbumView.SecondaryPointerContact.started += StartPointerHandler;
-            InputManager.InputAction.AlbumView.SecondaryPointerContact.canceled += EndPointerHandler;
-            InputManager.InputAction.AlbumView.ToggleUI.performed += ToggleUI;
-            InputManager.InputAction.AlbumView.Next.performed += Next;
-            InputManager.InputAction.AlbumView.Previous.performed += Previous;
-            InputManager.InputAction.AlbumView.Back.performed += Back;
-
+            InputManager.InputAction.AlbumView.SetCallbacks(this);
             InputManager.InputAction.AlbumView.Save.Disable();
         }
 
@@ -97,15 +88,7 @@ namespace Kaede2
 
             if (InputManager.InputAction != null)
             {
-                InputManager.InputAction.AlbumView.PrimaryPointerContact.started -= StartPointerHandler;
-                InputManager.InputAction.AlbumView.PrimaryPointerContact.canceled -= EndPointerHandler;
-                InputManager.InputAction.AlbumView.SecondaryPointerContact.started -= StartPointerHandler;
-                InputManager.InputAction.AlbumView.SecondaryPointerContact.canceled -= EndPointerHandler;
-                InputManager.InputAction.AlbumView.ToggleUI.performed -= ToggleUI;
-                InputManager.InputAction.AlbumView.Next.performed -= Next;
-                InputManager.InputAction.AlbumView.Previous.performed -= Previous;
-                InputManager.InputAction.AlbumView.Back.performed -= Back;
-
+                InputManager.InputAction.AlbumView.RemoveCallbacks(this);
                 InputManager.InputAction.AlbumView.Save.Disable();
             }
         }
@@ -715,59 +698,6 @@ namespace Kaede2
             return null;
         }
 
-        private void StartPointerHandler(InputAction.CallbackContext ctx)
-        {
-            InputAction pointerAction = GetPointerActionFromPointerContactAction(ctx);
-
-            if (primaryPointerStatus.Action == null)
-            {
-                primaryPointerStatus.SetAction(pointerAction);
-            }
-            else if (secondaryPointerStatus.Action == null)
-            {
-                secondaryPointerStatus.SetAction(pointerAction);
-            }
-
-            int pointerCount = 0;
-            if (primaryPointerStatus.Valid) ++pointerCount;
-            if (secondaryPointerStatus.Valid) ++pointerCount;
-
-            if (pointerCount == 1)
-            {
-                StartPrimaryPointerHandler();
-            }
-            else if (pointerCount == 2)
-            {
-                StartSecondaryPointerHandler();
-            }
-        }
-
-        private void EndPointerHandler(InputAction.CallbackContext ctx)
-        {
-            var pointerAction = GetPointerActionFromPointerContactAction(ctx);
-
-            int pointerCount = 0;
-            if (primaryPointerStatus.Valid) ++pointerCount;
-            if (secondaryPointerStatus.Valid) ++pointerCount;
-
-            if (pointerCount == 2)
-            {
-                EndSecondaryPointerHandler();
-                // if we ended the first pointer, we need to treat the second pointer as the first pointer
-                if (primaryPointerStatus.Action == pointerAction)
-                {
-                    primaryPointerStatus = secondaryPointerStatus;
-                }
-
-                secondaryPointerStatus = new(this);
-            }
-            else if (pointerCount == 1)
-            {
-                EndPrimaryPointerHandler();
-                primaryPointerStatus = new(this);
-            }
-        }
-
         private void StartPrimaryPointerHandler()
         {
             primaryPointerStatus.Update();
@@ -974,23 +904,111 @@ namespace Kaede2
             SaveTexture.Save(instance.current.Item.AlbumInfo.ViewName, instance.current.Image.texture);
         }
 
-        public void ToggleUI(InputAction.CallbackContext ctx)
+        private void StartPointerHandler(InputAction.CallbackContext ctx)
         {
-            ToggleUI();
+            InputAction pointerAction = GetPointerActionFromPointerContactAction(ctx);
+
+            if (primaryPointerStatus.Action == null)
+            {
+                primaryPointerStatus.SetAction(pointerAction);
+            }
+            else if (secondaryPointerStatus.Action == null)
+            {
+                secondaryPointerStatus.SetAction(pointerAction);
+            }
+
+            int pointerCount = 0;
+            if (primaryPointerStatus.Valid) ++pointerCount;
+            if (secondaryPointerStatus.Valid) ++pointerCount;
+
+            if (pointerCount == 1)
+            {
+                StartPrimaryPointerHandler();
+            }
+            else if (pointerCount == 2)
+            {
+                StartSecondaryPointerHandler();
+            }
         }
 
-        private void Next(InputAction.CallbackContext ctx)
+        private void EndPointerHandler(InputAction.CallbackContext ctx)
         {
+            var pointerAction = GetPointerActionFromPointerContactAction(ctx);
+
+            int pointerCount = 0;
+            if (primaryPointerStatus.Valid) ++pointerCount;
+            if (secondaryPointerStatus.Valid) ++pointerCount;
+
+            if (pointerCount == 2)
+            {
+                EndSecondaryPointerHandler();
+                // if we ended the first pointer, we need to treat the second pointer as the first pointer
+                if (primaryPointerStatus.Action == pointerAction)
+                {
+                    primaryPointerStatus = secondaryPointerStatus;
+                }
+
+                secondaryPointerStatus = new(this);
+            }
+            else if (pointerCount == 1)
+            {
+                EndPrimaryPointerHandler();
+                primaryPointerStatus = new(this);
+            }
+        }
+
+        public void OnPrimaryPointer(InputAction.CallbackContext context) { }
+
+        public void OnSecondaryPointer(InputAction.CallbackContext context) { }
+
+        public void OnPrimaryPointerContact(InputAction.CallbackContext context)
+        {
+            if (context.started)
+                StartPointerHandler(context);
+            else if (context.canceled)
+                EndPointerHandler(context);
+        }
+
+        public void OnSecondaryPointerContact(InputAction.CallbackContext context)
+        {
+            if (context.started)
+                StartPointerHandler(context);
+            else if (context.canceled)
+                EndPointerHandler(context);
+        }
+
+        public void OnNext(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
             SetNext(true);
         }
 
-        private void Previous(InputAction.CallbackContext ctx)
+        public void OnPrevious(InputAction.CallbackContext context)
         {
+            if (!context.performed) return;
+
             SetNext(false);
         }
 
-        private void Back(InputAction.CallbackContext ctx)
+        public void OnToggleUI(InputAction.CallbackContext context)
         {
+            if (!context.performed) return;
+
+            ToggleUI();
+        }
+
+        public void OnSave(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            SaveCurrent();
+        }
+
+        public void OnBack(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
             Exit();
         }
     }

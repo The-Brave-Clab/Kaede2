@@ -14,7 +14,7 @@ using UnityEngine.InputSystem;
 
 namespace Kaede2
 {
-    public class CollabStoryController : StorySelectionSceneController
+    public class CollabStoryController : StorySelectionSceneController, Kaede2InputAction.ICollabStoryActions
     {
         [SerializeField]
         private RandomizeScatterImages randomizeScatterImages;
@@ -69,26 +69,14 @@ namespace Kaede2
         private void OnEnable()
         {
             InputManager.InputAction.CollabStory.Enable();
-
-            InputManager.InputAction.CollabStory.Confirm.performed += Confirm;
-            InputManager.InputAction.CollabStory.Cancel.performed += BackToMainScene;
-            InputManager.InputAction.CollabStory.Up.performed += NavigateUp;
-            InputManager.InputAction.CollabStory.Down.performed += NavigateDown;
-            InputManager.InputAction.CollabStory.Left.performed += NavigateLeft;
-            InputManager.InputAction.CollabStory.Right.performed += NavigateRight;
+            InputManager.InputAction.CollabStory.AddCallbacks(this);
         }
 
         private void OnDisable()
         {
             if (InputManager.InputAction == null) return;
 
-            InputManager.InputAction.CollabStory.Confirm.performed -= Confirm;
-            InputManager.InputAction.CollabStory.Cancel.performed -= BackToMainScene;
-            InputManager.InputAction.CollabStory.Up.performed -= NavigateUp;
-            InputManager.InputAction.CollabStory.Down.performed -= NavigateDown;
-            InputManager.InputAction.CollabStory.Left.performed -= NavigateLeft;
-            InputManager.InputAction.CollabStory.Right.performed -= NavigateRight;
-
+            InputManager.InputAction.CollabStory.RemoveCallbacks(this);
             InputManager.InputAction.CollabStory.Disable();
         }
 
@@ -243,48 +231,6 @@ namespace Kaede2
             selectionCanvas.gameObject.SetActive(false);
         }
 
-        private void Confirm(InputAction.CallbackContext obj)
-        {
-            selectableGroup.SelectedItem.Confirm();
-        }
-
-        private void BackToMainScene(InputAction.CallbackContext obj)
-        {
-            BackToMainScene();
-        }
-
-        private void NavigateUp(InputAction.CallbackContext obj)
-        {
-            if (selectableGroup.SelectedIndex == storyCategorySelectables.Length)
-                selectableGroup.Select(storyCategorySelectables.FirstOrDefault(s => s.Activated));
-            else
-                selectableGroup.Previous();
-        }
-
-        private void NavigateDown(InputAction.CallbackContext obj)
-        {
-            if (storyCategorySelectables.Contains(selectableGroup.SelectedItem))
-                selectableGroup.Select(storyCategorySelectables.Length);
-            else
-                selectableGroup.Next();
-        }
-
-        private void NavigateLeft(InputAction.CallbackContext obj)
-        {
-            StoryCategorySelectable scs = selectableGroup.SelectedItem as StoryCategorySelectable;
-            if (scs == null) return;
-            if (!storyCategorySelectables.Contains(scs)) return;
-            selectableGroup.Select(Mathf.Clamp(Array.IndexOf(storyCategorySelectables, scs) - 1, 0, storyCategorySelectables.Length - 1));
-        }
-
-        private void NavigateRight(InputAction.CallbackContext obj)
-        {
-            StoryCategorySelectable scs = selectableGroup.SelectedItem as StoryCategorySelectable;
-            if (scs == null) return;
-            if (!storyCategorySelectables.Contains(scs)) return;
-            selectableGroup.Select(Mathf.Clamp(Array.IndexOf(storyCategorySelectables, scs) + 1, 0, storyCategorySelectables.Length - 1));
-        }
-
         private class CollabStoryProvider : MasterScenarioInfo.IProvider
         {
             private readonly MasterCollabInfo.CollabType collabType;
@@ -312,6 +258,60 @@ namespace Kaede2
                 this.LogError($"Collab info not found for {collabType:G}");
                 return Array.Empty<MasterScenarioInfo.ScenarioInfo>();
             }
+        }
+
+        public void OnUp(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            if (selectableGroup.SelectedIndex == storyCategorySelectables.Length)
+                selectableGroup.Select(storyCategorySelectables.FirstOrDefault(s => s.Activated));
+            else
+                selectableGroup.Previous();
+        }
+
+        public void OnDown(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            if (storyCategorySelectables.Contains(selectableGroup.SelectedItem))
+                selectableGroup.Select(storyCategorySelectables.Length);
+            else
+                selectableGroup.Next();
+        }
+
+        public void OnLeft(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            StoryCategorySelectable scs = selectableGroup.SelectedItem as StoryCategorySelectable;
+            if (scs == null) return;
+            if (!storyCategorySelectables.Contains(scs)) return;
+            selectableGroup.Select(Mathf.Clamp(Array.IndexOf(storyCategorySelectables, scs) - 1, 0, storyCategorySelectables.Length - 1));
+        }
+
+        public void OnRight(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            StoryCategorySelectable scs = selectableGroup.SelectedItem as StoryCategorySelectable;
+            if (scs == null) return;
+            if (!storyCategorySelectables.Contains(scs)) return;
+            selectableGroup.Select(Mathf.Clamp(Array.IndexOf(storyCategorySelectables, scs) + 1, 0, storyCategorySelectables.Length - 1));
+        }
+
+        public void OnConfirm(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            selectableGroup.SelectedItem.Confirm();
+        }
+
+        public void OnCancel(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+    
+            BackToMainScene();
         }
     }
 

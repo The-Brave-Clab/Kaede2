@@ -17,7 +17,7 @@ namespace Kaede2
 {
     [RequireComponent(typeof(RectTransform))]
     [ExecuteAlways]
-    public class MainMenuController : SelectableGroup, IThemeChangeObserver, IPointerClickHandler
+    public class MainMenuController : SelectableGroup, IThemeChangeObserver, IPointerClickHandler, Kaede2InputAction.IMainMenuActions
     {
         [SerializeField]
         private Vector2 size;
@@ -84,11 +84,7 @@ namespace Kaede2
             if (!Application.isPlaying) return;
 
             InputManager.InputAction.MainMenu.Enable();
-
-            InputManager.InputAction.MainMenu.Up.performed += Previous;
-            InputManager.InputAction.MainMenu.Down.performed += Next;
-            InputManager.InputAction.MainMenu.Confirm.performed += Confirm;
-            InputManager.InputAction.MainMenu.Cancel.performed += GoBack;
+            InputManager.InputAction.MainMenu.AddCallbacks(this);
         }
 
         private void OnDisable()
@@ -96,11 +92,7 @@ namespace Kaede2
             if (!Application.isPlaying) return;
             if (InputManager.InputAction != null)
             {
-                InputManager.InputAction.MainMenu.Up.performed -= Previous;
-                InputManager.InputAction.MainMenu.Down.performed -= Next;
-                InputManager.InputAction.MainMenu.Confirm.performed -= Confirm;
-                InputManager.InputAction.MainMenu.Cancel.performed -= GoBack;
-
+                InputManager.InputAction.MainMenu.RemoveCallbacks(this);
                 InputManager.InputAction.MainMenu.Disable();
             }
         }
@@ -175,23 +167,31 @@ namespace Kaede2
             Confirm();
         }
 
-        private void Previous(InputAction.CallbackContext ctx)
+        public void OnUp(InputAction.CallbackContext context)
         {
+            if (!context.performed) return;
+
             Previous();
         }
 
-        private void Next(InputAction.CallbackContext ctx)
+        public void OnDown(InputAction.CallbackContext context)
         {
+            if (!context.performed) return;
+
             Next();
         }
 
-        private void Confirm(InputAction.CallbackContext ctx)
+        public void OnConfirm(InputAction.CallbackContext context)
         {
+            if (!context.performed) return;
+
             Confirm();
         }
 
-        private void GoBack(InputAction.CallbackContext ctx)
+        public void OnCancel(InputAction.CallbackContext context)
         {
+            if (!context.performed) return;
+
             CommonUtils.LoadNextScene("TitleScene", LoadSceneMode.Single);
         }
     }

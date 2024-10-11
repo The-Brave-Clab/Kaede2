@@ -15,19 +15,6 @@ namespace Kaede2
             button = GetComponent<CommonButton>();
 
             button.onClick.AddListener(AlbumItemViewCanvas.SaveCurrent);
-
-            InputManager.InputAction.AlbumView.Save.performed += Save;
-        }
-
-        private void OnDestroy()
-        {
-            if (InputManager.InputAction != null)
-                InputManager.InputAction.AlbumView.Save.performed -= Save;
-        }
-
-        private void Save(InputAction.CallbackContext ctx)
-        {
-            AlbumItemViewCanvas.SaveCurrent();
         }
     }
 

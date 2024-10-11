@@ -12,7 +12,7 @@ using UnityEngine.UI;
 
 namespace Kaede2
 {
-    public class CollabCharacterSelectionController : MonoBehaviour
+    public class CollabCharacterSelectionController : MonoBehaviour, Kaede2InputAction.ICollabCharacterSelectionActions
     {
         [SerializeField]
         private CollabStoryController storyController;
@@ -134,41 +134,28 @@ namespace Kaede2
         private void OnEnable()
         {
             InputManager.InputAction.CollabCharacterSelection.Enable();
-
-            InputManager.InputAction.CollabCharacterSelection.Confirm.performed += Confirm;
-            InputManager.InputAction.CollabCharacterSelection.Cancel.performed += BackToContent;
-            InputManager.InputAction.CollabCharacterSelection.Up.performed += NavigateUp;
-            InputManager.InputAction.CollabCharacterSelection.Down.performed += NavigateDown;
-            InputManager.InputAction.CollabCharacterSelection.Left.performed += NavigateLeft;
-            InputManager.InputAction.CollabCharacterSelection.Right.performed += NavigateRight;
+            InputManager.InputAction.CollabCharacterSelection.AddCallbacks(this);
         }
 
         private void OnDisable()
         {
             if (InputManager.InputAction == null) return;
 
-            InputManager.InputAction.CollabCharacterSelection.Confirm.performed -= Confirm;
-            InputManager.InputAction.CollabCharacterSelection.Cancel.performed -= BackToContent;
-            InputManager.InputAction.CollabCharacterSelection.Up.performed -= NavigateUp;
-            InputManager.InputAction.CollabCharacterSelection.Down.performed -= NavigateDown;
-            InputManager.InputAction.CollabCharacterSelection.Left.performed -= NavigateLeft;
-            InputManager.InputAction.CollabCharacterSelection.Right.performed -= NavigateRight;
-
+            InputManager.InputAction.CollabCharacterSelection.RemoveCallbacks(this);
             InputManager.InputAction.CollabCharacterSelection.Disable();
         }
 
-        private void Confirm(InputAction.CallbackContext obj)
+        private Vector2Int ClampLayoutLocation(Vector2Int location)
         {
-            characterGroup.Confirm();
+            location.x = Mathf.Clamp(location.x, 0, currentLayout.Count - 1);
+            location.y = Mathf.Clamp(location.y, 0, currentLayout[location.x].Count - 1);
+            return location;
         }
 
-        private void BackToContent(InputAction.CallbackContext obj)
+        public void OnUp(InputAction.CallbackContext context)
         {
-            storyController.ExitCharacterVoiceCharacterSelection();
-        }
-
-        private void NavigateUp(InputAction.CallbackContext obj)
-        {
+            if (!context.performed) return;
+    
             if (characterGroup.SelectedIndex == characterGroup.Items.Count - 1) return;
             var newLocation = currentSelectedLocation;
             newLocation.y -= 1;
@@ -176,8 +163,10 @@ namespace Kaede2
             characterGroup.Select(currentLayout[newLocation.x][newLocation.y]);
         }
 
-        private void NavigateDown(InputAction.CallbackContext obj)
+        public void OnDown(InputAction.CallbackContext context)
         {
+            if (!context.performed) return;
+
             if (characterGroup.SelectedIndex == characterGroup.Items.Count - 1) return;
             var newLocation = currentSelectedLocation;
             newLocation.y += 1;
@@ -185,8 +174,10 @@ namespace Kaede2
             characterGroup.Select(currentLayout[newLocation.x][newLocation.y]);
         }
 
-        private void NavigateLeft(InputAction.CallbackContext obj)
+        public void OnLeft(InputAction.CallbackContext context)
         {
+            if (!context.performed) return;
+
             var newLocation = currentSelectedLocation;
 
             if (characterGroup.SelectedIndex == characterGroup.Items.Count - 1)
@@ -200,8 +191,10 @@ namespace Kaede2
             characterGroup.Select(currentLayout[newLocation.x][newLocation.y]);
         }
 
-        private void NavigateRight(InputAction.CallbackContext obj)
+        public void OnRight(InputAction.CallbackContext context)
         {
+            if (!context.performed) return;
+
             if (currentSelectedLocation.x == currentLayout.Count - 1)
             {
                 characterGroup.Select(characterGroup.Items[^1]);
@@ -214,11 +207,18 @@ namespace Kaede2
             characterGroup.Select(currentLayout[newLocation.x][newLocation.y]);
         }
 
-        private Vector2Int ClampLayoutLocation(Vector2Int location)
+        public void OnConfirm(InputAction.CallbackContext context)
         {
-            location.x = Mathf.Clamp(location.x, 0, currentLayout.Count - 1);
-            location.y = Mathf.Clamp(location.y, 0, currentLayout[location.x].Count - 1);
-            return location;
+            if (!context.performed) return;
+
+            characterGroup.Confirm();
+        }
+
+        public void OnCancel(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            storyController.ExitCharacterVoiceCharacterSelection();
         }
     }
 }
