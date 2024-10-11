@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Linq;
+using Kaede2.Input;
 using Kaede2.Localization;
 using Kaede2.Scenario.Framework;
 using Kaede2.ScriptableObjects;
@@ -7,6 +9,7 @@ using Kaede2.UI.Framework;
 using Kaede2.Utils;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
@@ -14,6 +17,9 @@ namespace Kaede2
 {
     public class CollabCharacterVoiceController : SelectableGroup
     {
+        [SerializeField]
+        private CollabStoryController storyController;
+
         [SerializeField]
         private Image characterStandingImage;
 
@@ -72,6 +78,9 @@ namespace Kaede2
 
             yield return standingImageHandle;
             characterStandingImage.sprite = standingImageHandle.Result;
+
+            // reset selection
+            Select(0);
         }
 
         public void PlayVoice(string voiceName)
@@ -80,12 +89,72 @@ namespace Kaede2
             this.Log($"Play voice: {voiceName}");
         }
 
+        private void OnEnable()
+        {
+            InputManager.InputAction.CollabCharacterVoice.Enable();
+
+            InputManager.InputAction.CollabCharacterVoice.Confirm.performed += Confirm;
+            InputManager.InputAction.CollabCharacterVoice.Cancel.performed += BackToCharacterSelection;
+            InputManager.InputAction.CollabCharacterVoice.Up.performed += NavigateUp;
+            InputManager.InputAction.CollabCharacterVoice.Down.performed += NavigateDown;
+            InputManager.InputAction.CollabCharacterVoice.Left.performed += NavigateLeft;
+            InputManager.InputAction.CollabCharacterVoice.Right.performed += NavigateRight;
+
+            lastSelection = selectedIndex;
+        }
+
         private void OnDisable()
         {
             if (standingImageHandle.IsValid())
             {
                 standingImageHandle.Release();
             }
+
+            if (InputManager.InputAction != null)
+            {
+                InputManager.InputAction.CollabCharacterVoice.Confirm.performed -= Confirm;
+                InputManager.InputAction.CollabCharacterVoice.Cancel.performed -= BackToCharacterSelection;
+                InputManager.InputAction.CollabCharacterVoice.Up.performed -= NavigateUp;
+                InputManager.InputAction.CollabCharacterVoice.Down.performed -= NavigateDown;
+                InputManager.InputAction.CollabCharacterVoice.Left.performed -= NavigateLeft;
+                InputManager.InputAction.CollabCharacterVoice.Right.performed -= NavigateRight;
+
+                InputManager.InputAction.CollabCharacterVoice.Disable();
+            }
+        }
+
+        private void Confirm(InputAction.CallbackContext obj)
+        {
+            Confirm();
+        }
+
+        private void BackToCharacterSelection(InputAction.CallbackContext obj)
+        {
+            storyController.ExitCharacterVoice();
+        }
+
+        private void NavigateUp(InputAction.CallbackContext obj)
+        {
+            Previous();
+        }
+
+        private void NavigateDown(InputAction.CallbackContext obj)
+        {
+            Next();
+        }
+
+        private int lastSelection = 0;
+        private void NavigateLeft(InputAction.CallbackContext obj)
+        {
+            if (selectedIndex < items.Count - 1) return;
+            Select(lastSelection);
+        }
+
+        private void NavigateRight(InputAction.CallbackContext obj)
+        {
+            if (selectedIndex >= items.Count - 1) return;
+            lastSelection = selectedIndex;
+            Select(items[^1]);
         }
     }
 }

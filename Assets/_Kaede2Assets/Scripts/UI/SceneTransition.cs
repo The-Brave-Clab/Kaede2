@@ -1,5 +1,6 @@
 using System.Collections;
 using DG.Tweening;
+using Kaede2.Input;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -60,10 +61,17 @@ namespace Kaede2.UI
             // in some situation we don't have the instance
             if (_instance == null) yield break;
 
+            // disable input while transitioning
+            InputManager.InputAction.Disable();
+
             float startProgress = _instance.progress;
             Sequence seq = DOTween.Sequence();
             seq.Append(DOVirtual.Float(startProgress, targetProgress, time, value => { _instance.progress = value; }));
             yield return seq.WaitForCompletion();
+
+            // enable input only after fade out
+            if (targetProgress == 0)
+                InputManager.InputAction.Enable();
         }
     }
 }

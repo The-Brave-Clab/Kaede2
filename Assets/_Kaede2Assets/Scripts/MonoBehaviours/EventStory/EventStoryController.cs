@@ -9,8 +9,6 @@ using Kaede2.UI;
 using Kaede2.UI.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
-using CommonUtils = Kaede2.Utils.CommonUtils;
 
 namespace Kaede2
 {
@@ -162,11 +160,6 @@ namespace Kaede2
         private void BackToMainScene(InputAction.CallbackContext obj)
         {
             BackToMainScene();
-        }
-
-        public void BackToMainScene()
-        {
-            CommonUtils.LoadNextScene("MainMenuScene", LoadSceneMode.Single);
         }
 
         private void NavigateUp(InputAction.CallbackContext obj)

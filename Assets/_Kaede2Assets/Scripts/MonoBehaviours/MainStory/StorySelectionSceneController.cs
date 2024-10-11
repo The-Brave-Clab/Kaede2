@@ -10,6 +10,7 @@ using Kaede2.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using CommonUtils = Kaede2.Utils.CommonUtils;
 
 namespace Kaede2
 {
@@ -349,6 +350,31 @@ namespace Kaede2
         private void ExitStory(InputAction.CallbackContext obj)
         {
             ExitStorySelection();
+        }
+
+        public void BackToMainScene()
+        {
+            CommonUtils.LoadNextScene("MainMenuScene", LoadSceneMode.Single);
+        }
+
+        public void GoToMainStory()
+        {
+            CommonUtils.LoadNextScene("MainStoryScene", LoadSceneMode.Single);
+        }
+
+        public void GoToEventStory()
+        {
+            CommonUtils.LoadNextScene("EventStoryScene", LoadSceneMode.Single);
+        }
+
+        public void GoToCollabStory()
+        {
+            CommonUtils.LoadNextScene("CollabStoryScene", LoadSceneMode.Single);
+        }
+
+        public void GoToFavoriteStory()
+        {
+            CommonUtils.LoadNextScene("FavoriteStoryScene", LoadSceneMode.Single);
         }
 
         public class SameEpisodeProvider : MasterScenarioInfo.IProvider

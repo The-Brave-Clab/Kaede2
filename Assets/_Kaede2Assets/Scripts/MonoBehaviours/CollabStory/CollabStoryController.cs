@@ -2,12 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Kaede2.Input;
 using Kaede2.Scenario.Framework;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
+using Kaede2.UI.Framework;
 using Kaede2.Utils;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Kaede2
 {
@@ -37,6 +40,9 @@ namespace Kaede2
         [SerializeField]
         private CollabCharacterVoiceController characterVoiceController;
 
+        [SerializeField]
+        private SelectableGroup selectableGroup;
+
         private IEnumerator Start()
         {
             IEnumerator WaitForCondition(Func<bool> condition)
@@ -58,6 +64,32 @@ namespace Kaede2
             InitialSetup();
 
             yield return SceneTransition.Fade(0);
+        }
+
+        private void OnEnable()
+        {
+            InputManager.InputAction.CollabStory.Enable();
+
+            InputManager.InputAction.CollabStory.Confirm.performed += Confirm;
+            InputManager.InputAction.CollabStory.Cancel.performed += BackToMainScene;
+            InputManager.InputAction.CollabStory.Up.performed += NavigateUp;
+            InputManager.InputAction.CollabStory.Down.performed += NavigateDown;
+            InputManager.InputAction.CollabStory.Left.performed += NavigateLeft;
+            InputManager.InputAction.CollabStory.Right.performed += NavigateRight;
+        }
+
+        private void OnDisable()
+        {
+            if (InputManager.InputAction == null) return;
+
+            InputManager.InputAction.CollabStory.Confirm.performed -= Confirm;
+            InputManager.InputAction.CollabStory.Cancel.performed -= BackToMainScene;
+            InputManager.InputAction.CollabStory.Up.performed -= NavigateUp;
+            InputManager.InputAction.CollabStory.Down.performed -= NavigateDown;
+            InputManager.InputAction.CollabStory.Left.performed -= NavigateLeft;
+            InputManager.InputAction.CollabStory.Right.performed -= NavigateRight;
+
+            InputManager.InputAction.CollabStory.Disable();
         }
 
         public void EnterCollabContent(CollabImageProvider collab)
@@ -209,6 +241,48 @@ namespace Kaede2
             characterSelection.gameObject.SetActive(false);
             characterVoiceController.gameObject.SetActive(false);
             selectionCanvas.gameObject.SetActive(false);
+        }
+
+        private void Confirm(InputAction.CallbackContext obj)
+        {
+            selectableGroup.SelectedItem.Confirm();
+        }
+
+        private void BackToMainScene(InputAction.CallbackContext obj)
+        {
+            BackToMainScene();
+        }
+
+        private void NavigateUp(InputAction.CallbackContext obj)
+        {
+            if (selectableGroup.SelectedIndex == storyCategorySelectables.Length)
+                selectableGroup.Select(storyCategorySelectables.FirstOrDefault(s => s.Activated));
+            else
+                selectableGroup.Previous();
+        }
+
+        private void NavigateDown(InputAction.CallbackContext obj)
+        {
+            if (storyCategorySelectables.Contains(selectableGroup.SelectedItem))
+                selectableGroup.Select(storyCategorySelectables.Length);
+            else
+                selectableGroup.Next();
+        }
+
+        private void NavigateLeft(InputAction.CallbackContext obj)
+        {
+            StoryCategorySelectable scs = selectableGroup.SelectedItem as StoryCategorySelectable;
+            if (scs == null) return;
+            if (!storyCategorySelectables.Contains(scs)) return;
+            selectableGroup.Select(Mathf.Clamp(Array.IndexOf(storyCategorySelectables, scs) - 1, 0, storyCategorySelectables.Length - 1));
+        }
+
+        private void NavigateRight(InputAction.CallbackContext obj)
+        {
+            StoryCategorySelectable scs = selectableGroup.SelectedItem as StoryCategorySelectable;
+            if (scs == null) return;
+            if (!storyCategorySelectables.Contains(scs)) return;
+            selectableGroup.Select(Mathf.Clamp(Array.IndexOf(storyCategorySelectables, scs) + 1, 0, storyCategorySelectables.Length - 1));
         }
 
         private class CollabStoryProvider : MasterScenarioInfo.IProvider

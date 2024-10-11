@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Kaede2.Input;
@@ -10,7 +9,6 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Kaede2
@@ -134,11 +132,6 @@ namespace Kaede2
         private void BackToMainScene(InputAction.CallbackContext obj)
         {
             BackToMainScene();
-        }
-
-        public void BackToMainScene()
-        {
-            CommonUtils.LoadNextScene("MainMenuScene", LoadSceneMode.Single);
         }
 
         private void Next(InputAction.CallbackContext obj)

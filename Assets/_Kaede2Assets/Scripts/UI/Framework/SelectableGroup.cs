@@ -59,7 +59,7 @@ namespace Kaede2.UI.Framework
         public void Select(SelectableItem item)
         {
             var index = items.IndexOf(item);
-            if (index >= 0)
+            if (index >= 0 && item.gameObject.activeSelf)
                 Select(index);
         }
 
