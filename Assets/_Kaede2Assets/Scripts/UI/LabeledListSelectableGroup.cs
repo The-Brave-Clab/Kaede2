@@ -1,7 +1,8 @@
-using System;
 using System.Collections;
 using DG.Tweening;
+using Kaede2.Scenario.Framework.Utils;
 using Kaede2.UI.Framework;
+using Kaede2.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,14 +24,28 @@ namespace Kaede2.UI
 
         private RectTransform highlightRT;
 
+        private ScrollRect scrollRect;
+
         private Coroutine coroutine;
         private Sequence sequence;
+
+        private Coroutine scrollCoroutine;
+
+        private bool shouldMoveItemIntoViewPort;
 
         protected override void Awake()
         {
             base.Awake();
 
             highlightRT = highlight.GetComponent<RectTransform>();
+            scrollRect = GetComponent<ScrollRect>();
+
+            shouldMoveItemIntoViewPort = false;
+        }
+
+        public void ShouldMoveItemIntoViewPort()
+        {
+            shouldMoveItemIntoViewPort = true;
         }
 
         protected override void OnItemSelected(int selection)
@@ -49,6 +64,17 @@ namespace Kaede2.UI
             }
 
             coroutine = StartCoroutine(MoveHighlightToItem(itemRT));
+
+            if (shouldMoveItemIntoViewPort)
+            {
+                if (scrollCoroutine != null)
+                {
+                    CoroutineProxy.Stop(scrollCoroutine);
+                    scrollCoroutine = null;
+                }
+                scrollCoroutine = scrollRect.MoveItemIntoViewportSmooth(itemRT, 0.1f, 0.1f);
+                shouldMoveItemIntoViewPort = false;
+            }
         }
 
         private IEnumerator MoveHighlightToItem(RectTransform itemRT)
@@ -72,6 +98,8 @@ namespace Kaede2.UI
 
             coroutine = null;
             sequence = null;
+
+            scrollCoroutine = null;
         }
 
         public void Clear()

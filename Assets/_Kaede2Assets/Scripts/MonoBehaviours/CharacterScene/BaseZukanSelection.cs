@@ -4,13 +4,12 @@ using Kaede2.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.EventSystems;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
 namespace Kaede2
 {
-    public abstract class BaseZukanSelection<T> : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler where T : BaseZukanSelection<T>
+    public abstract class BaseZukanSelection<T> : CharacterSceneBaseSelection where T : BaseZukanSelection<T>
     {
         [SerializeField]
         private SelectionOutlineColor outline;
@@ -22,6 +21,7 @@ namespace Kaede2
         private Image image;
 
         private static BaseZukanSelection<T> selected;
+        public static BaseZukanSelection<T> Selected => selected;
 
         protected CharacterSceneController sceneController;
         protected ZukanProfile profile;
@@ -47,19 +47,20 @@ namespace Kaede2
             }
         }
 
-        private void Select()
+        public override void Select()
         {
             if (selected != null)
             {
-                selected.outline.gameObject.SetActive(false);
+                selected.Deactive();
             }
 
             selected = this;
             outline.gameObject.SetActive(true);
+            sceneController.ItemSelected();
             SetPreview();
         }
 
-        private void Confirm()
+        public override void Confirm()
         {
             if (selected == null) return;
 
@@ -67,14 +68,9 @@ namespace Kaede2
             sceneController.ZukanViewWindow.Show(Text.Replace("\n", ""), imageHandle.Result);
         }
 
-        public void OnPointerEnter(PointerEventData eventData)
+        public override void Deactive()
         {
-            Select();
-        }
-
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            Confirm();
+            outline.gameObject.SetActive(false);
         }
 
         private void OnDestroy()

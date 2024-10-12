@@ -2,14 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Kaede2.Input;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Kaede2
 {
-    public class FavoriteStoryController : StorySelectionSceneController
+    public class FavoriteStoryController : StorySelectionSceneController, Kaede2InputAction.IFavoriteStoryActions
     {
         [SerializeField]
         private LabeledListSelectableGroup categorySelectableGroup;
@@ -19,6 +21,8 @@ namespace Kaede2
 
         private Dictionary<MainStoryKey, MainStoryProvider> mainStoryProviders;
         private Dictionary<MasterScenarioInfo.Kind, OtherStoryProvider> otherStoryProviders;
+
+        private MasterScenarioInfo.IProvider currentEpisodeProvider;
 
         protected override void Awake()
         {
@@ -40,6 +44,20 @@ namespace Kaede2
             yield return SceneTransition.Fade(0);
         }
 
+        private void OnEnable()
+        {
+            InputManager.InputAction.FavoriteStory.Enable();
+            InputManager.InputAction.FavoriteStory.AddCallbacks(this);
+        }
+
+        private void OnDisable()
+        {
+            if (InputManager.InputAction == null) return;
+
+            InputManager.InputAction.FavoriteStory.RemoveCallbacks(this);
+            InputManager.InputAction.FavoriteStory.Disable();
+        }
+
         private void InitializeCategorySelection()
         {
             if (SaveData.FavoriteScenarioNames.Count == 0)
@@ -50,6 +68,7 @@ namespace Kaede2
             }
 
             noFavoriteMessage.gameObject.SetActive(false);
+            categorySelectableGroup.transform.parent.gameObject.SetActive(true);
     
             var favoriteCategoryInfos = MasterScenarioInfo.Instance.Data
                 .Where(si => SaveData.FavoriteScenarioNames.Contains(si.ScenarioName))
@@ -58,6 +77,8 @@ namespace Kaede2
                 .ToList();
 
             categorySelectableGroup.Clear();
+            mainStoryProviders.Clear();
+            otherStoryProviders.Clear();
             foreach (var info in favoriteCategoryInfos)
             {
                 if (info.KindId is MasterScenarioInfo.Kind.Main or MasterScenarioInfo.Kind.Sub)
@@ -70,6 +91,7 @@ namespace Kaede2
                         var mainItem = categorySelectableGroup.Add("", $"{info.ChapterName} ({info.KindName})");
                         mainItem.onConfirmed.AddListener(() =>
                         {
+                            currentEpisodeProvider = mainProvider;
                             EnterEpisodeSelection(mainProvider);
                         });
                     }
@@ -83,6 +105,7 @@ namespace Kaede2
                         var otherItem = categorySelectableGroup.Add("", info.KindName);
                         otherItem.onConfirmed.AddListener(() =>
                         {
+                            currentEpisodeProvider = otherProvider;
                             EnterEpisodeSelection(otherProvider);
                         });
                     }
@@ -106,6 +129,11 @@ namespace Kaede2
         protected override void OnExitEpisodeSelection()
         {
             InitializeCategorySelection();
+        }
+
+        protected override void OnExitStorySelection()
+        {
+            RefreshEpisodeSelection(currentEpisodeProvider);
         }
 
         protected override bool AdditionalStoryFilter(MasterScenarioInfo.ScenarioInfo scenario)
@@ -168,6 +196,50 @@ namespace Kaede2
                     .Where(si => SaveData.FavoriteScenarioNames.Contains(si.ScenarioName))
                     .Where(si => si.KindId == kindId);
             }
+        }
+
+        public void OnUp(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            categorySelectableGroup.ShouldMoveItemIntoViewPort();
+            categorySelectableGroup.Previous();
+        }
+
+        public void OnDown(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            categorySelectableGroup.ShouldMoveItemIntoViewPort();
+            categorySelectableGroup.Next();
+        }
+
+        public void OnLeft(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            // TODO
+        }
+
+        public void OnRight(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            // TODO
+        }
+
+        public void OnConfirm(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            categorySelectableGroup.Confirm();
+        }
+
+        public void OnCancel(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            BackToMainScene();
         }
     }
 }

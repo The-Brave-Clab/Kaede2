@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 namespace Kaede2
 {
-    public class CharacterSelection : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
+    public class CharacterSelection : CharacterSceneBaseSelection
     {
         [SerializeField]
         private SelectionOutlineColor outline;
@@ -20,6 +20,7 @@ namespace Kaede2
         private Image image;
 
         private static CharacterSelection selected;
+        public static CharacterSelection Selected => selected;
 
         private CharacterSceneController sceneController;
         private MasterCharaProfile.CharacterProfile profile;
@@ -50,31 +51,27 @@ namespace Kaede2
             }
         }
 
-        private void Select()
+        public override void Select()
         {
             if (selected != null)
             {
-                selected.outline.gameObject.SetActive(false);
+                selected.Deactive();
             }
 
             selected = this;
             outline.gameObject.SetActive(true);
+            sceneController.ItemSelected();
             sceneController.CharacterPreviewImage.sprite = standingHandle.Result;
         }
 
-        private void Confirm()
+        public override void Deactive()
+        {
+            outline.gameObject.SetActive(false);
+        }
+
+        public override void Confirm()
         {
             sceneController.CharacterProfileController.Enter(profile);
-        }
-
-        public void OnPointerEnter(PointerEventData eventData)
-        {
-            Select();
-        }
-
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            Confirm();
         }
 
         private void OnDestroy()

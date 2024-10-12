@@ -1,12 +1,14 @@
+using Kaede2.Input;
 using Kaede2.UI;
 using Kaede2.UI.Framework;
 using Kaede2.Utils;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Kaede2
 {
-    public class ZukanViewWindow : MonoBehaviour
+    public class ZukanViewWindow : MonoBehaviour, Kaede2InputAction.ICharacterZukanViewActions
     {
         [SerializeField] 
         private BoxWindow window;
@@ -35,10 +37,16 @@ namespace Kaede2
                 saveButton.Interactable = false;
 
             window.gameObject.SetActive(true);
+            InputManager.InputAction.Character.Disable();
+            InputManager.InputAction.CharacterZukanView.Enable();
+            InputManager.InputAction.CharacterZukanView.AddCallbacks(this);
         }
 
         private void Hide()
         {
+            InputManager.InputAction.CharacterZukanView.RemoveCallbacks(this);
+            InputManager.InputAction.CharacterZukanView.Disable();
+            InputManager.InputAction.Character.Enable();
             window.gameObject.SetActive(false);
         }
 
@@ -47,6 +55,20 @@ namespace Kaede2
             if (image.sprite == null) return;
 
             SaveTexture.Save(window.TitleText, image.sprite.texture);
+        }
+
+        public void OnBack(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            Hide();
+        }
+
+        public void OnSave(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            Save();
         }
     }
 }

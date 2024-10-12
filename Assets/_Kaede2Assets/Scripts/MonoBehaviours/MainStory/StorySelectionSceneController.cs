@@ -101,25 +101,7 @@ namespace Kaede2
 
             if (episodeSelectableGroup != null)
             {
-                var scenarioChapterInfos = provider.Provide()
-                    .OrderBy(si => si.ChapterId)
-                    .ThenBy(si => si.EpisodeId)
-                    .GroupBy(si => si.EpisodeId)
-                    .Select(group => group.First())
-                    .ToList();
-
-                episodeSelectableGroup.Clear();
-                foreach (var info in scenarioChapterInfos)
-                {
-                    var item = episodeSelectableGroup.Add(info.EpisodeNumber, info.EpisodeName);
-                    item.onSelected.AddListener(() => { OnEpisodeItemSelected(info); });
-                    item.onConfirmed.AddListener(() =>
-                    {
-                        EnterStorySelection(new SameEpisodeProvider(info), info.EpisodeNumber, info.EpisodeName);
-                    });
-                }
-
-                episodeSelectableGroup.Initialize();
+                RefreshEpisodeSelection(provider);
                 episodeSelectableGroup.transform.parent.gameObject.SetActive(true);
 
                 yield return null;
@@ -130,6 +112,29 @@ namespace Kaede2
 
             if (episodeSelectableGroup != null)
                 episodeSelectionControl.Enable();
+        }
+
+        public void RefreshEpisodeSelection(MasterScenarioInfo.IProvider provider)
+        {
+            var scenarioChapterInfos = provider.Provide()
+                .OrderBy(si => si.ChapterId)
+                .ThenBy(si => si.EpisodeId)
+                .GroupBy(si => si.EpisodeId)
+                .Select(group => group.First())
+                .ToList();
+
+            episodeSelectableGroup.Clear();
+            foreach (var info in scenarioChapterInfos)
+            {
+                var item = episodeSelectableGroup.Add(info.EpisodeNumber, info.EpisodeName);
+                item.onSelected.AddListener(() => { OnEpisodeItemSelected(info); });
+                item.onConfirmed.AddListener(() =>
+                {
+                    EnterStorySelection(new SameEpisodeProvider(info), info.EpisodeNumber, info.EpisodeName);
+                });
+            }
+
+            episodeSelectableGroup.Initialize();
         }
 
         public void ExitEpisodeSelection()
@@ -176,6 +181,20 @@ namespace Kaede2
             OnEnterStorySelection(provider);
             selectionCanvas.gameObject.SetActive(true);
 
+            RefreshStorySelection(provider);
+
+            storySelectableGroup.transform.parent.gameObject.SetActive(true);
+
+            yield return null;
+            yield return null;
+
+            yield return SceneTransition.Fade(0);
+
+            storySelectionControl.Enable();
+        }
+
+        public void RefreshStorySelection(MasterScenarioInfo.IProvider provider)
+        {
             var storyInfos = provider.Provide()
                 .Where(AdditionalStoryFilter)
                 .OrderBy(si => si.StoryId)
@@ -191,15 +210,6 @@ namespace Kaede2
                 storySelectionItems.Add(selectionItem);
             }
             storySelectableGroup.Initialize();
-
-            storySelectableGroup.transform.parent.gameObject.SetActive(true);
-
-            yield return null;
-            yield return null;
-
-            yield return SceneTransition.Fade(0);
-
-            storySelectionControl.Enable();
         }
 
         public void ExitStorySelection()
@@ -339,6 +349,7 @@ namespace Kaede2
                 if (!context.performed) return;
 
                 if (self.episodeSelectableGroup == null) return;
+                self.episodeSelectableGroup.ShouldMoveItemIntoViewPort();
                 self.episodeSelectableGroup.Previous();
             }
 
@@ -347,6 +358,7 @@ namespace Kaede2
                 if (!context.performed) return;
 
                 if (self.episodeSelectableGroup == null) return;
+                self.episodeSelectableGroup.ShouldMoveItemIntoViewPort();
                 self.episodeSelectableGroup.Next();
             }
 
@@ -393,6 +405,7 @@ namespace Kaede2
             {
                 if (!context.performed) return;
 
+                self.storySelectableGroup.ShouldMoveItemIntoViewPort();
                 self.storySelectableGroup.Previous();
             }
 
@@ -400,6 +413,7 @@ namespace Kaede2
             {
                 if (!context.performed) return;
 
+                self.storySelectableGroup.ShouldMoveItemIntoViewPort();
                 self.storySelectableGroup.Next();
             }
 

@@ -103,6 +103,8 @@ namespace Kaede2
             if (videoPlayer.isPlaying)
                 videoPlayer.Pause();
 
+            OnDisable();
+
             onOpeningMovieFinished?.Invoke();
         }
     }

@@ -63,6 +63,17 @@ namespace Kaede2.UI.Framework
                 Select(index);
         }
 
+        public virtual void DeselectAll()
+        {
+            selectedIndex = -1;
+            foreach (var item in items)
+            {
+                if (!item.selected) continue;
+                item.onDeselected?.Invoke();
+                item.selected = false;
+            }
+        }
+
         public virtual void Next()
         {
             var nextAvailable = NextAvailable(1);

@@ -102,6 +102,26 @@ namespace Kaede2.Utils
             scrollRect.verticalNormalizedPosition = Mathf.Clamp01(scrollRect.verticalNormalizedPosition + scrollDiff);
         }
 
+        public static Coroutine MoveItemIntoViewportSmooth(this ScrollRect scrollRect, RectTransform item, float duration = 0.2f, float multiplier = 1.0f)
+        {
+            return CoroutineProxy.Start(MoveItemIntoViewportSmoothCoroutine(scrollRect, item, duration, multiplier));
+        }
+
+        private static IEnumerator MoveItemIntoViewportSmoothCoroutine(ScrollRect scrollRect, RectTransform item, float duration, float multiplier)
+        {
+            var scrollDiff = scrollRect.GetScrollDiffToMakeItemVisible(item, multiplier);
+            var startScrollPos = scrollRect.verticalNormalizedPosition;
+            var targetScrollPos = Mathf.Clamp01(startScrollPos + scrollDiff);
+            var elapsed = 0.0f;
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                scrollRect.verticalNormalizedPosition = Mathf.Lerp(startScrollPos, targetScrollPos, elapsed / duration);
+                yield return null;
+            }
+            scrollRect.verticalNormalizedPosition = targetScrollPos;
+        }
+
         public static Color NoAlpha(this Color color)
         {
             return new Color(color.r, color.g, color.b, 1);
@@ -132,6 +152,49 @@ namespace Kaede2.Utils
                 gradient.topRight.NoAlpha(),
                 gradient.bottomLeft.NoAlpha(),
                 gradient.bottomRight.NoAlpha());
+        }
+
+        public static Vector2Int GetMaxColumnRowCount(this GridLayoutGroup grid)
+        {
+            if (grid == null) return new Vector2Int(0, 0);
+            RectTransform gridRT = grid.transform as RectTransform;
+            if (gridRT == null) return new Vector2Int(0, 0);
+
+            var gridWidth = gridRT.rect.width - grid.padding.left - grid.padding.right;
+            var columnCount = Mathf.FloorToInt((gridWidth + grid.spacing.x) / (grid.cellSize.x + grid.spacing.x));
+
+            var rowCount = Mathf.CeilToInt((float)grid.transform.childCount / columnCount);
+            return new Vector2Int(columnCount, rowCount);
+        }
+
+        public static Vector2Int GetLocationFromChild(this GridLayoutGroup grid, Transform child)
+        {
+            if (grid == null || child == null) return new(-1, -1);
+            RectTransform gridRT = grid.transform as RectTransform;
+            if (gridRT == null) return new(-1, -1);
+            if (!child.IsChildOf(grid.transform)) return new(-1, -1);
+            // grid.width == grid.cellSize.x * grid.constraintCount + grid.spacing.x * (grid.constraintCount - 1) + grid.padding.left + grid.padding.right
+
+            var maxCount = grid.GetMaxColumnRowCount();
+
+            var goIndex = child.GetSiblingIndex();
+            var row = goIndex / maxCount.x;
+            var column = goIndex % maxCount.x;
+
+            return new Vector2Int(column, row);
+        }
+
+        public static Transform GetChildFromLocation(this GridLayoutGroup grid, Vector2Int location)
+        {
+            if (grid == null) return null;
+            RectTransform gridRT = grid.transform as RectTransform;
+            if (gridRT == null) return null;
+
+            var maxCount = grid.GetMaxColumnRowCount();
+
+            var goIndex = location.y * maxCount.x + location.x;
+            if (goIndex < 0 || goIndex >= grid.transform.childCount) return null;
+            return grid.transform.GetChild(goIndex);
         }
     }
 }

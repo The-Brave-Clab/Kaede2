@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 namespace Kaede2
 {
-    public class StardustSelection : MonoBehaviour, IPointerEnterHandler
+    public class StardustSelection : CharacterSceneBaseSelection
     {
         [SerializeField]
         private SelectionOutlineColor outline;
@@ -20,6 +20,7 @@ namespace Kaede2
         private Image image;
 
         private static StardustSelection selected;
+        public static StardustSelection Selected => selected;
 
         private CharacterSceneController sceneController;
         private ZukanProfile profile;
@@ -43,21 +44,27 @@ namespace Kaede2
             }
         }
 
-        private void Select()
+        public override void Select()
         {
             if (selected != null)
             {
-                selected.outline.gameObject.SetActive(false);
+                selected.Deactive();
             }
 
             selected = this;
             outline.gameObject.SetActive(true);
+            sceneController.ItemSelected();
             sceneController.StardustPreviewImage.sprite = image.sprite;
         }
 
-        public void OnPointerEnter(PointerEventData eventData)
+        public override void Confirm()
         {
-            Select();
+            // does nothing
+        }
+
+        public override void Deactive()
+        {
+            outline.gameObject.SetActive(false);
         }
 
         private void OnDestroy()

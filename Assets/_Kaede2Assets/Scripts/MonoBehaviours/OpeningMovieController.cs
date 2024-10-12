@@ -1,7 +1,5 @@
-using Kaede2.Input;
 using Kaede2.Utils;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 

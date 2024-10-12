@@ -47,7 +47,6 @@ namespace Kaede2.UI
 
         public void ActivateView(int index)
         {
-
             if (index == currentViewIndex) return;
             StopCurrent();
 

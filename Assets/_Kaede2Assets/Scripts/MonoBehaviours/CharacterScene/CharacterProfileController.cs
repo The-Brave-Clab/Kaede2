@@ -2,23 +2,26 @@ using System;
 using System.Collections;
 using System.Globalization;
 using System.Linq;
+using Kaede2.Input;
 using Kaede2.Localization;
 using Kaede2.Scenario;
 using Kaede2.Scenario.Framework;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
+using Kaede2.UI.Framework;
 using Kaede2.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.InputSystem;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Kaede2
 {
-    public class CharacterProfileController : MonoBehaviour
+    public class CharacterProfileController : MonoBehaviour, Kaede2InputAction.ICharacterProfileActions
     {
         [SerializeField]
         private GameObject sceneRoot;
@@ -78,6 +81,12 @@ namespace Kaede2
         private VoiceButton nightVoiceButton;
 
         [SerializeField]
+        private SelectableGroup selectableGroup;
+
+        [SerializeField]
+        private SelectableItem[] buttons;
+
+        [SerializeField]
         private Image characterImage;
 
         private MasterCharaProfile.CharacterProfile profile;
@@ -88,10 +97,52 @@ namespace Kaede2
 
         private AsyncOperationHandle<Sprite> characterImageHandle;
 
+        private SelectableItem[] voiceButtons;
+
+        private bool selectingVoice;
+        private int selectingButtonIndex;
+        private int selectingVoiceIndex;
+
         private void Awake()
         {
             // unlike others, we only do this once here because we can't clear listeners (we don't know if there are listeners other than the one we add)
             selfIntroButton.onConfirmed.AddListener(PlaySelfIntroScenario);
+
+            voiceButtons = new SelectableItem[]
+            {
+                selfIntroVoiceButton,
+                commonWordVoiceButton,
+                morningVoiceButton,
+                daytimeVoiceButton,
+                eveningVoiceButton,
+                nightVoiceButton
+            };
+
+            selectingVoice = false;
+            selectingButtonIndex = 0;
+            selectingVoiceIndex = 0;
+
+            for (var i = 0; i < buttons.Length; i++)
+            {
+                var index = i;
+                var button = buttons[i];
+                button.onSelected.AddListener(() =>
+                {
+                    selectingVoice = false;
+                    selectingButtonIndex = index;
+                });
+            }
+
+            for (var i = 0; i < voiceButtons.Length; i++)
+            {
+                var index = i;
+                var button = voiceButtons[i];
+                button.onSelected.AddListener(() =>
+                {
+                    selectingVoice = true;
+                    selectingVoiceIndex = index;
+                });
+            }
         }
 
         public void Enter(MasterCharaProfile.CharacterProfile profile)
@@ -108,11 +159,17 @@ namespace Kaede2
                 .Select(c => c.ScenarioName)
                 .FirstOrDefault();
 
+            selectingVoice = false;
+            selectingButtonIndex = 0;
+            selectingVoiceIndex = 0;
+
             CoroutineProxy.Start(EnterCoroutine());
         }
 
         private IEnumerator EnterCoroutine()
         {
+            InputManager.InputAction.Character.Disable();
+
             yield return SceneTransition.Fade(1);
 
             if (characterImageHandle.IsValid())
@@ -152,7 +209,12 @@ namespace Kaede2
 
             characterImage.sprite = characterImageHandle.Result;
 
+            selectableGroup.Select(0);
+
             yield return SceneTransition.Fade(0);
+
+            InputManager.InputAction.CharacterProfile.SetCallbacks(this);
+            InputManager.InputAction.CharacterProfile.Enable();
         }
 
         public void Exit()
@@ -162,12 +224,15 @@ namespace Kaede2
 
         private IEnumerator ExitCoroutine()
         {
+            InputManager.InputAction.CharacterProfile.Disable();
+            InputManager.InputAction.CharacterProfile.RemoveCallbacks(this);
             yield return SceneTransition.Fade(1);
 
             parentObject.SetActive(false);
             sceneController.gameObject.SetActive(true);
 
             yield return SceneTransition.Fade(0);
+            InputManager.InputAction.Character.Enable();
         }
 
         private void OnDestroy()
@@ -175,6 +240,12 @@ namespace Kaede2
             if (characterImageHandle.IsValid())
             {
                 Addressables.Release(characterImageHandle);
+            }
+
+            if (InputManager.InputAction != null)
+            {
+                InputManager.InputAction.CharacterProfile.RemoveCallbacks(this);
+                InputManager.InputAction.CharacterProfile.Disable();
             }
         }
 
@@ -185,6 +256,7 @@ namespace Kaede2
 
         private IEnumerator EnterScenario(string scenario, CultureInfo language)
         {
+            InputManager.InputAction.CharacterProfile.Disable();
             yield return SceneTransition.Fade(1);
 
             sceneRoot.SetActive(false);
@@ -209,6 +281,63 @@ namespace Kaede2
             sceneRoot.SetActive(true);
 
             yield return SceneTransition.Fade(0);
+            InputManager.InputAction.CharacterProfile.Enable();
+        }
+
+        public void OnUp(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            var selectingGroup = selectingVoice ? voiceButtons : buttons;
+            var selectingIndex = selectingVoice ? selectingVoiceIndex : selectingButtonIndex;
+
+            selectingIndex -= 1;
+            if (selectingIndex < 0)
+                selectingIndex = selectingGroup.Length - 1;
+
+            selectableGroup.Select(selectingGroup[selectingIndex]);
+        }
+
+        public void OnDown(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            var selectingGroup = selectingVoice ? voiceButtons : buttons;
+            var selectingIndex = selectingVoice ? selectingVoiceIndex : selectingButtonIndex;
+
+            selectingIndex += 1;
+            if (selectingIndex >= selectingGroup.Length)
+                selectingIndex = 0;
+
+            selectableGroup.Select(selectingGroup[selectingIndex]);
+        }
+
+        public void OnLeft(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            if (!selectingVoice) return;
+
+            selectableGroup.Select(buttons[selectingButtonIndex]);
+        }
+
+        public void OnRight(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            if (selectingVoice) return;
+
+            selectableGroup.Select(voiceButtons[selectingVoiceIndex]);
+        }
+
+        public void OnConfirm(InputAction.CallbackContext context)
+        {
+            selectableGroup.Confirm();
+        }
+
+        public void OnCancel(InputAction.CallbackContext context)
+        {
+            sceneController.BackToMainScene();
         }
     }
 }
