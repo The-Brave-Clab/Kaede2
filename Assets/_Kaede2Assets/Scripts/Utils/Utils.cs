@@ -163,21 +163,30 @@ namespace Kaede2.Utils
             var gridWidth = gridRT.rect.width - grid.padding.left - grid.padding.right;
             var columnCount = Mathf.FloorToInt((gridWidth + grid.spacing.x) / (grid.cellSize.x + grid.spacing.x));
 
-            var rowCount = Mathf.CeilToInt((float)grid.transform.childCount / columnCount);
+            int childCount = 0;
+            for (var i = 0; i < grid.transform.childCount; i++)
+            {
+                if (grid.transform.GetChild(i).gameObject.activeSelf)
+                    ++childCount;
+            }
+
+            var rowCount = Mathf.CeilToInt((float)childCount / columnCount);
             return new Vector2Int(columnCount, rowCount);
         }
 
         public static Vector2Int GetLocationFromChild(this GridLayoutGroup grid, Transform child)
         {
             if (grid == null || child == null) return new(-1, -1);
+            if (!child.gameObject.activeSelf) return new(-1, -1);
             RectTransform gridRT = grid.transform as RectTransform;
             if (gridRT == null) return new(-1, -1);
-            if (!child.IsChildOf(grid.transform)) return new(-1, -1);
+            if (!child.IsChildOf(gridRT)) return new(-1, -1);
             // grid.width == grid.cellSize.x * grid.constraintCount + grid.spacing.x * (grid.constraintCount - 1) + grid.padding.left + grid.padding.right
 
             var maxCount = grid.GetMaxColumnRowCount();
 
-            var goIndex = child.GetSiblingIndex();
+            var goIndex = gridRT.Cast<Transform>().TakeWhile(c => c != child).Count();
+
             var row = goIndex / maxCount.x;
             var column = goIndex % maxCount.x;
 
@@ -192,9 +201,29 @@ namespace Kaede2.Utils
 
             var maxCount = grid.GetMaxColumnRowCount();
 
+            int childCount = 0;
+            for (var i = 0; i < grid.transform.childCount; i++)
+            {
+                if (grid.transform.GetChild(i).gameObject.activeSelf)
+                    ++childCount;
+            }
+
             var goIndex = location.y * maxCount.x + location.x;
-            if (goIndex < 0 || goIndex >= grid.transform.childCount) return null;
-            return grid.transform.GetChild(goIndex);
+            goIndex = Mathf.Clamp(goIndex, 0, childCount - 1);
+            Transform child = null;
+            for (var i = 0; i < grid.transform.childCount; i++)
+            {
+                var c = grid.transform.GetChild(i);
+                if (!c.gameObject.activeSelf) continue;
+                if (goIndex == 0)
+                {
+                    child = c;
+                    break;
+                }
+                goIndex--;
+            }
+
+            return child;
         }
     }
 }

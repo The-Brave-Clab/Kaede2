@@ -113,11 +113,11 @@ namespace Kaede2
 
             void DeactivateAllSelected()
             {
-                CharacterSelection.Selected.Deactive();
-                FairySelection.Selected.Deactive();
-                VertexSelection.Selected.Deactive();
-                UdonSelection.Selected.Deactive();
-                StardustSelection.Selected.Deactive();
+                CharacterSelection.Selected.Deactivate();
+                FairySelection.Selected.Deactivate();
+                VertexSelection.Selected.Deactivate();
+                UdonSelection.Selected.Deactivate();
+                StardustSelection.Selected.Deactivate();
             }
 
             tabGroup.Items[0].onConfirmed.AddListener(() =>
@@ -335,7 +335,7 @@ namespace Kaede2
 
             if (newLocation.y < 0)
             {
-                currentSelected.Deactive();
+                currentSelected.Deactivate();
                 // select tab instead
                 var activeTab = tabGroup.Items.Cast<TabItem>().FirstOrDefault(i => i.Active);
                 if (activeTab != null) tabGroup.Select(activeTab);
@@ -364,10 +364,7 @@ namespace Kaede2
 
                 var newLocation = currentLocation;
                 newLocation.y += 1;
-                if (newLocation.y >= maxLocation.y || newLocation.y * maxLocation.x + newLocation.x >= currentGrid.transform.childCount)
-                {
-                    newLocation.y = 0;
-                }
+                if (newLocation.y >= maxLocation.y) newLocation.y = 0;
 
                 var newObj = currentGrid.GetChildFromLocation(newLocation);
                 if (newObj == null) return;
@@ -395,10 +392,7 @@ namespace Kaede2
     
                 var newLocation = currentLocation;
                 newLocation.x -= 1;
-                if (newLocation.x < 0)
-                {
-                    newLocation.x = maxLocation.x - 1;
-                }
+                if (newLocation.x < 0) newLocation.x = maxLocation.x - 1;
 
                 var newObj = currentGrid.GetChildFromLocation(newLocation);
                 if (newObj == null) return;

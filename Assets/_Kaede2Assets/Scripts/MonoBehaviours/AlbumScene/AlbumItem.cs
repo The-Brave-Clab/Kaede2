@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Kaede2.Input;
 using Kaede2.ScriptableObjects;
@@ -6,6 +7,7 @@ using Kaede2.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
@@ -25,6 +27,8 @@ namespace Kaede2
 
         [SerializeField]
         private TMP_FontAsset titleFont;
+
+        public UnityEvent onSelected;
 
         private AsyncOperationHandle<Sprite> handle;
 
@@ -135,7 +139,6 @@ namespace Kaede2
             Vector2 yMinMax = new(Mathf.Min(corners[0].y, corners[1].y), Mathf.Max(corners[0].y, corners[1].y));
 
             Visible = yMinMax.y > viewportYMinMax.x && yMinMax.x < viewportYMinMax.y;
-            UpdateSelectionVisibleStatus(currentSelected == this);
         }
 
         private void OnEnable()
@@ -147,11 +150,6 @@ namespace Kaede2
         private void OnDisable()
         {
             Unload();
-
-            if (currentSelected == this)
-            {
-                AlbumTitle.Text = "";
-            }
             Deselect();
         }
 
@@ -197,7 +195,7 @@ namespace Kaede2
 
         public void Select(bool makeSureFullyVisible)
         {
-            if (currentSelected != null)
+            if (currentSelected != this && currentSelected != null)
             {
                 currentSelected.Deselect();
             }
@@ -206,18 +204,14 @@ namespace Kaede2
             UpdateSelectionVisibleStatus(true);
             AlbumTitle.Text = AlbumInfo.ViewName;
             AlbumTitle.Font = titleFont;
+            onSelected.Invoke();
 
             if (makeSureFullyVisible)
                 Scroll.MoveItemIntoViewport(rt, 0.1f);
         }
 
-        private void Deselect()
+        public void Deselect()
         {
-            if (currentSelected == this)
-            {
-                currentSelected = null;
-            }
-
             UpdateSelectionVisibleStatus(false);
         }
 

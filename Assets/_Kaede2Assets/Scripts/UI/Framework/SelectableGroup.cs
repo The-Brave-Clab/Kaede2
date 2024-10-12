@@ -69,7 +69,6 @@ namespace Kaede2.UI.Framework
             foreach (var item in items)
             {
                 if (!item.selected) continue;
-                item.onDeselected?.Invoke();
                 item.selected = false;
             }
         }

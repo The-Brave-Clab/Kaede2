@@ -48,7 +48,7 @@ namespace Kaede2
         {
             if (selected != null)
             {
-                selected.Deactive();
+                selected.Deactivate();
             }
 
             selected = this;
@@ -62,7 +62,7 @@ namespace Kaede2
             // does nothing
         }
 
-        public override void Deactive()
+        public override void Deactivate()
         {
             outline.gameObject.SetActive(false);
         }

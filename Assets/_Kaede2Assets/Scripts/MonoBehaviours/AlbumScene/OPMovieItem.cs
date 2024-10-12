@@ -2,6 +2,7 @@ using System;
 using Kaede2.Input;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.Video;
 
@@ -27,7 +28,10 @@ namespace Kaede2
         [SerializeField]
         private OpeningMoviePlayer opMoviePlayer;
 
+        public UnityEvent onSelected;
+
         private static OPMovieItem currentSelected = null;
+        public static OPMovieItem CurrentSelected => currentSelected;
 
         public string Title
         {
@@ -66,7 +70,7 @@ namespace Kaede2
             opMoviePlayer.Play(videoClip);
         }
 
-        private void Select()
+        public void Select()
         {
             if (currentSelected == this) return;
 
@@ -77,10 +81,12 @@ namespace Kaede2
 
             AlbumTitle.Text = title;
             AlbumTitle.Font = titleFont;
+            onSelected.Invoke();
+
             UpdateSelectionVisibleStatus(true);
         }
 
-        private void Deselect()
+        public void Deselect()
         {
             if (currentSelected == this)
                 currentSelected = null;

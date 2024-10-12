@@ -22,6 +22,9 @@ namespace Kaede2.UI
         [SerializeField]
         private LayoutGroup layoutGroup;
 
+        // won't be reset by DeselectAll
+        public int LastSelected { get; private set; }
+
         private RectTransform highlightRT;
 
         private ScrollRect scrollRect;
@@ -31,16 +34,50 @@ namespace Kaede2.UI
 
         private Coroutine scrollCoroutine;
 
+        private Coroutine deselectAllCoroutine;
+
         private bool shouldMoveItemIntoViewPort;
 
         protected override void Awake()
         {
             base.Awake();
 
+            LastSelected = selectedIndex;
+            if (LastSelected < 0) LastSelected = 0;
+
             highlightRT = highlight.GetComponent<RectTransform>();
             scrollRect = GetComponent<ScrollRect>();
 
             shouldMoveItemIntoViewPort = false;
+        }
+
+        public override void DeselectAll()
+        {
+            base.DeselectAll();
+
+            highlight.gameObject.SetActive(false);
+
+            if (deselectAllCoroutine != null)
+            {
+                CoroutineProxy.Stop(deselectAllCoroutine);
+                deselectAllCoroutine = null;
+            }
+
+            deselectAllCoroutine = CoroutineProxy.Start(DeselectAllCoroutine());
+        }
+
+        private IEnumerator DeselectAllCoroutine()
+        {
+            float time = 0.2f;
+            while (true)
+            {
+                layoutGroup.SetLayoutVertical();
+                time -= Time.deltaTime;
+                if (time < 0) break;
+                yield return null;
+            }
+
+            deselectAllCoroutine = null;
         }
 
         public void ShouldMoveItemIntoViewPort()
@@ -52,8 +89,12 @@ namespace Kaede2.UI
         {
             base.OnItemSelected(selection);
 
+            LastSelected = selectedIndex;
+
             var item = items[selection];
             var itemRT = item.GetComponent<RectTransform>();
+
+            highlight.gameObject.SetActive(true);
 
             if (coroutine != null)
             {

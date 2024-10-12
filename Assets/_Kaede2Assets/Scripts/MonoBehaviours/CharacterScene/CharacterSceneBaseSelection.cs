@@ -12,7 +12,7 @@ namespace Kaede2
 
         public abstract void Confirm();
 
-        public abstract void Deactive();
+        public abstract void Deactivate();
 
         private Coroutine coroutine;
 
