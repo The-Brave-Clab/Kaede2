@@ -195,6 +195,7 @@ namespace Kaede2
             ClearCoroutine();
 
             gameObject.SetActive(true);
+            InputManager.InputAction.Album.Disable();
 
             IEnumerator EnterCoroutine()
             {
@@ -345,6 +346,8 @@ namespace Kaede2
                 next = null;
 
                 gameObject.SetActive(false);
+
+                InputManager.InputAction.Album.Enable();
 
                 coroutine = null;
                 sequence = null;

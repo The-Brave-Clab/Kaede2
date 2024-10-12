@@ -185,7 +185,11 @@ namespace Kaede2.Utils
 
             var maxCount = grid.GetMaxColumnRowCount();
 
-            var goIndex = gridRT.Cast<Transform>().TakeWhile(c => c != child).Count();
+            var goIndex = gridRT
+                .Cast<Transform>()
+                .Where(transform => transform.gameObject.activeSelf)
+                .TakeWhile(transform => transform != child)
+                .Count();
 
             var row = goIndex / maxCount.x;
             var column = goIndex % maxCount.x;

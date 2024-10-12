@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using DG.Tweening;
+using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
 using TMPro;
 using UnityEngine;
@@ -44,7 +45,7 @@ namespace Kaede2.UI.Framework
                 highlighted = value;
 
                 StopCurrentCoroutine();
-                changeColorCoroutine = StartCoroutine(ChangeColorCoroutine());
+                changeColorCoroutine = CoroutineProxy.Start(ChangeColorCoroutine());
             }
         }
 
@@ -57,7 +58,7 @@ namespace Kaede2.UI.Framework
                 interactable = value;
 
                 StopCurrentCoroutine();
-                changeColorCoroutine = StartCoroutine(ChangeColorCoroutine());
+                changeColorCoroutine = CoroutineProxy.Start(ChangeColorCoroutine());
             }
         }
 
@@ -84,7 +85,7 @@ namespace Kaede2.UI.Framework
             onActivate.Invoke();
 
             StopCurrentCoroutine();
-            changeColorCoroutine = StartCoroutine(ChangeColorCoroutine());
+            changeColorCoroutine = CoroutineProxy.Start(ChangeColorCoroutine());
         }
 
         public void OnPointerExit(PointerEventData eventData)
@@ -95,7 +96,7 @@ namespace Kaede2.UI.Framework
             onDeactivate.Invoke();
 
             StopCurrentCoroutine();
-            changeColorCoroutine = StartCoroutine(ChangeColorCoroutine());
+            changeColorCoroutine = CoroutineProxy.Start(ChangeColorCoroutine());
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -159,7 +160,7 @@ namespace Kaede2.UI.Framework
         {
             if (changeColorCoroutine != null)
             {
-                StopCoroutine(changeColorCoroutine);
+                CoroutineProxy.Stop(changeColorCoroutine);
                 changeColorSequence.Kill();
                 changeColorCoroutine = null;
                 changeColorSequence = null;

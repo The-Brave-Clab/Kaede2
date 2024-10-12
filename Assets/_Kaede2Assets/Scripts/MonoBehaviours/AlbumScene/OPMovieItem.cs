@@ -29,6 +29,7 @@ namespace Kaede2
         private OpeningMoviePlayer opMoviePlayer;
 
         public UnityEvent onSelected;
+        public UnityEvent onConfirmed;
 
         private static OPMovieItem currentSelected = null;
         public static OPMovieItem CurrentSelected => currentSelected;
@@ -67,6 +68,7 @@ namespace Kaede2
         public void OnPointerClick(PointerEventData eventData)
         {
             opMovieCanvas.gameObject.SetActive(true);
+            onConfirmed.Invoke();
             opMoviePlayer.Play(videoClip);
         }
 

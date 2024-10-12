@@ -43,6 +43,9 @@ namespace Kaede2
         [SerializeField]
         private TMP_FontAsset bgmTitleFont;
 
+        [SerializeField]
+        private OpeningMoviePlayer moviePlayer;
+
         private MasterAlbumInfo masterData;
 
         private List<AlbumItem> albumItems;
@@ -90,7 +93,16 @@ namespace Kaede2
             foreach (var item in opMovieItems)
             {
                 item.onSelected.AddListener(() => { focusInTabs = false; });
+                item.onConfirmed.AddListener(() =>
+                {
+                    InputManager.InputAction.Album.Disable();
+                });
             }
+
+            moviePlayer.onOpeningMovieFinished.AddListener(() =>
+            {
+                InputManager.InputAction.Album.Enable();
+            });
 
             for (int i = 0; i < tabButtons.Length; ++i)
             {
@@ -493,7 +505,9 @@ namespace Kaede2
             {
                 if (currentSelectedTabAndButtonIndex >= tabGroup.Items.Count)
                 {
-                    tabButtons[currentSelectedTabAndButtonIndex - tabGroup.Items.Count].OnPointerClick(null);
+                    var button = tabButtons[currentSelectedTabAndButtonIndex - tabGroup.Items.Count];
+                    button.OnPointerClick(null);
+                    button.OnPointerExit(null);
                 }
                 else
                 {
