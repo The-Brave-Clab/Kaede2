@@ -1,24 +1,27 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
+using Kaede2.Input;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using Kaede2.UI.Framework;
 using Kaede2.Utils;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
 namespace Kaede2
 {
-    public class CartoonViewWindow : MonoBehaviour
+    public class CartoonViewWindow : MonoBehaviour, Kaede2InputAction.ICartoonViewActions
     {
         [SerializeField]
         private BoxWindow window;
 
         [SerializeField]
-        private Scrollbar scrollbar;
+        private ScrollRect scroll;
 
         [SerializeField]
         private CommonButton backButton;
@@ -35,16 +38,29 @@ namespace Kaede2
         [SerializeField]
         private Image frame4;
 
+        private CartoonSceneController sceneController;
+
         private List<AsyncOperationHandle<Sprite>> handles;
+
+        private Coroutine scrollCoroutine;
+        private Sequence scrollSequence;
+
+        private void Awake()
+        {
+            scrollCoroutine = null;
+        }
 
         private void OnDestroy()
         {
             Clear();
         }
 
-        public IEnumerator Initialize(MasterCartoonInfo.CartoonInfo cartoonInfo)
+        public IEnumerator Initialize(MasterCartoonInfo.CartoonInfo cartoonInfo, CartoonSceneController controller)
         {
             Clear();
+
+            sceneController = controller;
+            scroll.verticalNormalizedPosition = 1;
 
             var handle1 = ResourceLoader.LoadCartoonFrame(cartoonInfo.ImageNames[0]);
             var handle2 = ResourceLoader.LoadCartoonFrame(cartoonInfo.ImageNames[1]);
@@ -69,8 +85,6 @@ namespace Kaede2
             frame4.sprite = handle4.Result;
 
             window.TitleText = cartoonInfo.CartoonLabel;
-
-            scrollbar.value = 1;
         }
 
         private void Clear()
@@ -84,6 +98,73 @@ namespace Kaede2
                 }
             }
             handles = new();
+        }
+
+        private void ScrollTo(float targetValue)
+        {
+            if (scrollCoroutine != null)
+            {
+                StopCoroutine(scrollCoroutine);
+                scrollSequence.Kill();
+                scrollCoroutine = null;
+                scrollSequence = null;
+            }
+
+            scrollCoroutine = StartCoroutine(ScrollToCoroutine(Mathf.Clamp01(targetValue)));
+        }
+
+        private IEnumerator ScrollToCoroutine(float targetValue)
+        {
+            var startValue = scroll.verticalNormalizedPosition;
+
+            scrollSequence = DOTween.Sequence();
+            scrollSequence.Append(DOVirtual.Float(0, 1, 0.1f, t =>
+            {
+                scroll.verticalNormalizedPosition = Mathf.Lerp(startValue, targetValue, t);
+            }));
+
+            yield return scrollSequence.WaitForCompletion();
+
+            scrollCoroutine = null;
+            scrollSequence = null;
+        }
+
+        public void OnUp(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            var currentVerticalValue = scroll.verticalNormalizedPosition;
+            var currentIndex = currentVerticalValue * (4 - 1);
+            currentIndex = Mathf.Ceil(currentIndex) - currentIndex > 0.1f
+                ? Mathf.Ceil(currentIndex)
+                : Mathf.Ceil(currentIndex) + 1;
+            currentIndex = Mathf.Clamp(currentIndex, 0, 4 - 1);
+            ScrollTo(currentIndex / (4 - 1));
+        }
+
+        public void OnDown(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            var currentVerticalValue = scroll.verticalNormalizedPosition;
+            var currentIndex = currentVerticalValue * (4 - 1);
+            currentIndex = currentIndex - Mathf.Floor(currentIndex) > 0.1f
+                ? Mathf.Floor(currentIndex)
+                : Mathf.Floor(currentIndex) - 1;
+            currentIndex = Mathf.Clamp(currentIndex, 0, 4 - 1);
+            ScrollTo(currentIndex / (4 - 1));
+        }
+
+        public void OnBack(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            sceneController.BackToEpisodeSelection();
+        }
+
+        public void OnScroll(InputAction.CallbackContext context)
+        {
+            // do nothing
         }
     }
 }

@@ -7,6 +7,7 @@ using Kaede2.UI;
 using Kaede2.Utils;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
@@ -33,7 +34,10 @@ namespace Kaede2
         private Coroutine selectionCoroutine;
         private Sequence selectionSequence;
 
+        public UnityEvent onSelect;
+
         private static CartoonChapterSelection currentSelected = null;
+        public static CartoonChapterSelection CurrentSelected => currentSelected;
 
         // it seems that we can't rely on TMP's line wrapping
         private static readonly List<int> splitLineIndices = new()
@@ -47,6 +51,8 @@ namespace Kaede2
         private void Awake()
         {
             OnThemeChange(Theme.Current);
+
+            if (currentSelected == null) Select();
         }
 
         private void OnDestroy()
@@ -101,7 +107,7 @@ namespace Kaede2
             panel.Thumbnail = thumbnailHandle.Result;
         }
 
-        private void Select()
+        public void Select()
         {
             if (currentSelected != null)
             {
@@ -110,6 +116,7 @@ namespace Kaede2
 
             currentSelected = this;
 
+            onSelect.Invoke();
             OnSelection(true);
         }
 

@@ -3,16 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using Kaede2.Input;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Kaede2
 {
-    public class CartoonEpisodeSelection : MonoBehaviour, IThemeChangeObserver
+    public class CartoonEpisodeSelection : MonoBehaviour, IThemeChangeObserver, Kaede2InputAction.ICartoonEpisodeActions
     {
         [SerializeField]
         private CartoonChapterPanel chapterPanel;
@@ -69,11 +71,11 @@ namespace Kaede2
             CoroutineGroup group = new();
             for (int i = 0; i < 4; ++i)
             {
-                group.Add(episodes[i].Initialize(this, episodeLabelPrefixes[i], cartoonInfos[i]));
+                group.Add(episodes[i].Initialize(this, episodeLabelPrefixes[i], cartoonInfos[i], i));
             }
             yield return group.WaitForAll();
 
-            var (pos, size) = GetSelectionFrameRectFromEpisode(currentSelected);
+            var (pos, size) = GetSelectionFrameRectFromEpisode(episodes[0]);
             selectionFrame.anchoredPosition = pos;
             selectionFrame.sizeDelta = size;
         }
@@ -107,6 +109,7 @@ namespace Kaede2
                 sequence = null;
             }
 
+            currentSelected = episode;
             coroutine = StartCoroutine(SelectCoroutine(episode));
         }
 
@@ -139,6 +142,40 @@ namespace Kaede2
         {
             if (selectionFrameImage == null) return;
             selectionFrameImage.color = theme.CommonButtonColor.NonTransparent().surface;
+        }
+
+        public void OnLeft(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            var currentSelectedIndex = currentSelected.Index;
+            ++currentSelectedIndex;
+            if (currentSelectedIndex >= episodes.Length) currentSelectedIndex = 0;
+            Select(episodes[currentSelectedIndex]);
+        }
+
+        public void OnRight(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            var currentSelectedIndex = currentSelected.Index;
+            --currentSelectedIndex;
+            if (currentSelectedIndex < 0) currentSelectedIndex = episodes.Length - 1;
+            Select(episodes[currentSelectedIndex]);
+        }
+
+        public void OnConfirm(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            Confirm(currentSelected);
+        }
+
+        public void OnCancel(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            sceneController.BackToChapterSelection();
         }
     }
 }

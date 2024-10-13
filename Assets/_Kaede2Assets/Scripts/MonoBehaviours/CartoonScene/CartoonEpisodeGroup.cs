@@ -7,6 +7,7 @@ using Kaede2.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
@@ -36,12 +37,15 @@ namespace Kaede2
         private MasterCartoonInfo.CartoonInfo cartoonInfo;
         public MasterCartoonInfo.CartoonInfo CartoonInfo => cartoonInfo;
 
+        private int index;
+        public int Index => index;
+
         private void OnDestroy()
         {
             Clear();
         }
 
-        public IEnumerator Initialize(CartoonEpisodeSelection selection, string labelPrefix, MasterCartoonInfo.CartoonInfo info)
+        public IEnumerator Initialize(CartoonEpisodeSelection selection, string labelPrefix, MasterCartoonInfo.CartoonInfo info, int index)
         {
             Clear();
 
@@ -71,6 +75,8 @@ namespace Kaede2
             frame2.sprite = handle2.Result;
             frame3.sprite = handle3.Result;
             frame4.sprite = handle4.Result;
+
+            this.index = index;
         }
 
         private void Clear()
