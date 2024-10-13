@@ -171,5 +171,21 @@ namespace Kaede2
                 appearanceUpdateCoroutine = StartCoroutine(UpdateAppearanceCoroutine());
             }
         }
+
+        public override void Left()
+        {
+            value -= 0.1f;
+            value = Mathf.Clamp01(value);
+            OnValueChanged(value);
+            OnValueChangeEnd();
+        }
+
+        public override void Right()
+        {
+            value += 0.1f;
+            value = Mathf.Clamp01(value);
+            OnValueChanged(value);
+            OnValueChangeEnd();
+        }
     }
 }

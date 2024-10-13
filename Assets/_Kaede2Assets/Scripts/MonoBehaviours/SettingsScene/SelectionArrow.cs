@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Kaede2
 {
@@ -9,7 +10,12 @@ namespace Kaede2
         private SelectionControl selectionControl;
 
         [SerializeField]
+        private Image image;
+
+        [SerializeField]
         private int step;
+
+        public Image Image => image;
 
         public void OnPointerClick(PointerEventData eventData)
         {

@@ -91,9 +91,10 @@ namespace Kaede2.UI.Framework
         public void OnPointerExit(PointerEventData eventData)
         {
             activated = false;
-            if (!Interactable) return;
-
-            onDeactivate.Invoke();
+            if (Interactable)
+            {
+                onDeactivate.Invoke();
+            }
 
             StopCurrentCoroutine();
             changeColorCoroutine = CoroutineProxy.Start(ChangeColorCoroutine());

@@ -1,27 +1,17 @@
-using Kaede2.UI;
-using Kaede2.UI.Framework;
-using TMPro;
+using Kaede2.Utils;
 using UnityEngine;
 
 namespace Kaede2
 {
-    public class ClearCacheConfirmBox : MonoBehaviour
+    public class ClearCacheConfirmBox : SettingConfirmBox
     {
-        [SerializeField]
-        private BoxWindow boxWindow;
-
-        [SerializeField]
-        private CommonButton yesButton;
-
-        [SerializeField]
-        private CommonButton noButton;
-
         private void Awake()
         {
             yesButton.onClick.AddListener(() =>
             {
 #if !UNITY_WEBGL || UNITY_EDITOR
                 Caching.ClearCache();
+                this.Log("Cache cleared");
 #endif
 #if UNITY_EDITOR
                 UnityEditor.EditorApplication.ExitPlaymode();

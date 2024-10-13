@@ -1,10 +1,13 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 namespace Kaede2
 {
     public abstract class SettingsControl : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
     {
+        public UnityEvent onPointerEnter;
+
         protected bool activated;
 
         private bool shouldActivate;
@@ -49,6 +52,7 @@ namespace Kaede2
             shouldActivate = true;
             currentPointerOver = this;
             ChangeActivationStatus(true);
+            onPointerEnter.Invoke();
         }
 
         public void OnPointerExit(PointerEventData eventData)
@@ -75,5 +79,8 @@ namespace Kaede2
             if (settingsItem != null)
                 settingsItem.OnPointerUp(eventData);
         }
+
+        public abstract void Left();
+        public abstract void Right();
     }
 }

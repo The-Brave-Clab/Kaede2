@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -220,6 +219,16 @@ namespace Kaede2
 
             selectSequence = null;
             selectCoroutine = null;
+        }
+
+        public override void Left()
+        {
+            Select(-1);
+        }
+
+        public override void Right()
+        {
+            Select(1);
         }
     }
 }

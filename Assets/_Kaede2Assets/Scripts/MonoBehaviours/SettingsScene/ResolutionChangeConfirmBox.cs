@@ -1,25 +1,13 @@
-using System;
-using Kaede2.UI;
-using Kaede2.UI.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Kaede2
 {
-    public class ResolutionChangeConfirmBox : MonoBehaviour
+    public class ResolutionChangeConfirmBox : SettingConfirmBox
     {
         [SerializeField]
-        private BoxWindow boxWindow;
-
-        [SerializeField]
         private TextMeshProUGUI messageText;
-
-        [SerializeField]
-        private CommonButton yesButton;
-
-        [SerializeField]
-        private CommonButton noButton;
 
         [SerializeField]
         private float timeLimit = 10;

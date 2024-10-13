@@ -5,6 +5,7 @@ using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
 
@@ -12,6 +13,9 @@ namespace Kaede2
 {
     public class SettingsItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IThemeChangeObserver
     {
+        [SerializeField]
+        private SettingsControl control;
+
         [SerializeField]
         private RemapRGB colorComponent;
 
@@ -21,6 +25,8 @@ namespace Kaede2
         [SerializeField]
         [TextArea]
         private string infoText;
+
+        public UnityEvent onPointerEnter;
 
         private CommonButtonColor activeColor;
 
@@ -32,6 +38,8 @@ namespace Kaede2
 
         private Coroutine changeColorCoroutine;
         private Sequence changeColorSequence;
+
+        public SettingsControl Control => control;
 
         public string InfoText
         {
@@ -63,11 +71,12 @@ namespace Kaede2
             }
             currentPointerOver = this;
             ChangeActiveState(true);
+            onPointerEnter.Invoke();
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            if (InputManager.CurrentDeviceType != InputDeviceType.KeyboardAndMouse) return;
+            if (InputManager.CurrentDeviceType == InputDeviceType.Touchscreen) return;
             shouldActivate = false;
             currentPointerOver = null;
             ChangeActiveState(false);

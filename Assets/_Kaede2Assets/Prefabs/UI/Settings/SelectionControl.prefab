@@ -91,6 +91,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12ccf4879dfc4c97899c4dbf376d67bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onPointerEnter:
+    m_PersistentCalls:
+      m_Calls: []
   leftArrow: {fileID: 3108499721946618370}
   rightArrow: {fileID: 5484908714082759624}
   itemContainer: {fileID: 30806445135282251}
@@ -188,6 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectionControl: {fileID: 1796935049255008410}
+  image: {fileID: 0}
   step: -1
 --- !u!1 &6032535951271872578
 GameObject:
@@ -383,6 +387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectionControl: {fileID: 1796935049255008410}
+  image: {fileID: 0}
   step: 1
 --- !u!1 &9156538170599334252
 GameObject:
