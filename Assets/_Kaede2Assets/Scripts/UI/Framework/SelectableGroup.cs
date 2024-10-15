@@ -87,7 +87,7 @@ namespace Kaede2.UI.Framework
                 Select(nextAvailable);
         }
 
-        public void Confirm()
+        public virtual void Confirm()
         {
             if (SelectedItem != null) SelectedItem.Confirm();
         }

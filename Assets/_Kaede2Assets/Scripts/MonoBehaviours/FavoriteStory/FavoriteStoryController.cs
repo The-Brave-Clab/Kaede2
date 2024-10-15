@@ -5,6 +5,7 @@ using System.Linq;
 using Kaede2.Input;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
+using Kaede2.UI.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,7 +18,13 @@ namespace Kaede2
         private LabeledListSelectableGroup categorySelectableGroup;
 
         [SerializeField]
-        private TextMeshProUGUI noFavoriteMessage;
+        private GameObject noFavoriteContainer;
+
+        [SerializeField]
+        private SelectableGroup noFavoriteGroup;
+
+        [SerializeField]
+        private SelectableItem noFavoriteBackButton;
 
         private Dictionary<MainStoryKey, MainStoryProvider> mainStoryProviders;
         private Dictionary<MasterScenarioInfo.Kind, OtherStoryProvider> otherStoryProviders;
@@ -62,12 +69,13 @@ namespace Kaede2
         {
             if (SaveData.FavoriteScenarioNames.Count == 0)
             {
-                noFavoriteMessage.gameObject.SetActive(true);
+                noFavoriteContainer.gameObject.SetActive(true);
                 categorySelectableGroup.transform.parent.gameObject.SetActive(false);
+                noFavoriteGroup.Select(noFavoriteBackButton);
                 return;
             }
 
-            noFavoriteMessage.gameObject.SetActive(false);
+            noFavoriteContainer.gameObject.SetActive(false);
             categorySelectableGroup.transform.parent.gameObject.SetActive(true);
     
             var favoriteCategoryInfos = MasterScenarioInfo.Instance.Data
@@ -218,14 +226,22 @@ namespace Kaede2
         {
             if (!context.performed) return;
 
-            // TODO
+            if (SaveData.FavoriteScenarioNames.Count == 0) return;
+
+            if (categorySelectableGroup.FocusedOnLabeledSelectables) return;
+
+            categorySelectableGroup.FocusOnLabeledSelectables();
         }
 
         public void OnRight(InputAction.CallbackContext context)
         {
             if (!context.performed) return;
 
-            // TODO
+            if (SaveData.FavoriteScenarioNames.Count == 0) return;
+
+            if (!categorySelectableGroup.FocusedOnLabeledSelectables) return;
+
+            categorySelectableGroup.FocusOnAdditionalSelectableGroup();
         }
 
         public void OnConfirm(InputAction.CallbackContext context)

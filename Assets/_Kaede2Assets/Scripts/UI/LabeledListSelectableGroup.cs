@@ -22,8 +22,14 @@ namespace Kaede2.UI
         [SerializeField]
         private LayoutGroup layoutGroup;
 
+        [SerializeField]
+        private SelectableGroup additionalSelectableGroup;
+
         // won't be reset by DeselectAll
         public int LastSelected { get; private set; }
+
+        private bool focusedOnLabeledSelectables;
+        public bool FocusedOnLabeledSelectables => focusedOnLabeledSelectables;
 
         private RectTransform highlightRT;
 
@@ -49,6 +55,8 @@ namespace Kaede2.UI
             scrollRect = GetComponent<ScrollRect>();
 
             shouldMoveItemIntoViewPort = false;
+
+            focusedOnLabeledSelectables = true;
         }
 
         public override void DeselectAll()
@@ -64,6 +72,42 @@ namespace Kaede2.UI
             }
 
             deselectAllCoroutine = CoroutineProxy.Start(DeselectAllCoroutine());
+        }
+
+        public void FocusOnAdditionalSelectableGroup()
+        {
+            if (additionalSelectableGroup == null) return;
+
+            focusedOnLabeledSelectables = false;
+            DeselectAll();
+            additionalSelectableGroup.Select(0);
+        }
+
+        public void FocusOnLabeledSelectables()
+        {
+            if (additionalSelectableGroup == null) return;
+
+            focusedOnLabeledSelectables = true;
+            additionalSelectableGroup.DeselectAll();
+            Select(LastSelected);
+        }
+
+        public override void Confirm()
+        {
+            if (additionalSelectableGroup == null)
+            {
+                base.Confirm();
+                return;
+            }
+
+            if (focusedOnLabeledSelectables)
+            {
+                base.Confirm();
+            }
+            else
+            {
+                additionalSelectableGroup.Confirm();
+            }
         }
 
         private IEnumerator DeselectAllCoroutine()
@@ -159,6 +203,12 @@ namespace Kaede2.UI
             item.gameObject.name = text;
             item.Label = label;
             item.Text = text;
+            item.onSelected.AddListener(() =>
+            {
+                if (additionalSelectableGroup == null) return;
+                additionalSelectableGroup.DeselectAll();
+                focusedOnLabeledSelectables = true;
+            });
             items.Add(item);
             return item;
         }

@@ -34,7 +34,7 @@ namespace Kaede2
         [SerializeField]
         private CharacterWindow characterWindow;
 
-        protected List<StorySelectionItem> storySelectionItems;
+        private List<StorySelectionItem> storySelectionItems;
 
         public CharacterWindow CharacterWindow => characterWindow;
 
@@ -370,6 +370,26 @@ namespace Kaede2
                 self.episodeSelectableGroup.Confirm();
             }
 
+            public void OnLeft(InputAction.CallbackContext context)
+            {
+                if (!context.performed) return;
+
+                if (self.episodeSelectableGroup == null) return;
+                if (self.episodeSelectableGroup.FocusedOnLabeledSelectables) return;
+
+                self.episodeSelectableGroup.FocusOnLabeledSelectables();
+            }
+
+            public void OnRight(InputAction.CallbackContext context)
+            {
+                if (!context.performed) return;
+
+                if (self.episodeSelectableGroup == null) return;
+                if (!self.episodeSelectableGroup.FocusedOnLabeledSelectables) return;
+
+                self.episodeSelectableGroup.FocusOnAdditionalSelectableGroup();
+            }
+
             public void OnCancel(InputAction.CallbackContext context)
             {
                 if (!context.performed) return;
@@ -415,6 +435,24 @@ namespace Kaede2
 
                 self.storySelectableGroup.ShouldMoveItemIntoViewPort();
                 self.storySelectableGroup.Next();
+            }
+
+            public void OnLeft(InputAction.CallbackContext context)
+            {
+                if (!context.performed) return;
+
+                if (self.storySelectableGroup.FocusedOnLabeledSelectables) return;
+
+                self.storySelectableGroup.FocusOnLabeledSelectables();
+            }
+
+            public void OnRight(InputAction.CallbackContext context)
+            {
+                if (!context.performed) return;
+
+                if (!self.storySelectableGroup.FocusedOnLabeledSelectables) return;
+
+                self.storySelectableGroup.FocusOnAdditionalSelectableGroup();
             }
 
             public void OnConfirm(InputAction.CallbackContext context)
