@@ -4361,6 +4361,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Set",
+                    "type": "Button",
+                    "id": "a9073800-0d30-4863-bb17-abda397ef794",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -4631,7 +4640,7 @@
                 {
                     "name": "",
                     "id": "466a484b-c263-40eb-a6e8-4c6f2e93cd90",
-                    "path": "<Keyboard>/f",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
@@ -4647,6 +4656,28 @@
                     "processors": "",
                     "groups": ";Gamepad;GamepadNintendoStyle",
                     "action": "Favorite",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d72d1167-3b15-4f05-a0d3-96394c501d5c",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Set",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e222235c-3b85-4b5c-a4ea-50cca697d6c4",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad;GamepadNintendoStyle",
+                    "action": "Set",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

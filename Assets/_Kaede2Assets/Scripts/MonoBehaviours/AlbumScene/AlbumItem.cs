@@ -32,6 +32,9 @@ namespace Kaede2
 
         public UnityEvent onSelected;
 
+        public FavoriteIcon FavoriteIcon => favoriteIcon;
+        public FavoriteIcon WallpaperIcon => wallpaperIcon;
+
         private AsyncOperationHandle<Sprite> handle;
 
         private MasterAlbumInfo.AlbumInfo albumInfo;

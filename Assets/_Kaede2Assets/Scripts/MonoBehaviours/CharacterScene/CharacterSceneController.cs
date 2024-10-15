@@ -295,7 +295,7 @@ namespace Kaede2
 
         private CharacterSceneBaseSelection GetSelected()
         {
-            var activeTab = tabGroup.Items.Cast<TabItem>().FirstOrDefault(i => i.Active);
+            var activeTab = tabGroup.Items[tabGroup.ActiveIndex];
             if (activeTab == null) return null;
             var tabIndex = -1;
 
@@ -337,7 +337,7 @@ namespace Kaede2
             {
                 currentSelected.Deactivate();
                 // select tab instead
-                var activeTab = tabGroup.Items.Cast<TabItem>().FirstOrDefault(i => i.Active);
+                var activeTab = tabGroup.Items[tabGroup.ActiveIndex];
                 if (activeTab != null) tabGroup.Select(activeTab);
             }
             else

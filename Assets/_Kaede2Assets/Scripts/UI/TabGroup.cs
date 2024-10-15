@@ -4,6 +4,8 @@ namespace Kaede2.UI
 {
     public class TabGroup : SelectableGroup
     {
+        public int ActiveIndex { get; private set; }
+
         protected override void Awake()
         {
             base.Awake();
@@ -19,17 +21,23 @@ namespace Kaede2.UI
                 }
                 tab.group = this;
             }
+
+            ActiveIndex = 0;
         }
 
         public void SelectTab(SelectableItem item)
         {
             if (item is not TabItem) return;
 
-            foreach (var selectableItem in Items)
+            for (var i = 0; i < Items.Count; i++)
             {
-                if (selectableItem is TabItem tab)
+                var selectableItem = Items[i];
+                if (selectableItem is not TabItem tab) continue;
+
+                tab.Active = selectableItem == item;
+                if (tab.Active)
                 {
-                    tab.Active = selectableItem == item;
+                    ActiveIndex = i;
                 }
             }
         }

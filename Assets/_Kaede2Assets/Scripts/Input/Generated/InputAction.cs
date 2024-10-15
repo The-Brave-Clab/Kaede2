@@ -4386,6 +4386,15 @@ namespace Kaede2.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Set"",
+                    ""type"": ""Button"",
+                    ""id"": ""a9073800-0d30-4863-bb17-abda397ef794"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -4656,7 +4665,7 @@ namespace Kaede2.Input
                 {
                     ""name"": """",
                     ""id"": ""466a484b-c263-40eb-a6e8-4c6f2e93cd90"",
-                    ""path"": ""<Keyboard>/f"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
@@ -4672,6 +4681,28 @@ namespace Kaede2.Input
                     ""processors"": """",
                     ""groups"": "";Gamepad;GamepadNintendoStyle"",
                     ""action"": ""Favorite"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d72d1167-3b15-4f05-a0d3-96394c501d5c"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Set"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e222235c-3b85-4b5c-a4ea-50cca697d6c4"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad;GamepadNintendoStyle"",
+                    ""action"": ""Set"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -7380,6 +7411,7 @@ namespace Kaede2.Input
             m_Album_Confirm = m_Album.FindAction("Confirm", throwIfNotFound: true);
             m_Album_Cancel = m_Album.FindAction("Cancel", throwIfNotFound: true);
             m_Album_Favorite = m_Album.FindAction("Favorite", throwIfNotFound: true);
+            m_Album_Set = m_Album.FindAction("Set", throwIfNotFound: true);
             // AlbumView
             m_AlbumView = asset.FindActionMap("AlbumView", throwIfNotFound: true);
             m_AlbumView_PrimaryPointer = m_AlbumView.FindAction("PrimaryPointer", throwIfNotFound: true);
@@ -8766,6 +8798,7 @@ namespace Kaede2.Input
         private readonly InputAction m_Album_Confirm;
         private readonly InputAction m_Album_Cancel;
         private readonly InputAction m_Album_Favorite;
+        private readonly InputAction m_Album_Set;
         public struct AlbumActions
         {
             private @Kaede2InputAction m_Wrapper;
@@ -8777,6 +8810,7 @@ namespace Kaede2.Input
             public InputAction @Confirm => m_Wrapper.m_Album_Confirm;
             public InputAction @Cancel => m_Wrapper.m_Album_Cancel;
             public InputAction @Favorite => m_Wrapper.m_Album_Favorite;
+            public InputAction @Set => m_Wrapper.m_Album_Set;
             public InputActionMap Get() { return m_Wrapper.m_Album; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -8807,6 +8841,9 @@ namespace Kaede2.Input
                 @Favorite.started += instance.OnFavorite;
                 @Favorite.performed += instance.OnFavorite;
                 @Favorite.canceled += instance.OnFavorite;
+                @Set.started += instance.OnSet;
+                @Set.performed += instance.OnSet;
+                @Set.canceled += instance.OnSet;
             }
 
             private void UnregisterCallbacks(IAlbumActions instance)
@@ -8832,6 +8869,9 @@ namespace Kaede2.Input
                 @Favorite.started -= instance.OnFavorite;
                 @Favorite.performed -= instance.OnFavorite;
                 @Favorite.canceled -= instance.OnFavorite;
+                @Set.started -= instance.OnSet;
+                @Set.performed -= instance.OnSet;
+                @Set.canceled -= instance.OnSet;
             }
 
             public void RemoveCallbacks(IAlbumActions instance)
@@ -9863,6 +9903,7 @@ namespace Kaede2.Input
             void OnConfirm(InputAction.CallbackContext context);
             void OnCancel(InputAction.CallbackContext context);
             void OnFavorite(InputAction.CallbackContext context);
+            void OnSet(InputAction.CallbackContext context);
         }
         public interface IAlbumViewActions
         {

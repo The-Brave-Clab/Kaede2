@@ -219,7 +219,7 @@ namespace Kaede2
             {
                 if (currentSelected != null)
                     currentSelected.OnPointerExit(null);
-                tabGroup.Select(tabGroup.Items.Cast<TabItem>().FirstOrDefault(tab => tab.Active));
+                tabGroup.Select(tabGroup.ActiveIndex);
             }
         }
 

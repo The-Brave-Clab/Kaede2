@@ -288,7 +288,7 @@ namespace Kaede2
             }
             else
             {
-                if (((TabItem)tabGroup.Items[0]).Active) // illustrations
+                if (tabGroup.ActiveIndex == 0) // illustrations
                 {
                     var selected = AlbumItem.CurrentSelected;
                     var maxLocation = illustGrid.GetMaxColumnRowCount();
@@ -302,7 +302,7 @@ namespace Kaede2
                     var newSelected = illustGrid.GetChildFromLocation(newLocation);
                     newSelected.GetComponent<AlbumItem>().Select(true);
                 }
-                else if (((TabItem)tabGroup.Items[2]).Active) // bgm
+                else if (tabGroup.ActiveIndex == 2) // bgm
                 {
                     bgmSelectableGroup.ShouldMoveItemIntoViewPort();
                     bgmSelectableGroup.Previous();
@@ -343,7 +343,7 @@ namespace Kaede2
             }
             else
             {
-                if (((TabItem)tabGroup.Items[0]).Active) // illustrations
+                if (tabGroup.ActiveIndex == 0) // illustrations
                 {
                     var selected = AlbumItem.CurrentSelected;
                     var maxLocation = illustGrid.GetMaxColumnRowCount();
@@ -357,7 +357,7 @@ namespace Kaede2
                     var newSelected = illustGrid.GetChildFromLocation(newLocation);
                     newSelected.GetComponent<AlbumItem>().Select(true);
                 }
-                else if (((TabItem)tabGroup.Items[2]).Active) // bgm
+                else if (tabGroup.ActiveIndex == 2) // bgm
                 {
                     bgmSelectableGroup.ShouldMoveItemIntoViewPort();
                     bgmSelectableGroup.Next();
@@ -385,7 +385,7 @@ namespace Kaede2
                 tabGroup.Select(tabGroup.Items[activeIndex]);
             }
 
-            if (((TabItem)tabGroup.Items[0]).Active) // illustrations
+            if (tabGroup.ActiveIndex == 0) // illustrations
             {
                 var selected = AlbumItem.CurrentSelected;
                 var maxLocation = illustGrid.GetMaxColumnRowCount();
@@ -407,7 +407,7 @@ namespace Kaede2
                     newSelected.GetComponent<AlbumItem>().Select(true);
                 }
             }
-            else if (((TabItem)tabGroup.Items[1]).Active) // op movie
+            else if (tabGroup.ActiveIndex == 1) // op movie
             {
                 var currentSelectedIndex = opMovieItems.IndexOf(OPMovieItem.CurrentSelected);
                 if (currentSelectedIndex == -1)
@@ -426,7 +426,7 @@ namespace Kaede2
                     opMovieItems[currentSelectedIndex - 1].Select();
                 }
             }
-            else if (((TabItem)tabGroup.Items[2]).Active) // bgm
+            else if (tabGroup.ActiveIndex == 2) // bgm
             {
                 bgmSelectableGroup.DeselectAll();
                 GoToTabs();
@@ -448,18 +448,18 @@ namespace Kaede2
                     tabGroup.DeselectAll();
                 }
 
-                if (((TabItem)tabGroup.Items[0]).Active) // illustrations
+                if (tabGroup.ActiveIndex == 0) // illustrations
                 {
                     AlbumItem.CurrentSelected.Select(false);
                 }
-                else if (((TabItem)tabGroup.Items[1]).Active) // op movie
+                else if (tabGroup.ActiveIndex == 1) // op movie
                 {
                     if (OPMovieItem.CurrentSelected == null)
                         opMovieItems[0].Select();
                     else
                         OPMovieItem.CurrentSelected.Select();
                 }
-                else if (((TabItem)tabGroup.Items[2]).Active) // bgm
+                else if (tabGroup.ActiveIndex == 2) // bgm
                 {
                     bgmSelectableGroup.Select(bgmSelectableGroup.LastSelected);
                 }
@@ -467,7 +467,7 @@ namespace Kaede2
                 return;
             }
 
-            if (((TabItem)tabGroup.Items[0]).Active) // illustrations
+            if (tabGroup.ActiveIndex == 0) // illustrations
             {
                 var selected = AlbumItem.CurrentSelected;
                 var maxLocation = illustGrid.GetMaxColumnRowCount();
@@ -482,7 +482,7 @@ namespace Kaede2
                 var newSelected = illustGrid.GetChildFromLocation(newLocation);
                 newSelected.GetComponent<AlbumItem>().Select(false); // go horizontally won't make the item out of view
             }
-            else if (((TabItem)tabGroup.Items[1]).Active) // op movie
+            else if (tabGroup.ActiveIndex == 1) // op movie
             {
                 var currentSelectedIndex = opMovieItems.IndexOf(OPMovieItem.CurrentSelected);
                 if (currentSelectedIndex == -1)
@@ -531,15 +531,15 @@ namespace Kaede2
             }
             else
             {
-                if (((TabItem)tabGroup.Items[0]).Active) // illustrations
+                if (tabGroup.ActiveIndex == 0) // illustrations
                 {
                     AlbumItem.CurrentSelected.OnPointerClick(null);
                 }
-                else if (((TabItem)tabGroup.Items[1]).Active) // op movie
+                else if (tabGroup.ActiveIndex == 1) // op movie
                 {
                     OPMovieItem.CurrentSelected.OnPointerClick(null);
                 }
-                else if (((TabItem)tabGroup.Items[2]).Active) // bgm
+                else if (tabGroup.ActiveIndex == 2) // bgm
                 {
                     bgmSelectableGroup.Confirm();
                 }
@@ -558,9 +558,23 @@ namespace Kaede2
             if (!context.performed) return;
 
             if (focusInTabs) return;
-            if (tabGroup.SelectedIndex != 0) return;
 
-            // TODO
+            if (tabGroup.ActiveIndex != 0) return;
+
+            AlbumItem.CurrentSelected.FavoriteIcon.OnPointerClick(null);
+        }
+
+        public void OnSet(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            if (focusInTabs) return;
+            if (tabGroup.ActiveIndex == 0)
+            {
+                AlbumItem.CurrentSelected.WallpaperIcon.OnPointerClick(null);
+            }
+
+            // TODO: BGM
         }
     }
 }
