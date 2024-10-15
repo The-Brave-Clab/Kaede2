@@ -288,28 +288,54 @@ namespace Kaede2
         {
             if (!context.performed) return;
 
-            var selectingGroup = selectingVoice ? voiceButtons : buttons;
-            var selectingIndex = selectingVoice ? selectingVoiceIndex : selectingButtonIndex;
-
-            selectingIndex -= 1;
-            if (selectingIndex < 0)
-                selectingIndex = selectingGroup.Length - 1;
-
-            selectableGroup.Select(selectingGroup[selectingIndex]);
+            if (selectingVoice)
+            {
+                var targetIndex = selectingVoiceIndex;
+                while (true)
+                {
+                    --targetIndex;
+                    if (targetIndex < 0)
+                        targetIndex = voiceButtons.Length - 1;
+                    if (voiceButtons[targetIndex] is not VoiceButton voiceButton) continue;
+                    if (!voiceButton.Valid()) continue;
+                    break;
+                }
+                selectableGroup.Select(voiceButtons[targetIndex]);
+            }
+            else
+            {
+                var targetIndex = selectingButtonIndex - 1;
+                if (targetIndex < 0)
+                    targetIndex = buttons.Length - 1;
+                selectableGroup.Select(buttons[targetIndex]);
+            }
         }
 
         public void OnDown(InputAction.CallbackContext context)
         {
             if (!context.performed) return;
 
-            var selectingGroup = selectingVoice ? voiceButtons : buttons;
-            var selectingIndex = selectingVoice ? selectingVoiceIndex : selectingButtonIndex;
-
-            selectingIndex += 1;
-            if (selectingIndex >= selectingGroup.Length)
-                selectingIndex = 0;
-
-            selectableGroup.Select(selectingGroup[selectingIndex]);
+            if (selectingVoice)
+            {
+                var targetIndex = selectingVoiceIndex;
+                while (true)
+                {
+                    ++targetIndex;
+                    if (targetIndex >= voiceButtons.Length)
+                        targetIndex = 0;
+                    if (voiceButtons[targetIndex] is not VoiceButton voiceButton) continue;
+                    if (!voiceButton.Valid()) continue;
+                    break;
+                }
+                selectableGroup.Select(voiceButtons[targetIndex]);
+            }
+            else
+            {
+                var targetIndex = selectingButtonIndex + 1;
+                if (targetIndex >= buttons.Length)
+                    targetIndex = 0;
+                selectableGroup.Select(buttons[targetIndex]);
+            }
         }
 
         public void OnLeft(InputAction.CallbackContext context)

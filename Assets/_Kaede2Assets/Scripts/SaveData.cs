@@ -83,5 +83,19 @@ namespace Kaede2
             Instance.favoriteScenarios.Remove(scenario.ScenarioName);
             Save();
         }
+
+        [SerializeField]
+        private string bgmName = "yu3_BGM_Home_Final";
+
+        public static string BGMName
+        {
+            get => Instance.bgmName;
+            set
+            {
+                if (value == Instance.bgmName) return;
+                Instance.bgmName = value;
+                Save();
+            }
+        }
     }
 }

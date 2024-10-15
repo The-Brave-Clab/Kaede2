@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Kaede2.Audio;
 using Kaede2.Input;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
@@ -176,6 +177,7 @@ namespace Kaede2
 
         public void BackToMainMenu()
         {
+            AudioManager.PlayRandomSystemVoice(MasterSystemVoiceData.VoiceCategory.BackToMainMenu);
             CommonUtils.LoadNextScene("MainMenuScene", LoadSceneMode.Single);
         }
 

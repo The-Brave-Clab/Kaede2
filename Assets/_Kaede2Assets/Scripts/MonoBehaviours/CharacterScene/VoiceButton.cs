@@ -1,3 +1,4 @@
+using Kaede2.Audio;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using Kaede2.UI.Framework;
@@ -73,8 +74,7 @@ namespace Kaede2
 
         private void PlayVoice()
         {
-            // TODO
-            this.Log($"Play voice: {voiceName}");
+            AudioManager.PlayVoice(voiceName, true);
         }
 
         public bool Valid()

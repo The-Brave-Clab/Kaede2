@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Coffee.UISoftMask;
 using DG.Tweening;
+using Kaede2.Audio;
 using Kaede2.Input;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
@@ -161,6 +162,14 @@ namespace Kaede2
             cursorMoveSequence = null;
         }
 
+        public void BackToTitle()
+        {
+            if (!Application.isPlaying) return;
+
+            AudioManager.PlayRandomSystemVoice(MasterSystemVoiceData.VoiceCategory.BackToTitle);
+            CommonUtils.LoadNextScene("TitleScene", LoadSceneMode.Single);
+        }
+
         public void OnPointerClick(PointerEventData eventData)
         {
             if (!Application.isPlaying) return;
@@ -169,6 +178,7 @@ namespace Kaede2
 
         public void OnUp(InputAction.CallbackContext context)
         {
+            if (!Application.isPlaying) return;
             if (!context.performed) return;
 
             Previous();
@@ -176,6 +186,7 @@ namespace Kaede2
 
         public void OnDown(InputAction.CallbackContext context)
         {
+            if (!Application.isPlaying) return;
             if (!context.performed) return;
 
             Next();
@@ -183,6 +194,7 @@ namespace Kaede2
 
         public void OnConfirm(InputAction.CallbackContext context)
         {
+            if (!Application.isPlaying) return;
             if (!context.performed) return;
 
             Confirm();
@@ -190,9 +202,10 @@ namespace Kaede2
 
         public void OnCancel(InputAction.CallbackContext context)
         {
+            if (!Application.isPlaying) return;
             if (!context.performed) return;
 
-            CommonUtils.LoadNextScene("TitleScene", LoadSceneMode.Single);
+            BackToTitle();
         }
     }
 }

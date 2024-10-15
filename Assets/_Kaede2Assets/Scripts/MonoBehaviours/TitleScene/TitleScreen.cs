@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Kaede2.Audio;
 using Kaede2.Input;
 using Kaede2.Scenario;
 using Kaede2.Scenario.Framework.Utils;
@@ -22,12 +23,19 @@ namespace Kaede2
         [SerializeField]
         private SelectableGroup selectableGroup;
 
+        private static bool titleVoicePlayed = false;
+
         private void Awake()
         {
             OnThemeChange(Theme.Current);
 
             InputManager.InputAction.TitleScreen.Enable();
             InputManager.InputAction.TitleScreen.AddCallbacks(this);
+
+            AudioManager.PlayBGM(SaveData.BGMName);
+            if (titleVoicePlayed) return;
+            AudioManager.PlayRandomSystemVoice(MasterSystemVoiceData.VoiceCategory.Title);
+            titleVoicePlayed = true;
         }
 
         private IEnumerator Start()
@@ -46,6 +54,7 @@ namespace Kaede2
 
         public void MainMenuConfirm()
         {
+            AudioManager.PlayRandomSystemVoice(MasterSystemVoiceData.VoiceCategory.EnterMainMenu);
             CommonUtils.LoadNextScene("MainMenuScene", LoadSceneMode.Single);
         }
 
@@ -54,8 +63,10 @@ namespace Kaede2
             var currentSceneName = gameObject.scene.name;
             SettingsSceneController.goBackAction += () =>
             {
+                AudioManager.PlayRandomSystemVoice(MasterSystemVoiceData.VoiceCategory.SaveSettings);
                 CommonUtils.LoadNextScene(currentSceneName, LoadSceneMode.Single);
             };
+            AudioManager.PlayRandomSystemVoice(MasterSystemVoiceData.VoiceCategory.Settings);
             CommonUtils.LoadNextScene("SettingsScene", LoadSceneMode.Single);
         }
 

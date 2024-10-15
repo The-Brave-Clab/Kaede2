@@ -1,4 +1,6 @@
 using System.Collections;
+using Kaede2.Audio;
+using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using Kaede2.Utils;
 using UnityEngine;
@@ -56,31 +58,37 @@ namespace Kaede2
         // }
         public void GoToMainStory()
         {
+            AudioManager.PlayRandomSystemVoice(MasterSystemVoiceData.VoiceCategory.MainStory);
             CommonUtils.LoadNextScene("MainStoryScene", LoadSceneMode.Single);
         }
 
         public void GoToEventStory()
         {
+            AudioManager.PlayRandomSystemVoice(MasterSystemVoiceData.VoiceCategory.EventStory);
             CommonUtils.LoadNextScene("EventStoryScene", LoadSceneMode.Single);
         }
 
         public void GoToCollabStory()
         {
+            AudioManager.PlayRandomSystemVoice(MasterSystemVoiceData.VoiceCategory.EventStory);
             CommonUtils.LoadNextScene("CollabStoryScene", LoadSceneMode.Single);
         }
 
         public void GoToFavoriteStory()
         {
+            AudioManager.PlayRandomSystemVoice(MasterSystemVoiceData.VoiceCategory.FavoriteStory);
             CommonUtils.LoadNextScene("FavoriteStoryScene", LoadSceneMode.Single);
         }
 
         public void GoToCharacter()
         {
+            AudioManager.PlayRandomSystemVoice(MasterSystemVoiceData.VoiceCategory.CharacterProfile);
             CommonUtils.LoadNextScene("CharacterScene", LoadSceneMode.Single);
         }
 
         public void GoToAlbum()
         {
+            AudioManager.PlayRandomSystemVoice(MasterSystemVoiceData.VoiceCategory.Album);
             CommonUtils.LoadNextScene("AlbumScene", LoadSceneMode.Single);
         }
 
@@ -91,9 +99,11 @@ namespace Kaede2
 
         public void GoToSettings()
         {
+            AudioManager.PlayRandomSystemVoice(MasterSystemVoiceData.VoiceCategory.Settings);
             var currentSceneName = gameObject.scene.name;
             SettingsSceneController.goBackAction += () =>
             {
+                AudioManager.PlayRandomSystemVoice(MasterSystemVoiceData.VoiceCategory.SaveSettings);
                 CommonUtils.LoadNextScene(currentSceneName, LoadSceneMode.Single);
             };
             CommonUtils.LoadNextScene("SettingsScene", LoadSceneMode.Single);

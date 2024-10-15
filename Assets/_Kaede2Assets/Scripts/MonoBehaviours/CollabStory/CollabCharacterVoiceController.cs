@@ -12,6 +12,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
+using AudioManager = Kaede2.Audio.AudioManager;
 
 namespace Kaede2
 {
@@ -85,8 +86,7 @@ namespace Kaede2
 
         public void PlayVoice(string voiceName)
         {
-            // TODO
-            this.Log($"Play voice: {voiceName}");
+            AudioManager.PlayVoice(voiceName, true);
         }
 
         private void OnEnable()

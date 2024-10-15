@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Kaede2.Audio;
 using Kaede2.Input;
 using Kaede2.Scenario;
 using Kaede2.Scenario.Framework.Utils;
@@ -282,26 +283,31 @@ namespace Kaede2
 
         public void BackToMainScene()
         {
+            AudioManager.PlayRandomSystemVoice(MasterSystemVoiceData.VoiceCategory.BackToMainMenu);
             CommonUtils.LoadNextScene("MainMenuScene", LoadSceneMode.Single);
         }
 
         public void GoToMainStory()
         {
+            AudioManager.PlayRandomSystemVoice(MasterSystemVoiceData.VoiceCategory.MainStory);
             CommonUtils.LoadNextScene("MainStoryScene", LoadSceneMode.Single);
         }
 
         public void GoToEventStory()
         {
+            AudioManager.PlayRandomSystemVoice(MasterSystemVoiceData.VoiceCategory.EventStory);
             CommonUtils.LoadNextScene("EventStoryScene", LoadSceneMode.Single);
         }
 
         public void GoToCollabStory()
         {
+            AudioManager.PlayRandomSystemVoice(MasterSystemVoiceData.VoiceCategory.EventStory);
             CommonUtils.LoadNextScene("CollabStoryScene", LoadSceneMode.Single);
         }
 
         public void GoToFavoriteStory()
         {
+            AudioManager.PlayRandomSystemVoice(MasterSystemVoiceData.VoiceCategory.FavoriteStory);
             CommonUtils.LoadNextScene("FavoriteStoryScene", LoadSceneMode.Single);
         }
 
