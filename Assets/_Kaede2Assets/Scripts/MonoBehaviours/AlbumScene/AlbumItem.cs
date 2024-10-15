@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using Kaede2.Input;
 using Kaede2.ScriptableObjects;
@@ -26,16 +25,32 @@ namespace Kaede2
         private FavoriteIcon favoriteIcon;
 
         [SerializeField]
+        private FavoriteIcon wallpaperIcon;
+
+        [SerializeField]
         private TMP_FontAsset titleFont;
 
         public UnityEvent onSelected;
 
         private AsyncOperationHandle<Sprite> handle;
 
-        public MasterAlbumInfo.AlbumInfo AlbumInfo { get; set; }
+        private MasterAlbumInfo.AlbumInfo albumInfo;
+
+        public MasterAlbumInfo.AlbumInfo AlbumInfo
+        {
+            get => albumInfo;
+            set
+            {
+                albumInfo = value;
+                if (albumInfo != null && SaveData.MainMenuBackground.AlbumName == albumInfo.AlbumName)
+                    currentWallpaper = this;
+            }
+        }
 
         private static AlbumItem currentSelected = null;
         public static AlbumItem CurrentSelected => currentSelected;
+
+        private static AlbumItem currentWallpaper = null;
 
         private static RectTransform viewportRT;
         private static Vector3[] viewportCorners;
@@ -91,6 +106,20 @@ namespace Kaede2
                     SaveData.AddFavoriteAlbum(AlbumInfo);
                 else
                     SaveData.RemoveFavoriteAlbum(AlbumInfo);
+            }
+        }
+
+        private bool IsWallpaper
+        {
+            get => SaveData.MainMenuBackground.AlbumName == AlbumInfo.AlbumName;
+            set
+            {
+                if (!value) return;
+
+                SaveData.MainMenuBackground = AlbumInfo;
+                if (currentWallpaper != null)
+                    currentWallpaper.wallpaperIcon.UpdateColor();
+                currentWallpaper = this;
             }
         }
 
@@ -168,6 +197,9 @@ namespace Kaede2
 
             favoriteIcon.OnClicked = () => { IsFavorite = !IsFavorite; };
             favoriteIcon.IsFavorite = () => IsFavorite;
+
+            wallpaperIcon.OnClicked = () => { IsWallpaper = true; };
+            wallpaperIcon.IsFavorite = () => IsWallpaper;
         }
 
         private void Unload()
@@ -191,6 +223,7 @@ namespace Kaede2
         {
             selectedOutline.SetActive(InputManager.CurrentDeviceType != InputDeviceType.Touchscreen && selected);
             favoriteIcon.gameObject.SetActive((InputManager.CurrentDeviceType == InputDeviceType.Touchscreen && visible) || selected);
+            wallpaperIcon.gameObject.SetActive((InputManager.CurrentDeviceType == InputDeviceType.Touchscreen && visible) || selected);
         }
 
         public void Select(bool makeSureFullyVisible)

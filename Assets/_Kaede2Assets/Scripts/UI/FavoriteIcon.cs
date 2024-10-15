@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using DG.Tweening;
+using Kaede2.Scenario.Framework.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -41,15 +42,7 @@ namespace Kaede2.UI
         public void OnPointerClick(PointerEventData eventData)
         {
             OnClicked?.Invoke();
-            if (coroutine != null)
-            {
-                StopCoroutine(coroutine);
-                sequence.Kill();
-                coroutine = null;
-                sequence = null;
-            }
-
-            coroutine = StartCoroutine(ChangeColorCoroutine());
+            UpdateColor();
         }
 
         private IEnumerator ChangeColorCoroutine()
@@ -73,6 +66,19 @@ namespace Kaede2.UI
 
             coroutine = null;
             sequence = null;
+        }
+
+        public void UpdateColor()
+        {
+            if (coroutine != null)
+            {
+                CoroutineProxy.Stop(coroutine);
+                sequence.Kill();
+                coroutine = null;
+                sequence = null;
+            }
+
+            coroutine = CoroutineProxy.Start(ChangeColorCoroutine());
         }
 
         private (Color center, Color outline) GetColor()
