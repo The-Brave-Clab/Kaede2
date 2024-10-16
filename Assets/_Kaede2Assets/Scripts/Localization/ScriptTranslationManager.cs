@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using Amazon.S3;
 using Amazon.S3.Model;
@@ -61,6 +62,9 @@ namespace Kaede2.Localization
 
         public static LoadStatus GetTranslationStatus(string scenarioName, CultureInfo language)
         {
+            if (language.Name == LocalizationManager.AllLocales.First().Name)
+                return LoadStatus.Success;
+
             if (translatedScenarios == null)
                 return LoadStatus.Failure;
 

@@ -25,6 +25,11 @@ namespace Kaede2.UI
             }
         }
 
+        public void ChangeText(string newText)
+        {
+            text = newText;
+        }
+
         private void Awake()
         {
             if (!Application.isPlaying) return;
