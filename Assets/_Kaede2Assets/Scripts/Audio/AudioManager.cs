@@ -47,6 +47,8 @@ namespace Kaede2.Audio
         private float seVolume;
         private float voiceVolume;
 
+        public static string CurrentPlayingBGM => _instance == null ? null : _instance.currentPlayingBGM;
+
         private void Awake()
         {
             if (_instance != null)
@@ -121,6 +123,8 @@ namespace Kaede2.Audio
                 bgmSource.Stop();
             }
 
+            this.Log($"Playing BGM {bgmName}");
+            bgmVolume = 1;
             bgmSource.clip = bgmHandle.Result;
             bgmSource.Play();
         }

@@ -131,9 +131,12 @@ namespace Kaede2
 
             unloadAssetTimer = unloadAssetInterval;
 
+            bool first = true;
             foreach (var bgmData in MasterBgmData.Instance.Data.OrderBy(bd => bd.id))
             {
                 var bgmItem = bgmSelectableGroup.Add("", bgmData.bgmTitle);
+                BGMItem item = bgmItem.GetComponent<BGMItem>();
+                item.SetData(bgmData);
                 bgmItem.onSelected.AddListener(() =>
                 {
                     AlbumTitle.Text = bgmData.bgmTitle;
@@ -142,10 +145,10 @@ namespace Kaede2
                 });
                 bgmItem.onConfirmed.AddListener(() =>
                 {
-                    // TODO: play bgm
-                    // AudioManager.Instance.PlayBgm(bgmData.cueName);
-                    this.Log($"Play BGM: {bgmData.cueName}");
+                    AudioManager.PlayBGM(bgmData.cueName);
                 });
+                item.UpdateSelectionVisibleStatus(first);
+                first = false;
             }
 
             bgmSelectableGroup.Initialize();
@@ -593,8 +596,11 @@ namespace Kaede2
             {
                 AlbumItem.CurrentSelected.WallpaperIcon.OnPointerClick(null);
             }
-
-            // TODO: BGM
+            else if (tabGroup.ActiveIndex == 2)
+            {
+                var bgmItem = bgmSelectableGroup.SelectedItem.GetComponent<BGMItem>();
+                bgmItem.SetIcon.OnPointerClick(null);
+            }
         }
     }
 }
