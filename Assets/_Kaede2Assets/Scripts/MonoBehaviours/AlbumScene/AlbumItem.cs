@@ -212,6 +212,8 @@ namespace Kaede2
 
             wallpaperIcon.OnClicked = () => { IsWallpaper = true; };
             wallpaperIcon.IsFavorite = () => IsWallpaper;
+
+            UpdateSelectionVisibleStatus(currentSelected == this);
         }
 
         private void Unload()

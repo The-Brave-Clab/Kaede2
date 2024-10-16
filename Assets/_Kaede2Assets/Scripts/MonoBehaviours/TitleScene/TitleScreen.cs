@@ -71,6 +71,11 @@ namespace Kaede2
             CommonUtils.LoadNextScene("SettingsScene", LoadSceneMode.Single);
         }
 
+        public void HelpConfirm()
+        {
+            CommonUtils.LoadNextScene("HelpScene", LoadSceneMode.Single);
+        }
+
         public void OnThemeChange(Theme.VolumeTheme theme)
         {
             background.sprite = Theme.Current.titleBackground;

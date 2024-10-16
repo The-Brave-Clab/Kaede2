@@ -6669,36 +6669,9 @@ namespace Kaede2.Input
             ""id"": ""ea7d5573-449c-4965-995d-38264c8a0dc2"",
             ""actions"": [
                 {
-                    ""name"": ""ConfirmForShow"",
+                    ""name"": ""Cancel"",
                     ""type"": ""Button"",
-                    ""id"": ""221d1ef8-243c-4546-b7fb-3f28749fea47"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""CancelForShow"",
-                    ""type"": ""Button"",
-                    ""id"": ""0762c646-9f51-43f1-8f3b-d2674c2accc2"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""FavoriteForShow"",
-                    ""type"": ""Button"",
-                    ""id"": ""3465f7ff-cd34-499e-aa28-81c0ea368dc3"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""HideForShow"",
-                    ""type"": ""Button"",
-                    ""id"": ""a6990167-c988-4a0b-a9c0-2cf8090f52ad"",
+                    ""id"": ""82f0dff3-47a2-4d48-835b-5044620dc16b"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -6708,111 +6681,34 @@ namespace Kaede2.Input
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""1127da26-b6f8-4c14-8109-84440dab2bf0"",
-                    ""path"": ""<Keyboard>/enter"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""ConfirmForShow"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""abec4df6-bf4b-4e9d-9f92-8b62336fa5fe"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""ConfirmForShow"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""9eaf5fcd-99e7-4682-92d7-583abf56de3c"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";GamepadNintendoStyle"",
-                    ""action"": ""ConfirmForShow"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a6d488f3-1b70-4eeb-b9de-9832b98a10f9"",
-                    ""path"": ""<Keyboard>/f"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""FavoriteForShow"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""70c9c593-79bc-4e57-93d2-3de339fa633a"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad;GamepadNintendoStyle"",
-                    ""action"": ""FavoriteForShow"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""972b2d39-9763-44ea-959d-8327617e9369"",
-                    ""path"": ""<Keyboard>/f"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""HideForShow"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4a584bce-d7a3-43a3-9fdf-f3863e63c0e2"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad;GamepadNintendoStyle"",
-                    ""action"": ""HideForShow"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""08b75cb8-4bfa-499f-856b-2b17aa36abb6"",
+                    ""id"": ""f72bdc2c-84f8-4859-9550-dde70bc5840e"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""CancelForShow"",
+                    ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""a1df1ae2-7321-4bf1-9393-4c9dd9e2284b"",
+                    ""id"": ""8a7fa07f-e725-4d4e-b65b-987fe680c0a5"",
                     ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
-                    ""action"": ""CancelForShow"",
+                    ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1c4a5edb-41f1-4012-addc-e57cc7c57d61"",
+                    ""id"": ""90d1404b-b959-4b79-a112-251632c190f9"",
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";GamepadNintendoStyle"",
-                    ""action"": ""CancelForShow"",
+                    ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -7499,10 +7395,7 @@ namespace Kaede2.Input
             m_SettingWindow_Cancel = m_SettingWindow.FindAction("Cancel", throwIfNotFound: true);
             // Help
             m_Help = asset.FindActionMap("Help", throwIfNotFound: true);
-            m_Help_ConfirmForShow = m_Help.FindAction("ConfirmForShow", throwIfNotFound: true);
-            m_Help_CancelForShow = m_Help.FindAction("CancelForShow", throwIfNotFound: true);
-            m_Help_FavoriteForShow = m_Help.FindAction("FavoriteForShow", throwIfNotFound: true);
-            m_Help_HideForShow = m_Help.FindAction("HideForShow", throwIfNotFound: true);
+            m_Help_Cancel = m_Help.FindAction("Cancel", throwIfNotFound: true);
             // Scenario
             m_Scenario = asset.FindActionMap("Scenario", throwIfNotFound: true);
             m_Scenario_Next = m_Scenario.FindAction("Next", throwIfNotFound: true);
@@ -9511,18 +9404,12 @@ namespace Kaede2.Input
         // Help
         private readonly InputActionMap m_Help;
         private List<IHelpActions> m_HelpActionsCallbackInterfaces = new List<IHelpActions>();
-        private readonly InputAction m_Help_ConfirmForShow;
-        private readonly InputAction m_Help_CancelForShow;
-        private readonly InputAction m_Help_FavoriteForShow;
-        private readonly InputAction m_Help_HideForShow;
+        private readonly InputAction m_Help_Cancel;
         public struct HelpActions
         {
             private @Kaede2InputAction m_Wrapper;
             public HelpActions(@Kaede2InputAction wrapper) { m_Wrapper = wrapper; }
-            public InputAction @ConfirmForShow => m_Wrapper.m_Help_ConfirmForShow;
-            public InputAction @CancelForShow => m_Wrapper.m_Help_CancelForShow;
-            public InputAction @FavoriteForShow => m_Wrapper.m_Help_FavoriteForShow;
-            public InputAction @HideForShow => m_Wrapper.m_Help_HideForShow;
+            public InputAction @Cancel => m_Wrapper.m_Help_Cancel;
             public InputActionMap Get() { return m_Wrapper.m_Help; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -9532,34 +9419,16 @@ namespace Kaede2.Input
             {
                 if (instance == null || m_Wrapper.m_HelpActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_HelpActionsCallbackInterfaces.Add(instance);
-                @ConfirmForShow.started += instance.OnConfirmForShow;
-                @ConfirmForShow.performed += instance.OnConfirmForShow;
-                @ConfirmForShow.canceled += instance.OnConfirmForShow;
-                @CancelForShow.started += instance.OnCancelForShow;
-                @CancelForShow.performed += instance.OnCancelForShow;
-                @CancelForShow.canceled += instance.OnCancelForShow;
-                @FavoriteForShow.started += instance.OnFavoriteForShow;
-                @FavoriteForShow.performed += instance.OnFavoriteForShow;
-                @FavoriteForShow.canceled += instance.OnFavoriteForShow;
-                @HideForShow.started += instance.OnHideForShow;
-                @HideForShow.performed += instance.OnHideForShow;
-                @HideForShow.canceled += instance.OnHideForShow;
+                @Cancel.started += instance.OnCancel;
+                @Cancel.performed += instance.OnCancel;
+                @Cancel.canceled += instance.OnCancel;
             }
 
             private void UnregisterCallbacks(IHelpActions instance)
             {
-                @ConfirmForShow.started -= instance.OnConfirmForShow;
-                @ConfirmForShow.performed -= instance.OnConfirmForShow;
-                @ConfirmForShow.canceled -= instance.OnConfirmForShow;
-                @CancelForShow.started -= instance.OnCancelForShow;
-                @CancelForShow.performed -= instance.OnCancelForShow;
-                @CancelForShow.canceled -= instance.OnCancelForShow;
-                @FavoriteForShow.started -= instance.OnFavoriteForShow;
-                @FavoriteForShow.performed -= instance.OnFavoriteForShow;
-                @FavoriteForShow.canceled -= instance.OnFavoriteForShow;
-                @HideForShow.started -= instance.OnHideForShow;
-                @HideForShow.performed -= instance.OnHideForShow;
-                @HideForShow.canceled -= instance.OnHideForShow;
+                @Cancel.started -= instance.OnCancel;
+                @Cancel.performed -= instance.OnCancel;
+                @Cancel.canceled -= instance.OnCancel;
             }
 
             public void RemoveCallbacks(IHelpActions instance)
@@ -10008,10 +9877,7 @@ namespace Kaede2.Input
         }
         public interface IHelpActions
         {
-            void OnConfirmForShow(InputAction.CallbackContext context);
-            void OnCancelForShow(InputAction.CallbackContext context);
-            void OnFavoriteForShow(InputAction.CallbackContext context);
-            void OnHideForShow(InputAction.CallbackContext context);
+            void OnCancel(InputAction.CallbackContext context);
         }
         public interface IScenarioActions
         {

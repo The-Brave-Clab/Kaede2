@@ -160,6 +160,12 @@ namespace Kaede2.ScriptableObjects
             [ColorUsage(false, false)]
             private Color voiceButtonCircle;
             public Color VoiceButtonCircle => NonTransparent(voiceButtonCircle);
+
+            [Header("Help")]
+            [SerializeField]
+            [ColorUsage(false, false)]
+            private Color helpThemeColor;
+            public Color HelpThemeColor => NonTransparent(helpThemeColor);
         }
 
         [SerializeField]

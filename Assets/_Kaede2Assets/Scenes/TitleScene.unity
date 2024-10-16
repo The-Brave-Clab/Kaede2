@@ -1253,10 +1253,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6741160739445414957, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
       propertyPath: onConfirmed.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6741160739445414957, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
       propertyPath: onConfirmed.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741160739445414957, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
+      propertyPath: onConfirmed.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6741160739445414957, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
@@ -1264,7 +1268,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 188876438}
     - target: {fileID: 6741160739445414957, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
+      propertyPath: onConfirmed.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1739044476}
+    - target: {fileID: 6741160739445414957, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
       propertyPath: onConfirmed.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741160739445414957, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
+      propertyPath: onConfirmed.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6741160739445414957, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
@@ -1272,11 +1284,23 @@ PrefabInstance:
       value: ConfirmSound
       objectReference: {fileID: 0}
     - target: {fileID: 6741160739445414957, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
+      propertyPath: onConfirmed.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: HelpConfirm
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741160739445414957, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
       propertyPath: onConfirmed.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Kaede2.Audio.AudioManagerProxy, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6741160739445414957, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
+      propertyPath: onConfirmed.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Kaede2.TitleScreen, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741160739445414957, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
       propertyPath: onConfirmed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741160739445414957, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
+      propertyPath: onConfirmed.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []

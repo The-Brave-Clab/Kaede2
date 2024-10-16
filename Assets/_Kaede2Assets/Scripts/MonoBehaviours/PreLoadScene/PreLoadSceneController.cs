@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Kaede2.Localization;
 using Kaede2.Scenario.Framework.Utils;
@@ -33,9 +34,17 @@ namespace Kaede2
 
         private IEnumerator Start()
         {
-            yield return new WaitForSeconds(0.5f); // we wait for a small amount of time to let the user see the loading animation 
+            yield return new WaitForSeconds(0.5f); // we wait for a small amount of time to let the user see the loading animation
             yield return GlobalInitializer.Initialize();
-            yield return DownloadAll();
+
+            CoroutineGroup group = new();
+
+            group.Add(DownloadAll());
+            if (!File.Exists(Supporters.LocalPath))
+                group.Add(Supporters.DownloadAndSave());
+
+            yield return group.WaitForAll();
+            
             CoroutineProxy.Start(ScriptTranslationManager.LoadTranslations());
 
             CommonUtils.LoadNextScene("SplashScreenScene", LoadSceneMode.Single);
