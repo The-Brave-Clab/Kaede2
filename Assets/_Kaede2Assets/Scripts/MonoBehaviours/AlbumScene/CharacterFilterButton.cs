@@ -9,6 +9,7 @@ using Kaede2.UI.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using AudioManager = Kaede2.Audio.AudioManager;
 
 namespace Kaede2
 {
@@ -53,6 +54,7 @@ namespace Kaede2
                 }
 
                 SetStatus();
+                AudioManager.ButtonSound();
             });
 
             LocalizationManager.OnLocaleChanged += SetCharacterName;

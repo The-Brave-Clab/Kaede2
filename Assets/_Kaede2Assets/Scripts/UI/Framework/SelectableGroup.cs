@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Kaede2.Utils;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Kaede2.UI.Framework
 {
@@ -18,6 +19,7 @@ namespace Kaede2.UI.Framework
         public IReadOnlyList<SelectableItem> Items => items;
         public SelectableItem SelectedItem => selectedIndex < 0 ? null : items[selectedIndex];
         public int SelectedIndex => selectedIndex;
+        public bool Loop => loop;
 
         protected virtual void Awake()
         {
@@ -46,21 +48,24 @@ namespace Kaede2.UI.Framework
             }
         }
 
-        public void Select(int index)
+        public bool Select(int index)
         {
+            var current = selectedIndex;
             selectedIndex = loop ? CommonUtils.Mod(index, items.Count) : Mathf.Clamp(index, 0, items.Count - 1);
             selectedIndex = NextAvailable(1, true);
             for (var i = 0; i < items.Count; i++)
             {
                 items[i].selected = i == selectedIndex;
             }
+            return current != selectedIndex;
         }
 
-        public void Select(SelectableItem item)
+        public bool Select(SelectableItem item)
         {
             var index = items.IndexOf(item);
             if (index >= 0 && item.gameObject.activeSelf)
-                Select(index);
+                return Select(index);
+            return false;
         }
 
         public virtual void DeselectAll()
@@ -73,23 +78,28 @@ namespace Kaede2.UI.Framework
             }
         }
 
-        public virtual void Next()
+        public virtual bool Next()
         {
+            var current = selectedIndex;
             var nextAvailable = NextAvailable(1);
             if (nextAvailable >= 0)
                 Select(nextAvailable);
+            return nextAvailable != current;
         }
 
-        public virtual void Previous()
+        public virtual bool Previous()
         {
+            var current = selectedIndex;
             var nextAvailable = NextAvailable(-1);
             if (nextAvailable >= 0)
                 Select(nextAvailable);
+            return nextAvailable != current;
         }
 
         public virtual void Confirm()
         {
-            if (SelectedItem != null) SelectedItem.Confirm();
+            if (SelectedItem == null) return;
+            SelectedItem.Confirm();
         }
 
         private int NextAvailable(int step, bool includeCurrent = false)

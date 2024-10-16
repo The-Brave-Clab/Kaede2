@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using Kaede2.Audio;
 using Kaede2.Input;
 using Kaede2.UI;
 using Kaede2.UI.Framework;
@@ -144,7 +145,8 @@ namespace Kaede2
 
             if (focusOnTabs)
             {
-                tabGroup.Previous();
+                if (tabGroup.Previous())
+                    AudioManager.ButtonSound();
                 return;
             }
 
@@ -153,6 +155,7 @@ namespace Kaede2
             if ((currentSelected == null && !displayApplyButtonSelected) || (currentSelected != null && !tabsItems[activeTabIndex].Contains(currentSelected)))
             {
                 tabsItems[activeTabIndex][0].OnPointerEnter(null);
+                AudioManager.ButtonSound();
                 return;
             }
 
@@ -160,6 +163,7 @@ namespace Kaede2
             {
                 displayApplyButton.OnPointerExit(null);
                 tabsItems[1][^1].OnPointerEnter(null);
+                AudioManager.ButtonSound();
                 return;
             }
 
@@ -169,6 +173,7 @@ namespace Kaede2
 
             currentSelected.OnPointerExit(null);
             tabsItems[activeTabIndex][newIndex].OnPointerEnter(null);
+            AudioManager.ButtonSound();
         }
 
         public void OnDown(InputAction.CallbackContext context)
@@ -177,7 +182,8 @@ namespace Kaede2
 
             if (focusOnTabs)
             {
-                tabGroup.Next();
+                if (tabGroup.Next())
+                    AudioManager.ButtonSound();
                 return;
             }
 
@@ -188,6 +194,7 @@ namespace Kaede2
             if (!tabsItems[activeTabIndex].Contains(currentSelected))
             {
                 tabsItems[activeTabIndex][0].OnPointerEnter(null);
+                AudioManager.ButtonSound();
                 return;
             }
 
@@ -195,6 +202,7 @@ namespace Kaede2
             {
                 tabsItems[1][^1].OnPointerExit(null);
                 displayApplyButton.OnPointerEnter(null);
+                AudioManager.ButtonSound();
                 return;
             }
     
@@ -204,6 +212,7 @@ namespace Kaede2
 
             currentSelected.OnPointerExit(null);
             tabsItems[activeTabIndex][newIndex].OnPointerEnter(null);
+            AudioManager.ButtonSound();
         }
 
         public void OnLeft(InputAction.CallbackContext context)
@@ -221,6 +230,7 @@ namespace Kaede2
                     currentSelected.OnPointerExit(null);
                 tabGroup.Select(tabGroup.ActiveIndex);
             }
+            AudioManager.ButtonSound();
         }
 
         public void OnRight(InputAction.CallbackContext context)
@@ -238,10 +248,12 @@ namespace Kaede2
                 {
                     tabsItems[activeTabIndex][0].OnPointerEnter(null);
                 }
+                AudioManager.ButtonSound();
             }
             else if (controlSettings && currentSelected != null && currentSelected.Control != null)
             {
                 currentSelected.Control.Right();
+                AudioManager.ButtonSound();
             }
         }
 
@@ -278,10 +290,12 @@ namespace Kaede2
             {
                 currentSelected.Control.OnPointerExit(null);
                 currentSelected.OnPointerEnter(null);
+                AudioManager.ConfirmSound();
                 return;
             }
 
             currentSelected.Control.OnPointerEnter(null);
+            AudioManager.ButtonSound();
         }
 
         public void OnCancel(InputAction.CallbackContext context)
@@ -292,6 +306,7 @@ namespace Kaede2
             {
                 currentSelected.Control.OnPointerExit(null);
                 currentSelected.OnPointerEnter(null);
+                AudioManager.CancelSound();
                 return;
             }
 

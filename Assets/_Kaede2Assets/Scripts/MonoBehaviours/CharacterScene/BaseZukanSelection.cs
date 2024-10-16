@@ -1,4 +1,5 @@
 using System.Collections;
+using Kaede2.Audio;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
 using TMPro;
@@ -66,6 +67,7 @@ namespace Kaede2
 
             // if we manually wrap the text, we need to remove it
             sceneController.ZukanViewWindow.Show(Text.Replace("\n", ""), imageHandle.Result);
+            AudioManager.ConfirmSound();
         }
 
         public override void Deactivate()

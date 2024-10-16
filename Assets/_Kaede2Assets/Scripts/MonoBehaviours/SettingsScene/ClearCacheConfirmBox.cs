@@ -1,3 +1,4 @@
+using Kaede2.Audio;
 using Kaede2.Utils;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ namespace Kaede2
         {
             yesButton.onClick.AddListener(() =>
             {
+                AudioManager.ConfirmSound();
 #if !UNITY_WEBGL || UNITY_EDITOR
                 Caching.ClearCache();
                 this.Log("Cache cleared");
@@ -22,6 +24,7 @@ namespace Kaede2
 
             noButton.onClick.AddListener(() =>
             {
+                AudioManager.CancelSound();
                 Destroy(gameObject);
             });
         }

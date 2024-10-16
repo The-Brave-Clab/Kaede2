@@ -1,3 +1,4 @@
+using Kaede2.Audio;
 using Kaede2.Input;
 using Kaede2.UI;
 using Kaede2.UI.Framework;
@@ -47,6 +48,7 @@ namespace Kaede2
                 noButton.OnPointerExit(null);
                 yesButton.OnPointerEnter(null);
             }
+            AudioManager.ButtonSound();
         }
 
         public void OnRight(InputAction.CallbackContext context)
@@ -63,6 +65,7 @@ namespace Kaede2
                 noButton.OnPointerExit(null);
                 yesButton.OnPointerEnter(null);
             }
+            AudioManager.ButtonSound();
         }
 
         public void OnConfirm(InputAction.CallbackContext context)

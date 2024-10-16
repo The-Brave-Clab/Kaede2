@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Kaede2.Audio;
 using Kaede2.Input;
 using Kaede2.Utils;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -30,6 +32,7 @@ namespace Kaede2
             }
 
             InputManager.InputAction.SplashScreen.Enable();
+            InputManager.InputAction.SplashScreen.Skip.performed += CancelSound;
 #if UNITY_IOS
             UnityEngine.iOS.Device.hideHomeButton = true;
 #endif
@@ -44,7 +47,11 @@ namespace Kaede2
 
         private void OnDestroy()
         {
-            InputManager.InputAction?.SplashScreen.Disable();
+            if (InputManager.InputAction != null)
+            {
+                InputManager.InputAction.SplashScreen.Skip.performed -= CancelSound;
+                InputManager.InputAction.SplashScreen.Disable();
+            }
 #if UNITY_IOS
             UnityEngine.iOS.Device.hideHomeButton = false;
 #endif
@@ -112,6 +119,11 @@ namespace Kaede2
             }
 
             SetSplashSpritesColor(new Color(1, 1, 1, 0));
+        }
+
+        private void CancelSound(InputAction.CallbackContext context)
+        {
+            AudioManager.CancelSound();
         }
     }
 }

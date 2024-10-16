@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Kaede2.Audio;
 using Kaede2.UI.Framework;
 using Kaede2.Utils;
 using UnityEngine;
@@ -71,11 +72,13 @@ namespace Kaede2
 
         private void Select(int newIndex)
         {
-            newIndex = Mathf.Clamp(newIndex, 0, chapters.Count - 1);
+            var clampedIndex = Mathf.Clamp(newIndex, 0, chapters.Count - 1);
+            if (clampedIndex == newIndex)
+                AudioManager.ButtonSound();
 
             ClearCoroutine();
 
-            selectCoroutine = StartCoroutine(SelectCoroutine(newIndex));
+            selectCoroutine = StartCoroutine(SelectCoroutine(clampedIndex));
         }
 
         private IEnumerator SelectCoroutine(int newIndex)

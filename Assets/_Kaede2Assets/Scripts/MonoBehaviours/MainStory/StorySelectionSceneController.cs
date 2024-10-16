@@ -89,6 +89,7 @@ namespace Kaede2
 
         private IEnumerator EnterEpisodeSelectionCoroutine(MasterScenarioInfo.IProvider provider)
         {
+            AudioManager.ConfirmSound();
             yield return SceneTransition.Fade(1);
 
             gameObject.SetActive(false);
@@ -132,6 +133,7 @@ namespace Kaede2
                 item.onConfirmed.AddListener(() =>
                 {
                     EnterStorySelection(new SameEpisodeProvider(info), info.EpisodeNumber, info.EpisodeName);
+                    AudioManager.ConfirmSound();
                 });
             }
 
@@ -140,6 +142,7 @@ namespace Kaede2
 
         public void ExitEpisodeSelection()
         {
+            AudioManager.CancelSound();
             CoroutineProxy.Start(ExitEpisodeSelectionCoroutine());
         }
 
@@ -163,6 +166,7 @@ namespace Kaede2
 
         public void EnterStorySelection(MasterScenarioInfo.IProvider provider, string titleLabel, string titleText)
         {
+            AudioManager.ConfirmSound();
             CoroutineProxy.Start(EnterStorySelectionCoroutine(provider, titleLabel, titleText));
         }
 
@@ -206,6 +210,7 @@ namespace Kaede2
             foreach (var info in storyInfos)
             {
                 var item = storySelectableGroup.Add(info.Label, info.StoryName);
+                item.onConfirmed.AddListener(AudioManager.ConfirmSound);
                 var selectionItem = item.GetComponent<StorySelectionItem>();
                 selectionItem.Initialize(info, this);
                 storySelectionItems.Add(selectionItem);
@@ -215,6 +220,7 @@ namespace Kaede2
 
         public void ExitStorySelection()
         {
+            AudioManager.CancelSound();
             CoroutineProxy.Start(ExitStorySelectionCoroutine());
         }
 
@@ -249,6 +255,7 @@ namespace Kaede2
             yield return SceneTransition.Fade(1);
 
             sceneRoot.SetActive(false);
+            AudioManager.PauseBGM();
             yield return PlayerScenarioModule.Play(
                 scenario.ScenarioName,
                 language,
@@ -274,6 +281,7 @@ namespace Kaede2
         {
             yield return PlayerScenarioModule.Unload();
 
+            AudioManager.ResumeBGM();
             sceneRoot.SetActive(true);
 
             yield return SceneTransition.Fade(0);
@@ -355,8 +363,10 @@ namespace Kaede2
                 if (!context.performed) return;
 
                 if (self.episodeSelectableGroup == null) return;
+                
                 self.episodeSelectableGroup.ShouldMoveItemIntoViewPort();
-                self.episodeSelectableGroup.Previous();
+                if (self.episodeSelectableGroup.Previous())
+                    AudioManager.ButtonSound();
             }
 
             public void OnDown(InputAction.CallbackContext context)
@@ -365,7 +375,8 @@ namespace Kaede2
 
                 if (self.episodeSelectableGroup == null) return;
                 self.episodeSelectableGroup.ShouldMoveItemIntoViewPort();
-                self.episodeSelectableGroup.Next();
+                if (self.episodeSelectableGroup.Next())
+                    AudioManager.ButtonSound();
             }
 
             public void OnConfirm(InputAction.CallbackContext context)
@@ -384,6 +395,7 @@ namespace Kaede2
                 if (self.episodeSelectableGroup.FocusedOnLabeledSelectables) return;
 
                 self.episodeSelectableGroup.FocusOnLabeledSelectables();
+                AudioManager.ButtonSound();
             }
 
             public void OnRight(InputAction.CallbackContext context)
@@ -394,6 +406,7 @@ namespace Kaede2
                 if (!self.episodeSelectableGroup.FocusedOnLabeledSelectables) return;
 
                 self.episodeSelectableGroup.FocusOnAdditionalSelectableGroup();
+                AudioManager.ButtonSound();
             }
 
             public void OnCancel(InputAction.CallbackContext context)
@@ -432,7 +445,8 @@ namespace Kaede2
                 if (!context.performed) return;
 
                 self.storySelectableGroup.ShouldMoveItemIntoViewPort();
-                self.storySelectableGroup.Previous();
+                if (self.storySelectableGroup.Previous())
+                    AudioManager.ButtonSound();
             }
 
             public void OnDown(InputAction.CallbackContext context)
@@ -440,7 +454,8 @@ namespace Kaede2
                 if (!context.performed) return;
 
                 self.storySelectableGroup.ShouldMoveItemIntoViewPort();
-                self.storySelectableGroup.Next();
+                if (self.storySelectableGroup.Next())
+                    AudioManager.ButtonSound();
             }
 
             public void OnLeft(InputAction.CallbackContext context)
@@ -450,6 +465,7 @@ namespace Kaede2
                 if (self.storySelectableGroup.FocusedOnLabeledSelectables) return;
 
                 self.storySelectableGroup.FocusOnLabeledSelectables();
+                AudioManager.ButtonSound();
             }
 
             public void OnRight(InputAction.CallbackContext context)
@@ -459,6 +475,7 @@ namespace Kaede2
                 if (!self.storySelectableGroup.FocusedOnLabeledSelectables) return;
 
                 self.storySelectableGroup.FocusOnAdditionalSelectableGroup();
+                AudioManager.ButtonSound();
             }
 
             public void OnConfirm(InputAction.CallbackContext context)

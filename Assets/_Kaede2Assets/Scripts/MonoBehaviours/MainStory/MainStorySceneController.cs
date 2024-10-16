@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Kaede2.Audio;
 using Kaede2.Input;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
@@ -105,14 +106,16 @@ namespace Kaede2
         {
             if (!context.performed) return;
 
-            selectableGroup.Previous();
+            if (selectableGroup.Previous())
+                AudioManager.ButtonSound();
         }
 
         public void OnDown(InputAction.CallbackContext context)
         {
             if (!context.performed) return;
 
-            selectableGroup.Next();
+            if (selectableGroup.Next())
+                AudioManager.ButtonSound();
         }
 
         public void OnLeft(InputAction.CallbackContext context)
@@ -149,6 +152,7 @@ namespace Kaede2
         {
             if (!context.performed) return;
 
+            AudioManager.ConfirmSound();
             selectableGroup.Confirm();
         }
 

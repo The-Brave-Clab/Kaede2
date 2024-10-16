@@ -1,6 +1,7 @@
 #if !UNITY_WEBGL || UNITY_EDITOR
 
 using System.Linq;
+using Kaede2.Audio;
 using Kaede2.Utils;
 using TMPro;
 using UnityEngine;
@@ -31,6 +32,7 @@ namespace Kaede2
         public void OnPointerClick(PointerEventData eventData)
         {
             Instantiate(clearCacheConfirmBoxPrefab, canvas);
+            AudioManager.ConfirmSound();
         }
     }
 }

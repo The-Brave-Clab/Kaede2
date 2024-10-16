@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using Kaede2.Audio;
 using Kaede2.Input;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
@@ -135,6 +136,7 @@ namespace Kaede2
 
         public void Confirm(CartoonEpisodeGroup episode)
         {
+            AudioManager.ConfirmSound();
             sceneController.OnEpisodeSelected(episode.CartoonInfo);
         }
 
@@ -152,6 +154,7 @@ namespace Kaede2
             ++currentSelectedIndex;
             if (currentSelectedIndex >= episodes.Length) currentSelectedIndex = 0;
             Select(episodes[currentSelectedIndex]);
+            AudioManager.ButtonSound();
         }
 
         public void OnRight(InputAction.CallbackContext context)
@@ -162,6 +165,7 @@ namespace Kaede2
             --currentSelectedIndex;
             if (currentSelectedIndex < 0) currentSelectedIndex = episodes.Length - 1;
             Select(episodes[currentSelectedIndex]);
+            AudioManager.ButtonSound();
         }
 
         public void OnConfirm(InputAction.CallbackContext context)

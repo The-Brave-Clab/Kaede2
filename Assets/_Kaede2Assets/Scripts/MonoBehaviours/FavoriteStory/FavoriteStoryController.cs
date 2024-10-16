@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Kaede2.Audio;
 using Kaede2.Input;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
@@ -101,6 +102,7 @@ namespace Kaede2
                         {
                             currentEpisodeProvider = mainProvider;
                             EnterEpisodeSelection(mainProvider);
+                            AudioManager.ConfirmSound();
                         });
                     }
                 }
@@ -115,6 +117,7 @@ namespace Kaede2
                         {
                             currentEpisodeProvider = otherProvider;
                             EnterEpisodeSelection(otherProvider);
+                            AudioManager.ConfirmSound();
                         });
                     }
                 }
@@ -211,7 +214,8 @@ namespace Kaede2
             if (!context.performed) return;
 
             categorySelectableGroup.ShouldMoveItemIntoViewPort();
-            categorySelectableGroup.Previous();
+            if (categorySelectableGroup.Previous())
+                AudioManager.ButtonSound();
         }
 
         public void OnDown(InputAction.CallbackContext context)
@@ -219,7 +223,8 @@ namespace Kaede2
             if (!context.performed) return;
 
             categorySelectableGroup.ShouldMoveItemIntoViewPort();
-            categorySelectableGroup.Next();
+            if (categorySelectableGroup.Next())
+                AudioManager.ButtonSound();
         }
 
         public void OnLeft(InputAction.CallbackContext context)
@@ -231,6 +236,7 @@ namespace Kaede2
             if (categorySelectableGroup.FocusedOnLabeledSelectables) return;
 
             categorySelectableGroup.FocusOnLabeledSelectables();
+            AudioManager.ButtonSound();
         }
 
         public void OnRight(InputAction.CallbackContext context)
@@ -242,6 +248,7 @@ namespace Kaede2
             if (!categorySelectableGroup.FocusedOnLabeledSelectables) return;
 
             categorySelectableGroup.FocusOnAdditionalSelectableGroup();
+            AudioManager.ButtonSound();
         }
 
         public void OnConfirm(InputAction.CallbackContext context)

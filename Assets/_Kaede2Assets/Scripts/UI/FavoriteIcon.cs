@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using DG.Tweening;
+using Kaede2.Audio;
 using Kaede2.Scenario.Framework.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;

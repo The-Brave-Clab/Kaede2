@@ -10,6 +10,7 @@ using Kaede2.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using AudioManager = Kaede2.Audio.AudioManager;
 
 namespace Kaede2
 {
@@ -128,6 +129,7 @@ namespace Kaede2
         {
             controller.SetFilter(Filter);
             gameObject.SetActive(false);
+            AudioManager.ConfirmSound();
         }
 
         private bool Filter(MasterAlbumInfo.AlbumInfo info)
@@ -174,6 +176,7 @@ namespace Kaede2
         public void SetFavoriteOnly(bool only)
         {
             favoriteOnly = only;
+            AudioManager.ButtonSound();
         }
 
         public void OnUp(InputAction.CallbackContext context)
@@ -211,6 +214,8 @@ namespace Kaede2
 
                 scrollRect.MoveItemIntoViewport(nextItem as RectTransform, 0.3f);
             }
+
+            AudioManager.ButtonSound();
         }
 
         public void OnDown(InputAction.CallbackContext context)
@@ -245,6 +250,8 @@ namespace Kaede2
 
                 scrollRect.MoveItemIntoViewport(nextItem as RectTransform, 0.3f);
             }
+            
+            AudioManager.ButtonSound();
         }
 
         public void OnLeft(InputAction.CallbackContext context)
@@ -266,6 +273,7 @@ namespace Kaede2
 
             currentItem.GetComponent<CommonButton>().OnPointerExit(null);
             nextItem.GetComponent<CommonButton>().OnPointerEnter(null);
+            AudioManager.ButtonSound();
         }
 
         public void OnRight(InputAction.CallbackContext context)
@@ -288,6 +296,7 @@ namespace Kaede2
 
             currentItem.GetComponent<CommonButton>().OnPointerExit(null);
             nextItem.GetComponent<CommonButton>().OnPointerEnter(null);
+            AudioManager.ButtonSound();
         }
 
         public void OnConfirm(InputAction.CallbackContext context)

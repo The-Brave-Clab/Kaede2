@@ -11,6 +11,7 @@ using Kaede2.UI.Framework;
 using Kaede2.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using AudioManager = Kaede2.Audio.AudioManager;
 
 namespace Kaede2
 {
@@ -264,20 +265,28 @@ namespace Kaede2
         {
             if (!context.performed) return;
 
+            bool selected = false;
             if (selectableGroup.SelectedIndex == storyCategorySelectables.Length)
-                selectableGroup.Select(storyCategorySelectables.FirstOrDefault(s => s.Activated));
+                selected = selectableGroup.Select(storyCategorySelectables.FirstOrDefault(s => s.Activated));
             else
-                selectableGroup.Previous();
+                selected = selectableGroup.Previous();
+
+            if (selected)
+                AudioManager.ButtonSound();
         }
 
         public void OnDown(InputAction.CallbackContext context)
         {
             if (!context.performed) return;
 
+            bool selected = false;
             if (storyCategorySelectables.Contains(selectableGroup.SelectedItem))
-                selectableGroup.Select(storyCategorySelectables.Length);
+                selected = selectableGroup.Select(storyCategorySelectables.Length);
             else
-                selectableGroup.Next();
+                selected = selectableGroup.Next();
+
+            if (selected)
+                AudioManager.ButtonSound();
         }
 
         public void OnLeft(InputAction.CallbackContext context)
@@ -287,7 +296,9 @@ namespace Kaede2
             StoryCategorySelectable scs = selectableGroup.SelectedItem as StoryCategorySelectable;
             if (scs == null) return;
             if (!storyCategorySelectables.Contains(scs)) return;
-            selectableGroup.Select(Mathf.Clamp(Array.IndexOf(storyCategorySelectables, scs) - 1, 0, storyCategorySelectables.Length - 1));
+            bool selected = selectableGroup.Select(Mathf.Clamp(Array.IndexOf(storyCategorySelectables, scs) - 1, 0, storyCategorySelectables.Length - 1));
+            if (selected)
+                AudioManager.ButtonSound();
         }
 
         public void OnRight(InputAction.CallbackContext context)
@@ -297,7 +308,9 @@ namespace Kaede2
             StoryCategorySelectable scs = selectableGroup.SelectedItem as StoryCategorySelectable;
             if (scs == null) return;
             if (!storyCategorySelectables.Contains(scs)) return;
-            selectableGroup.Select(Mathf.Clamp(Array.IndexOf(storyCategorySelectables, scs) + 1, 0, storyCategorySelectables.Length - 1));
+            bool selected = selectableGroup.Select(Mathf.Clamp(Array.IndexOf(storyCategorySelectables, scs) + 1, 0, storyCategorySelectables.Length - 1));
+            if (selected)
+                AudioManager.ButtonSound();
         }
 
         public void OnConfirm(InputAction.CallbackContext context)

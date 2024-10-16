@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Kaede2.Audio;
 using Kaede2.Input;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
@@ -164,11 +165,13 @@ namespace Kaede2
             if (selectableGroup.SelectedIndex is 0 or 1) return; // when the first or second item is selected
             if (selectableGroup.SelectedIndex != 2) // common up
             {
-                selectableGroup.Previous();
+                if (selectableGroup.Previous())
+                    AudioManager.ButtonSound();
                 return;
             }
 
-            selectableGroup.Select(eventStoryItem.Activated ? eventStoryItem : birthdayStoryItem);
+            if (selectableGroup.Select(eventStoryItem.Activated ? eventStoryItem : birthdayStoryItem))
+                AudioManager.ButtonSound();
         }
 
         public void OnDown(InputAction.CallbackContext context)
@@ -177,11 +180,13 @@ namespace Kaede2
 
             if (selectableGroup.SelectedIndex is 0 or 1)
             {
-                selectableGroup.Select(2);
+                if (selectableGroup.Select(2))
+                    AudioManager.ButtonSound();
                 return;
             }
 
-            selectableGroup.Next();
+            if (selectableGroup.Next())
+                AudioManager.ButtonSound();
         }
 
         public void OnLeft(InputAction.CallbackContext context)
@@ -189,7 +194,8 @@ namespace Kaede2
             if (!context.performed) return;
 
             if (selectableGroup.SelectedIndex != 1) return;
-            selectableGroup.Select(0);
+            if (selectableGroup.Select(0))
+                AudioManager.ButtonSound();
         }
 
         public void OnRight(InputAction.CallbackContext context)
@@ -197,7 +203,8 @@ namespace Kaede2
             if (!context.performed) return;
 
             if (selectableGroup.SelectedIndex != 0) return;
-            selectableGroup.Select(1);
+            if (selectableGroup.Select(1))
+                AudioManager.ButtonSound();
         }
 
         public void OnConfirm(InputAction.CallbackContext context)

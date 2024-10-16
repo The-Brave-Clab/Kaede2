@@ -340,7 +340,9 @@ namespace Kaede2
                 currentSelected.Deactivate();
                 // select tab instead
                 var activeTab = tabGroup.Items[tabGroup.ActiveIndex];
-                if (activeTab != null) tabGroup.Select(activeTab);
+                if (activeTab == null) return;
+                if (tabGroup.Select(activeTab))
+                    AudioManager.ButtonSound();
             }
             else
             {
@@ -349,6 +351,7 @@ namespace Kaede2
                 CharacterSceneBaseSelection newSelected = newObj.GetComponent<CharacterSceneBaseSelection>();
                 if (newSelected == null) return;
                 newSelected.Select(currentScrollRect);
+                AudioManager.ButtonSound();
             }
         }
 
@@ -373,11 +376,13 @@ namespace Kaede2
                 CharacterSceneBaseSelection newSelected = newObj.GetComponent<CharacterSceneBaseSelection>();
                 if (newSelected == null) return;
                 newSelected.Select(currentScrollRect);
+                AudioManager.ButtonSound();
             }
             else
             {
                 currentSelected.Select();
                 tabGroup.DeselectAll();
+                AudioManager.ButtonSound();
             }
         }
 
@@ -401,10 +406,12 @@ namespace Kaede2
                 CharacterSceneBaseSelection newSelected = newObj.GetComponent<CharacterSceneBaseSelection>();
                 if (newSelected == null) return;
                 newSelected.Select(currentScrollRect);
+                AudioManager.ButtonSound();
             }
             else
             {
-                tabGroup.Previous();
+                if (tabGroup.Previous())
+                    AudioManager.ButtonSound();
             }
         }
 
@@ -431,10 +438,12 @@ namespace Kaede2
                 CharacterSceneBaseSelection newSelected = newObj.GetComponent<CharacterSceneBaseSelection>();
                 if (newSelected == null) return;
                 newSelected.Select(currentScrollRect);
+                AudioManager.ButtonSound();
             }
             else
             {
-                tabGroup.Next();
+                if (tabGroup.Next())
+                    AudioManager.ButtonSound();
             }
         }
 
@@ -444,7 +453,8 @@ namespace Kaede2
 
             var newIndex = tabGroup.SelectedIndex - 1;
             if (newIndex < 0) newIndex = tabGroup.Items.Count - 1;
-            tabGroup.SelectTab(tabGroup.Items[newIndex]);
+            if (tabGroup.SelectTab(tabGroup.Items[newIndex]))
+                AudioManager.ButtonSound();
         }
 
         public void OnRightShoulder(InputAction.CallbackContext context)
@@ -453,7 +463,8 @@ namespace Kaede2
 
             var newIndex = tabGroup.SelectedIndex + 1;
             if (newIndex >= tabGroup.Items.Count) newIndex = 0;
-            tabGroup.SelectTab(tabGroup.Items[newIndex]);
+            if (tabGroup.SelectTab(tabGroup.Items[newIndex]))
+                AudioManager.ButtonSound();
         }
 
         public void OnConfirm(InputAction.CallbackContext context)

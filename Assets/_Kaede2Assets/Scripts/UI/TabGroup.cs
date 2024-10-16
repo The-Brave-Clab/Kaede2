@@ -25,10 +25,11 @@ namespace Kaede2.UI
             ActiveIndex = 0;
         }
 
-        public void SelectTab(SelectableItem item)
+        public bool SelectTab(SelectableItem item)
         {
-            if (item is not TabItem) return;
+            if (item is not TabItem) return false;
 
+            int currentActive = ActiveIndex;
             for (var i = 0; i < Items.Count; i++)
             {
                 var selectableItem = Items[i];
@@ -40,6 +41,8 @@ namespace Kaede2.UI
                     ActiveIndex = i;
                 }
             }
+
+            return currentActive != ActiveIndex;
         }
     }
 }

@@ -181,7 +181,8 @@ namespace Kaede2
             if (!Application.isPlaying) return;
             if (!context.performed) return;
 
-            Previous();
+            if (Previous())
+                AudioManager.ButtonSound();
         }
 
         public void OnDown(InputAction.CallbackContext context)
@@ -189,7 +190,8 @@ namespace Kaede2
             if (!Application.isPlaying) return;
             if (!context.performed) return;
 
-            Next();
+            if (Next())
+                AudioManager.ButtonSound();
         }
 
         public void OnConfirm(InputAction.CallbackContext context)

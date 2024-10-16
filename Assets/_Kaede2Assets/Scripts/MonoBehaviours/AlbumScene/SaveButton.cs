@@ -1,8 +1,6 @@
-using System;
-using Kaede2.Input;
+using Kaede2.Audio;
 using Kaede2.UI.Framework;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Kaede2
 {
@@ -15,6 +13,7 @@ namespace Kaede2
             button = GetComponent<CommonButton>();
 
             button.onClick.AddListener(AlbumItemViewCanvas.SaveCurrent);
+            button.onClick.AddListener(AudioManager.ConfirmSound);
         }
     }
 

@@ -97,11 +97,13 @@ namespace Kaede2
                 item.onConfirmed.AddListener(() =>
                 {
                     InputManager.InputAction.Album.Disable();
+                    AudioManager.PauseBGM();
                 });
             }
 
             moviePlayer.onOpeningMovieFinished.AddListener(() =>
             {
+                AudioManager.ResumeBGM();
                 InputManager.InputAction.Album.Enable();
             });
 
@@ -282,10 +284,12 @@ namespace Kaede2
                 if (newSelectedIndex >= tabGroup.Items.Count)
                 {
                     tabButtons[newSelectedIndex - tabGroup.Items.Count].OnPointerEnter(null);
+                    AudioManager.ButtonSound();
                 }
                 else
                 {
-                    tabGroup.Select(newSelectedIndex);
+                    if (tabGroup.Select(newSelectedIndex))
+                        AudioManager.ButtonSound();
                 }
             }
             else
@@ -303,11 +307,13 @@ namespace Kaede2
 
                     var newSelected = illustGrid.GetChildFromLocation(newLocation);
                     newSelected.GetComponent<AlbumItem>().Select(true);
+                    AudioManager.ButtonSound();
                 }
                 else if (tabGroup.ActiveIndex == 2) // bgm
                 {
                     bgmSelectableGroup.ShouldMoveItemIntoViewPort();
-                    bgmSelectableGroup.Previous();
+                    if (bgmSelectableGroup.Previous())
+                        AudioManager.ButtonSound();
                 }
             }
         }
@@ -337,10 +343,12 @@ namespace Kaede2
                     while (!tabButtons[newSelectedIndex - tabGroup.Items.Count].Interactable)
                         ++newSelectedIndex;
                     tabButtons[newSelectedIndex - tabGroup.Items.Count].OnPointerEnter(null);
+                    AudioManager.ButtonSound();
                 }
                 else
                 {
-                    tabGroup.Select(newSelectedIndex);
+                    if (tabGroup.Select(newSelectedIndex))
+                        AudioManager.ButtonSound();
                 }
             }
             else
@@ -358,11 +366,13 @@ namespace Kaede2
 
                     var newSelected = illustGrid.GetChildFromLocation(newLocation);
                     newSelected.GetComponent<AlbumItem>().Select(true);
+                    AudioManager.ButtonSound();
                 }
                 else if (tabGroup.ActiveIndex == 2) // bgm
                 {
                     bgmSelectableGroup.ShouldMoveItemIntoViewPort();
-                    bgmSelectableGroup.Next();
+                    if (bgmSelectableGroup.Next())
+                        AudioManager.ButtonSound();
                 }
             }
         }
@@ -384,7 +394,8 @@ namespace Kaede2
                     ++activeIndex;
                 }
 
-                tabGroup.Select(tabGroup.Items[activeIndex]);
+                if (tabGroup.Select(tabGroup.Items[activeIndex]))
+                    AudioManager.ButtonSound();
             }
 
             if (tabGroup.ActiveIndex == 0) // illustrations
@@ -407,6 +418,7 @@ namespace Kaede2
 
                     var newSelected = illustGrid.GetChildFromLocation(newLocation);
                     newSelected.GetComponent<AlbumItem>().Select(true);
+                    AudioManager.ButtonSound();
                 }
             }
             else if (tabGroup.ActiveIndex == 1) // op movie
@@ -426,6 +438,7 @@ namespace Kaede2
                 else
                 {
                     opMovieItems[currentSelectedIndex - 1].Select();
+                    AudioManager.ButtonSound();
                 }
             }
             else if (tabGroup.ActiveIndex == 2) // bgm
@@ -453,6 +466,7 @@ namespace Kaede2
                 if (tabGroup.ActiveIndex == 0) // illustrations
                 {
                     AlbumItem.CurrentSelected.Select(false);
+                    AudioManager.ButtonSound();
                 }
                 else if (tabGroup.ActiveIndex == 1) // op movie
                 {
@@ -460,10 +474,12 @@ namespace Kaede2
                         opMovieItems[0].Select();
                     else
                         OPMovieItem.CurrentSelected.Select();
+                    AudioManager.ButtonSound();
                 }
                 else if (tabGroup.ActiveIndex == 2) // bgm
                 {
-                    bgmSelectableGroup.Select(bgmSelectableGroup.LastSelected);
+                    if (bgmSelectableGroup.Select(bgmSelectableGroup.LastSelected))
+                        AudioManager.ButtonSound();
                 }
 
                 return;
@@ -483,6 +499,7 @@ namespace Kaede2
 
                 var newSelected = illustGrid.GetChildFromLocation(newLocation);
                 newSelected.GetComponent<AlbumItem>().Select(false); // go horizontally won't make the item out of view
+                AudioManager.ButtonSound();
             }
             else if (tabGroup.ActiveIndex == 1) // op movie
             {
@@ -496,6 +513,7 @@ namespace Kaede2
                 var newSelectedIndex = currentSelectedIndex + 1;
                 if (newSelectedIndex >= opMovieItems.Count) newSelectedIndex = 0;
                 opMovieItems[newSelectedIndex].Select();
+                AudioManager.ButtonSound();
             }
         }
 

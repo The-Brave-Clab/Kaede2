@@ -1,4 +1,5 @@
 using System.Linq;
+using Kaede2.Audio;
 using Kaede2.Input;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
@@ -106,9 +107,15 @@ namespace Kaede2
                 if (IsFavorite == value) return;
 
                 if (value)
+                {
                     SaveData.AddFavoriteAlbum(AlbumInfo);
+                    AudioManager.ConfirmSound();
+                }
                 else
+                {
                     SaveData.RemoveFavoriteAlbum(AlbumInfo);
+                    AudioManager.CancelSound();
+                }
             }
         }
 
@@ -118,11 +125,13 @@ namespace Kaede2
             set
             {
                 if (!value) return;
+                if (IsWallpaper) return;
 
                 SaveData.MainMenuBackground = AlbumInfo;
                 if (currentWallpaper != null)
                     currentWallpaper.wallpaperIcon.UpdateColor();
                 currentWallpaper = this;
+                AudioManager.ConfirmSound();
             }
         }
 
@@ -269,6 +278,7 @@ namespace Kaede2
             viewItem.Item = this;
             viewItem.Load();
 
+            AudioManager.ConfirmSound();
             AlbumItemViewCanvas.Enter(viewItem);
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using DG.Tweening;
+using Kaede2.Audio;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI.Framework;
 using TMPro;
@@ -71,7 +72,8 @@ namespace Kaede2.UI
             onConfirmed.AddListener(() =>
             {
                 if (group != null)
-                    group.SelectTab(this);
+                    if (group.SelectTab(this))
+                        AudioManager.ConfirmSound();
             });
         }
 

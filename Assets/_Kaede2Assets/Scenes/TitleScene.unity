@@ -337,7 +337,7 @@ GameObject:
   m_Component:
   - component: {fileID: 188876437}
   - component: {fileID: 188876436}
-  - component: {fileID: 188876435}
+  - component: {fileID: 188876438}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -345,14 +345,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &188876435
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 188876434}
-  m_Enabled: 1
 --- !u!20 &188876436
 Camera:
   m_ObjectHideFlags: 0
@@ -419,6 +411,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &188876438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188876434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d91aeb87c7c4e18bc2a776f24f66594, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &778000592
 GameObject:
   m_ObjectHideFlags: 0
@@ -1246,6 +1250,34 @@ PrefabInstance:
     - target: {fileID: 6554394825067329232, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
       propertyPath: m_text
       value: "\u30D8\u30EB\u30D7"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741160739445414957, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
+      propertyPath: onConfirmed.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741160739445414957, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
+      propertyPath: onConfirmed.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741160739445414957, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
+      propertyPath: onConfirmed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 188876438}
+    - target: {fileID: 6741160739445414957, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
+      propertyPath: onConfirmed.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741160739445414957, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
+      propertyPath: onConfirmed.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ConfirmSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741160739445414957, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
+      propertyPath: onConfirmed.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Kaede2.Audio.AudioManagerProxy, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741160739445414957, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
+      propertyPath: onConfirmed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

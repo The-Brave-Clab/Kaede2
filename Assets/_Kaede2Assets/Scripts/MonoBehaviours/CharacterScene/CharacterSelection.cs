@@ -1,4 +1,5 @@
 using System.Collections;
+using Kaede2.Audio;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
 using Kaede2.UI;
@@ -72,6 +73,7 @@ namespace Kaede2
         public override void Confirm()
         {
             sceneController.CharacterProfileController.Enter(profile);
+            AudioManager.ConfirmSound();
         }
 
         private void OnDestroy()

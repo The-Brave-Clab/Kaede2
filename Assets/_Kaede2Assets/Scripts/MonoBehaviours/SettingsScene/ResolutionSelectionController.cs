@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Kaede2.Audio;
 using Kaede2.Localization;
 using Kaede2.UI.Framework;
 using Kaede2.Utils;
@@ -157,6 +158,8 @@ namespace Kaede2
                 currentResolution = resolution;
                 currentFullscreen = fullscreen;
                 applyButton.Interactable = false;
+
+                AudioManager.ConfirmSound();
             });
             applyButton.Interactable = true;
         }

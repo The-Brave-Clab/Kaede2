@@ -94,6 +94,7 @@ namespace Kaede2
 
         public void GoToCartoon()
         {
+            AudioManager.ConfirmSound();
             CommonUtils.LoadNextScene("CartoonScene", LoadSceneMode.Single);
         }
 

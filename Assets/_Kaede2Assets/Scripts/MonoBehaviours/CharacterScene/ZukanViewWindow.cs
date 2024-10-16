@@ -1,3 +1,4 @@
+using Kaede2.Audio;
 using Kaede2.Input;
 using Kaede2.UI;
 using Kaede2.UI.Framework;
@@ -48,12 +49,14 @@ namespace Kaede2
             InputManager.InputAction.CharacterZukanView.Disable();
             InputManager.InputAction.Character.Enable();
             window.gameObject.SetActive(false);
+            AudioManager.CancelSound();
         }
 
         private void Save()
         {
             if (image.sprite == null) return;
 
+            AudioManager.ConfirmSound();
             SaveTexture.Save(window.TitleText, image.sprite.texture);
         }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Kaede2.Audio;
 using Kaede2.Input;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;

@@ -106,6 +106,7 @@ namespace Kaede2
 
         public void OnChapterSelected(CartoonChapterSelection chapterSelection)
         {
+            AudioManager.ConfirmSound();
             StartCoroutine(OnChapterSelectedCoroutine(chapterSelection));
         }
 
@@ -127,6 +128,7 @@ namespace Kaede2
 
         public void BackToChapterSelection()
         {
+            AudioManager.CancelSound();
             StartCoroutine(BackToChapterSelectionCoroutine());
         }
 
@@ -165,6 +167,7 @@ namespace Kaede2
 
         public void BackToEpisodeSelection()
         {
+            AudioManager.CancelSound();
             InputManager.InputAction.CartoonView.RemoveCallbacks(cartoonViewWindow);
             InputManager.InputAction.CartoonView.Disable();
 
@@ -193,6 +196,7 @@ namespace Kaede2
             var item = chapterGrid.GetChildFromLocation(currentGridLocation);
             chapterScroll.MoveItemIntoViewportSmooth(item as RectTransform, 0.1f, 0.1f);
             item.GetComponent<CartoonChapterSelection>().Select();
+            AudioManager.ButtonSound();
         }
 
         public void OnDown(InputAction.CallbackContext context)
@@ -207,6 +211,7 @@ namespace Kaede2
             var item = chapterGrid.GetChildFromLocation(currentGridLocation);
             chapterScroll.MoveItemIntoViewportSmooth(item as RectTransform, 0.1f, 0.1f);
             item.GetComponent<CartoonChapterSelection>().Select();
+            AudioManager.ButtonSound();
         }
 
         public void OnLeft(InputAction.CallbackContext context)
@@ -220,6 +225,7 @@ namespace Kaede2
 
             var item = chapterGrid.GetChildFromLocation(currentGridLocation);
             item.GetComponent<CartoonChapterSelection>().Select();
+            AudioManager.ButtonSound();
         }
 
         public void OnRight(InputAction.CallbackContext context)
@@ -233,6 +239,7 @@ namespace Kaede2
 
             var item = chapterGrid.GetChildFromLocation(currentGridLocation);
             item.GetComponent<CartoonChapterSelection>().Select();
+            AudioManager.ButtonSound();
         }
 
         public void OnConfirm(InputAction.CallbackContext context)

@@ -18,6 +18,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using AudioManager = Kaede2.Audio.AudioManager;
 
 namespace Kaede2
 {
@@ -219,6 +220,7 @@ namespace Kaede2
 
         public void Exit()
         {
+            AudioManager.CancelSound();
             CoroutineProxy.Start(ExitCoroutine());
         }
 
@@ -259,6 +261,7 @@ namespace Kaede2
             InputManager.InputAction.CharacterProfile.Disable();
             yield return SceneTransition.Fade(1);
 
+            AudioManager.PauseBGM();
             sceneRoot.SetActive(false);
             yield return PlayerScenarioModule.Play(
                 scenario,
@@ -278,6 +281,7 @@ namespace Kaede2
         {
             yield return PlayerScenarioModule.Unload();
 
+            AudioManager.ResumeBGM();
             sceneRoot.SetActive(true);
 
             yield return SceneTransition.Fade(0);
@@ -300,14 +304,16 @@ namespace Kaede2
                     if (!voiceButton.Valid()) continue;
                     break;
                 }
-                selectableGroup.Select(voiceButtons[targetIndex]);
+                if (selectableGroup.Select(voiceButtons[targetIndex]))
+                    AudioManager.ButtonSound();
             }
             else
             {
                 var targetIndex = selectingButtonIndex - 1;
                 if (targetIndex < 0)
                     targetIndex = buttons.Length - 1;
-                selectableGroup.Select(buttons[targetIndex]);
+                if (selectableGroup.Select(buttons[targetIndex]))
+                    AudioManager.ButtonSound();
             }
         }
 
@@ -327,14 +333,16 @@ namespace Kaede2
                     if (!voiceButton.Valid()) continue;
                     break;
                 }
-                selectableGroup.Select(voiceButtons[targetIndex]);
+                if (selectableGroup.Select(voiceButtons[targetIndex]))
+                    AudioManager.ButtonSound();
             }
             else
             {
                 var targetIndex = selectingButtonIndex + 1;
                 if (targetIndex >= buttons.Length)
                     targetIndex = 0;
-                selectableGroup.Select(buttons[targetIndex]);
+                if (selectableGroup.Select(buttons[targetIndex]))
+                    AudioManager.ButtonSound();
             }
         }
 
@@ -344,7 +352,8 @@ namespace Kaede2
 
             if (!selectingVoice) return;
 
-            selectableGroup.Select(buttons[selectingButtonIndex]);
+            if (selectableGroup.Select(buttons[selectingButtonIndex]))
+                AudioManager.ButtonSound();
         }
 
         public void OnRight(InputAction.CallbackContext context)
@@ -353,7 +362,8 @@ namespace Kaede2
 
             if (selectingVoice) return;
 
-            selectableGroup.Select(voiceButtons[selectingVoiceIndex]);
+            if (selectableGroup.Select(voiceButtons[selectingVoiceIndex]))
+                AudioManager.ButtonSound();
         }
 
         public void OnConfirm(InputAction.CallbackContext context)
@@ -363,7 +373,7 @@ namespace Kaede2
 
         public void OnCancel(InputAction.CallbackContext context)
         {
-            sceneController.BackToMainScene();
+            Exit();
         }
     }
 }

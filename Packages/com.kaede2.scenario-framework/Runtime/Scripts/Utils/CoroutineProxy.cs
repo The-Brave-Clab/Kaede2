@@ -20,6 +20,7 @@ namespace Kaede2.Scenario.Framework.Utils
 #if UNITY_EDITOR
             if (!Application.isPlaying) return null;
 #endif
+            if (Instance == null) return null;
             return Instance.StartCoroutine(routine);
         }
 
@@ -28,6 +29,7 @@ namespace Kaede2.Scenario.Framework.Utils
 #if UNITY_EDITOR
             if (!Application.isPlaying) return;
 #endif
+            if (Instance == null) return;
             Instance.StopCoroutine(routine);
         }
     }

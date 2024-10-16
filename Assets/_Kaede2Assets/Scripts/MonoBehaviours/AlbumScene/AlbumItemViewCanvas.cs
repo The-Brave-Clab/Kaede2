@@ -1,5 +1,6 @@
 using System.Collections;
 using DG.Tweening;
+using Kaede2.Audio;
 using Kaede2.Input;
 using Kaede2.Utils;
 using UnityEngine;
@@ -353,6 +354,7 @@ namespace Kaede2
                 sequence = null;
             }
 
+            AudioManager.CancelSound();
             coroutine = StartCoroutine(ExitCoroutine());
         }
 
@@ -418,6 +420,7 @@ namespace Kaede2
                 sequence = null;
             }
 
+            AudioManager.ButtonSound();
             coroutine = StartCoroutine(SetNextCoroutine(nextOrPrevious));
         }
 
@@ -804,6 +807,7 @@ namespace Kaede2
                 coroutine = null;
             }
 
+            AudioManager.ButtonSound();
             coroutine = StartCoroutine(ToggleUICoroutine());
         }
 

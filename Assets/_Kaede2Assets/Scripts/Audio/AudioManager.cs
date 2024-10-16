@@ -128,6 +128,7 @@ namespace Kaede2.Audio
         public static void PauseBGM()
         {
             if (_instance == null) return;
+            if (!_instance.bgmSource.isPlaying) return;
 
             IEnumerator PauseCoroutine()
             {
@@ -141,6 +142,7 @@ namespace Kaede2.Audio
         public static void ResumeBGM()
         {
             if (_instance == null) return;
+            if (_instance.bgmSource.isPlaying) return;
 
             _instance.bgmSource.Play();
             CoroutineProxy.Start(_instance.FadeBGM(1));
@@ -160,34 +162,53 @@ namespace Kaede2.Audio
             bgmVolume = targetVolume;
         }
 
+        // public static void Enable()
+        // {
+        //     ResumeBGM();
+        //     _instance.seSource.enabled = true;
+        // }
+        //
+        // public static void Disable()
+        // {
+        //     PauseBGM();
+        //     _instance.seSource.enabled = false;
+        // }
+
         public static void ConfirmSound()
         {
             if (_instance == null) return;
 
-            _instance.seSource.PlayOneShot(_instance.confirm);
+            _instance.PlaySE(_instance.confirm);
         }
 
         public static void CancelSound()
         {
             if (_instance == null) return;
 
-            _instance.seSource.PlayOneShot(_instance.cancel);
+            _instance.PlaySE(_instance.cancel);
         }
 
         public static void ButtonSound()
         {
             if (_instance == null) return;
 
-            _instance.seSource.PlayOneShot(_instance.button);
+            _instance.PlaySE(_instance.button);
         }
 
         public static void MessageBoxSound()
         {
             if (_instance == null) return;
 
-            _instance.seSource.Stop();
-            _instance.seSource.clip = _instance.messageBox;
-            _instance.seSource.Play();
+            _instance.PlaySE(_instance.messageBox);
+        }
+
+        private void PlaySE(AudioClip clip)
+        {
+            if (!seSource.enabled) return;
+
+            seSource.Stop();
+            seSource.clip = clip;
+            seSource.Play();
         }
 
         public static void PlayVoice(string voiceName, bool isCharacterVoice)

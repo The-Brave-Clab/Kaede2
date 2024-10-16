@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using Kaede2.Audio;
 using Kaede2.Input;
 using Kaede2.Scenario;
@@ -79,14 +80,17 @@ namespace Kaede2
         {
             if (!context.performed) return;
 
-            selectableGroup.Previous();
+            if (selectableGroup.Previous())
+                AudioManager.ButtonSound();
+
         }
 
         public void OnDown(InputAction.CallbackContext context)
         {
             if (!context.performed) return;
 
-            selectableGroup.Next();
+            if (selectableGroup.Next())
+                AudioManager.ButtonSound();
         }
 
         public void OnConfirm(InputAction.CallbackContext context)

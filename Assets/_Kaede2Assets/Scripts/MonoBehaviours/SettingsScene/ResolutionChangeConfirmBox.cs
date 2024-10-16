@@ -1,3 +1,4 @@
+using Kaede2.Audio;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -32,12 +33,14 @@ namespace Kaede2
             yesButton.onClick.AddListener(() =>
             {
                 onYes.Invoke();
+                AudioManager.ConfirmSound();
                 Destroy(gameObject);
             });
 
             noButton.onClick.AddListener(() =>
             {
                 onNo.Invoke();
+                AudioManager.CancelSound();
                 Destroy(gameObject);
             });
 
