@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Linq;
 using Kaede2.Localization;
 using Kaede2.Scenario.Framework.Utils;
@@ -15,6 +16,9 @@ namespace Kaede2
 
         [SerializeField]
         private FavoriteIcon favoriteIcon;
+
+        [SerializeField]
+        private TranslationStatus translationStatus;
 
         private LabeledListSelectableItem selectable;
         private StorySelectionSceneController eventStoryController;
@@ -45,6 +49,8 @@ namespace Kaede2
             selectable.onSelected.AddListener(OnSelectableSelected);
             selectable.onDeselected.AddListener(OnSelectableDeselected);
             selectable.onConfirmed.AddListener(OnSelectableConfirmed);
+
+            translationStatus.SetScenario(info);
         }
 
         private void OnFavoriteIconClicked()
@@ -75,8 +81,11 @@ namespace Kaede2
 
         private void OnSelectableConfirmed()
         {
+            CultureInfo locale = LocalizationManager.CurrentLocale;
+            if (translationStatus.Status != ScriptTranslationManager.LoadStatus.Success)
+                locale = LocalizationManager.AllLocales.First();
             CoroutineProxy.Start(
-                eventStoryController.EnterScenario(scenarioInfo, LocalizationManager.AllLocales.First())
+                eventStoryController.EnterScenario(scenarioInfo, locale)
             );
         }
     }

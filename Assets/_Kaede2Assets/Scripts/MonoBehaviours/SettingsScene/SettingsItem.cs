@@ -181,6 +181,11 @@ namespace Kaede2
 
             yield return changeColorSequence.WaitForCompletion();
 
+            if (text == null) yield break;
+            if (colorComponent == null) yield break;
+            if (text.fontMaterial == null) yield break;
+            if (text.materialForRendering == null) yield break;
+
             colorComponent.targetColorRed = endColor.surface;
             colorComponent.targetColorGreen = endColor.outline;
             colorComponent.targetColorBlue = endColor.shadow;

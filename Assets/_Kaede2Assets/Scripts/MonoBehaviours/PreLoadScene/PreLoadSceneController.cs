@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Kaede2.Localization;
+using Kaede2.Scenario.Framework.Utils;
 using Kaede2.Utils;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -11,6 +13,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
+using CommonUtils = Kaede2.Utils.CommonUtils;
 
 namespace Kaede2
 {
@@ -33,6 +36,7 @@ namespace Kaede2
             yield return new WaitForSeconds(0.5f); // we wait for a small amount of time to let the user see the loading animation 
             yield return GlobalInitializer.Initialize();
             yield return DownloadAll();
+            CoroutineProxy.Start(ScriptTranslationManager.LoadTranslations());
 
             CommonUtils.LoadNextScene("SplashScreenScene", LoadSceneMode.Single);
         }
@@ -68,27 +72,27 @@ namespace Kaede2
             {
                 progressBar.gameObject.SetActive(true);
                 // gyuukiLoading.gameObject.SetActive(false);
+
+                while (!downloadHandle.IsDone)
+                {
+                    var downloadStatus = downloadHandle.GetDownloadStatus();
+                    progressBar.SetValue(downloadStatus.DownloadedBytes, downloadStatus.TotalBytes);
+                    yield return null;
+                }
+
+                if (downloadHandle.Status == AsyncOperationStatus.Failed)
+                {
+                    // TODO: Show a dialog saying that download failed
+                    this.Log("Failed to download addressables");
+                    yield break;
+                }
+
+                this.Log("Downloaded all addressables");
+                progressBar.gameObject.SetActive(false);
+                // gyuukiLoading.gameObject.SetActive(true);
             }
 
-            while (!downloadHandle.IsDone)
-            {
-                var downloadStatus = downloadHandle.GetDownloadStatus();
-                progressBar.SetValue(downloadStatus.DownloadedBytes, downloadStatus.TotalBytes);
-                yield return null;
-            }
-
-            if (downloadHandle.Status == AsyncOperationStatus.Failed)
-            {
-                // TODO: Show a dialog saying that download failed
-                this.Log("Failed to download addressables");
-                yield break;
-            }
-
-            this.Log("Downloaded all addressables");
             Addressables.Release(downloadHandle);
-
-            progressBar.gameObject.SetActive(false);
-            // gyuukiLoading.gameObject.SetActive(true);
         }
     }
 }

@@ -253,7 +253,11 @@ namespace Kaede2
 
         private void PlaySelfIntroScenario()
         {
-            CoroutineProxy.Start(EnterScenario(selfIntroScenarioName, LocalizationManager.AllLocales.First()));
+            var locale = LocalizationManager.CurrentLocale;
+            var status = ScriptTranslationManager.GetTranslationStatus(selfIntroScenarioName, LocalizationManager.CurrentLocale);
+            if (status != ScriptTranslationManager.LoadStatus.Success)
+                locale = LocalizationManager.AllLocales.First();
+            CoroutineProxy.Start(EnterScenario(selfIntroScenarioName, locale));
         }
 
         private IEnumerator EnterScenario(string scenario, CultureInfo language)
