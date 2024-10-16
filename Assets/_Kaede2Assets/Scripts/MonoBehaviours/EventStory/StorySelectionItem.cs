@@ -1,5 +1,8 @@
+using System;
 using System.Globalization;
 using System.Linq;
+using Kaede2.Audio;
+using Kaede2.Input;
 using Kaede2.Localization;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
@@ -25,13 +28,31 @@ namespace Kaede2
         private MasterScenarioInfo.ScenarioInfo scenarioInfo;
         private MasterScenarioCast.ScenarioCast castInfo;
 
+        public bool Read => SaveData.ReadScenarioNames.Contains(scenarioInfo.ScenarioName);
+        public FavoriteIcon FavoriteIcon => favoriteIcon;
+
+        private void Start()
+        {
+            InputManager.onDeviceTypeChanged += Refresh;
+        }
+
+        private void OnDestroy()
+        {
+            InputManager.onDeviceTypeChanged -= Refresh;
+        }
+
         public void Refresh()
+        {
+            Refresh(InputManager.CurrentDeviceType);
+        }
+
+        private void Refresh(InputDeviceType deviceType)
         {
             if (scenarioInfo == null) return;
             bool read = SaveData.ReadScenarioNames.Contains(scenarioInfo.ScenarioName);
             unreadIcon.enabled = !read;
             if (read && selectable != null)
-                favoriteIcon.gameObject.SetActive(selectable.selected);
+                favoriteIcon.gameObject.SetActive(deviceType == InputDeviceType.Touchscreen || selectable.selected);
         }
 
         public void Initialize(MasterScenarioInfo.ScenarioInfo info, StorySelectionSceneController controller)
@@ -56,9 +77,15 @@ namespace Kaede2
         private void OnFavoriteIconClicked()
         {
             if (IsFavorite())
+            {
                 SaveData.RemoveFavoriteScenario(scenarioInfo);
+                AudioManager.CancelSound();
+            }
             else
+            {
                 SaveData.AddFavoriteScenario(scenarioInfo);
+                AudioManager.ConfirmSound();
+            }
         }
 
         private bool IsFavorite()
@@ -76,7 +103,7 @@ namespace Kaede2
         private void OnSelectableDeselected()
         {
             if (!unreadIcon.enabled)
-                favoriteIcon.gameObject.SetActive(false);
+                favoriteIcon.gameObject.SetActive(InputManager.CurrentDeviceType == InputDeviceType.Touchscreen);
         }
 
         private void OnSelectableConfirmed()

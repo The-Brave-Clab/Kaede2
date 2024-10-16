@@ -193,9 +193,11 @@ namespace Kaede2
             currentFilter = filter ?? (_ => true);
 
             AlbumItem firstItem = null;
+
             foreach (var albumItem in albumItems)
             {
                 var filterResult = currentFilter(albumItem.AlbumInfo);
+
                 albumItem.gameObject.SetActive(filterResult);
 
                 if (filterResult && firstItem == null)
@@ -299,6 +301,13 @@ namespace Kaede2
             {
                 if (tabGroup.ActiveIndex == 0) // illustrations
                 {
+                    // special case where all items are filtered out
+                    if (albumItems.All(a => !a.gameObject.activeSelf))
+                    {
+                        if (tabGroup.Select(tabGroup.Items[tabGroup.ActiveIndex]))
+                            AudioManager.ButtonSound();
+                        return;
+                    }
                     var selected = AlbumItem.CurrentSelected;
                     var maxLocation = illustGrid.GetMaxColumnRowCount();
                     var currentLocation = illustGrid.GetLocationFromChild(selected.transform);
@@ -309,6 +318,7 @@ namespace Kaede2
                     if (newLocation.y < 0) newLocation.y = maxLocation.y - 1;
 
                     var newSelected = illustGrid.GetChildFromLocation(newLocation);
+                    if (newSelected == null) return;
                     newSelected.GetComponent<AlbumItem>().Select(true);
                     AudioManager.ButtonSound();
                 }
@@ -358,6 +368,13 @@ namespace Kaede2
             {
                 if (tabGroup.ActiveIndex == 0) // illustrations
                 {
+                    // special case where all items are filtered out
+                    if (albumItems.All(a => !a.gameObject.activeSelf))
+                    {
+                        if (tabGroup.Select(tabGroup.Items[tabGroup.ActiveIndex]))
+                            AudioManager.ButtonSound();
+                        return;
+                    }
                     var selected = AlbumItem.CurrentSelected;
                     var maxLocation = illustGrid.GetMaxColumnRowCount();
                     var currentLocation = illustGrid.GetLocationFromChild(selected.transform);
@@ -368,6 +385,7 @@ namespace Kaede2
                     if (newLocation.y >= maxLocation.y) newLocation.y = 0;
 
                     var newSelected = illustGrid.GetChildFromLocation(newLocation);
+                    if (newSelected == null) return;
                     newSelected.GetComponent<AlbumItem>().Select(true);
                     AudioManager.ButtonSound();
                 }
@@ -388,21 +406,19 @@ namespace Kaede2
 
             void GoToTabs()
             {
-                int activeIndex = 0;
-                foreach (var selectableItem in tabGroup.Items)
-                {
-                    var tab = selectableItem as TabItem;
-                    if (tab == null) continue;
-                    if (tab.Active) break;
-                    ++activeIndex;
-                }
-
-                if (tabGroup.Select(tabGroup.Items[activeIndex]))
+                if (tabGroup.Select(tabGroup.Items[tabGroup.ActiveIndex]))
                     AudioManager.ButtonSound();
             }
 
             if (tabGroup.ActiveIndex == 0) // illustrations
             {
+                // special case where all items are filtered out
+                if (albumItems.All(a => !a.gameObject.activeSelf))
+                {
+                    if (tabGroup.Select(tabGroup.Items[tabGroup.ActiveIndex]))
+                        AudioManager.ButtonSound();
+                    return;
+                }
                 var selected = AlbumItem.CurrentSelected;
                 var maxLocation = illustGrid.GetMaxColumnRowCount();
                 var currentLocation = illustGrid.GetLocationFromChild(selected.transform);
@@ -420,6 +436,7 @@ namespace Kaede2
                     if (newLocation.x < 0) newLocation.x = maxLocation.x - 1;
 
                     var newSelected = illustGrid.GetChildFromLocation(newLocation);
+                    if (newSelected == null) return;
                     newSelected.GetComponent<AlbumItem>().Select(true);
                     AudioManager.ButtonSound();
                 }
@@ -468,6 +485,9 @@ namespace Kaede2
 
                 if (tabGroup.ActiveIndex == 0) // illustrations
                 {
+                    // special case where all items are filtered out
+                    if (albumItems.All(a => !a.gameObject.activeSelf))
+                        return;
                     AlbumItem.CurrentSelected.Select(false);
                     AudioManager.ButtonSound();
                 }
@@ -490,6 +510,13 @@ namespace Kaede2
 
             if (tabGroup.ActiveIndex == 0) // illustrations
             {
+                // special case where all items are filtered out
+                if (albumItems.All(a => !a.gameObject.activeSelf))
+                {
+                    if (tabGroup.Select(tabGroup.Items[tabGroup.ActiveIndex]))
+                        AudioManager.ButtonSound();
+                    return;
+                }
                 var selected = AlbumItem.CurrentSelected;
                 var maxLocation = illustGrid.GetMaxColumnRowCount();
                 var currentLocation = illustGrid.GetLocationFromChild(selected.transform);
@@ -501,6 +528,7 @@ namespace Kaede2
                 if (newLocation.y * maxLocation.x + newLocation.x >= albumItems.Count) newLocation.x = 0;
 
                 var newSelected = illustGrid.GetChildFromLocation(newLocation);
+                if (newSelected == null) return;
                 newSelected.GetComponent<AlbumItem>().Select(false); // go horizontally won't make the item out of view
                 AudioManager.ButtonSound();
             }

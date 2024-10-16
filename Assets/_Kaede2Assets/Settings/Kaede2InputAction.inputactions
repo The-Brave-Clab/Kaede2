@@ -3253,6 +3253,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Favorite",
+                    "type": "Button",
+                    "id": "cfc929c9-9aa0-4736-b7d9-2ae7a9fbe528",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -3517,6 +3526,28 @@
                     "processors": "",
                     "groups": ";GamepadNintendoStyle",
                     "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ae0977f4-6719-4107-87e0-3fc1c804ddd2",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Favorite",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6c69ddc3-3eb6-4052-a50b-480ec779a478",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad;GamepadNintendoStyle",
+                    "action": "Favorite",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

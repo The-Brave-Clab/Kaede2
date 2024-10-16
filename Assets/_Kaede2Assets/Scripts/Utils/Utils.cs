@@ -67,7 +67,7 @@ namespace Kaede2.Utils
             CoroutineProxy.Start(LoadNextSceneCoroutine(sceneName, mode));
         }
 
-        public static float GetScrollDiffToMakeItemVisible(this ScrollRect scrollRect, RectTransform item, float multiplier = 1.0f)
+        public static float GetScrollDiffToMakeItemVisible(this ScrollRect scrollRect, RectTransform item, float multiplier = 0.0f)
         {
             var viewport = scrollRect.viewport;
             var content = scrollRect.content;
@@ -102,7 +102,7 @@ namespace Kaede2.Utils
             scrollRect.verticalNormalizedPosition = Mathf.Clamp01(scrollRect.verticalNormalizedPosition + scrollDiff);
         }
 
-        public static Coroutine MoveItemIntoViewportSmooth(this ScrollRect scrollRect, RectTransform item, float duration = 0.2f, float multiplier = 1.0f)
+        public static Coroutine MoveItemIntoViewportSmooth(this ScrollRect scrollRect, RectTransform item, float duration = 0.2f, float multiplier = 0.0f)
         {
             return CoroutineProxy.Start(MoveItemIntoViewportSmoothCoroutine(scrollRect, item, duration, multiplier));
         }

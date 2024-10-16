@@ -491,6 +491,22 @@ namespace Kaede2
 
                 self.ExitStorySelection();
             }
+
+            public void OnFavorite(InputAction.CallbackContext context)
+            {
+                if (!context.performed) return;
+
+                if (!self.storySelectableGroup.FocusedOnLabeledSelectables) return;
+
+                var currentSelected = self.storySelectableGroup.SelectedItem;
+                var storyItem = currentSelected.GetComponent<StorySelectionItem>();
+
+                if (storyItem == null) return;
+
+                if (!storyItem.Read) return;
+
+                storyItem.FavoriteIcon.OnPointerClick(null);
+            }
         }
     }
 }

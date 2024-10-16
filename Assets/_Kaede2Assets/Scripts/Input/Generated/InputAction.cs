@@ -3278,6 +3278,15 @@ namespace Kaede2.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Favorite"",
+                    ""type"": ""Button"",
+                    ""id"": ""cfc929c9-9aa0-4736-b7d9-2ae7a9fbe528"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -3542,6 +3551,28 @@ namespace Kaede2.Input
                     ""processors"": """",
                     ""groups"": "";GamepadNintendoStyle"",
                     ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ae0977f4-6719-4107-87e0-3fc1c804ddd2"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Favorite"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6c69ddc3-3eb6-4052-a50b-480ec779a478"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad;GamepadNintendoStyle"",
+                    ""action"": ""Favorite"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -7380,6 +7411,7 @@ namespace Kaede2.Input
             m_StorySelection_Right = m_StorySelection.FindAction("Right", throwIfNotFound: true);
             m_StorySelection_Confirm = m_StorySelection.FindAction("Confirm", throwIfNotFound: true);
             m_StorySelection_Cancel = m_StorySelection.FindAction("Cancel", throwIfNotFound: true);
+            m_StorySelection_Favorite = m_StorySelection.FindAction("Favorite", throwIfNotFound: true);
             // Character
             m_Character = asset.FindActionMap("Character", throwIfNotFound: true);
             m_Character_Up = m_Character.FindAction("Up", throwIfNotFound: true);
@@ -8469,6 +8501,7 @@ namespace Kaede2.Input
         private readonly InputAction m_StorySelection_Right;
         private readonly InputAction m_StorySelection_Confirm;
         private readonly InputAction m_StorySelection_Cancel;
+        private readonly InputAction m_StorySelection_Favorite;
         public struct StorySelectionActions
         {
             private @Kaede2InputAction m_Wrapper;
@@ -8479,6 +8512,7 @@ namespace Kaede2.Input
             public InputAction @Right => m_Wrapper.m_StorySelection_Right;
             public InputAction @Confirm => m_Wrapper.m_StorySelection_Confirm;
             public InputAction @Cancel => m_Wrapper.m_StorySelection_Cancel;
+            public InputAction @Favorite => m_Wrapper.m_StorySelection_Favorite;
             public InputActionMap Get() { return m_Wrapper.m_StorySelection; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -8506,6 +8540,9 @@ namespace Kaede2.Input
                 @Cancel.started += instance.OnCancel;
                 @Cancel.performed += instance.OnCancel;
                 @Cancel.canceled += instance.OnCancel;
+                @Favorite.started += instance.OnFavorite;
+                @Favorite.performed += instance.OnFavorite;
+                @Favorite.canceled += instance.OnFavorite;
             }
 
             private void UnregisterCallbacks(IStorySelectionActions instance)
@@ -8528,6 +8565,9 @@ namespace Kaede2.Input
                 @Cancel.started -= instance.OnCancel;
                 @Cancel.performed -= instance.OnCancel;
                 @Cancel.canceled -= instance.OnCancel;
+                @Favorite.started -= instance.OnFavorite;
+                @Favorite.performed -= instance.OnFavorite;
+                @Favorite.canceled -= instance.OnFavorite;
             }
 
             public void RemoveCallbacks(IStorySelectionActions instance)
@@ -9868,6 +9908,7 @@ namespace Kaede2.Input
             void OnRight(InputAction.CallbackContext context);
             void OnConfirm(InputAction.CallbackContext context);
             void OnCancel(InputAction.CallbackContext context);
+            void OnFavorite(InputAction.CallbackContext context);
         }
         public interface ICharacterActions
         {
