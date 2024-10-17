@@ -7097,10 +7097,21 @@ namespace Kaede2.Input
                 {
                     ""name"": """",
                     ""id"": ""b31ce39d-62c8-4473-b5b1-c133e859a97f"",
-                    ""path"": """",
+                    ""path"": ""<Gamepad>/rightShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";Gamepad;GamepadNintendoStyle"",
+                    ""action"": ""ToggleAuto"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0b9bdd5d-10a6-4dd1-be99-3ea07ecf120d"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""ToggleAuto"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -7108,10 +7119,21 @@ namespace Kaede2.Input
                 {
                     ""name"": """",
                     ""id"": ""fbf611f3-7d8c-4ec7-a937-3f0b172a1311"",
-                    ""path"": """",
+                    ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";Gamepad;GamepadNintendoStyle"",
+                    ""action"": ""ToggleContinuous"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eeb873f5-9e7e-4a14-a223-e03e22e897b2"",
+                    ""path"": ""<Keyboard>/backquote"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""ToggleContinuous"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
