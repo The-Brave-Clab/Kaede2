@@ -16,6 +16,9 @@ namespace Kaede2
         public static string PublishBucket => "kaede2-publish";
         public static string TranslationBucket => "yuyuyui-scenario-translation";
         public static string EditorProfileName => "github_actions";
+        // use dualstack accelerated endpoint
+        // NOTE: used by addressable profiles, don't delete
+        public static string DefaultAddressableLoadUrl => GetUrl(AddressableBucket, null, DefaultRegion, true, true, true);
 
         private static Dictionary<string, string> CdnMap = new()
         {

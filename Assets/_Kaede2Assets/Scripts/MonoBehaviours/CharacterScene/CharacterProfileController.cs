@@ -253,10 +253,11 @@ namespace Kaede2
 
         private void PlaySelfIntroScenario()
         {
+            // TODO: ScriptTranslationManager is not working correctly, so we just use current locale and let ScriptModule handle the rest
             var locale = LocalizationManager.CurrentLocale;
-            var status = ScriptTranslationManager.GetTranslationStatus(selfIntroScenarioName, LocalizationManager.CurrentLocale);
-            if (status != ScriptTranslationManager.LoadStatus.Success)
-                locale = LocalizationManager.AllLocales.First();
+            // var status = ScriptTranslationManager.GetTranslationStatus(selfIntroScenarioName, LocalizationManager.CurrentLocale);
+            // if (status != ScriptTranslationManager.LoadStatus.Success)
+            //     locale = LocalizationManager.AllLocales.First();
             CoroutineProxy.Start(EnterScenario(selfIntroScenarioName, locale));
         }
 

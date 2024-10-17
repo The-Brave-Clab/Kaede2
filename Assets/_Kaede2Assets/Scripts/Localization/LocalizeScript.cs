@@ -10,22 +10,36 @@ namespace Kaede2.Localization
 {
     public static class LocalizeScript
     {
-        public static IEnumerator DownloadTranslation(string scenarioName, string language, Action<string> onDownloaded)
+        public enum TranslationStatus
+        {
+            Found,
+            NetworkError,
+            NotFound,
+            Loading
+        }
+
+        public static IEnumerator DownloadTranslation(string scenarioName, string language, Action<TranslationStatus, string> onDownloaded, bool headOnly = false)
         {
             string key = $"{language}/{scenarioName}/{scenarioName}.json";
             var url = AWS.GetUrl(AWS.TranslationBucket, key, AWS.DefaultRegion, true, true, true);
             Uri uri = new Uri(url);
-            var request = UnityWebRequest.Get(uri);
+            var request = headOnly ? UnityWebRequest.Head(uri) : UnityWebRequest.Get(uri);
             yield return request.SendWebRequest();
 
             if (request.result == UnityWebRequest.Result.Success)
             {
-                onDownloaded?.Invoke(request.downloadHandler.text);
+                onDownloaded?.Invoke(TranslationStatus.Found, headOnly ? "" : request.downloadHandler.text);
             }
             else
             {
-                typeof(LocalizeScript).LogWarning($"Failed to download translation: {request.error}");
-                onDownloaded?.Invoke(null);
+                // headOnly is meant for checking if the translation exists, so we don't log errors
+                if (!headOnly)
+                    typeof(LocalizeScript).LogWarning($"Failed to download translation: {request.error}");
+                onDownloaded?.Invoke(
+                    request.result == UnityWebRequest.Result.ProtocolError
+                        ? TranslationStatus.NotFound
+                        : TranslationStatus.NetworkError,
+                    null);
             }
         }
 

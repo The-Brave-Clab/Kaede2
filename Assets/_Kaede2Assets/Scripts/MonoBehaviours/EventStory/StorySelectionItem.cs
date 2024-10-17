@@ -109,7 +109,7 @@ namespace Kaede2
         private void OnSelectableConfirmed()
         {
             CultureInfo locale = LocalizationManager.CurrentLocale;
-            if (translationStatus.Status != ScriptTranslationManager.LoadStatus.Success)
+            if (translationStatus.Status != LocalizeScript.TranslationStatus.Found)
                 locale = LocalizationManager.AllLocales.First();
             CoroutineProxy.Start(
                 eventStoryController.EnterScenario(scenarioInfo, locale)

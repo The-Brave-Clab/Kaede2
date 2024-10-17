@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Amazon;
 using Amazon.S3;
 using Amazon.S3.Model;
 using Kaede2.Scenario.Framework.Utils;
@@ -29,7 +30,7 @@ namespace Kaede2.Localization
         public static IEnumerator LoadTranslations()
         {
             translatedScenarios ??= new();
-            s3Client ??= new AmazonS3Client();
+            s3Client ??= new AmazonS3Client(RegionEndpoint.APNortheast1);
 
             CoroutineGroup group = new();
 

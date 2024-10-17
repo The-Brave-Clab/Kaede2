@@ -21,7 +21,7 @@ namespace Kaede2
         }
 
         [SerializeField]
-        private OpeningMovieOptions openingMovie = OpeningMovieOptions.Random;
+        private OpeningMovieOptions openingMovie = OpeningMovieOptions.Hanayui;
 
         public static OpeningMovieOptions OpeningMovie
         {

@@ -243,7 +243,7 @@ namespace Kaede2.Scenario
             }
             else if (scenarioLanguage != null && scenarioLanguage.TwoLetterISOLanguageName != "ja")
             {
-                yield return LocalizeScript.DownloadTranslation(ScenarioName, scenarioLanguage.TwoLetterISOLanguageName, t => translation = t);
+                yield return LocalizeScript.DownloadTranslation(ScenarioName, scenarioLanguage.TwoLetterISOLanguageName, (_, t) => translation = t);
 
                 if (string.IsNullOrEmpty(translation))
                     this.LogWarning($"Failed to download translation for {scenarioLanguage}. Defaulting to {targetLocale}. This should not happen if entered from scenario selection menu.");

@@ -44,7 +44,7 @@ namespace Kaede2.UI
         [SerializeField]
         private float loadingIconRotationSpeed = 180f;
 
-        public ScriptTranslationManager.LoadStatus Status { get; private set; }
+        public LocalizeScript.TranslationStatus Status { get; private set; }
 
         private Coroutine transitionCoroutine;
         private Sequence transitionSequence;
@@ -66,7 +66,7 @@ namespace Kaede2.UI
             {
                 statusIcon.sprite = loadingIcon;
                 statusIcon.color = loadingColor;
-                Status = ScriptTranslationManager.LoadStatus.Loading;
+                Status = LocalizeScript.TranslationStatus.Loading;
             }
         }
 
@@ -97,32 +97,37 @@ namespace Kaede2.UI
             if (info == null)
             {
                 TransitionTo(failureIcon, failureColor);
-                Status = ScriptTranslationManager.LoadStatus.Failure;
+                Status = LocalizeScript.TranslationStatus.NotFound;
                 return;
             }
 
+            // TODO: AWS List Objects is not working, we fallback to individual head operations
+            /*
             Status = ScriptTranslationManager.GetTranslationStatus(info.ScenarioName, LocalizationManager.CurrentLocale);
             UpdateStatus();
+            */
+
+            Status = LocalizeScript.TranslationStatus.Loading;
+            loadingCoroutine = CoroutineProxy.Start(LoadingCoroutine());
         }
 
         private void UpdateStatus()
         {
             switch (Status)
             {
-                case ScriptTranslationManager.LoadStatus.Success:
+                case LocalizeScript.TranslationStatus.Found:
                     statusIcon.transform.localRotation = Quaternion.identity;
                     TransitionTo(successIcon, successColor);
                     break;
-                case ScriptTranslationManager.LoadStatus.Warning:
+                case LocalizeScript.TranslationStatus.NetworkError:
                     statusIcon.transform.localRotation = Quaternion.identity;
                     TransitionTo(warningIcon, warningColor);
                     break;
-                case ScriptTranslationManager.LoadStatus.Failure:
+                case LocalizeScript.TranslationStatus.NotFound:
                     statusIcon.transform.localRotation = Quaternion.identity;
                     TransitionTo(failureIcon, failureColor);
                     break;
-                case ScriptTranslationManager.LoadStatus.Loading:
-                    loadingCoroutine = CoroutineProxy.Start(LoadingCoroutine());
+                case LocalizeScript.TranslationStatus.Loading:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -163,11 +168,11 @@ namespace Kaede2.UI
         private IEnumerator LoadingCoroutine()
         {
             TransitionTo(loadingIcon, loadingColor);
+            CoroutineProxy.Start(HeadCoroutine());
 
             while (true)
             {
-                Status = ScriptTranslationManager.GetTranslationStatus(info.ScenarioName, LocalizationManager.CurrentLocale);
-                if (Status != ScriptTranslationManager.LoadStatus.Loading) break;
+                if (Status != LocalizeScript.TranslationStatus.Loading) break;
 
                 statusIcon.transform.Rotate(Vector3.forward, -loadingIconRotationSpeed * Time.deltaTime);
 
@@ -176,6 +181,21 @@ namespace Kaede2.UI
 
             // status won't be loading anymore
             UpdateStatus();
+
+            loadingCoroutine = null;
+        }
+
+        private IEnumerator HeadCoroutine()
+        {
+            if (info == null) yield break;
+            if (this == null) yield break;
+            if (Status != LocalizeScript.TranslationStatus.Loading) yield break;
+
+            yield return LocalizeScript.DownloadTranslation(info.ScenarioName, LocalizationManager.CurrentLocale.Name, (status, _) =>
+            {
+                if (this == null) return;
+                Status = status;
+            }, true);
         }
     }
 }
