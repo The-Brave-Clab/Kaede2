@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Kaede2.Audio;
 using Kaede2.Input;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
@@ -160,6 +161,8 @@ namespace Kaede2
             var newLocation = currentSelectedLocation;
             newLocation.y -= 1;
             newLocation = ClampLayoutLocation(newLocation);
+            if (newLocation != currentSelectedLocation)
+                AudioManager.ButtonSound();
             characterGroup.Select(currentLayout[newLocation.x][newLocation.y]);
         }
 
@@ -171,6 +174,8 @@ namespace Kaede2
             var newLocation = currentSelectedLocation;
             newLocation.y += 1;
             newLocation = ClampLayoutLocation(newLocation);
+            if (newLocation != currentSelectedLocation)
+                AudioManager.ButtonSound();
             characterGroup.Select(currentLayout[newLocation.x][newLocation.y]);
         }
 
@@ -183,11 +188,14 @@ namespace Kaede2
             if (characterGroup.SelectedIndex == characterGroup.Items.Count - 1)
             {
                 characterGroup.Select(currentLayout[newLocation.x][newLocation.y]);
+                AudioManager.ButtonSound();
                 return;
             }
 
             newLocation.x -= 1;
             newLocation = ClampLayoutLocation(newLocation);
+            if (newLocation != currentSelectedLocation)
+                AudioManager.ButtonSound();
             characterGroup.Select(currentLayout[newLocation.x][newLocation.y]);
         }
 
@@ -197,13 +205,16 @@ namespace Kaede2
 
             if (currentSelectedLocation.x == currentLayout.Count - 1)
             {
-                characterGroup.Select(characterGroup.Items[^1]);
+                if (characterGroup.Select(characterGroup.Items[^1]))
+                    AudioManager.ButtonSound();
                 return;
             }
 
             var newLocation = currentSelectedLocation;
             newLocation.x += 1;
             newLocation = ClampLayoutLocation(newLocation);
+            if (newLocation != currentSelectedLocation)
+                AudioManager.ButtonSound();
             characterGroup.Select(currentLayout[newLocation.x][newLocation.y]);
         }
 

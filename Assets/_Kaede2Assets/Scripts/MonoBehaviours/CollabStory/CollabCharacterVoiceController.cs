@@ -117,14 +117,16 @@ namespace Kaede2
         {
             if (!context.performed) return;
 
-            Previous();
+            if (Previous())
+                AudioManager.ButtonSound();
         }
 
         public void OnDown(InputAction.CallbackContext context)
         {
             if (!context.performed) return;
 
-            Next();
+            if (Next())
+                AudioManager.ButtonSound();
         }
 
         public void OnLeft(InputAction.CallbackContext context)
@@ -132,7 +134,8 @@ namespace Kaede2
             if (!context.performed) return;
 
             if (selectedIndex < items.Count - 1) return;
-            Select(lastSelection);
+            if (Select(lastSelection))
+                AudioManager.ButtonSound();
         }
 
         public void OnRight(InputAction.CallbackContext context)
@@ -141,7 +144,8 @@ namespace Kaede2
 
             if (selectedIndex >= items.Count - 1) return;
             lastSelection = selectedIndex;
-            Select(items[^1]);
+            if (Select(items[^1]))
+                AudioManager.ButtonSound();
         }
 
         public void OnConfirm(InputAction.CallbackContext context)

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using Kaede2.Audio;
 using Kaede2.Input;
 using Kaede2.Scenario.Framework.Utils;
 using Kaede2.ScriptableObjects;
@@ -37,6 +38,15 @@ namespace Kaede2
 
         [SerializeField]
         private TextMeshProUGUI storyTitleOutline;
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            story.Selectable.onConfirmed.AddListener(AudioManager.ConfirmSound);
+            selfIntro.Selectable.onConfirmed.AddListener(AudioManager.ConfirmSound);
+            characterVoice.Selectable.onConfirmed.AddListener(AudioManager.ConfirmSound);
+        }
 
         private void OnEnable()
         {
@@ -103,6 +113,7 @@ namespace Kaede2
             var targetIndex = selectedIndex - 1;
             if (!items[targetIndex].gameObject.activeSelf) return;
             Select(selectedIndex - 1);
+            AudioManager.ButtonSound();
         }
 
         public void OnDown(InputAction.CallbackContext context)
@@ -113,6 +124,7 @@ namespace Kaede2
             var targetIndex = selectedIndex + 1;
             if (!items[targetIndex].gameObject.activeSelf) return;
             Select(selectedIndex + 1);
+            AudioManager.ButtonSound();
         }
 
         public void OnLeft(InputAction.CallbackContext context)
@@ -123,6 +135,7 @@ namespace Kaede2
             var targetIndex = selectedIndex - 2;
             if (!items[targetIndex].gameObject.activeSelf) return;
             Select(selectedIndex - 2);
+            AudioManager.ButtonSound();
         }
 
         public void OnRight(InputAction.CallbackContext context)
@@ -133,6 +146,7 @@ namespace Kaede2
             var targetIndex = selectedIndex + 2;
             if (!items[targetIndex].gameObject.activeSelf) return;
             Select(selectedIndex + 2);
+            AudioManager.ButtonSound();
         }
 
         public void OnConfirm(InputAction.CallbackContext context)

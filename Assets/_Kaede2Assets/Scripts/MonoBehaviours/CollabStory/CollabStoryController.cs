@@ -44,6 +44,16 @@ namespace Kaede2
         [SerializeField]
         private SelectableGroup selectableGroup;
 
+        protected override void Awake()
+        {
+            base.Awake();
+
+            foreach (var selectable in storyCategorySelectables)
+            {
+                selectable.onConfirmed.AddListener(AudioManager.ConfirmSound);
+            }
+        }
+
         private IEnumerator Start()
         {
             IEnumerator WaitForCondition(Func<bool> condition)
@@ -105,6 +115,7 @@ namespace Kaede2
 
         public void ExitCollabContent()
         {
+            AudioManager.CancelSound();
             CoroutineProxy.Start(ExitCollabContentCoroutine());
         }
 
@@ -141,6 +152,7 @@ namespace Kaede2
 
         public void EnterCharacterVoiceCharacterSelection(ContentSubProvider provider)
         {
+            AudioManager.ConfirmSound();
             CoroutineProxy.Start(EnterCharacterVoiceCharacterSelectionCoroutine(provider));
         }
 
@@ -163,6 +175,7 @@ namespace Kaede2
 
         public void EnterCharacterVoice(CollabCharacterSelectionImageProvider provider)
         {
+            AudioManager.ConfirmSound();
             CoroutineProxy.Start(EnterCharacterVoiceCoroutine(provider.CharacterId));
         }
 
@@ -185,6 +198,7 @@ namespace Kaede2
 
         public void ExitCharacterVoice()
         {
+            AudioManager.CancelSound();
             CoroutineProxy.Start(ExitCharacterVoiceCoroutine());
         }
 
@@ -205,6 +219,7 @@ namespace Kaede2
 
         public void ExitCharacterVoiceCharacterSelection()
         {
+            AudioManager.CancelSound();
             CoroutineProxy.Start(ExitCharacterVoiceCharacterSelectionCoroutine());
         }
 
