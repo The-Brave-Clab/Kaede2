@@ -552,11 +552,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1464166649563122849, guid: d6880b682c9cd4d76aa7ee1c10541ed2, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1464166649563122849, guid: d6880b682c9cd4d76aa7ee1c10541ed2, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3628711778573659271, guid: d6880b682c9cd4d76aa7ee1c10541ed2, type: 3}
       propertyPath: onConfirmed.m_PersistentCalls.m_Calls.Array.size
@@ -1409,6 +1409,47 @@ MonoBehaviour:
   - {fileID: 2022827966}
   - {fileID: 1809024251}
   layout: {fileID: 1572258249}
+--- !u!21 &416715367
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/HSV Adjustable
+  m_Shader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ReferenceColor: {r: 0.98039216, g: 0.59607846, b: 0.59607846, a: 1}
+    - _TargetColor: {r: 1, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1001 &420304951
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1984,7 +2025,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1961036c2164e089d698d1765b3ec9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!21 &499021146
+--- !u!21 &478374987
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -3517,47 +3558,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 453491413553768657, guid: 7d2b34b1da7d047a5adbb10b167ab9e9, type: 3}
   m_PrefabInstance: {fileID: 1023329573}
   m_PrefabAsset: {fileID: 0}
---- !u!21 &1027641543
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/HSV Adjustable
-  m_Shader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _ReferenceColor: {r: 0.98039216, g: 0.59607846, b: 0.59607846, a: 1}
-    - _TargetColor: {r: 1, g: 0, b: 0, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1 &1068964363
 GameObject:
   m_ObjectHideFlags: 0
@@ -3633,47 +3633,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1068964363}
   m_CullTransparentMesh: 1
---- !u!21 &1069530669
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/HSV Adjustable
-  m_Shader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _ReferenceColor: {r: 0.98039216, g: 0.59607846, b: 0.59607846, a: 1}
-    - _TargetColor: {r: 1, g: 0, b: 0, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1 &1109578699
 GameObject:
   m_ObjectHideFlags: 0
@@ -3764,6 +3723,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetSize: {x: 1920, y: 1080}
+--- !u!21 &1204298491
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/HSV Adjustable
+  m_Shader: {fileID: 4800000, guid: cc0bd1a9eca257b4682e27886de444a5, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ReferenceColor: {r: 0.98039216, g: 0.59607846, b: 0.59607846, a: 1}
+    - _TargetColor: {r: 1, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1001 &1209798724
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4416,7 +4416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 499021146}
+  m_Material: {fileID: 478374987}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -4481,47 +4481,6 @@ Material:
     m_Colors:
     - _ReferenceColor: {r: 0.98039216, g: 0.59607846, b: 0.59607846, a: 1}
     - _TargetColor: {r: 1, g: 0, b: 0, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
---- !u!21 &1394969187
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/UI Overlay Blend
-  m_Shader: {fileID: 4800000, guid: 8c2bc25b44fd44f0b5b0d02791ad2b41, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _ReferenceColor: {r: 0.9882353, g: 0.7764706, b: 0.7764706, a: 1}
-    - _TargetColor: {r: 0.9882353, g: 0.7764706, b: 0.7764706, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1001 &1426476646
@@ -4936,11 +4895,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 842155147821599389, guid: dd883f9efa4f84413a980a11047eb04f, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 842155147821599389, guid: dd883f9efa4f84413a980a11047eb04f, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1879141959423927547, guid: dd883f9efa4f84413a980a11047eb04f, type: 3}
       propertyPath: m_Name
@@ -5373,7 +5332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 1394969187}
+  m_Material: {fileID: 1925426192}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -6199,6 +6158,47 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4937623006036916034, guid: 0820450a37eed48c4b19a587ca17372a, type: 3}
   m_PrefabInstance: {fileID: 1881922805}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &1925426192
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Overlay Blend
+  m_Shader: {fileID: 4800000, guid: 8c2bc25b44fd44f0b5b0d02791ad2b41, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ReferenceColor: {r: 0.9882353, g: 0.7764706, b: 0.7764706, a: 1}
+    - _TargetColor: {r: 0.9882353, g: 0.7764706, b: 0.7764706, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!224 &1934915374 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 320084329387931871, guid: 37095ce2156414a1495ba27fa5a7f216, type: 3}
@@ -7059,6 +7059,8 @@ GameObject:
   - component: {fileID: 2094695293}
   - component: {fileID: 2094695295}
   - component: {fileID: 2094695294}
+  - component: {fileID: 2094695297}
+  - component: {fileID: 2094695296}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -7184,6 +7186,86 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2094695292}
   m_CullTransparentMesh: 1
+--- !u!114 &2094695296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094695292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4479b2f87544a818eea16356afd5198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onLocaleChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2094695294}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  localizedString:
+    localizedValues:
+      pairs:
+      - key:
+          cultureName: ja
+        value: "\u30B9\u30C8\u30FC\u30EA\u30FC\u3092\u518D\u751F\u3057\u305F\u3044\u7AE0\u3092\n\u9078\u629E\u3057\u3066\u304F\u3060\u3055\u3044\u3002"
+      - key:
+          cultureName: zh
+        value: "\u8BF7\u9009\u62E9\u60F3\u8981\u64AD\u653E\u7684\u7AE0\u8282\u3002"
+      - key:
+          cultureName: en
+        value: 'Please select the chapter
+
+          of the story you want to play.'
+--- !u!114 &2094695297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094695292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3f05e545f1840779b9bb1fc939a95e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onLocaleChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2094695294}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_font
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  localizedFont:
+    localizedValues:
+      pairs:
+      - key:
+          cultureName: ja
+        value: {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
+      - key:
+          cultureName: en
+        value: {fileID: 11400000, guid: 39ed30dd6c55a43718642df7d0213f18, type: 2}
+      - key:
+          cultureName: zh
+        value: {fileID: 11400000, guid: a0a9703720ea14f4db73414ecf002bb2, type: 2}
 --- !u!1 &2138834994
 GameObject:
   m_ObjectHideFlags: 0
