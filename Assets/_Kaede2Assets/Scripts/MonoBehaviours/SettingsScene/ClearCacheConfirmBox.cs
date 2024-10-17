@@ -12,7 +12,7 @@ namespace Kaede2
             {
                 AudioManager.ConfirmSound();
 #if !UNITY_WEBGL || UNITY_EDITOR
-                Caching.ClearCache();
+                CommonUtils.ForceDeleteCache();
                 this.Log("Cache cleared");
 #endif
 #if UNITY_EDITOR

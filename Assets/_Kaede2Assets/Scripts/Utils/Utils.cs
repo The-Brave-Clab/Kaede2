@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using Kaede2.Localization;
 using Kaede2.Scenario.Framework.Utils;
@@ -13,6 +15,25 @@ namespace Kaede2.Utils
 {
     public static class CommonUtils
     {
+        public static void ForceDeleteCache()
+        {
+            for (int i = 0; i < Caching.cacheCount; ++i)
+            {
+                var c = Caching.GetCacheAt(i);
+                try
+                {
+                    if (File.Exists(c.path))
+                        File.Delete(c.path);
+                    else if (Directory.Exists(c.path))
+                        Directory.Delete(c.path, true);
+                }
+                catch (Exception e)
+                {
+                    continue;
+                }
+            }
+        }
+
         public static string BytesToHumanReadable(double bytes)
         {
             string[] suffix = { "B", "KB", "MB", "GB", "TB" };
