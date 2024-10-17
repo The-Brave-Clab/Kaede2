@@ -59,6 +59,9 @@ namespace Kaede2.Scenario
         private Canvas gameUICanvas;
 
         [SerializeField]
+        private GameObject[] additionalGameUIObjects;
+
+        [SerializeField]
         private ButtonForPointer mesButton;
 
         [SerializeField]
@@ -110,6 +113,8 @@ namespace Kaede2.Scenario
         {
             InputManager.onDeviceTypeChanged += OnDeviceTypeChanged;
             InputManager.InputAction.Scenario.ToggleUI.performed += OnToggleUI;
+            InputManager.InputAction.Scenario.ToggleAuto.performed += OnToggleAuto;
+            InputManager.InputAction.Scenario.ToggleContinuous.performed += OnToggleContinuous;
 #if !UNITY_WEBGL || UNITY_EDITOR
             // don't allow log panel in web build
             InputManager.InputAction.Scenario.ShowLog.performed += ShowLogPanel;
@@ -122,6 +127,8 @@ namespace Kaede2.Scenario
             if (InputManager.InputAction != null)
             {
                 InputManager.InputAction.Scenario.ToggleUI.performed -= OnToggleUI;
+                InputManager.InputAction.Scenario.ToggleAuto.performed -= OnToggleAuto;
+                InputManager.InputAction.Scenario.ToggleContinuous.performed -= OnToggleContinuous;
 #if !UNITY_WEBGL || UNITY_EDITOR
                 InputManager.InputAction.Scenario.ShowLog.performed -= ShowLogPanel;
 #endif
@@ -156,9 +163,23 @@ namespace Kaede2.Scenario
             ToggleUI();
         }
 
+        private void OnToggleAuto(InputAction.CallbackContext ctx)
+        {
+            Module.AutoMode = !Module.AutoMode;
+        }
+
+        private void OnToggleContinuous(InputAction.CallbackContext ctx)
+        {
+            Module.ContinuousMode = !Module.ContinuousMode;
+        }
+
         private void UpdateUIVisibility()
         {
             instantiatedMessageBox.Hidden = uiHidden;
+            foreach (var obj in additionalGameUIObjects)
+            {
+                obj.SetActive(!uiHidden);
+            }
         }
 
         private void ShowLogPanel(InputAction.CallbackContext ctx)
