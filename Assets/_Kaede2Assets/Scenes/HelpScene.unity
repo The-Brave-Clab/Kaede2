@@ -218,7 +218,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 83313153257713739, guid: 931bfd48178607b4997d12d9c45969b3, type: 3}
       propertyPath: text
-      value: "\u7531\u4E8E\u5E73\u53F0\u5173\u95ED\uFF0C\u90E8\u5206\u8D5E\u52A9\u8005\u6570\u636E\u4E22\u5931\uFF0C\u8BF7\u8054\u7CFBSRX_Cosmos@hotmail.com"
+      value: "\u7531\u4E8E\u5E73\u53F0\u5173\u95ED\uFF0C\u90E8\u5206\u8D5E\u52A9\u8005\u6570\u636E\u4E22\u5931\uFF0C\u8BF7\u8054\u7CFBSRX_Cosmos@outlook.com"
       objectReference: {fileID: 0}
     - target: {fileID: 1882837096418420952, guid: 931bfd48178607b4997d12d9c45969b3, type: 3}
       propertyPath: m_Name
@@ -306,7 +306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7399595555986582517, guid: 931bfd48178607b4997d12d9c45969b3, type: 3}
       propertyPath: m_text
-      value: "\u7531\u4E8E"
+      value: "\u7531\u4E8E\u5E73\u53F0\u5173\u95ED\uFF0C\u90E8\u5206\u8D5E\u52A9\u8005\u6570\u636E\u4E22\u5931\uFF0C\u8BF7\u8054\u7CFBSRX_Cosmos@outlook.com"
       objectReference: {fileID: 0}
     - target: {fileID: 7399595555986582517, guid: 931bfd48178607b4997d12d9c45969b3, type: 3}
       propertyPath: m_fontAsset
@@ -322,7 +322,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7566697317822774359, guid: 931bfd48178607b4997d12d9c45969b3, type: 3}
       propertyPath: text
-      value: "\u7531\u4E8E\u5E73\u53F0\u5173\u95ED\uFF0C\u90E8\u5206\u8D5E\u52A9\u8005\u6570\u636E\u4E22\u5931\uFF0C\u8BF7\u8054\u7CFBSRX_Cosmos@hotmail.com"
+      value: "\u7531\u4E8E\u5E73\u53F0\u5173\u95ED\uFF0C\u90E8\u5206\u8D5E\u52A9\u8005\u6570\u636E\u4E22\u5931\uFF0C\u8BF7\u8054\u7CFBSRX_Cosmos@outlook.com"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -356,48 +356,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cultures:
   - cultureName: zh
---- !u!21 &181532046
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/UI Remap Color
-  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _BlueTargetColor: {r: 0.003921569, g: 0.003921569, b: 0.003921569, a: 1}
-    - _GreenTargetColor: {r: 0.2, g: 0.2, b: 0.2627451, a: 1}
-    - _RedTargetColor: {r: 0.7411765, g: 0.7607843, b: 0.7764706, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1001 &332302836
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -468,11 +426,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 62829265125833181, guid: 1a97d20744475db409e6a5ace013c02b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 76.4
+      value: 76.3999
       objectReference: {fileID: 0}
     - target: {fileID: 62829265125833181, guid: 1a97d20744475db409e6a5ace013c02b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 29.4
+      value: 29.400024
       objectReference: {fileID: 0}
     - target: {fileID: 62829265125833181, guid: 1a97d20744475db409e6a5ace013c02b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -728,6 +686,48 @@ MonoBehaviour:
   emptyNameSubstitute: "\u201C\u8D5E\u52A9\u8005\u201D"
   scrollTime: 20
 --- !u!21 &574875234
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/UI Remap Color
+  m_Shader: {fileID: 4800000, guid: a8b94c721049a1a409029cf7f2ba63fb, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _BlueTargetColor: {r: 0.003921569, g: 0.003921569, b: 0.003921569, a: 1}
+    - _GreenTargetColor: {r: 0.2, g: 0.2, b: 0.2627451, a: 1}
+    - _RedTargetColor: {r: 0.7411765, g: 0.7607843, b: 0.7764706, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
+--- !u!21 &683274015
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
