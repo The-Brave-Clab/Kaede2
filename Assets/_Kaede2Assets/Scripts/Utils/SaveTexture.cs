@@ -78,6 +78,8 @@ namespace Kaede2.Utils
 #elif UNITY_STANDALONE_LINUX || UNITY_EDITOR_LINUX
             throw new System.NotImplementedException();
 #elif UNITY_ANDROID
+            if (Path.GetExtension(name) == "")
+                name += ".png";
             string filePath = Path.Combine(directory, name);
             File.WriteAllBytes(filePath, bytes);
 
